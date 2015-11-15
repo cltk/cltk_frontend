@@ -1,27 +1,12 @@
 <template name="home">
-<div id="skrollr-body">
-    {{> skrollrBackground}}
+
     <section id="intro" class="colored text-center">
-        <header>
-            <nav class="navbar navbar-default" role="navigation">
-                <div class="container">
-                    <div class="row">
-                        <a class="navbar-brand" href="{{pathFor 'home'}}">{{Config.name}}</a>
-                        <div id="main-nav" class="navbar-collapse">
-                            <ul class="social-links">
-                                {{#unless User}}
-                                <a id="home-login" href="{{pathFor route='atSignIn'}}"><li>{{_ "login2"}}</li></a>
-                                {{/unless}}
-                                {{#each socialMedia}}
-                                <a href="{{url}}" target="_blank"><li class="fa fa-{{icon}}"></li></a>
-                                {{/each}}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </header>
         <div class="container">
+
+          <div class="background-image">
+            <img src="/"/>
+          </div>
+
             <div class="intro-well wow animated bounceIn">
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
@@ -40,6 +25,7 @@
             </div>
         </div>
     </section>
+
     <section id="how-it-works" class="text-center">
         <div class="container wow fadeIn animated">
             <div class="row col-md-12">
@@ -73,12 +59,14 @@
             </div>
         </div>
     </section>
-    <!-- <section id="examples">
+
+    <section id="examples">
                 <div class="container wow fadeInUp animated">
                         <h1>Great features!</h1>
                         <h2>You can use {{Config.siteName}} to do anything</h2>
                 </div>
-    </section> -->
+    </section>
+
     <section id="ipad" class="colored text-center">
         <div class="container">
             <div class="row">
@@ -97,6 +85,7 @@
             </div>
         </div>
     </section>
+
     <section id="final">
         <div class="container">
             <div class="row">
@@ -114,27 +103,16 @@
             </div>
         </div>
     </section>
-</div>
+
 {{> footerHome}}
+
 </template>
-<template name="skrollrBackground">
-<div
-    id="skroll-background-intro"
-    class="parallax-image-wrapper parallax-image-wrapper-100"
-    data-anchor-target="#intro"
-    data-bottom-top="transform:translate3d(0px, 200%, 0px)"
-    data-top-bottom="transform:translate3d(0px, 0%, 0px)">
-    <div
-        class="parallax-image parallax-image-100"
-        data-anchor-target="#intro"
-        data-bottom-top="transform: translate3d(0px, -80%, 0px);"
-        data-top-bottom="transform: translate3d(0px, 80%, 0px);"
-    ></div>
-    <!--the +/-80% translation can be adjusted to control the speed difference of the image-->
-</div>
-</template>
+
+
 <template name="footerHome">
+
     <footer id="footer-home">
+
         <div class="container">
             <div class="row text-center">
                 <div class="col-md-offset-2 col-md-8">
@@ -156,5 +134,7 @@
                 </div>
             </div>
         </div>
+
     </footer>
+
 </template>

@@ -6,7 +6,7 @@
             "id": "UA-XXXXXXXX-1"
         },
         "mixpanel": {
-            "token": "xxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "token": "",
             "identifyUsers": true
         }
     },

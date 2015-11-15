@@ -6,6 +6,8 @@
 meteor-platform
 coffeescript
 less
+angular
+angular:angular-material
 accounts-base
 accounts-password
 aldeed:autoform@5.1.2
@@ -56,3 +58,4 @@ yogiben:admin
 timmyg:wow
 tsega:skrollr
 utilities:avatar
+archimedes:core

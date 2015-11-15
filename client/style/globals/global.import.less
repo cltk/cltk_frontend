@@ -1,0 +1,86 @@
+header {
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:99;
+
+}
+
+
+.headroom {
+	transition: transform 00ms linear;
+}
+.headroom--pinned {
+	transition: transform 200ms linear;
+	transform: translateY(0%) translateZ(0);
+}
+.headroom--unpinned {
+	transform: translateY(-100%) translateZ(0);
+}
+header.headroom--top {
+	background:transparent;
+	box-shadow:none;
+
+  .nav-open {
+    background:#fff;
+  }
+  .nav-bar {
+    border-bottom:none !important;
+  }
+
+
+  .logo {
+    //color:#272727;
+  }
+
+  nav.bg-dark {
+  	background:transparent;
+
+  }
+
+	.site-title {
+		background:transparent;
+		&:hover {
+		}
+	}
+	a, i {
+    //color:#272727 !important;
+		&:hover {
+			background:@md-primary;
+		  color:@light;
+		}
+	}
+
+}
+.blur{
+	filter: blur(2px) sepia(30%) brightness(0.7); /* Someday, sigh ... */
+	-webkit-filter: blur(2px) sepia(30%) brightness(0.7); /* Prefixed CSS3 blur filters */
+	-moz-filter: blur(2px);
+	-o-filter: blur(2px);
+	-ms-filter: blur(2px);
+  filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='2'); /* IE lte 9 */
+}
+
+.paper-card {
+	-webkit-transition: all .15s cubic-bezier(.33,.66,.66,1);
+	transition: all .15s cubic-bezier(.33,.66,.66,1);
+	-webkit-backface-visibility: hidden;
+	-webkit-perspective: 1000px;
+	-webkit-transform-style: preserve-3d;
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
+	border-radius: 1px;
+	box-shadow: -1px 0 2px 0 rgba(0,0,0,0.12) , 1px 0 2px 0 rgba(0,0,0,0.12) , 0 1px 1px 0 rgba(0,0,0,0.24);
+	&:hover {
+		box-shadow: -2px 0 2px 0 rgba(0,0,0,0.16) , 2px 0 2px 0 rgba(0,0,0,0.16) , 0 2px 2px 0 rgba(0,0,0,0.23);
+		-webkit-transform: translate3d(0,-3px,0);
+		transform: translate3d(0,-3px,0);
+	}
+
+}
+
+.paper-shadow {
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),0 1px 5px 0 rgba(0, 0, 0, 0.12),0 3px 1px -2px rgba(0, 0, 0, 0.2);
+
+}

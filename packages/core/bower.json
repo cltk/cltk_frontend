@@ -1,0 +1,21 @@
+{
+  "name": "core",
+  "authors": [
+    "Luke Hollis <lukehollis@gmail.com>"
+  ],
+  "description": "Archimedes Meteor core package",
+  "main": "package.js",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "homepage": "http://archimedes.digital",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
