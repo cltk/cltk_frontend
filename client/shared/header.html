@@ -1,44 +1,51 @@
 <template name="header">
-  <header class="template-navbar">
-		<div class="navbar navbar-inverse">
+  <header class="template-navbar paper-shadow">
+		<div class="navigation-primary">
 			<div class="container close-navbar">
 				<div class="navbar-header">
-					<button type="button" class="navbar-toggle">
-						<i class="fa fa-bars"></i>
-					</button>
-					<a href="{{pathFor 'profile'}}" class="xs-mobile-cta">
-						<i class="fa fa-user"></i>
-					</a>
-					<a class="navbar-brand" href="{{#if User}}{{Config.dashboardRoute}}{{else}}{{Config.homeRoute}}{{/if}}">{{{Config.logo}}}</a>
+					<md-button type="button" class="toggle-left-menu" aria-label="Menu">
+						<i class="mdi mdi-menu"></i>
+					</md-button>
+
+					<md-button class="logo" href="/" aria-label="Home">Archive</md-button>
+
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
 					{{#if User}}
 						{{> notificationsDropdown}}
 						{{#if isInRole 'admin'}}
-						<li><a href="{{pathFor 'adminDashboard'}}">{{_ "admin"}}</a></li>
+						<li>
+              <md-button href="{{pathFor 'adminDashboard'}}" aria-label="Admin">{{_ "admin"}}</md-button>
+            </li>
 						{{/if}}
 						<li class="dropdown hidden-xs">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{niceName User._id}} <i class="fa fa-chevron-down i-xs"></i></a>
+							<md-button href="#" class="dropdown-toggle" data-toggle="dropdown" aria-label="{{niceName User._id}}">{{niceName User._id}} <i class="mdi mdi-chevron-down"></i></md-button>
 							<ul class="dropdown-menu">
-								<li><a href="{{pathFor 'profile'}}">{{_ "profile"}}</a></li>
-								<li><a href="{{pathFor 'account'}}">{{_ "account"}}</a></li>
+								<li>
+                  <md-button href="{{pathFor 'profile'}}" aria-label="Profile">{{_ "profile"}}</md-button>
+                </li>
+								<li>
+                  <md-button href="{{pathFor 'account'}}" aria-label="Account">{{_ "account"}}</md-button>
+                </li>
 								<li class="divider"></li>
-								<li><a href="/sign-out">{{_ "signout"}}</a></li>
+								<li>
+                  <md-button href="/sign-out" aria-label="Sign out">{{_ "signout"}}</md-button>
+                </li>
 							</ul>
 						</li>
 						<li class="visible-xs">
-							<a href="{{pathFor 'profile'}}" class="close-navbar">{{_ "edit_profile"}}</a>
+							<md-button href="{{pathFor 'profile'}}" class="close-navbar" aria-label="Profile">{{_ "edit_profile"}}</md-button>
 						</li>
 						<li class="visible-xs">
-							<a class="close-navbar" href="/sign-out">{{_ "signout"}}</a>
+							<md-button class="close-navbar" href="/sign-out" aria-label="Sign out">{{_ "signout"}}</md-button>
 						</li>
 					{{else}}
 						<li>
-							<a class="close-navbar" href="/sign-up">{{_ "signup"}}</a>
+							<md-button class="close-navbar" href="/sign-up" aria-label="Sign up">{{_ "signup"}}</md-button>
 						</li>
 						<li>
-							<a class="close-navbar" href="/sign-in">{{_ "login"}}</a>
+							<md-button class="close-navbar" href="/sign-in" aria-label="Sign in">{{_ "login"}}</md-button>
 						</li>
 					{{/if}}
 					</ul>

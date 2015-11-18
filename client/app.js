@@ -5,11 +5,10 @@ if (Meteor.isClient){
  * Definition and routes
  *
  */
-
 (function($){
 
 
-  angular.module( 'app', [ 'angular-meteor' ] );
+  angular.module( 'app', [ 'angular-meteor', 'ngMaterial' ] );
 
   angular.module('app')
   	.controller('AppController', ['$scope', '$meteor', '$http', function($scope, $meteor, $http) {
@@ -22,8 +21,6 @@ if (Meteor.isClient){
        * Initialize lifecycle of the controller
        */
   		$scope.initialize = function() {
-
-        $scope.gallery_videos = [];
 
         setTimeout(function(){
           var elem = document.querySelector('header');
@@ -42,60 +39,6 @@ if (Meteor.isClient){
   		$scope.update = function() {
 
   		};
-
-      // Direct down handling (move to directive in the future)
-      $scope.direct_down = function(){
-
-        if( location.pathname === "/"){
-          $('html, body').animate({
-            scrollTop: $("#experience-history").offset().top
-          }, 300);
-
-        }else{
-          $('html, body').animate({
-            scrollTop: $(".article-content").offset().top
-          }, 300);
-
-        }
-
-      };
-
-
-      $scope.select_360_video = function( e ) {
-        var $target = $(e.target)
-        ;
-
-        if( !$target.hasClass("video") ){
-          $target = $target.parents(".video");
-
-        }
-
-        $(".video").removeClass("selected");
-        $target.addClass("selected");
-
-
-      };
-
-
-      $scope.get_youtube_videos = function(){
-
-        $http({
-            method : 'GET',
-            url : "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=UUqhpdZe4j_n0-mDW43NTmtg&key=AIzaSyDDDne8gL9SMnCVSOFOD3HfMmqGWvululI",
-          }).then(function successCallback(resp) {
-            $scope.gallery_videos = resp.data.items;
-            console.log("YouTube Response items:",resp.data.items);
-            $(".gallery-spinner").hide();
-
-          },function errorCallback(err){
-            console.log("YouTube Response Error:",err);
-          });
-
-
-
-      };
-
-
 
 
       angular.element(document).ready(function () {

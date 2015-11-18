@@ -1,0 +1,53 @@
+<template name="works">
+
+  <section id="works" class="text-center works-index">
+
+    <div class="works-wrap">
+
+      {{#each works }}
+        <md-card class="work-teaser paper-card">
+
+          <md-card-content>
+
+            <a href="/">
+              <h3 class="work-author">{{author}}</h3>
+            </a>
+
+            <a href="/works/georgics">
+              <h2 class="card-title work-title">{{title}}</h2>
+            </a>
+
+            <hr>
+
+            <a href="/">
+              <p class="work-editor">{{editor}}, {{year}}</p>
+            </a>
+
+          </md-card-content>
+
+          <md-card-actions >
+
+            <md-button href="#" class="comments-action">
+              <i class="mdi mdi-comment-outline"></i>227
+            </md-button>
+
+            <md-button href="#" class="favorite-action">
+              <i class="mdi mdi-star-outline"></i>32
+            </md-button>
+
+            <md-button href="#" class="export-action">
+              Export
+              <i class="mdi mdi-export"></i>
+            </md-button>
+
+          </md-card-actions>
+
+        </md-card>
+
+      {{/each}}
+
+    </div>
+
+  </section>
+
+</template>

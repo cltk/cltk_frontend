@@ -28,6 +28,10 @@ Package.onUse(function(api) {
       ], 'server');
 
   api.addFiles([
+        'node_modules/angular-material/angular-material.css',
+        'node_modules/angular-aria/angular-aria.js',
+        'node_modules/angular-animate/angular-animate.js',
+        'node_modules/angular-material/angular-material.js',
         'lib/client/smooth-scroll.min.js',
         'lib/client/parallax.js',
         'lib/client/headroom.min.js',

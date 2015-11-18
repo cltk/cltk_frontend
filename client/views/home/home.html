@@ -1,140 +1,32 @@
 <template name="home">
 
-    <section id="intro" class="colored text-center">
-        <div class="container">
+    <section id="intro" class="cover fullscreen image-bg bg-dark parallax">
 
-          <div class="background-image">
-            <img src="/"/>
-          </div>
-
-            <div class="intro-well wow animated bounceIn">
-                <div class="row">
-                    <div class="col-lg-12 col-sm-12">
-                        <h1>{{Config.title}}</h1>
-                        <h2 style="color:white;" class="hidden-xs">{{Config.subtitle}}</h2>
-                        {{#if User}}
-                        <a href="{{pathFor 'dashboard'}}" class="btn btn-success"><i class="fa fa-dashboard"></i> {{_ "dashboard"}}</a>
-                        {{else}}
-                        <a class="btn btn-success" href="{{pathFor 'dashboard'}}">{{_ "getstarted"}}</a>
-                        {{/if}}
-                    </div>
-                    <!--                 <div class="col-lg-6 col-sm-6">
-                                                <img class="img-responsive" src="/img/image-header1.png" alt="">
-                    </div> -->
-                </div>
-            </div>
+        <div class="background-image-holder blur">
+          <img src="/images/arch1.jpg" alt="image" />
         </div>
-    </section>
 
-    <section id="how-it-works" class="text-center">
-        <div class="container wow fadeIn animated">
-            <div class="row col-md-12">
-                <h3>{{_ "how"}}</h3>
-                <h4>{{Config.name}} - {{Config.subtitle}}</h4>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row" id="icon-row">
-                <div class="col-md-4 wow fadeInLeft animated" data-wow-delay="0.4s">
-                    <div class="iconbox">
-                        <i class="fa fa-plane fa-3x"></i>
-                    </div>
-                    <p class="icntitle">1. {{_ "step_1"}}</p>
-                    <p class="icnp">{{_ "step_1_text"}}</p>
-                </div>
-                <div class="col-md-4 wow fadeInUp animated" data-wow-delay="0.8s">
-                    <div class="iconbox">
-                        <i class="fa fa-bolt fa-3x"></i>
-                    </div>
-                    <p class="icntitle">2. {{_ "step_2"}}</p>
-                    <p class="icnp">{{_ "step_2_text"}}</p>
-                </div>
-                <div class="col-md-4 wow fadeInRight animated" data-wow-delay="1.2s">
-                    <div class="iconbox">
-                        <i class="fa fa-check fa-3x"></i>
-                    </div>
-                    <p class="icntitle">3. {{_ "step_3"}}</p>
-                    <p class="icnp">{{_ "step_3_text"}}</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="examples">
-                <div class="container wow fadeInUp animated">
-                        <h1>Great features!</h1>
-                        <h2>You can use {{Config.siteName}} to do anything</h2>
-                </div>
-    </section>
-
-    <section id="ipad" class="colored text-center">
-        <div class="container">
+        <div class="container v-align-transform">
             <div class="row">
-                <div class="col-sm-6">
-                    <h3>{{_ "section_ipad_header"}}</h3>
-                    <p>{{_ "section_ipad_text"}}</p>
-                    <p class="text-center">
-                    <a href="{{Config.about}}" target="_blank" class="btn btn-success">
-                    {{_ "section_ipad_btn"}}
+
+                <div class="col-sm-10 col-sm-offset-1 text-center">
+
+                    <h1>Explore the Classical Languages Archive</h1>
+                    <input type="text" placeholder="Search" />
+
+                    <a href="/">
+                      <h6 class="uppercase mb16">Learn more about the Classical Languages Archive</h6>
                     </a>
-                    </p>
+
+
                 </div>
-                <div class="col-sm-6">
-                    <img id="ipad" src="/img/ipad.png" alt="" class="wow animated fadeInRight" data-wow-delay="1s">
-                </div>
+
             </div>
+
         </div>
+
     </section>
 
-    <section id="final">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 text-center wow fadeInDown animated" data-wow-delay="0.8s">
-                    <h3>
-                    {{_ "final_text"}}
-                    </h3>
-                    <div class="text-center">
-                        <a class="btn btn-primary" href="{{pathFor 'dashboard'}}">{{_ "final_cta"}}</a>
-                    </div>
-                </div>
-                <div class="col-md-8  wow fadeInUp animated">
-                    <img src="img/screenshot.png" class="img-responsive wow" data-wow-delay="0.6s" alt="picture">
-                </div>
-            </div>
-        </div>
-    </section>
-
-{{> footerHome}}
-
-</template>
-
-
-<template name="footerHome">
-
-    <footer id="footer-home">
-
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-md-offset-2 col-md-8">
-                    <ul class="social-networks">
-                        {{#each socialMedia}}
-                        <li><a href="{{url}}" target="_blank">
-                        <span class="fa-stack fa-2x">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-{{icon}} fa-stack-1x fa-inverse"></i>
-                        </span></a>
-                        </li>
-                        {{/each}}
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    {{{Config.footer}}}
-                </div>
-            </div>
-        </div>
-
-    </footer>
+    {{> works }}
 
 </template>

@@ -92,17 +92,15 @@ Router.onAfterAction(function( req, res, next ){
     }, 1000)
 
 
+
     Tracker.afterFlush(function(){
 
-      var doesAppInitialized = angular.element(document.querySelector('body')).scope();
-      if (angular.isUndefined(doesAppInitialized)) //if it is not
-        angular.bootstrap($('body'), ['app']);
+      var isAppInitialized = angular.element(document).scope();
 
-      var rootscope = angular.element('body').scope();
-      if (rootscope) {
-        rootscope.$apply(); //I don't know why you are applying a scope.this may cause an issue
+      if (angular.isUndefined(isAppInitialized)) {
+        angular.bootstrap(document, ['app']);
+
       }
-
 
 
     });

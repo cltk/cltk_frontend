@@ -27,17 +27,17 @@
 	dateFormat: 'D/M/YYYY'
 
 	# Meta / Extenrnal content
-	privacyUrl: 'http://meteorfactory.io'
-	termsUrl: 'http://meteorfactory.io'
+	privacyUrl: 'http:/cla.dev/privacy'
+	termsUrl: 'http:/cla.dev/terms'
 
 	# For email footers
 	legal:
 		address: ''
 		name: 'Classical Languages Archive'
-		url: 'http://cla.archimedes.digital'
+		url: 'http://cla.dev'
 
-	about: 'http:/cla.archimedes.digital/about'
-	blog: 'http://cla.archimedes.digital/blog'
+	about: 'http:/cla.dev/about'
+	blog: 'http://cla.dev/blog'
 
 	socialMedia:
 		facebook:
@@ -50,10 +50,10 @@
 			url: 'http://github.com/cla'
 			icon: 'github'
 		info:
-			url: 'http://cla.archimedes.digital/about'
+			url: 'http://cla.dev/about'
 			icon: 'link'
 
 	#Routes
 	homeRoute: '/'
-	publicRoutes: ['home']
+	publicRoutes: ['home', 'works', 'workDetail', 'reading']
 	dashboardRoute: '/dashboard'
