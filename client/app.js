@@ -11,7 +11,7 @@ if (Meteor.isClient){
   angular.module( 'app', [ 'angular-meteor', 'ngMaterial' ] );
 
   angular.module('app')
-  	.controller('AppController', ['$scope', '$meteor', '$http', function($scope, $meteor, $http) {
+  	.controller('AppController', ['$scope', '$meteor', '$http', function($scope, $mdSidenav, $meteor, $http) {
 
     	window.__ad__ = window.__ad__ || {};
     	var Ad = window.__ad__
@@ -32,6 +32,8 @@ if (Meteor.isClient){
 
   		};
 
+      // Initialize collapse button
+
 
       /*
        * Update lifecycle of the controller
@@ -40,9 +42,15 @@ if (Meteor.isClient){
 
   		};
 
+    //  $scope.openLeftMenu = function() {
+    //    $mdSidenav('left').toggle();
+    //  };
+
 
       angular.element(document).ready(function () {
         $scope.initialize();
+
+
 
       });
 
