@@ -8,10 +8,15 @@ if (Meteor.isClient){
 (function($){
 
 
-  angular.module( 'app', [ 'angular-meteor', 'ngMaterial' ] );
+  angular.module( 'cla', [ 'angular-meteor', 'ngMaterial' ] );
+
 
   angular.module('app')
   	.controller('AppController', ['$scope', '$meteor', '$http', function($scope, $mdSidenav, $meteor, $http) {
+
+  angular.module('cla')
+  	.controller('AppController', ['$scope', '$meteor', '$http', function($scope, $meteor, $http) {
+
 
     	window.__ad__ = window.__ad__ || {};
     	var Ad = window.__ad__
