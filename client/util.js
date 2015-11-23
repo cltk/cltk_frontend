@@ -45,6 +45,12 @@ if (Meteor.isClient) {
 
 		},
 
+		api_authors_callback : function( data ){
+
+			console.log("API Authors Callback", data);
+
+		},
+
 		init_headroom : function(){
 
       // construct an instance of Headroom, passing the element

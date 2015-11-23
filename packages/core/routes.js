@@ -98,7 +98,7 @@ Router.onAfterAction(function( req, res, next ){
       var isAppInitialized = angular.element(document).scope();
 
       if (angular.isUndefined(isAppInitialized)) {
-        angular.bootstrap(document, ['app']);
+        angular.bootstrap(document, ['cla']);
 
       }
 

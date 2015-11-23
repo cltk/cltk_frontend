@@ -1,4 +1,6 @@
 /*global angular */
+if (Meteor.isClient){
+(function($){
 
 /**
  *
@@ -8,6 +10,7 @@
  * -- modified from example code at TodoMVC Angular application
  *
  */
+ /*
 angular.module('cla')
 	.factory('appStorage', function ($http, $injector) {
 		'use strict';
@@ -104,3 +107,7 @@ angular.module('cla')
 
 		return store;
 	});
+	*/
+
+})(jQuery)
+}
