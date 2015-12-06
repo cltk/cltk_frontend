@@ -2,56 +2,134 @@
   <header class="template-navbar paper-shadow">
 		<div class="navigation-primary">
 			<div class="container close-navbar">
+
 				<div class="navbar-header">
-					<md-button type="button" class="toggle-left-menu" aria-label="Menu">
+          <a class="toggle-left-menu md-button md-ink-ripple" href="/" aria-label="Menu">
 						<i class="mdi mdi-menu"></i>
-					</md-button>
+            <div class="md-ripple-container"></div>
+          </a>
 
-					<md-button class="logo" href="/" aria-label="Home">Archive</md-button>
+          <a class="logo md-button md-ink-ripple" href="/" aria-label="Menu">
+            Classical Languages Archive
+            <div class="md-ripple-container"></div>
+          </a>
 
 				</div>
-				<div class="navbar-collapse collapse">
-					<ul class="nav navbar-nav navbar-right">
-					{{#if User}}
-						{{> notificationsDropdown}}
-						{{#if isInRole 'admin'}}
-						<li>
-              <md-button href="{{pathFor 'adminDashboard'}}" aria-label="Admin">{{_ "admin"}}</md-button>
-            </li>
-						{{/if}}
-						<li class="dropdown hidden-xs">
-							<md-button href="#" class="dropdown-toggle" data-toggle="dropdown" aria-label="{{niceName User._id}}">{{niceName User._id}} <i class="mdi mdi-chevron-down"></i></md-button>
-							<ul class="dropdown-menu">
-								<li>
-                  <md-button href="{{pathFor 'profile'}}" aria-label="Profile">{{_ "profile"}}</md-button>
+
+				<div class="navbar-collapse collapse module-group right">
+
+            <div class="module left">
+
+    					<ul class="nav navbar-nav navbar-right">
+    					{{#if User}}
+
+    						{{#if isInRole 'admin'}}
+    						<li>
+                  <a class="md-button md-ink-ripple" href="{{pathFor 'adminDashboard'}}" aria-label="Admin">
+                    {{_ "admin"}}
+                    <div class="md-ripple-container"></div>
+                  </a>
                 </li>
-								<li>
-                  <md-button href="{{pathFor 'account'}}" aria-label="Account">{{_ "account"}}</md-button>
+    						{{/if}}
+    						<li class="dropdown hidden-xs">
+    							<a href="#" class="md-button md-ink-ripple dropdown-toggle" data-toggle="dropdown" aria-label="{{niceName User._id}}">
+                    {{niceName User._id}}
+                    <i class="mdi mdi-chevron-down"></i>
+                  </a>
+    							<ul class="dropdown-menu">
+    								<li>
+                      <a class="md-button md-ink-ripple" href="{{pathFor 'profile'}}" aria-label="Profile">
+                        {{_ "profile"}}
+                        <div class="md-ripple-container"></div>
+
+                      </a>
+
+                    </li>
+
+    								<li>
+                      <a class="md-button md-ink-ripple" href="{{pathFor 'account'}}" aria-label="Account">
+                        {{_ "account"}}
+                        <div class="md-ripple-container"></div>
+                      </a>
+
+                    </li>
+
+    								<li class="divider"></li>
+
+    								<li>
+                      <a class="md-button md-ink-ripple" href="/sign-out" aria-label="Sign out">
+                        {{_ "signout"}}
+                        <div class="md-ripple-container"></div>
+                      </a>
+
+                    </li>
+
+    							</ul>
+
+    						</li>
+    						<li class="visible-xs">
+    							<a class="md-button md-ink-ripple close-navbar" href="{{pathFor 'profile'}}" aria-label="Profile">
+                    {{_ "edit_profile"}}
+                    <div class="md-ripple-container"></div>
+
+                  </a>
+
+    						</li>
+    						<li class="visible-xs">
+    							<a class="md-button md-ink-ripple close-navbar" href="/sign-out" aria-label="Sign out">
+                    {{_ "signout"}}
+                    <div class="md-ripple-container"></div>
+                  </a>
+
+    						</li>
+
+    					{{else}}
+    						<li>
+    							<a class="md-button md-ink-ripple close-navbar" href="/sign-up" aria-label="Sign up">
+                    {{_ "signup"}}
+                    <div class="md-ripple-container"></div>
+                  </a>
+    						</li>
+    						<li>
+    							<a class="md-button md-ink-ripple close-navbar" href="/sign-in" aria-label="Sign in">
+                    {{_ "login"}}
+                    <div class="md-ripple-container"></div>
+                  </a>
+
+    						</li>
+
+    					{{/if}}
+    					</ul>
+
+            </div>
+
+            <div class="module social-module widget-handle left">
+              <ul class="menu social">
+                <li>
+                  <a class="close-navbar md-button md-ink-ripple" href="/sign-up">
+                    <i class="mdi mdi-github-circle"></i>
+                    <div class="md-ripple-container"></div>
+                  </a>
                 </li>
-								<li class="divider"></li>
-								<li>
-                  <md-button href="/sign-out" aria-label="Sign out">{{_ "signout"}}</md-button>
+                <li>
+                  <a class="close-navbar md-button md-ink-ripple" href="/sign-up">
+                    <i class="mdi mdi-twitter"></i>
+                    <div class="md-ripple-container"></div>
+                  </a>
                 </li>
-							</ul>
-						</li>
-						<li class="visible-xs">
-							<md-button href="{{pathFor 'profile'}}" class="close-navbar" aria-label="Profile">{{_ "edit_profile"}}</md-button>
-						</li>
-						<li class="visible-xs">
-							<md-button class="close-navbar" href="/sign-out" aria-label="Sign out">{{_ "signout"}}</md-button>
-						</li>
-					{{else}}
-						<li>
-							<md-button class="close-navbar" href="/sign-up" aria-label="Sign up">{{_ "signup"}}</md-button>
-						</li>
-						<li>
-							<md-button class="close-navbar" href="/sign-in" aria-label="Sign in">{{_ "login"}}</md-button>
-						</li>
-					{{/if}}
-					</ul>
-				</div>
-			</div>
-		</div>
+                <li>
+                  <a class="close-navbar md-button md-ink-ripple" href="/sign-up">
+                    <i class="mdi mdi-google-plus"></i>
+                    <div class="md-ripple-container"></div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+
+        </div><!-- .module-group.right -->
+			</div><!-- .container.close-navbar -->
+		</div><!-- .navigation-primary-->
 	</header>
 
 </template>

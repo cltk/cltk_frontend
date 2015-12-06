@@ -2,8 +2,8 @@
 Template.workDetail.helpers(
 
     work : () -> {
-        title : "Eclogues",
-        slug : "eclogues",
+        title : "Georgics",
+        slug : "georgics",
         author : "Vergil",
         editor : "R. A. B. Mynors",
         year : 1913

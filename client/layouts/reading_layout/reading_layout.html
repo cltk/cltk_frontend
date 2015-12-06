@@ -1,0 +1,20 @@
+<template name="readingLayout">
+
+	<div class="layout reading-layout {{$.Session.get 'sidebar'}}">
+
+		{{> header}}
+
+		{{#momentum plugin='iron-router' options=momentumIRTransition}}
+			{{> yield }}
+		{{/momentum}}
+
+	</div>
+
+	<!-- Prevent footer from popping up when route loading -->
+	{{#if isRouteReady}}
+		{{> footer}}
+	{{/if}}
+
+	{{> autoformModals}}
+
+</template>

@@ -1,51 +1,68 @@
 <template name="works">
 
-  <section id="works" class="text-center works-index" ng-controller="WorksController as works">
-
     <div class="works-wrap">
 
-      <md-card class="work-teaser paper-card" ng-repeat="author in authors">
+      {{#each works}}
+    		{{> workTeaser}}
 
-        <md-card-content>
+  		{{else}}
+    		{{> noWorks}}
 
-          <a href="/">
-            <h3 class="work-author">{{author}}</h3>
-          </a>
-
-          <a href="/works/georgics">
-            <h2 class="card-title work-title">{{title}}</h2>
-          </a>
-
-          <hr>
-
-          <a href="/">
-            <p class="work-editor">{{editor}}, {{year}}</p>
-          </a>
-
-        </md-card-content>
-
-        <md-card-actions >
-
-          <md-button href="#" class="comments-action">
-            <i class="mdi mdi-comment-outline"></i>227
-          </md-button>
-
-          <md-button href="#" class="favorite-action">
-            <i class="mdi mdi-star-outline"></i>32
-          </md-button>
-
-          <md-button href="#" class="export-action">
-            Export
-            <i class="mdi mdi-export"></i>
-          </md-button>
-
-        </md-card-actions>
-
-      </md-card>
+  		{{/each}}
 
 
     </div>
 
-  </section>
 
+
+</template>
+
+<template name="workTeaser">
+    <md-card class="work-teaser paper-card" >
+
+      <md-card-content>
+
+        <a href="/">
+          <h3 class="work-author">{{author}}</h3>
+        </a>
+
+        <a href="/works/georgics/1">
+          <h2 class="card-title work-title">{{title}}</h2>
+        </a>
+
+        <hr>
+
+        <a href="/">
+          <p class="work-editor">{{editor}}, {{year}}</p>
+        </a>
+
+      </md-card-content>
+
+      <md-card-actions >
+
+        <a href="#" class="comments-action md-button md-ink-ripple">
+          <i class="mdi mdi-comment-outline"></i>227
+          <div class="md-ripple-container"></div>
+        </a>
+
+        <a href="#" class="favorite-action md-button md-ink-ripple">
+          <i class="mdi mdi-star-outline"></i>32
+          <div class="md-ripple-container"></div>
+        </a>
+
+        <a href="#" class="export-action md-button md-ink-ripple">
+          Export
+          <i class="mdi mdi-export"></i>
+          <div class="md-ripple-container"></div>
+        </a>
+
+      </md-card-actions>
+
+    </md-card>
+</template>
+
+<template name="noWorks">
+  <div class="no-results">
+    <p>No works were found for your query.</p>
+  </div>
 </template>

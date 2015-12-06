@@ -26,3 +26,20 @@
 
   loginRequired: ->
     Router.go '/sign-in'
+
+	scroll_to_top: ->
+    $("html,body").animate({
+    	scrollTop : $('body').offset().top
+    }, 500);
+
+	scroll_to_elem: ->
+		$("html,body").animate({
+			scrollTop : $( selector ).offset().top
+		}, 500);
+
+
+	init_headroom: ->
+    # construct an instance of Headroom, passing the element
+    headroom  = new Headroom( document.getElementById("header") );
+    # initialise
+    headroom.init();

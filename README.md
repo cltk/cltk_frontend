@@ -1,1 +1,1 @@
-Classical Languages Archive enduser application
+Classical Languages Archive Meteor application

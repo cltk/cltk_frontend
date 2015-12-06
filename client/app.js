@@ -5,14 +5,39 @@ if (Meteor.isClient){
  * Definition and routes
  *
  */
+
 (function($){
 
 
   angular.module( 'cla', [ 'angular-meteor', 'ngMaterial' ] );
 
 
-  angular.module('app')
-  	.controller('AppController', ['$scope', '$meteor', '$http', function($scope, $mdSidenav, $meteor, $http) {
+  angular.module('cla')
+  	.run([ '$rootScope', '$state', '$stateParams',
+  		function ($rootScope,	 $state,	 $stateParams) {
+
+  		// It's very handy to add references to $state and $stateParams to the $rootScope
+  		// so that you can access them from any scope within your applications.For example,
+  		// <li ng-="{ active: $state.includes('contacts.list') }"> will set the <li>
+  		// to active whenever 'contacts.list' or one of its decendents is active.
+  		$rootScope.$state = $state;
+  		$rootScope.$stateParams = $stateParams;
+
+  		$rootScope.$on('$stateChangeError', function(event) {
+  			event.preventDefault();
+  			return $state.go( "error" );
+  		});
+
+
+  	}])
+  	.config( function( $locationProvider, $interpolateProvider ){
+  		'use strict';
+
+  		// configure angular templating denotation to play nice with Twig
+  		$interpolateProvider.startSymbol('{[').endSymbol(']}');
+
+  	});
+
 
   angular.module('cla')
   	.controller('AppController', ['$scope', '$meteor', '$http', function($scope, $meteor, $http) {
@@ -27,17 +52,9 @@ if (Meteor.isClient){
        */
   		$scope.initialize = function() {
 
-        setTimeout(function(){
-          var elem = document.querySelector('header');
-          var headroom = new Headroom(elem);
-          headroom.init();
-
-        }, 300);
 
 
   		};
-
-      // Initialize collapse button
 
 
       /*
@@ -47,9 +64,9 @@ if (Meteor.isClient){
 
   		};
 
-    //  $scope.openLeftMenu = function() {
-    //    $mdSidenav('left').toggle();
-    //  };
+      $scope.openLeftMenu = function() {
+        $mdSidenav('left').toggle();
+      };
 
 
       angular.element(document).ready(function () {
@@ -68,7 +85,8 @@ if (Meteor.isClient){
    * Works controller for browsing works index
    *
    */
-  angular.module('cla')
+   /*
+  angular.module('app')
   	.controller('WorksController', ['$scope', '$meteor', 'Api', function($scope, $meteor, Api) {
 
     	window.__ad__ = window.__ad__ || {};
@@ -78,9 +96,11 @@ if (Meteor.isClient){
       /*
        * Initialize lifecycle of the controller
        */
+       /*
   		$scope.initialize = function() {
 
-        $scope.authors = Api.get_authors( "latin", "perseus" )
+        //Api.get_authors( "latin", "perseus", $scope._update_authors );
+        Api.get( {}, $scope._update );
 
   		};
 
@@ -88,9 +108,31 @@ if (Meteor.isClient){
       /*
        * Update lifecycle of the controller
        */
+       /*
   		$scope.update = function() {
 
   		};
+
+      /*
+       * Update callback for Api.get
+       */
+       /*
+  		$scope._update = function( data ) {
+        $scope.text = data;
+
+  		};
+
+      /*
+       * Update callback for Api.get_authors
+       */
+       /*
+  		$scope._update_authors = function( data ) {
+
+        $scope.authors = data.authors;
+
+
+  		};
+
 
 
       angular.element(document).ready(function () {
@@ -108,7 +150,8 @@ if (Meteor.isClient){
  * Access the JSON API
  *
  */
-angular.module('cla')
+       /*
+angular.module('app')
 
 	.factory( 'Api', function ( $http ) {
 		'use strict';
@@ -117,53 +160,50 @@ angular.module('cla')
 
 			get : function( query, callback ){
 
-
 				// check get_posts_lock to limit number of queries sent via instant search
 				// get commentary data
 				console.log( "GET params:", query);
 				$http({
 						method : 'JSONP',
-						url : 'http://192.168.1.218:5000/query',
-						params : query
+						url : 'http://localhost:5000/query',
+						params : {
+              callback : "JSON_CALLBACK",
+              query : query
 
-					})
-					.success( function( resp ) {
+            }
+
+        }).then( function( resp ) {
 						console.log("API Response:", resp);
 
 						if ( typeof callback !== "undefined" ) {
-							callback( resp );
+							callback( resp.data );
 						}
 
-					}).error( function( err ) {
+					}, function( err ) {
 
-						console.log("API Error", err);
+						console.log("API Error", err );
 
 					});
 
 			},
 
-
 			get_authors : function( language, corpus, callback ){
-
 
 				// check get_posts_lock to limit number of queries sent via instant search
 				// get commentary data
 				console.log( "GET authors:", language, corpus);
+
 				$http({
 						method : 'JSONP',
 						url : 'http://localhost:5000/lang/' + language + "/corpus/" + corpus + "/authors",
             params: {
               callback : "JSON_CALLBACK"
-
             }
-
-					})
-					.then( function( resp ) {
-            debugger;
+					}).then( function( resp ) {
 						console.log("API Response:", resp);
 
 						if ( typeof callback !== "undefined" ) {
-							callback( resp );
+							callback( resp.data );
 						}
 
 					}, function( err ) {
@@ -180,6 +220,17 @@ angular.module('cla')
 		return Api;
 
 	});
+
+*/
+
+  angular.module('cla')
+  .filter('debug', function() {
+    return function(input) {
+      if (input === '') return 'empty string';
+      return input ? input : ('' + input);
+    };
+  });
+
 
 })(jQuery)
 

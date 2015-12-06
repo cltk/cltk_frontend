@@ -8,3 +8,4 @@ Router.map ->
 
   @route "reading",
     path: "/works/georgics/1"
+    layoutTemplate: "readingLayout"

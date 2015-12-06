@@ -1,3 +1,41 @@
+# -*- mode: gitignore; -*-
+
 local
 private/settings
+*.log
 
+#########################
+# Emacs temporary files #
+#########################
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+#################
+# Other Editors #
+#################
+*.sw[po]
+.idea/
+*.iml
+*.iws
+
+##########################
+# Temporary backup files #
+##########################
+Backup of*.docx
+
+######################
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

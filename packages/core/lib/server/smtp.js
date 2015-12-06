@@ -11,8 +11,8 @@ Meteor.methods({
 		this.unblock();
 
 		Email.send({
-			to: 'lukehollis@gmail.com',
-			from: 'no-reply@archimedes.digital',
+			to: 'admin@cltk.org',
+			from: 'no-reply@cltk.org',
 			subject: 'Form Submission',
 			text: text
 		});

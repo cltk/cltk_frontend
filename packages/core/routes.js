@@ -10,13 +10,7 @@ OnBeforeActions = {
 
         if (Meteor.isClient && typeof window !== "undefined" ){
 
-        	window.__ad__ = window.__ad__ || {};
-        	var Ad = window.__ad__
-        	;
 
-          $('.grid.primary').removeClass("fadeIn");
-          Ad.Util.scroll_to_top();
-          Ad.Util.show_header_text();
 
         }
 
@@ -38,19 +32,12 @@ Router.onBeforeAction( OnBeforeActions.loginRequired ,{
 Router.onBeforeAction(function( ){
   if (Meteor.isClient && typeof window !== "undefined" ){
 
-  	window.__ad__ = window.__ad__ || {};
-  	var Ad = window.__ad__
-  	;
-
     if ( Meteor.userId() ){
       Session.set('userId', Meteor.userId());
 
 
     }
 
-    $('.grid.primary').removeClass("fadeIn");
-    Ad.Util.scroll_to_top();
-    Ad.Util.show_header_text();
   }
 
   this.next();
@@ -61,15 +48,12 @@ Router.onAfterAction(function( req, res, next ){
 
   if (Meteor.isClient && typeof window !== "undefined" ){
 
-  	window.__ad__ = window.__ad__ || {};
-  	var Ad = window.__ad__
-  	;
-
-
-    $('.grid.primary').addClass("fadeIn");
     setTimeout(function(){
-      $('.grid.primary').removeClass("fadeIn");
-    }, 500);
+      var elem = document.querySelector('header');
+      var headroom = new Headroom(elem);
+      headroom.init();
+
+    }, 300);
 
     // Append .background-image-holder <img>'s as CSS backgrounds
     setTimeout(function(){
@@ -79,17 +63,18 @@ Router.onAfterAction(function( req, res, next ){
           $(this).css('background', 'url("' + imgSrc + '")');
           $(this).children('img').hide();
           $(this).css('background-position', 'initial');
+          $(this).addClass('fadeIn');
       });
 
       // Fade in background images
 
       setTimeout(function() {
           $('.background-image-holder').each(function() {
-              $(this).addClass('fadeIn');
+              $(this).removeClass('blur');
           });
-      }, 200);
+      }, 500);
 
-    }, 1000)
+    }, 500)
 
 
 

@@ -1,21 +1,27 @@
 <template name="home">
 
-    <section id="intro" class="cover fullscreen image-bg bg-dark parallax">
+    <section id="intro" class="cover fullscreen image-bg bg-dark ">
 
-        <div class="background-image-holder blur">
-          <img src="/images/arch1.jpg" alt="image" />
+        <div class="background-image-holder less-blur blur">
+          <img src="/images/column.jpg" alt="image" />
+        </div>
+        <div class="background-screen">
         </div>
 
-        <div class="container v-align-transform">
+        <div class="container v-align-transform header-container">
             <div class="row">
 
-                <div class="col-sm-10 col-sm-offset-1 text-center">
+                <div class="header-center text-center">
 
-                    <h1>Explore the Classical Languages Archive</h1>
-                    <input type="text" placeholder="Search" />
+                    <h1>Explore open classical literature</h1>
+                    <input class="header-search" type="text" placeholder="Search . . ." />
 
-                    <a href="/">
-                      <h6 class="uppercase mb16">Learn more about the Classical Languages Archive</h6>
+                    <h6 class="uppercase mb16">Read classical works in Greek, Latin, Chinese, Coptic, and Pali <br>  and research metadata on your favorite texts.</h6>
+
+                    <a class="btn btn-large md-button md-ink-ripple paper-shadow" href="/" aria-label="Learn More">
+                      <span>Learn More</span>
+                      <div class="md-ripple-container"></div>
+
                     </a>
 
 
@@ -27,6 +33,156 @@
 
     </section>
 
-    {{> works }}
+    <section id="beliefs" >
+
+        <div class="container text-center">
+            <div class="row">
+
+              <h2 class="section-title">Our Manifesto </h2>
+
+              <hr class="section-header-line">
+
+              <p class="desc info-desc">Lorem ipsum dolor sit we believe reading on a screen should be as simple and beautiful of an experience as reading on a page. Interacting with metadata should be as intuitive as interacting with the text itself, no matter what device you use.</p>
+
+              <img class="demo-image" src="/images/segetes-responsive.png" />
+
+
+            </div>
+
+      </div>
+
+    </section>
+
+    <section id="about" class="bg-gray" >
+        <div class="container text-center">
+            <div class="row">
+
+                <p >Lorem ipsum dolor sit a simple, elegant framework that enables you to build web applications for publishing texts and aggregating, discovering, and extracting metadata.  Archive applications have the ability to share seamlessly between each other and can create <a href="http://p2pfoundation.net/Decentralized_Network" target="_blank">decentralized networks</a>.</p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="features" >
+      <div class="feature f1">
+        <div class="feature-image-screen"></div>
+        <div class="feature-inner">
+          <h3 class="feature-title">Related Passages</h3>
+          <div class="feature-line"></div><span class="feature-desc">Built in text reuse algorithms to map connections between your texts and others</span>
+        </div>
+      </div>
+      <div class="feature f2">
+        <div class="feature-image-screen"></div>
+        <div class="feature-inner">
+          <h3 class="feature-title">Media </h3>
+          <div class="feature-line"></div><span class="feature-desc">Support for associating audio, video, and images with your text and inviting the community to upload their own  </span>
+        </div>
+      </div>
+      <div class="feature f3">
+        <div class="feature-image-screen"></div>
+        <div class="feature-inner">
+          <h3 class="feature-title">Export </h3>
+          <div class="feature-line"></div><span class="feature-desc">Archive your data and share it with your choice of several different NEH-recognised data formats</span>
+        </div>
+      </div>
+      <div class="feature f4">
+        <div class="feature-image-screen"></div>
+        <div class="feature-inner">
+          <h3 class="feature-title">Share </h3>
+          <div class="feature-line"></div><span class="feature-desc">Send all or select items of your data seamlessly between other sites using the Segetes framework and powerful API</span>
+        </div>
+      </div>
+      <div class="feature f5">
+        <div class="feature-image-screen"></div>
+        <div class="feature-inner">
+          <h3 class="feature-title">Criticism </h3>
+          <div class="feature-line"></div><span class="feature-desc">Import citations using APIs from major academic search engines to put your work in context </span>
+        </div>
+      </div>
+      <div class="feature f6">
+        <div class="feature-image-screen"></div>
+        <div class="feature-inner">
+          <h3 class="feature-title">Entities </h3>
+          <div class="feature-line"></div><span class="feature-desc">Extract and recognise named entities from your text and create an index of passages where they appear </span>
+        </div>
+      </div>
+      <div class="feature f7">
+        <div class="feature-image-screen"></div>
+        <div class="feature-inner">
+          <h3 class="feature-title">Scansion </h3>
+          <div class="feature-line"></div><span class="feature-desc">If you're text is poetry, include metrical data for each line </span>
+        </div>
+      </div>
+      <div class="feature f8">
+        <div class="feature-image-screen"></div>
+        <div class="feature-inner">
+          <h3 class="feature-title">Definitions </h3>
+          <div class="feature-line"></div><span class="feature-desc">Use a dictionary to display definitions of words in your passages </span>
+        </div>
+      </div>
+      <div class="feature f9">
+        <div class="feature-image-screen"></div>
+        <div class="feature-inner">
+          <h3 class="feature-title">Commentary </h3>
+          <div class="feature-line"></div><span class="feature-desc">Include public-domain commentary for your text or create and edit your own  </span>
+        </div>
+      </div>
+    </section>
+
+    <section id="get-started" class="bg-gray" >
+      <div class="container text-center">
+        <div class="row">
+          <h2 class="section-title">Get Started </h2>
+          <hr class="section-header-line">
+          <h4 class="uppercase" >Browse popular authors, poets, and historians</h4>
+
+        </div>
+      </div>
+      {{> works }}
+
+      <div class="container text-center">
+        <div class="row">
+        </div>
+      </div>
+    </section>
+
+    <section id="build" >
+      <div class="container text-center">
+
+        <div class="row">
+
+          <h2 class="section-title">Create or Contribute</h2>
+
+          <hr class="section-header-line">
+        </div>
+        <div class="row">
+
+
+          <div class="col-sm-6 text-center">
+
+            <a href="https://github.com/cltk/cltk_frontend" target="_blank" class="start-building-item">
+              <i class="mdi mdi-github-circle icon-lg mb40 mb-xs-24 "></i>
+              <h5 class="uppercase">Create your own archive</h5>
+              <span class="item-text">Download our framework from Github.  Fork and extend it with your own contributions! </span>
+
+            </a>
+          </div>
+          <div class="col-sm-6 text-center">
+
+          <a href="mailto:contact@cltk.org" target="_blank" class="start-building-item">
+            <i class="mdi mdi-email-outline icon-lg mb40 mb-xs-24  "></i>
+            <h5 class="uppercase">Contribute</h5>
+            <span class="item-text">If you'd like more comprehensive support, get in touch with us at contact@cltk.org and tell us what you're thinking!</span>
+          </a>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
 
 </template>

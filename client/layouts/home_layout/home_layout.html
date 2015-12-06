@@ -1,8 +1,10 @@
 <template name="homeLayout">
-	{{> header }}
 	<div class="home-layout">
+		{{> header }}
 		{{> yield }}
 	</div>
 	<!-- Prevent footer from popping up when route loading -->
-	{{> footer}}
+	{{#if isRouteReady}}
+		{{> footer}}
+	{{/if}}
 </template>

@@ -1,6 +1,12 @@
 Template.works.helpers(
 
     works : () -> [{
+        title : "Histories",
+        slug : "histories",
+        author : "Herodotus",
+        editor : "C. Hude",
+        year : 1927
+      },{
         title : "Eclogues",
         slug : "eclogues",
         author : "Vergil",
@@ -42,12 +48,6 @@ Template.works.helpers(
         author : "Horace",
         editor : "A. S. F. Gow",
         year : 1913
-      },{
-        title : "Carmina",
-        slug : "carmina",
-        author : "Horace",
-        editor : "A. S. F. Gow",
-        year : 1912
       },{
         title : "Epodes",
         slug : "epodes",

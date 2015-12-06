@@ -18,11 +18,11 @@
 @gray-light:             lighten(#000, 60%);   // #999
 @gray-lighter:           lighten(#000, 93.5%); // #eee
 
-@brand-primary:         #008cba;
-@brand-success:         #43ac6a;
-@brand-info:            #5bc0de;
-@brand-warning:         #E99002;
-@brand-danger:          #F04124;
+@brand-primary:         @md-primary;
+@brand-success:         @md-primary;
+@brand-info:            @md-primary-dark;
+@brand-warning:         @md-accent;
+@brand-danger:          @md-accent;
 
 
 //== Scaffolding
@@ -78,7 +78,7 @@
 //## Specify custom location and filename of the included Glyphicons icon font. Useful for those including Bootstrap via Bower.
 
 //** Load fonts from this directory.
-@icon-font-path:          "../fonts/";
+@icon-font-path:          "/fonts/";
 //** File name for all font files.
 @icon-font-name:          "glyphicons-halflings-regular";
 //** Element ID within SVG icon file.

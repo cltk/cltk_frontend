@@ -1,0 +1,276 @@
+
+.home-layout section {
+
+  h2.section-title {
+    font-family:@font-section-title;
+  }
+
+  .section-header-line {
+    display: block;
+    clear: both;
+    width: 100px;
+    height: 2px;
+    background: rgba(0,0,0,.6);
+    margin: 20px auto;
+    border:none;
+
+  }
+
+  .demo-image {
+    width:80%;
+    max-width:700px;
+    margin:0 auto;
+  }
+
+
+}
+
+.bg-gray {
+  background:#f6f6f6;
+}
+
+
+section#intro {
+
+  .header-container {
+    padding-bottom:10px;
+
+  }
+
+  input.header-search {
+    background:transparent;
+    color:@light;
+    max-width:800px;
+    width:90%;
+    border:none;
+    border-bottom:2px solid @light;
+    text-transform:none;
+    font-family:@font-reading;
+    font-size:28px;
+    line-height:1.3em;
+    padding:20px 30px 10px;
+    margin:40px auto 60px;
+    height:auto;
+
+
+    &:focus {
+      outline:none;
+      border:none;
+      border-bottom:2px solid @light;
+
+    }
+
+    &::-webkit-input-placeholder {
+      color: @light;
+      text-transform:none;
+      font-size:28px;
+      font-weight:300 !important;
+    }
+
+    &:-moz-placeholder {
+      color: @light;
+      text-transform:none;
+      font-size:28px;
+      font-weight:300 !important;
+    }
+
+    &::-moz-placeholder {
+      color: @light;
+      text-transform:none;
+      font-size:28px;
+      font-weight:300 !important;
+    }
+
+    &:-ms-input-placeholder {
+      color: @light;
+      text-transform:none;
+      font-size:28px;
+      font-weight:300 !important;
+    }
+
+
+
+  }
+
+  h1, .h1 {
+    font-size:48px;
+
+  }
+
+  .btn {
+    margin:30px auto;
+    padding:5px 30px 5px 30px;
+    display:inline-block;
+    height:auto;
+
+    span {
+      font-weight:700;
+
+    }
+    i {
+      padding-left:10px;
+    }
+
+    &:hover, &:focus {
+      color:@light;
+      background:@md-primary;
+      border:2px solid @md-primary;
+      outline:none;
+    }
+  }
+
+}
+section#features {
+  padding:0;
+
+  .feature {
+    text-align:left;
+    width:33.53%;
+    height:240px;
+    display:inline-block;
+    vertical-align: top;
+    color:$light;
+    position:relative;
+    margin-left:-5px;
+    margin-bottom:0;
+    color:@light;
+
+    background:url("/images/entity_achilles-small.jpg");
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size:100% auto;
+    .transition( background-size 100ms ease-out );
+
+    &:hover {
+      background-size:105% auto !important;
+
+      div.feature-image-screen {
+        opacity:.95;
+
+      }
+    }
+
+    div.feature-image-screen {
+      position:absolute;
+      width:100%;
+      height:100%;
+      opacity:0.95;
+
+      /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#00bcd4+0,0097a7+100 */
+      background: rgb(0,188,212); /* Old browsers */
+      background: -moz-linear-gradient(-45deg,  rgba(0,188,212,1) 0%, rgba(0,151,167,1) 100%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(-45deg,  rgba(0,188,212,1) 0%,rgba(0,151,167,1) 100%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(135deg,  rgba(0,188,212,1) 0%,rgba(0,151,167,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bcd4', endColorstr='#0097a7',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+      .transition( opacity 100ms ease-out );
+
+    }
+
+    span, h3 {
+      position:relative;
+      cursor:default;
+      color:@light;
+
+    }
+    span {
+      font-size:18px;
+    }
+
+    .feature-inner {
+      position:relative;
+      padding:30px 45px;
+    }
+
+    .feature-line {
+      position:relative;
+      display:block;
+      clear:both;
+      width:150px;
+      height:1px;
+      background:@light;
+      margin:14px 0;
+
+    }
+
+    &.f2 {
+      background:url("/images/entity_cato-small.jpg");
+      background-position:center center;
+      background-repeat:no-repeat;
+      background-size:100% auto;
+    }
+    &.f3 {
+      background:url("/images/entity_aeneas-small.jpg");
+      background-position:center center;
+      background-repeat:no-repeat;
+      background-size:100% auto;
+    }
+    &.f4 {
+      background:url("/images/entity_elysium-small.jpg");
+      background-position:center center;
+      background-repeat:no-repeat;
+      background-size:100% auto;
+    }
+    &.f5 {
+      background:url("/images/entity_eryx-small.jpg");
+      background-position:center center;
+      background-repeat:no-repeat;
+      background-size:100% auto;
+    }
+    &.f6 {
+      background:url("/images/entity_geryon-small.jpg");
+      background-position:center center;
+      background-repeat:no-repeat;
+      background-size:100% auto;
+    }
+    &.f7 {
+      background:url("/images/entity_iris-small.jpg");
+      background-position:center center;
+      background-repeat:no-repeat;
+      background-size:100% auto;
+    }
+    &.f8 {
+      background:url("/images/entity_mezentius-small.jpg");
+      background-position:center center;
+      background-repeat:no-repeat;
+      background-size:100% auto;
+    }
+    &.f9 {
+      background:url("/images/entity_romulus-small.jpg");
+      background-position:center center;
+      background-repeat:no-repeat;
+      background-size:100% auto;
+    }
+
+  }
+
+}
+
+section#build {
+
+  .start-building-item {
+    display:block;
+    padding:130px 5% 20px;
+
+    &:hover {
+      i {
+        color:@md-primary-dark;
+      }
+    }
+
+    i {
+      color:@md-primary;
+      &:before {
+        font-size:200px;
+
+      }
+
+    }
+
+    span {
+      color:@text-dark;
+      font-size:18px;
+    }
+
+  }
+}
