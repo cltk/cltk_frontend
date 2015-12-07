@@ -3,8 +3,5 @@
 		{{> header }}
 		{{> yield }}
 	</div>
-	<!-- Prevent footer from popping up when route loading -->
-	{{#if isRouteReady}}
-		{{> footer}}
-	{{/if}}
+	{{> footer}}
 </template>
