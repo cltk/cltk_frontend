@@ -93,7 +93,17 @@ header .navigation-primary .reading-location {
 
 .text-wrap {
 
-	width:100%;
+  width:100%;
+  position:relative;
+
+  &:hover {
+    .text-meta-options {
+      height:180px;
+      opacity:1;
+    }
+
+  }
+
 
   p {
 		color:rgba(0,0,0,0.67);
@@ -107,6 +117,58 @@ header .navigation-primary .reading-location {
 		width:95%;
 		max-width:730px;
 
+  }
+
+
+
+}
+
+.text-meta-options {
+  position:absolute;
+  top:30px;
+  right:30px;
+  height:70px;
+  overflow:hidden;
+  opacity:0;
+  .transition(height 300ms ease-out 100ms);
+
+  .text-meta-option {
+    cursor:pointer;
+
+    &:hover {
+      i {
+        opacity:1;
+        background:@md-primary-800;
+      }
+    }
+
+    i, span {
+      display:inline-block;
+      vertical-align: top;
+
+    }
+    i {
+      background:@text-secondary;
+      color:@light;
+      border-radius:50px;
+      padding:7px;
+      margin:3px;
+      opacity:0.3;
+
+      &::before {
+        font-size:14px;
+      }
+
+      &.mdi-dots-horizontal {
+        background:transparent;
+        color:@text-secondary;
+      }
+
+    }
+    span {
+      font-size:12px;
+      padding:3px 2px;
+    }
   }
 
 
@@ -139,5 +201,63 @@ header .navigation-primary .reading-location {
 	width:100%;
 	clear:both;
 	display:block;
+
+}
+
+.definitions-panel {
+  position:fixed;
+  overflow-y:scroll;
+  height:100%;
+  width:27%;
+  max-width:500px;
+  min-width:200px;
+  z-index:1;
+  top:0;
+  left:0;
+  background:@light;
+
+	transform: translateX(-100%) translateZ(0);
+	.transition( transform 300ms ease-out );
+
+  &.slide-visible {
+  	transform: translateY(0%) translateZ(0);
+  }
+
+  .definitions-panel-inner {
+    padding:100px 0;
+    width:90%;
+    margin:0 auto;
+
+
+  }
+
+}
+
+.commentary-panel {
+  position:fixed;
+  overflow-y:scroll;
+  height:100%;
+  width:33%;
+  max-width:600px;
+  min-width:300px;
+  z-index:1;
+  top:0;
+  right:0;
+  background:@light;
+
+	transform: translateX(100%) translateZ(0);
+	.transition( transform 300ms ease-out );
+
+  &.slide-visible {
+  	transform: translateY(0%) translateZ(0);
+  }
+
+  .commentary-panel-inner {
+    padding:100px 0;
+    width:90%;
+    margin:0 auto;
+
+
+  }
 
 }

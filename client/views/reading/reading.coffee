@@ -64,15 +64,31 @@ Template.headerReading.events = (
     if $target.hasClass("checked")
       $target.removeClass("checked");
 
+      if $target.data().type == "definitions"
+        $(".definitions-panel").removeClass("slide-visible");
+
+      else if $target.data().type == "commentary"
+        $(".commentary-panel").removeClass("slide-visible");
+
+      else if $target.data().type == "translations"
+        $(".commentary-panel").removeClass("slide-visible");
+
     else
       $target.addClass("checked");
 
-    if $target.data().type == "definitions"
-      console.log("definitions");
+      if $target.data().type == "definitions"
+        $(".definitions-panel").addClass("slide-visible");
 
-    else if $target.data().type == "commentary"
-      console.log("commentary");
+      else if $target.data().type == "commentary"
+        $(".commentary-panel").addClass("slide-visible");
 
-    else if $target.data().type == "translations"
-      console.log("translations");
+      else if $target.data().type == "translations"
+        $(".commentary-panel").addClass("slide-visible");
+
+	"click .close-definitions-panel": (e) ->
+    $(".definitions-panel").removeClass("slide-visible");
+
+	"click .close-commentary-panel": (e) ->
+    $(".commentary-panel").removeClass("slide-visible");
+
 )

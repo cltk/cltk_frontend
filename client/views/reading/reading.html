@@ -29,7 +29,7 @@
               </div>
 
               <div class="author-wrap">
-                <h3 class="work-author">{{work.author.english_full}} ({{work.author.original_full}})</h3>
+                <h3 class="work-author">{{work.author.english_full}} (<em>{{work.author.original_full}}</em>)</h3>
               </div>
               {{#each work.books }}
                 <div class="title-wrap">
@@ -40,17 +40,60 @@
                   <div class="chapter-heading">
                       <h3 class="chapter-number">{{chapter_n}}.</h3>
                   </div>
-                  <div class="text-wrap">
-                    {{#each sections }}
-                      {{{html}}}
 
-                    {{/each}}
-                  </div>
+                  {{#each sections }}
+                    <div class="text-wrap">
+                        {{{html}}}
+                        <div class="text-meta-options">
+                          <div class="text-meta-option">
+                            <i class="mdi mdi-bookmark"></i>
+                            <span class="option-label">Bookmark</span>
+                          </div>
+
+                          <div class="text-meta-option">
+                            <i class="mdi mdi-alpha"></i>
+                            <span class="option-label">Scansion</span>
+                          </div>
+
+                          <div class="text-meta-option">
+                            <i class="mdi mdi-account"></i>
+                            <span class="option-label">Entities</span>
+                          </div>
+
+                          <div class="text-meta-option">
+                            <i class="mdi mdi-share-variant"></i>
+                            <span class="option-label">Related Passages</span>
+                          </div>
+
+                          <div class="text-meta-option">
+                            <i class="mdi mdi-dots-horizontal"></i>
+                            <span class="option-label"></span>
+                          </div>
+
+
+                        </div>
+
+                    </div>
+                  {{/each}}
                 {{/each}}
               {{/each}}
           </div>
       </div>
 
   </section>
+
+  <div class="definitions-panel paper-shadow">
+    <div class="definitions-panel-inner">
+      <h4>Definitions</h4>
+
+    </div>
+  </div>
+
+  <div class="commentary-panel paper-shadow">
+    <div class="commentary-panel-inner">
+      <h4>Commentary / Translations</h4>
+
+    </div>
+  </div>
 
 </template>
