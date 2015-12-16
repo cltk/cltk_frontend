@@ -2,46 +2,110 @@ header .navigation-primary .reading-location {
   display:inline-block;
   vertical-align: top;
   width:300px;
+
   a.md-button {
-    display:inline;
-    padding:0;
+    display:inline-block;
+    padding:10px 2px;
+    font-family:@font-reading;
+    text-transform:none;
+    font-size:17px;
+    color:@dark;
+
     &:hover {
       background:transparent;
+      color:@md-primary;
     }
 
 
   }
 }
 
-.title-wrap, .author-wrap {
-  text-align: center;
+.meta-toggle {
+
+  &.checked {
+    i.mdi-checkbox-marked-outline {
+      display:inline-block;
+    }
+    i.mdi-checkbox-blank-outline {
+      display:none;
+    }
+
+  }
+
+  i {
+    display:inline-block;
+    padding:12px 6px 12px 0;
+    vertical-align: top;
+    &::before {
+      font-size:18px;
+
+    }
+
+    &.mdi-checkbox-marked-outline {
+      display:none;
+
+    }
+
+  }
+
+
 
 }
 
-.chapter-heading{
+#reading {
 
-    text-align: left;
-		margin:15px auto;
-		width:95%;
-		max-width:770px;
+  h1 {
+    font-family:@font-section-title;
+    font-weight:700;
+
+  }
+
+  h3 {
+    font-family:@font-section-title;
+    font-weight:300;
+
+  }
+
+  .title-wrap, .author-wrap {
+    text-align: center;
+    padding:20px 0;
+
+  }
+
+  .chapter-heading {
+
+      text-align: left;
+  		margin:15px auto;
+  		width:95%;
+  		max-width:770px;
+      h3 {
+        font-family:@font-reading;
+        font-weight:bold;
+        padding:50px 0 0;
+        margin:0;
+
+      }
+
+  }
 
 }
+
 
 .text-wrap {
 
 	width:100%;
 
   p {
-		color:@text-dark;
+		color:rgba(0,0,0,0.67);
     font-family: @font-reading;
-    font-size:22px;
+    font-size:24px;
     font-weight:300;
-    line-height:1.75;
+    line-height:1.75em;
     letter-spacing: -.0025em;
     text-align: left;
 		margin:15px auto;
 		width:95%;
-		max-width:700px;
+		max-width:730px;
 
   }
 
