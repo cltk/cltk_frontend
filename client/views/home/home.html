@@ -5,7 +5,7 @@
         <div class="background-image-holder less-blur blur">
           <img src="/images/column.jpg" alt="image" />
         </div>
-        <div class="background-screen">
+        <div class="background-screen cyan">
         </div>
 
         <div class="container v-align-transform header-container">
@@ -18,7 +18,7 @@
 
                     <h6 class="uppercase mb16">Read classical works in Greek, Latin, Chinese, Coptic, and Pali <br>  and research metadata on your favorite texts.</h6>
 
-                    <a class="btn btn-large md-button md-ink-ripple paper-shadow" href="/" aria-label="Learn More">
+                    <a class="btn btn-large md-button learn-more-button md-ink-ripple paper-shadow" href="#beliefs" aria-label="Learn More">
                       <span>Learn More</span>
                       <div class="md-ripple-container"></div>
 
@@ -27,7 +27,17 @@
 
                 </div>
 
+
             </div>
+
+        </div>
+        <div class="header-search-results search-results">
+          {{> works }}
+
+        	<div class="search-result-loading-area">
+        		<div class="well-spinner"></div>
+
+        	</div>
 
         </div>
 
@@ -144,6 +154,9 @@
 
       <div class="container text-center">
         <div class="row">
+          <a href="#" class="btn btn-lg md-button md-ink-ripple view-more paper-shadow" aria-label="View more">
+            View more
+          </a>
         </div>
       </div>
     </section>

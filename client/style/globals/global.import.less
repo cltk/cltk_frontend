@@ -49,13 +49,35 @@ header {
     width:100%;
   }
 
-  .navigation-primary .md-button, .navigation-primary a.notifcation {
+  .navigation-primary a.md-button, .navigation-primary a.notifcation {
     display:inline-block;
     vertical-align: top;
     height:60px;
-    padding:12px 15px;
     margin:0;
+    line-height:39px;
+    padding:12px 18px;
+    display:inline-block;
+    vertical-align: top;
+    font-family:@font-light;
 
+    &.logo {
+      margin-left:-5px;
+      font-size:19px;
+      text-transform:none;
+      padding:10px 15px 12px 2px;
+
+      &:hover, &:focus {
+        background:@light;
+
+      }
+
+    }
+
+  }
+
+  .search-module {
+    border-right:1px solid @divider;
+    border-right:none;
   }
 
   .toggle-left-menu {
@@ -64,7 +86,13 @@ header {
     }
   }
 
-  .logo {
+  .mdi.mdi-chevron-down {
+    vertical-align: top;
+    padding:8px 0 8px 2px;
+
+    &:before {
+      font-size:12px;
+    }
 
   }
 
@@ -72,24 +100,49 @@ header {
     margin:0;
   }
 
-  .navbar-nav {
-    a.md-button {
-      line-height:39px;
-      display:inline-block;
-      vertical-align: top;
-    }
+
+  .module, .module.widget-handle {
+    padding:0 5px;
   }
 
-  .module.widget-handle, .module {
+
+}
+.dropdown-menu {
+  margin:0;
+  padding:0;
+  border:none;
+  width:100%;
+
+
+  li {
+    margin:0;
     padding:0;
+
+    &.divider {
+      margin:0;
+      padding:0;
+
+    }
+
   }
 
+  a.md-button {
+    color:@dark;
+    width:100%;
+    text-align:left;
+
+    &:hover {
+    }
+
+  }
 
 }
 
 
 .logo {
   font-family:@font-logo;
+  text-transform:none;
+
 }
 
 
@@ -104,12 +157,13 @@ header {
 	transform: translateY(-100%) translateZ(0);
 }
 
-.home-layout, .main-layout {
+.home-layout, .page-layout {
 
   header.headroom--top {
   	background:transparent;
   	box-shadow:none;
     color:@light;
+    border-bottom:1px solid @divider-transparent;
 
     .nav-open {
       background:#fff;
@@ -119,9 +173,12 @@ header {
     }
 
     .module.widget-handle {
-      border-left:none;
+      border-left:1px solid @divider-transparent;
     }
 
+    .search-module {
+      border-right:none;
+    }
 
     .logo {
       color:@light;
@@ -160,17 +217,34 @@ header {
     .dropdown-menu {
       a.md-button {
         color:@dark;
-        width:100%;
-        text-align:left;
+
+        i, span {
+          color:@dark;
+        }
         &:hover {
           color:@light;
+          i, span {
+            color:@light;
+
+          }
+
+        }
+      }
+    }
+
+    ul.menu.icon-menu {
+      a.md-button {
+        &:hover {
+          i {
+            color:@light;
+          }
         }
       }
     }
 
   }
 }
-ul.menu.social {
+ul.menu.icon-menu {
   margin:0;
 
   li {
@@ -178,7 +252,14 @@ ul.menu.social {
     padding:0;
 
     .md-button {
-      padding:4px 15px;
+      padding:4px 18px;
+
+        &:hover {
+          i {
+            color:@md-primary;
+
+          }
+        }
 
     }
 
@@ -186,9 +267,6 @@ ul.menu.social {
 
 }
 
-.social-module {
-  padding:0 0 0 32px;
-}
 
 .blur, .less-blur, .more-blur {
   transition:all 800ms ease-out !important;
@@ -251,13 +329,20 @@ footer {
     li {
       display:inline-block;
       vertical-align: top;
-      margin:10px;
+      margin:0px;
       a {
         display:block;
+        border-radius:100px;
+        padding:14px 16px;
+        i {
+          vertical-align: middle;
+          &:before {
+            font-size:32px;
+          }
+        }
         &:hover {
           background:@light;
           color:@md-primary;
-          border-radius:2px;
           span, a {
             color:@md-primary;
 
@@ -294,6 +379,15 @@ footer {
 
 }
 
+.background-screen.cyan {
+
+  background: -moz-linear-gradient(top,  rgba(0, 96, 100, 0.6) 0%, rgba(0, 96, 100, 0.4) 20%, rgba(0, 96, 100, 0.4) 80%, rgba(0, 96, 100, 0.6) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  rgba(0, 96, 100, 0.6) 0%,rgba(0, 96, 100, 0.4) 20%, rgba(0, 96, 100, 0.4) 80%, rgba(0, 96, 100, 0.6) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  rgba(0, 96, 100, 0.6) 0%, rgba(0, 96, 100, 0.4) 20%, rgba(0, 96, 100, 0.4) 80%, rgba(0, 96, 100, 0.6) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#005f63', endColorstr='#005f63',GradientType=0 ); /* IE6-9 */
+
+}
+
 .page {
   width:100%;
 }
@@ -302,6 +396,9 @@ footer {
 }
 
 .master-layout > div {
+  padding:100px 0;
+}
+.master-layout > div, .page-layout > div, .reading-layout > div {
   width:100%;
 }
 

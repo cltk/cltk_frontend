@@ -29,3 +29,29 @@ Template.home.rendered = () ->
 Template.home.destroyed = () ->
 	#For Skrollr
 	$('body').attr('style','')
+
+
+Template.home.events = (
+
+	"focus .header-search": (e) ->
+		$("section#intro").addClass("header-search-enabled");
+		$("section#intro").removeClass("fullscreen");
+		$(".header-container").removeClass("v-align-transform");
+		$("section#intro").css("height","auto");
+
+		$("section#beliefs").hide();
+		$("section#about").hide();
+		$("section#features").hide();
+		$("section#get-started").hide();
+		$("section#build").hide();
+
+		$("section#intro .learn-more-button").fadeOut();
+		$("section#intro h1").fadeOut();
+		$("section#intro h6").fadeOut();
+
+		$(".header-search-results").fadeIn();
+
+		$(".home-layout").removeClass("home-layout").addClass("master-layout");
+
+
+);

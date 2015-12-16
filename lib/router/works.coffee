@@ -4,8 +4,9 @@ Router.map ->
     path: "/works"
 
   @route "workDetail",
-    path: "/works/georgics"
+    path: "/works/histories"
+    layoutTemplate: "pageLayout"
 
   @route "reading",
-    path: "/works/georgics/1"
+    path: "/works/histories/1"
     layoutTemplate: "readingLayout"

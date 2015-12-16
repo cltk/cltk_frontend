@@ -13,6 +13,7 @@ if (Meteor.isClient){
 
 
   angular.module('cla')
+  /*
   	.run([ '$rootScope', '$state', '$stateParams',
   		function ($rootScope,	 $state,	 $stateParams) {
 
@@ -37,6 +38,7 @@ if (Meteor.isClient){
   		$interpolateProvider.startSymbol('{[').endSymbol(']}');
 
   	});
+    */
 
 
   angular.module('cla')
