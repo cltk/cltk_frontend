@@ -7,6 +7,10 @@ Router.map ->
     path: "/works/histories"
     layoutTemplate: "pageLayout"
 
-  @route "reading",
+  @route "readingFiction",
     path: "/works/histories/1"
+    layoutTemplate: "readingLayout"
+
+  @route "readingPoetry",
+    path: "/works/aeneid/1"
     layoutTemplate: "readingLayout"

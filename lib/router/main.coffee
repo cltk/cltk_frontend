@@ -16,7 +16,16 @@ Router.map ->
 
   @route "search",
     path: "/search"
+    layoutTemplate: "homeLayout"
 
   @route "about",
     path: "/about"
+    layoutTemplate: "homeLayout"
+
+  @route "browse",
+    path: "/browse"
+    layoutTemplate: "homeLayout"
+
+  @route "terms",
+    path: "/terms"
     layoutTemplate: "homeLayout"

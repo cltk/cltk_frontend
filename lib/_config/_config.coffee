@@ -55,5 +55,5 @@
 
 	#Routes
 	homeRoute: '/'
-	publicRoutes: ['home', 'works', 'workDetail', 'reading', 'about', 'search', 'terms']
+	publicRoutes: ['home', 'works', 'workDetail', 'reading', 'about', 'search', 'browse', 'terms']
 	dashboardRoute: '/dashboard'
