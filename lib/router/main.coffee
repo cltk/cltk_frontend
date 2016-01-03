@@ -13,3 +13,10 @@ Router.map ->
       ]
     data: ->
       posts: Posts.find({},{sort: {createdAt: -1}}).fetch()
+
+  @route "search",
+    path: "/search"
+
+  @route "about",
+    path: "/about"
+    layoutTemplate: "homeLayout"

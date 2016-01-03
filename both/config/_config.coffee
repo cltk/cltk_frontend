@@ -1,9 +1,9 @@
 @Config =
-	name: 'Classical Languages Archive'
+	name: 'Classics Archive'
 	title: ->
-			TAPi18n.__ 'Classical Languages Archive'
+			TAPi18n.__ 'Classics Archive'
 	subtitle: ->
-			TAPi18n.__ 'Classical Languages Archive'
+			TAPi18n.__ 'Classics Archive'
 	logo: ->
 		'<b>' + @name + '</b>'
 	footer: ->

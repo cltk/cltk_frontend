@@ -39,4 +39,6 @@ Router.plugin 'ensureSignedIn', except: [
   'works'
   'workDetail'
   'reading'
+  'about'
+  'search'
 ]

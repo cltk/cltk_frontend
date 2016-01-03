@@ -27,7 +27,7 @@
 	dateFormat: 'D/M/YYYY'
 
 	# Meta / Extenrnal content
-	privacyUrl: 'http:/cla.dev/privacy'
+	privacyUrl: 'http:/cla.dev/terms'
 	termsUrl: 'http:/cla.dev/terms'
 
 	# For email footers
@@ -41,13 +41,13 @@
 
 	socialMedia:
 		facebook:
-			url: 'http://facebook.com/cla'
+			url: 'http://facebook.com/'
 			icon: 'facebook'
 		twitter:
-			url: 'http://twitter.com/cla'
+			url: 'http://twitter.com/@classicsarchive'
 			icon: 'twitter'
 		github:
-			url: 'http://github.com/cla'
+			url: 'http://github.com/cltk/cltk_frontend'
 			icon: 'github'
 		info:
 			url: 'http://cla.dev/about'
@@ -55,5 +55,5 @@
 
 	#Routes
 	homeRoute: '/'
-	publicRoutes: ['home', 'works', 'workDetail', 'reading']
+	publicRoutes: ['home', 'works', 'workDetail', 'reading', 'about', 'search', 'terms']
 	dashboardRoute: '/dashboard'
