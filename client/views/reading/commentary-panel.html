@@ -1,11 +1,27 @@
 
 <template name="commentaryPanel">
 
-  <div class="commentary-panel paper-shadow">
-    <div class="commentary-panel-inner">
-      <h4>Commentary / Translations</h4>
+  <div class="modal-panel commentary-panel paper-shadow">
+    <div class="modal-panel-inner commentary-panel-inner">
+      {{#if commentary}}
+        {{#each commentary}}
+          
 
-    </div>
-  </div>
+
+
+
+        {{/each}}<!-- commentary -->
+
+      {{else}}
+        <span class="no-results no-results-definitions">
+          No definitions available.
+
+        </span>
+
+      {{/if}}
+
+    </div><!-- .modal-panel-inner -->
+
+  </div><!-- .modal-panel -->
 
 </template>

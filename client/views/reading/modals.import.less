@@ -1,0 +1,170 @@
+
+.modal-panel {
+  position:fixed;
+  overflow-y:scroll;
+  height:100%;
+  z-index:1;
+  top:0;
+  background:@light;
+
+  .modal-panel-inner {
+    padding:80px 0;
+    width:90%;
+    margin:0 auto;
+
+
+  }
+
+  .no-results {
+    display:block;
+    font-size:18px;
+    padding:20px 0;
+
+  }
+}
+
+.definitions-panel {
+  left:0;
+  width:27%;
+  max-width:500px;
+  min-width:200px;
+
+	transform: translateX(-100%) translateZ(0);
+	.transition( transform 300ms ease-out );
+
+  &.slide-visible {
+  	transform: translateY(0%) translateZ(0);
+  }
+
+
+}
+
+.definition {
+  width:100%;
+  margin:10px 0 15px;
+  padding:0;
+  position:relative;
+  overflow-y:hidden;
+  max-height:200px;
+  clear:both;
+
+  &.expanded {
+    height:auto;
+
+    .show-more-toggle {
+      .mdi-plus {
+        display:none;
+      }
+      .mdi-minus {
+        display:block;
+      }
+    }
+
+  }
+
+  h4.word, .definition-link {
+    display:inline-block;
+    vertical-align:top;
+  }
+
+  h4.word {
+    margin:0;
+  }
+
+  .definition-link {
+    margin:7px 10px;
+
+  }
+
+  .meaning {
+    width:98%;
+    margin:0 auto;
+    padding:5px 0 10px;
+  }
+
+  .root, .meaning-definition, .form {
+    display:block;
+    color:@text-color;
+
+  }
+
+  .root {
+    font-size:16px;
+    font-weight:bold;
+    padding:0 0 3px;
+
+  }
+
+  .meaning-definition {
+    font-size:16px;
+    line-height:1.5em;
+    padding:0 0 3px;
+
+  }
+
+  .form {
+    font-size:14px;
+    margin-left:10px;
+  }
+
+  .show-more-toggle {
+    position:absolute;
+    bottom:0;
+    right:0px;
+    width:100%;
+    height:40px;
+    .gradient( rgba(255,255,255,0), rgba(255,255,255,1) );
+
+
+    z-index:1;
+
+    .mdi {
+      background:@divider;
+      color:@light;
+      padding:8px 5px 6px;
+      border-radius:20px;
+      display:inline-block;
+      float:right;
+      margin:5px;
+
+      &:before {
+        font-size:22px;
+      }
+
+    }
+
+    .mdi-plus {
+      display:block;
+
+    }
+    .mdi-minus {
+      display:none;
+    }
+  }
+
+
+}
+
+.commentary-panel {
+  width:33%;
+  max-width:600px;
+  min-width:300px;
+  right:0;
+  background:@light;
+
+	transform: translateX(100%) translateZ(0);
+	.transition( transform 300ms ease-out );
+
+  &.slide-visible {
+  	transform: translateY(0%) translateZ(0);
+  }
+
+  .commentary-panel-inner {
+    padding:100px 0;
+    width:90%;
+    margin:0 auto;
+
+
+  }
+
+}
