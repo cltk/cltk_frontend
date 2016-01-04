@@ -1,32 +1,10 @@
-<template name="reading">
+<template name="readingBookChapterSection">
 
-  <section id="reading" class="reading-environment">
+  <section id="reading" class="reading-environment book-chapter-section">
       <div class="container">
           <div class="row">
-              <!--<div layout="row" ng-controller="AppController">
-                <md-sidenav md-component-id="left" class="md-sidenav-left">
-                  Left Nav!
-                </md-sidenav>
-                <md-content>
-                  Center Content
-                  <md-button ng-click="openLeftMenu()">
-                    Open Left Menu
-                  </md-button>
-                </md-content>
-                <md-sidenav md-component-id="right" md-is-locked-open="$mdMedia('min-width: 333px')" class="md-sidenav-right">
-                  <form>
-                    <md-input-container>
-                      <label for="testInput">Test input</label>
-                      <input id="testInput" type="text" ng-model="data" md-autofocus>
-                    </md-input-container>
-                  </form>
-                </md-sidenav>
-              </div>-->
-              <div class="text-fab">
-                <a class="md-button md-fab" aria-label="Add">
-                  <i class="mdi mdi-chevron-down"></i>
-                </a>
-              </div>
+
+
 
               <div class="author-wrap">
                 <h3 class="work-author">{{work.author.english_full}} (<em>{{work.author.original_full}}</em>)</h3>
@@ -34,7 +12,6 @@
               {{#each work.books }}
                 <div class="title-wrap">
                   <h1 class="work-title">{{work.title}} {{book_n}}</h1>
-                  <!--h2 class="work-subtitle">or, the Whale</h2-->
                 </div>
                 {{#each chapters }}
                   <div class="chapter-heading">
@@ -48,11 +25,6 @@
                           <div class="text-meta-option">
                             <i class="mdi mdi-bookmark"></i>
                             <span class="option-label">Bookmark</span>
-                          </div>
-
-                          <div class="text-meta-option">
-                            <i class="mdi mdi-alpha"></i>
-                            <span class="option-label">Scansion</span>
                           </div>
 
                           <div class="text-meta-option">
@@ -81,19 +53,4 @@
       </div>
 
   </section>
-
-  <div class="definitions-panel paper-shadow">
-    <div class="definitions-panel-inner">
-      <h4>Definitions</h4>
-
-    </div>
-  </div>
-
-  <div class="commentary-panel paper-shadow">
-    <div class="commentary-panel-inner">
-      <h4>Commentary / Translations</h4>
-
-    </div>
-  </div>
-
 </template>

@@ -55,5 +55,15 @@
 
 	#Routes
 	homeRoute: '/'
-	publicRoutes: ['home', 'works', 'workDetail', 'reading', 'about', 'search', 'browse', 'terms']
+	publicRoutes: [
+		'home',
+		'works',
+		'workDetail',
+		'readingBookChapterSection',
+		'readingBookLine',
+		'about',
+		'search',
+		'browse',
+		'terms'
+	]
 	dashboardRoute: '/dashboard'

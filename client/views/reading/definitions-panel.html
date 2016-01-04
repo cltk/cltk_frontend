@@ -1,0 +1,79 @@
+
+<template name="definitionsPanel">
+
+  <div class="definitions-panel paper-shadow">
+    <div class="definitions-panel-inner">
+      {{#each words}}
+
+        <div class="meta-item definition">
+          <div class="show-more-toggle">
+            <i class="mdi mdi-plus"></i>
+            <i class="mdi mdi-minus"></i>
+
+          </div><!-- .show-more-toggle -->
+
+          <div class="definition-title meta-item-title">
+            <h4 class="word">
+              {{lemma}}
+            </h4>
+            <a class="to-perseus" href="http://www.perseus.tufts.edu/hopper/morph?l={{lemma}}&la=la" target="_blank">
+              Perseus
+            </a>
+          </div><!-- .definition-title -->
+
+          <div class="word-meanings">
+            {{#each definitions}}
+              <div class="meaning">
+                <span class="root">{{joinArray orthography}}</span>
+                <span class="definition">{{joinArray senses}}</span>
+
+                {{#each inflections}}
+                  <div class="forms">
+
+                    <span class="form">
+
+                      {{#if isNoun pos}}
+                        -{{ending}}: {{pos}} {{declension.title}} declension, {{declension.case}} {{gender}} {{number}}
+                      {{/if}}
+
+                      {{#if isPronoun pos}}
+                        -{{ending}}: {{pos}} {{declension.title}} declension, {{declension.case}} {{gender}} {{number}}
+                      {{/if}}
+
+                      {{#if isAdjective pos}}
+                        -{{ending}}: {{pos}} {{declension.title}} declension, {{declension.case}} {{gender}} {{number}}
+                      {{/if}}
+
+                      {{#if isVerb pos}}
+                        -{{ending}}: {{pos}} {{conjugation}} conjugation, {{person}} {{number}} {{tense}} {{voice}} {{mood}}
+                      {{/if}}
+
+                      {{#if isParticiple pos}}
+                        -{{ending}}: {{pos}} {{declension.title}} declension, {{declension.case}} {{gender}} {{number}} {{tense}} {{voice}}
+                      {{/if}}
+
+                      {{#if isOtherPOS pos}}
+                        -{{ending}}: {{pos}} {{form}}
+                      {{/if }}
+                    </span><!-- .form -->
+
+                  </div><!-- .forms -->
+
+                {{/each}}<!-- inflections -->
+              </div><!-- .meaning -->
+
+            {{/each}}<!-- definitions -->
+
+          </div><!-- .word-meanings -->
+
+        </div><!-- .meta-item.definition -->
+      {{/each}}<!-- words -->
+
+      <span class="no-results no-results-definitions">
+        No definitions available.
+      </span>
+
+    </div>
+  </div>
+
+</template>
