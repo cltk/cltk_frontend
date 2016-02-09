@@ -5,8 +5,8 @@
 
 meteor-platform
 coffeescript
+react
 less
-angular
 http
 accounts-base
 accounts-password
@@ -58,7 +58,10 @@ yogiben:admin
 timmyg:wow
 tsega:skrollr
 utilities:avatar
+
 archimedes:core
 tomi:upload-server
 tomi:upload-jquery
 jabbslad:basic-auth
+react-template-helper
+izzilab:material-ui
