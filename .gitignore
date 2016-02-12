@@ -3,6 +3,7 @@
 local
 private/settings
 *.log
+.uploads
 
 #########################
 # Emacs temporary files #

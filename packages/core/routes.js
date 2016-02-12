@@ -8,12 +8,6 @@ OnBeforeActions = {
         return pause();
       }else {
 
-        if (Meteor.isClient && typeof window !== "undefined" ){
-
-
-
-        }
-
         this.next();
 
       }
