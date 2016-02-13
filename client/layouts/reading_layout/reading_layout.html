@@ -4,7 +4,6 @@
 
 		{{> headerReading}}
 
-foobar
 		{{#momentum plugin='iron-router' options=momentumIRTransition}}
 			{{> yield }}
 		{{/momentum}}
@@ -21,8 +20,11 @@ foobar
   <div id="annotate-widget">
   </div>
 
-  {{> definitionsPanel }}
-  {{> commentaryPanel }}
+  <div id="definitions-panel" class="modal-panel definitions-panel paper-shadow slide-visible">
+  </div>
+
+  <div id="commentary-panel" class="modal-panel commentary-panel paper-shadow slide-visible">
+  </div>
 
 	{{> autoformModals}}
 

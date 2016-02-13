@@ -1,10 +1,11 @@
-Commentary = React.createClass({
+
+CommentaryPanel = React.createClass({
 
   mixins: [ReactMeteorData],
 
   getMeteorData(){
     return {
-      comments: []
+      comments: [{}]
 
     };
 
@@ -84,7 +85,6 @@ Commentary = React.createClass({
 
       }];
 
-    console.log("Commentary:", comments);
 
     return comments.map((comment) => {
       return <Comment
@@ -97,17 +97,16 @@ Commentary = React.createClass({
   render() {
 
      return (
-       <div class="commentary-panel-inner">
+       <div className="commentary-panel-inner">
 
-         <div class="comments">
-           //{this.renderComments()}
+         <div className="comments">
+           {this.renderComments()}
 
          </div>
 
-          <span class="no-results no-results-commentary">
-            No commentary available.
-
-          </span>
+          {this.data.comments.length === 0 ?
+              <span className="no-results no-results-commentary">No commentary available.</span>
+            : null }
 
        </div>
 

@@ -1,7 +1,23 @@
-Template.definitionsPanel.helpers({
-  words: function() {
-    return [
+
+DefinitionsPanel = React.createClass({
+
+  // This mixin makes the getMeteorData method work
+  mixins: [ReactMeteorData],
+
+  getMeteorData() {
+    let query = {};
+
+    return {
+      definitions : [{}]
+    };
+
+  },
+
+
+  renderDefinitions(){
+    var words = [
       {
+        _id : 123,
         lemma: "arma",
         definitions: [
           {
@@ -55,6 +71,7 @@ Template.definitionsPanel.helpers({
           }
         ]
       }, {
+        _id : 124,
         lemma: "virum",
         definitions: [
           {
@@ -91,5 +108,30 @@ Template.definitionsPanel.helpers({
         ]
       }
     ];
-  }
+
+    return words.map((word) => {
+      return <DefinitionWord
+        key={word._id}
+        word={word} />;
+    });
+
+  },
+
+  render() {
+
+     return (
+        <div className="modal-panel-inner definitions-panel-inner">
+
+          {this.renderDefinitions()}
+
+          {this.data.definitions.length === 0 ?
+              <span className="no-results no-results-definitions">No definitions available.</span>
+            : null }
+
+        </div>
+
+
+     );
+   }
+
 });

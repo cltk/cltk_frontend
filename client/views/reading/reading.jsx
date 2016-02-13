@@ -106,12 +106,10 @@ Template.readingBookLine.helpers({
   }
 });
 
-Template.readingBookChapterSection.onRendered(function() {
+Template.readingLayout.onRendered(function() {
   React.render(<AnnotateWidget />, document.getElementById("annotate-widget"));
-
-});
-Template.readingBookLine.onRendered(function() {
-  React.render(<AnnotateWidget />, document.getElementById("annotate-widget"));
+  React.render(<CommentaryPanel />, document.getElementById("commentary-panel"));
+  React.render(<DefinitionsPanel />, document.getElementById("definitions-panel"));
 
 });
 
@@ -127,30 +125,32 @@ Template.headerReading.events = {
     if ($target.hasClass("checked")) {
       $target.removeClass("checked");
       if ($target.data().type === "definitions") {
-        return $(".definitions-panel").removeClass("slide-visible");
+        $(".definitions-panel").removeClass("slide-visible");
 
       } else if ($target.data().type === "commentary") {
-        return $(".commentary-panel").removeClass("slide-visible");
+        $(".commentary-panel").removeClass("slide-visible");
 
       } else if ($target.data().type === "translations") {
-        return $(".commentary-panel").removeClass("slide-visible");
+        $(".commentary-panel").removeClass("slide-visible");
 
       }
 
     } else {
       $target.addClass("checked");
       if ($target.data().type === "definitions") {
-        return $(".definitions-panel").addClass("slide-visible");
+        $(".definitions-panel").addClass("slide-visible");
 
       } else if ($target.data().type === "commentary") {
-        return $(".commentary-panel").addClass("slide-visible");
+        $(".commentary-panel").addClass("slide-visible");
 
       } else if ($target.data().type === "translations") {
-        return $(".commentary-panel").addClass("slide-visible");
+        $(".commentary-panel").addClass("slide-visible");
 
       }
 
     }
+
+
 
   },
   "click .close-definitions-panel": function(e) {
