@@ -7,21 +7,23 @@ var { ThemeManager } = MUI.Styles;
 // App component - represents the whole app
 AnnotateWidget = React.createClass({
 
-  comment_mode_enabled: false,
-
-  getDefaultProps: function() {
+  getInitialState(){
     return {
-      value: false
-    };
-  },
-
-  toggleCommentMode() {
-    this.comment_mode_enabled = ! this.comment_mode_enabled;
+      commentModeEnabled: false
+    }
 
   },
+
+  toggleCommentMode(e) {
+    this.setState({
+        commentModeEnabled : ! this.state.commentModeEnabled
+    })
+
+  },
+
 
   render() {
-    const fabClassName = (this.comment_mode_enabled ? "comment-mode-enabled" : "") + " md-button md-fab paper-shadow";
+    const fabClassName = (this.state.commentModeEnabled ? "comment-mode-enabled" : "") + " md-button md-fab paper-shadow";
 
     return (
 

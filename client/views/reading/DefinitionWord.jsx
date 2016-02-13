@@ -5,11 +5,26 @@ DefinitionWord = React.createClass({
 
   },
 
+  getInitialState(){
+    return {
+      showMore: false
+    }
+
+  },
+
+  toggleShowMore(e) {
+    this.setState({
+        showMore: ! this.state.showMore
+    })
+
+  },
+
   render() {
+     const taskClassName = "meta-item definition " + (this.state.showMore ? "expanded" : "");
 
      return (
-          <div className="meta-item definition">
-            <div className="show-more-toggle">
+          <div className={taskClassName}>
+            <div className="show-more-toggle" onClick={this.toggleShowMore}>
               <i className="mdi mdi-plus paper-shadow"></i>
               <i className="mdi mdi-minus paper-shadow"></i>
 
