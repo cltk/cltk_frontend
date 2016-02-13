@@ -2,28 +2,33 @@ var {
   FloatingActionButton,
   ContentAdd
 } = MUI;
-var ThemeManager = new MUI.Styles.ThemeManager();
+var { ThemeManager } = MUI.Styles;
 
 // App component - represents the whole app
 AnnotateWidget = React.createClass({
   propTypes: {
-    muiTheme: ThemeManager.getCurrentTheme()
+    comment_mode_enabled: React.PropTypes.bool.isRequired
   },
-  // Required by Material UI
-  childContextTypes: {
-      muiTheme: React.PropTypes.object
+  getDefaultProps: function() {
+    return {
+      value: false
+    };
   },
-  getChildContext() {
-      return {
-          muiTheme: ThemeManager.getCurrentTheme()
-      };
+
+  toggleCommentMode() {
+    this.props.comment_mode_enabled = ! this.props.comment_mode_enabled;
+
   },
 
   render() {
+    const fabClassName = (this.props.comment_mode_enabled ? "comment-mode-enabled" : "") + " md-button md-fab paper-shadow";
+
     return (
-      <FloatingActionButton >
-        <ContentAdd />
-      </FloatingActionButton>
+
+      <button className={fabClassName} onClick={this.toggleCommentMode}>
+        <i className="mdi mdi-pencil"></i>
+        <i className="mdi mdi-close"></i>
+      </button>
 
     );
   }

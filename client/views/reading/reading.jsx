@@ -110,6 +110,10 @@ Template.readingBookChapterSection.onRendered(function() {
   React.render(<AnnotateWidget />, document.getElementById("annotate-widget"));
 
 });
+Template.readingBookLine.onRendered(function() {
+  React.render(<AnnotateWidget />, document.getElementById("annotate-widget"));
+
+});
 
 Template.headerReading.events = {
   "click .meta-toggle": function(e) {

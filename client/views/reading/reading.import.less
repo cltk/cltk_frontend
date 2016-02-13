@@ -54,9 +54,11 @@ header .navigation-primary .reading-location {
 
 #reading {
 
-  h1 {
+  h1.work-title {
     font-family:@font-section-title;
     font-weight:700;
+    margin:0;
+    padding-bottom:40px;
 
   }
 
@@ -68,14 +70,14 @@ header .navigation-primary .reading-location {
 
   .title-wrap, .author-wrap {
     text-align: center;
-    padding:20px 0;
+    padding:10px 0;
 
   }
 
   .chapter-heading {
 
       text-align: left;
-  		margin:15px auto;
+  		margin:5px auto;
   		width:95%;
   		max-width:770px;
       h3 {
@@ -148,7 +150,7 @@ header .navigation-primary .reading-location {
   }
 
   p {
-    margin:0px 35px 0 0;
+    margin:0px 0px 0 0;
     padding:5px 0;
     display:inline-block;
     vertical-align: top;
@@ -162,7 +164,7 @@ header .navigation-primary .reading-location {
     vertical-align: top;
     top:auto;
     right:auto;
-    float:left;
+    float:right;
     width:0;
     height:0;
     margin:10px 0 0 0;
@@ -193,7 +195,7 @@ header .navigation-primary .reading-location {
   height:70px;
   overflow:hidden;
   opacity:0;
-  .transition(height 300ms ease-out 100ms);
+  .transition(opacity 100ms ease-out 100ms);
 
   .text-meta-option {
     cursor:pointer;
@@ -201,7 +203,7 @@ header .navigation-primary .reading-location {
     &:hover {
       i {
         opacity:1;
-        background:@md-primary-800;
+        background:@md-primary-300;
       }
     }
 
@@ -242,6 +244,44 @@ header .navigation-primary .reading-location {
   position:fixed;
   bottom:20px;
   right:20px;
+
+  button {
+    background:@md-primary-300;
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    outline:none;
+    border:none;
+
+    &:hover, &:focus {
+      outline:none;
+      background:@md-primary;
+    }
+
+    &.comment-mode-enabled {
+      background:@gray;
+      i.mdi-close {
+        display:block;
+      }
+      i.mdi-pencil {
+        display:none;
+      }
+
+    }
+
+    i.mdi-pencil {
+      color:@light;
+      display:block;
+      padding:10px;
+    }
+
+    i.mdi-close {
+      color:@dark;
+      padding:10px;
+      display:none;
+    }
+
+  }
 
 
 
