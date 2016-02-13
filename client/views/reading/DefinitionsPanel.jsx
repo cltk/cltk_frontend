@@ -8,7 +8,7 @@ DefinitionsPanel = React.createClass({
     let query = {};
 
     return {
-      definitions : [{}]
+      words : [{}]
     };
 
   },
@@ -124,7 +124,7 @@ DefinitionsPanel = React.createClass({
 
           {this.renderDefinitions()}
 
-          {this.data.definitions.length === 0 ?
+          {this.data.words.length === 0 ?
               <span className="no-results no-results-definitions">No definitions available.</span>
             : null }
 

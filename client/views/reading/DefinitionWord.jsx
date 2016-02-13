@@ -20,7 +20,7 @@ DefinitionWord = React.createClass({
   },
 
   render() {
-     const taskClassName = "meta-item definition " + (this.state.showMore ? "expanded" : "");
+     const taskClassName = "meta-item panel-item definition " + (this.state.showMore ? "expanded" : "");
 
      return (
           <div className={taskClassName}>
@@ -42,12 +42,12 @@ DefinitionWord = React.createClass({
             <div className="word-meanings">
               {this.props.word.definitions.map(function(definition, i){
 
-                return <div className="meaning">
+                return <div className="meaning" key={i}>
                   <span className="root">{definition.orthography.join(", ")}</span>
                   <span className="meaning-definition">{definition.senses.join(", ")}</span>
 
-                  {definition.inflections.map(function(inflection){
-                    return <div className="forms">
+                  {definition.inflections.map(function(inflection, j){
+                    return <div className="forms" key={j}>
 
                       {(() => {
                         switch (inflection.pos) {
