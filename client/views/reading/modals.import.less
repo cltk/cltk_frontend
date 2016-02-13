@@ -114,9 +114,19 @@
     width:100%;
     height:40px;
     .gradient( rgba(255,255,255,0), rgba(255,255,255,1) );
-
-
+    cursor:pointer;
     z-index:1;
+
+    &:hover {
+      .mdi {
+        background:@md-primary-300;
+        color:@light;
+
+      }
+      span, i {
+        color:@light;
+      }
+    }
 
     .mdi {
       background:@divider;

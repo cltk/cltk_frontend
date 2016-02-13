@@ -21,13 +21,14 @@ header .navigation-primary .reading-location {
 }
 
 .meta-toggle {
+  border-left:1px solid @light;
 
   &.checked {
-    i.mdi-checkbox-marked-outline {
-      display:inline-block;
-    }
-    i.mdi-checkbox-blank-outline {
-      display:none;
+    background:@md-primary-300;
+    color:@light;
+    span, i, a {
+      color:@light !important;
+
     }
 
   }
