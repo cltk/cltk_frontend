@@ -55,6 +55,11 @@ header .navigation-primary .reading-location {
 
 #reading {
 
+  .transition(background 300ms ease-out);
+  &.comment-mode-enabled {
+    background:@background-gray;
+  }
+
   h1.work-title {
     font-family:@font-section-title;
     font-weight:700;
@@ -260,7 +265,7 @@ header .navigation-primary .reading-location {
     }
 
     &.comment-mode-enabled {
-      background:@gray;
+      background:@light;
       i.mdi-close {
         display:block;
       }
@@ -290,6 +295,10 @@ header .navigation-primary .reading-location {
 
 
 .reading-loading-area {
+  .transition(background 300ms ease-out);
+  &.comment-mode-enabled {
+    background:@background-gray;
+  }
 
 	padding:0px 0 200px;
 	width:100%;
