@@ -25,15 +25,14 @@ DefinitionWord = React.createClass({
             </div>
 
             <div className="word-meanings">
+              {this.props.word.definitions.map(function(definition, i){
 
-              {this.props.word.definitions.map(function(definition){
-
-                <div className="meaning">
-                  <span className="root">{definition.orthography}</span>
-                  <span className="meaning-definition">{definition.senses}</span>
+                return <div className="meaning">
+                  <span className="root">{definition.orthography.join(", ")}</span>
+                  <span className="meaning-definition">{definition.senses.join(", ")}</span>
 
                   {definition.inflections.map(function(inflection){
-                    <div className="forms">
+                    return <div className="forms">
 
                       {(() => {
                         switch (inflection.pos) {
