@@ -1,0 +1,26 @@
+Translation = React.createClass({
+
+  propTypes: {
+    translation: React.PropTypes.object.isRequired
+  },
+
+  render() {
+
+     const translationClassName = "meta-item panel-item translation";
+
+     return (
+        <div className={translationClassName}>
+         {this.props.translation.text.map(function(text, i){
+
+          <p key={i} className="translation-text" dangerouslySetInnerHTML={{__html: text.html}}>
+
+          </p>
+
+          })}
+
+        </div>
+
+     );
+   }
+
+});

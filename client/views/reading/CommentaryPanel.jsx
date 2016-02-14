@@ -13,6 +13,21 @@ CommentaryPanel = React.createClass({
 
   },
 
+  getInitialState(){
+    return {
+      selected_translation: false
+    }
+
+  },
+
+  toggleTranslation(e) {
+    var translation = {};
+    this.setState({
+        selected_translation: translation
+    })
+
+  },
+
   renderComments(){
     var comments = [{
         _id : 1233,
@@ -117,9 +132,60 @@ CommentaryPanel = React.createClass({
 
   renderTranslations(){
     var translations = [{
-        
+          _id : 1234,
+          date : 1920,
+          translators : [{
+            name_short : "A. D. Godley",
+            name_full : "A. D. Godley"
 
-      }];
+          }],
+          translators_length : 1,
+          text : [{
+            html : "This is the display of the inquiry of Herodotus of Halicarnassus, so that things done by man not be forgotten in time, and that great and marvelous deeds, some displayed by the Hellenes, some by the barbarians, not lose their glory, including among others what was the cause of their waging war on each other.",
+            n : 1,
+          },{
+            html : "The Persian learned men say that the Phoenicians were the cause of the dispute. These (they say) came to our seas from the sea which is called Red, and having settled in the country which they still occupy, at once began to make long voyages. Among other places to which they carried Egyptian and Assyrian merchandise, they came to Argos,",
+            n : 2,
+          },{
+            html : "which was at that time preeminent in every way among the people of what is now called Hellas. The Phoenicians came to Argos, and set out their cargo.",
+            n : 3,
+          },{
+            html : "On the fifth or sixth day after their arrival, when their wares were almost all sold, many women came to the shore and among them especially the daughter of the king, whose name was Io (according to Persians and Greeks alike), the daughter of Inachus.",
+            n : 4,
+          },{
+            html : "As these stood about the stern of the ship bargaining for the wares they liked, the Phoenicians incited one another to set upon them. Most of the women escaped: Io and others were seized and thrown into the ship, which then sailed away for Egypt.",
+            n : 5,
+
+          }]
+        },{
+          _id : 1235,
+          date : 1921,
+          translators : [{
+            name_short : "A. S. F. Gow",
+            name_full : "A. S. F. Gow"
+
+          }],
+          translators_length : 1,
+          text : [{
+            html : "Alternate Translation. This is the display of the inquiry of Herodotus of Halicarnassus, so that things done by man not be forgotten in time, and that great and marvelous deeds, some displayed by the Hellenes, some by the barbarians, not lose their glory, including among others what was the cause of their waging war on each other.",
+            n : 1,
+          },{
+            html : "The Persian learned men say that the Phoenicians were the cause of the dispute. These (they say) came to our seas from the sea which is called Red, and having settled in the country which they still occupy, at once began to make long voyages. Among other places to which they carried Egyptian and Assyrian merchandise, they came to Argos,",
+            n : 2,
+          },{
+            html : "which was at that time preeminent in every way among the people of what is now called Hellas. The Phoenicians came to Argos, and set out their cargo.",
+            n : 3,
+          },{
+            html : "On the fifth or sixth day after their arrival, when their wares were almost all sold, many women came to the shore and among them especially the daughter of the king, whose name was Io (according to Persians and Greeks alike), the daughter of Inachus.",
+            n : 4,
+          },{
+            html : "As these stood about the stern of the ship bargaining for the wares they liked, the Phoenicians incited one another to set upon them. Most of the women escaped: Io and others were seized and thrown into the ship, which then sailed away for Egypt.",
+            n : 5,
+
+          }]
+
+
+        }];
 
     return translations.map((translation) => {
       return <Translation
@@ -132,29 +198,47 @@ CommentaryPanel = React.createClass({
   render() {
 
      return (
-       <div className="commentary-panel-panels">
+       <div className="inner-groups">
          <div className="modal-panel-inner commentary-panel-inner">
 
            <div className="comments">
-             {this.renderComments()}
-
-           </div>
-
+            {this.renderComments()}
             {this.data.comments.length === 0 ?
                 <span className="no-results no-results-commentary">No commentary available.</span>
               : null }
+
+           </div>
+
+
+            <div className="bottom-gradient"></div>
 
          </div>
          <div className="modal-panel-inner translation-panel-inner">
 
            <div className="translations">
-             {this.renderTranslations()}
+              {this.renderTranslations()}
+              {this.data.translations.length === 0 ?
+                  <span className="no-results no-results-translation">No translations available.</span>
+                : null }
+
+           </div>
+           <div className="translations-options">
+             {this.props.translations.map(function(translation, i){
+               <a key={i} className="md-button" onClick="toggleTranslation()">
+                 {translation.translators.map(function(translator, i){
+                   let is_last = (i == this.translators_length - 1);
+
+                   return <span key={i}>{translator.name_short}{is_last ? " - " : ", "}</span>
+
+                 })}
+                 {translation.date}
+               </a>
+             })}
 
            </div>
 
-            {this.data.translations.length === 0 ?
-                <span className="no-results no-results-translation">No translations available.</span>
-              : null }
+
+            <div className="bottom-gradient"></div>
 
          </div>
         </div>
