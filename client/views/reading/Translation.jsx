@@ -6,15 +6,13 @@ Translation = React.createClass({
 
   render() {
 
-     const translationClassName = "meta-item panel-item translation";
+     const translationClassName = "meta-item translation";
 
      return (
         <div className={translationClassName}>
          {this.props.translation.text.map(function(text, i){
 
-          <p key={i} className="translation-text" dangerouslySetInnerHTML={{__html: text.html}}>
-
-          </p>
+          return <p key={i} className="translation-text" dangerouslySetInnerHTML={{__html: text.html}}></p>
 
           })}
 

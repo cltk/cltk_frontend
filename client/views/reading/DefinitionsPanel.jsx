@@ -121,8 +121,9 @@ DefinitionsPanel = React.createClass({
 
      return (
         <div className="modal-panel-inner definitions-panel-inner">
-
-          {this.renderDefinitions()}
+          <div className="definitions panel-items">
+            {this.renderDefinitions()}
+          </div>
 
           {this.data.words.length === 0 ?
               <span className="no-results no-results-definitions">No definitions available.</span>

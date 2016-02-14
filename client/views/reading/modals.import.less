@@ -7,12 +7,23 @@
   background:@light;
 
   .modal-panel-inner {
-    padding:70px 5%;
+    padding:60px 0 0;
     width:100%;
     height:100%;
     margin:0 auto;
-    overflow-y:scroll;
+    overflow:hidden;
+    position:relative;
 
+
+    .panel-items {
+      padding:10px 5% 100px;
+      width:100%;
+      height:100%;
+      margin:0 auto;
+      overflow-y:scroll;
+      position:relative;
+
+    }
 
   }
 
@@ -97,12 +108,12 @@
 }
 .bottom-gradient {
   width:100%;
+  height:20px;
   position:absolute;
   bottom:0;
   left:0;
   .gradient( rgba(255,255,255,0), rgba(255,255,255,1) );
   z-index:1;
-  height:40px;
 
 }
 
@@ -118,7 +129,6 @@
   &.slide-visible {
   	transform: translateY(0%) translateZ(0);
   }
-
 
 }
 
@@ -189,7 +199,7 @@
   }
 
   &.commentary-visible {
-    .translation-panel-inner {
+    .translations-panel-inner {
       height:0;
       padding:0;
 
@@ -208,13 +218,23 @@
 
   &.translations-visible.commentary-visible {
     .commentary-panel-inner, .translations-panel-inner {
-      height:40%;
-      padding:70px 7%;
       display:block;
+
       > .bottom-gradient {
         display:block;
 
       }
+
+    }
+    .commentary-panel-inner {
+      height:50%;
+
+    }
+    .translations-panel-inner {
+      border-top:1px solid @divider-light;
+      padding:0;
+      height:50%;
+
 
     }
 
@@ -239,13 +259,22 @@
   }
 
   .commentary-panel-inner, .translations-panel-inner {
-    padding:70px 7%;
     margin:0 auto;
 
 
   }
 
+  .translations-panel-inner {
+    .translations {
+
+    }
+    .translation-options {
+    }
+
+  }
+
 }
+
 
 .commentary-comment {
 
@@ -264,8 +293,10 @@
 
     .comment-authors, .comment-date {
       font-style:italic;
+      color:@text-secondary;
       span {
         font-style:italic;
+        color:@text-secondary;
 
       }
     }
@@ -280,9 +311,68 @@
     color:#555;
     padding:5px 0px;
     margin:0 6px;
+    word-wrap:break-word;
 
   }
 
 
+
+}
+
+.translations {
+  padding:20px 5% 100px;
+
+  p.translation-text {
+    font-size:16px;
+    font-family:@font-light;
+    font-weight:300;
+    line-height:1.5em;
+    color:#555;
+    padding:5px 0px;
+    margin:0 6px;
+    word-wrap:break-word;
+
+  }
+
+}
+
+
+.translations-options {
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:rgba(255,255,255,0.97);
+  border-top:1px solid @divider-light;
+  height:46px;
+
+  .md-button {
+    margin:0;
+    height:100%;
+    padding:5px 15px;
+    text-overflow: ellipsis;
+
+    &.translation-selected {
+      background:@md-primary-500;
+      span {
+        color:@light;
+      }
+
+    }
+
+    span {
+      font-family:@font-label;
+      font-size:12px;
+      text-transform: uppercase;
+
+    }
+
+
+  }
+
+  .bottom-gradient {
+    bottom:auto;
+    top:-20px;
+  }
 
 }
