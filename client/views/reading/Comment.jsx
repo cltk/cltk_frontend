@@ -49,8 +49,7 @@ Comment = React.createClass({
            </span>
          </div>
 
-         <p className="comment-content">
-           {this.props.comment.content}
+         <p className="comment-content" dangerouslySetInnerHTML={{__html: this.props.comment.content}}>
          </p>
 
         <div className="bottom-gradient"></div>

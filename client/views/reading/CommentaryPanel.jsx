@@ -5,7 +5,8 @@ CommentaryPanel = React.createClass({
 
   getMeteorData(){
     return {
-      comments: [{}]
+      comments: [{}],
+      translations: [{}]
 
     };
 
@@ -13,7 +14,6 @@ CommentaryPanel = React.createClass({
   },
 
   renderComments(){
-    // Get tasks from this.data.tasks
     var comments = [{
         _id : 1233,
         authors : [{
@@ -75,6 +75,7 @@ CommentaryPanel = React.createClass({
 
       },{
         _id : 1235,
+        date : 1902,
         authors : [{
           name_short : "How",
           name_full : "W. W. How"
@@ -114,22 +115,49 @@ CommentaryPanel = React.createClass({
 
   },
 
+  renderTranslations(){
+    var translations = [{
+        
+
+      }];
+
+    return translations.map((translation) => {
+      return <Translation
+        key={translation._id}
+        translation={translation} />;
+    });
+
+  },
+
   render() {
 
      return (
-       <div className="commentary-panel-inner">
+       <div className="commentary-panel-panels">
+         <div className="modal-panel-inner commentary-panel-inner">
 
-         <div className="comments">
-           {this.renderComments()}
+           <div className="comments">
+             {this.renderComments()}
+
+           </div>
+
+            {this.data.comments.length === 0 ?
+                <span className="no-results no-results-commentary">No commentary available.</span>
+              : null }
 
          </div>
+         <div className="modal-panel-inner translation-panel-inner">
 
-          {this.data.comments.length === 0 ?
-              <span className="no-results no-results-commentary">No commentary available.</span>
-            : null }
+           <div className="translations">
+             {this.renderTranslations()}
 
-       </div>
+           </div>
 
+            {this.data.translations.length === 0 ?
+                <span className="no-results no-results-translation">No translations available.</span>
+              : null }
+
+         </div>
+        </div>
      );
    }
 

@@ -128,10 +128,20 @@ Template.headerReading.events = {
         $(".definitions-panel").removeClass("slide-visible");
 
       } else if ($target.data().type === "commentary") {
-        $(".commentary-panel").removeClass("slide-visible");
+        $(".commentary-panel").removeClass("commentary-visible");
+
+        if(!$(".commentary-panel").hasClass("translations-visible")){
+          $(".commentary-panel").removeClass("slide-visible");
+
+        }
 
       } else if ($target.data().type === "translations") {
-        $(".commentary-panel").removeClass("slide-visible");
+        $(".commentary-panel").removeClass("translations-visible");
+
+        if(!$(".commentary-panel").hasClass("commentary-visible")){
+          $(".commentary-panel").removeClass("slide-visible");
+
+        }
 
       }
 
@@ -142,9 +152,11 @@ Template.headerReading.events = {
 
       } else if ($target.data().type === "commentary") {
         $(".commentary-panel").addClass("slide-visible");
+        $(".commentary-panel").addClass("commentary-visible");
 
       } else if ($target.data().type === "translations") {
         $(".commentary-panel").addClass("slide-visible");
+        $(".commentary-panel").addClass("translations-visible");
 
       }
 

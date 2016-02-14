@@ -8,7 +8,7 @@
   background:@light;
 
   .modal-panel-inner {
-    padding:80px 0;
+    padding:70px 0;
     width:90%;
     margin:0 auto;
 
@@ -24,7 +24,7 @@
 }
 .panel-item {
   width:100%;
-  margin:10px 0 15px;
+  margin:20px 0 25px;
   padding:0;
   position:relative;
   overflow-y:hidden;
@@ -173,7 +173,7 @@
 }
 
 .commentary-panel {
-  width:33%;
+  width:36%;
   max-width:600px;
   min-width:300px;
   right:0;
@@ -187,8 +187,7 @@
   }
 
   .commentary-panel-inner {
-    padding:100px 0;
-    width:90%;
+    width:88%;
     margin:0 auto;
 
 
@@ -202,18 +201,31 @@
     font-size:16px;
     color:@dark;
     font-family:@font-museo;
-    span {
+    .comment-ref {
       font-weight:bold;
+      span {
+        font-weight:bold;
+
+      }
+
+    }
+
+    .comment-authors, .comment-date {
+      font-style:italic;
+      span {
+        font-style:italic;
+
+      }
     }
 
   }
 
   p {
-    font-size:15px;
+    font-size:16px;
     font-family:@font-light;
     font-weight:300;
     line-height:1.5em;
-    color:#444;
+    color:#555;
     padding:5px 0px;
     margin:0 6px;
 
