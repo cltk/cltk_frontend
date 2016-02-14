@@ -1,55 +1,52 @@
 <template name="readingBookChapterSection">
 
   <section id="reading" class="reading-environment book-chapter-section">
-      <div class="container">
-          <div class="row">
+      <div class="reading-container">
+
+        <div class="author-wrap">
+          <h3 class="work-author">{{work.author.english_full}} (<em>{{work.author.original_full}}</em>)</h3>
+        </div>
+        {{#each work.books }}
+          <div class="title-wrap">
+            <h1 class="work-title">{{work.title}} {{book_n}}</h1>
+          </div>
+          {{#each chapters }}
+            <div class="chapter-heading">
+                <h3 class="chapter-number">{{chapter_n}}.</h3>
+            </div>
+
+            {{#each sections }}
+              <div class="text-wrap">
+                  {{{html}}}
+                  <div class="text-meta-options">
+                    <div class="text-meta-option">
+                      <i class="mdi mdi-bookmark"></i>
+                      <span class="option-label">Bookmark</span>
+                    </div>
+
+                    <div class="text-meta-option">
+                      <i class="mdi mdi-account"></i>
+                      <span class="option-label">Entities</span>
+                    </div>
+
+                    <div class="text-meta-option">
+                      <i class="mdi mdi-share-variant"></i>
+                      <span class="option-label">Related Passages</span>
+                    </div>
+
+                    <div class="text-meta-option">
+                      <i class="mdi mdi-dots-horizontal"></i>
+                      <span class="option-label"></span>
+                    </div>
 
 
-
-              <div class="author-wrap">
-                <h3 class="work-author">{{work.author.english_full}} (<em>{{work.author.original_full}}</em>)</h3>
-              </div>
-              {{#each work.books }}
-                <div class="title-wrap">
-                  <h1 class="work-title">{{work.title}} {{book_n}}</h1>
-                </div>
-                {{#each chapters }}
-                  <div class="chapter-heading">
-                      <h3 class="chapter-number">{{chapter_n}}.</h3>
                   </div>
 
-                  {{#each sections }}
-                    <div class="text-wrap">
-                        {{{html}}}
-                        <div class="text-meta-options">
-                          <div class="text-meta-option">
-                            <i class="mdi mdi-bookmark"></i>
-                            <span class="option-label">Bookmark</span>
-                          </div>
+              </div>
+            {{/each}}
+          {{/each}}
+        {{/each}}
 
-                          <div class="text-meta-option">
-                            <i class="mdi mdi-account"></i>
-                            <span class="option-label">Entities</span>
-                          </div>
-
-                          <div class="text-meta-option">
-                            <i class="mdi mdi-share-variant"></i>
-                            <span class="option-label">Related Passages</span>
-                          </div>
-
-                          <div class="text-meta-option">
-                            <i class="mdi mdi-dots-horizontal"></i>
-                            <span class="option-label"></span>
-                          </div>
-
-
-                        </div>
-
-                    </div>
-                  {{/each}}
-                {{/each}}
-              {{/each}}
-          </div>
       </div>
 
   </section>

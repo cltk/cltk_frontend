@@ -60,6 +60,32 @@ header .navigation-primary .reading-location {
     background:@background-gray;
   }
 
+  &.with-commentary-shown {
+    .reading-container {
+      float:left;
+      width:65%;
+    }
+
+  }
+
+  &.with-definitions-shown {
+    .reading-container {
+      float:right;
+      width:80%;
+
+    }
+
+  }
+
+  &.with-commentary-shown.with-definitions-shown {
+    .reading-container {
+      float:none;
+      margin:0 0 0 28%;
+      width:35%;
+    }
+
+  }
+
   h1.work-title {
     font-family:@font-section-title;
     font-weight:700;
@@ -77,6 +103,8 @@ header .navigation-primary .reading-location {
   .title-wrap, .author-wrap {
     text-align: center;
     padding:10px 0;
+    max-width:790px;
+    margin:0px auto;
 
   }
 
@@ -95,6 +123,12 @@ header .navigation-primary .reading-location {
       }
 
   }
+
+  .row {
+    text-align:center;
+
+  }
+
 
 }
 
@@ -174,6 +208,7 @@ header .navigation-primary .reading-location {
     width:0;
     height:0;
     margin:10px 0 0 0;
+    text-align:left;
     //.transition(width 300ms ease-out 100ms);
 
     .text-meta-option {
@@ -201,6 +236,7 @@ header .navigation-primary .reading-location {
   height:70px;
   overflow:hidden;
   opacity:0;
+  text-align:left;
   .transition(opacity 100ms ease-out 100ms);
 
   .text-meta-option {
