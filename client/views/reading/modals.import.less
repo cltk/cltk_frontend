@@ -50,13 +50,21 @@
 
   }
 
-  .show-more-toggle {
+  .bottom-gradient {
+    width:100%;
     position:absolute;
     bottom:0;
-    right:0px;
-    width:100%;
-    height:40px;
+    left:0;
     .gradient( rgba(255,255,255,0), rgba(255,255,255,1) );
+    z-index:1;
+    height:40px;
+
+  }
+
+  .show-more-toggle {
+    position:absolute;
+    top:0;
+    right:0px;
     cursor:pointer;
     z-index:1;
 
@@ -74,14 +82,14 @@
     .mdi {
       background:@divider;
       color:@light;
-      padding:8px 5px 6px;
+      padding:6px 4px 4px;
       border-radius:20px;
       display:inline-block;
       float:right;
-      margin:5px;
+      margin:2px 3px;
 
       &:before {
-        font-size:22px;
+        font-size:20px;
       }
 
     }
@@ -190,13 +198,24 @@
 
 .commentary-comment {
 
-  .comment-ref {
+  .comment-meta {
     font-size:16px;
+    color:@dark;
+    font-family:@font-museo;
+    span {
+      font-weight:bold;
+    }
 
   }
 
   p {
-    font-size:14px;
+    font-size:15px;
+    font-family:@font-light;
+    font-weight:300;
+    line-height:1.5em;
+    color:#444;
+    padding:5px 0px;
+    margin:0 6px;
 
   }
 

@@ -3,7 +3,7 @@ Comment = React.createClass({
   propTypes: {
     comment: React.PropTypes.object.isRequired
   },
-  
+
   getInitialState(){
     return {
       showMore: false
@@ -21,9 +21,10 @@ Comment = React.createClass({
   render() {
 
      const authors_length = this.props.comment.authors.length;
+     const commentClassName = "meta-item panel-item commentary-comment " + (this.state.showMore ? "expanded" : "");
 
      return (
-       <div className="commentary-comment meta-item panel-item">
+       <div className={commentClassName}>
           <div className="show-more-toggle" onClick={this.toggleShowMore}>
             <i className="mdi mdi-plus paper-shadow"></i>
             <i className="mdi mdi-minus paper-shadow"></i>
@@ -51,6 +52,8 @@ Comment = React.createClass({
          <p className="comment-content">
            {this.props.comment.content}
          </p>
+
+        <div className="bottom-gradient"></div>
 
        </div>
 

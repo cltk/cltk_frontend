@@ -20,10 +20,10 @@ DefinitionWord = React.createClass({
   },
 
   render() {
-     const taskClassName = "meta-item panel-item definition " + (this.state.showMore ? "expanded" : "");
+     const wordClassName = "meta-item panel-item definition " + (this.state.showMore ? "expanded" : "");
 
      return (
-          <div className={taskClassName}>
+          <div className={wordClassName}>
             <div className="show-more-toggle" onClick={this.toggleShowMore}>
               <i className="mdi mdi-plus paper-shadow"></i>
               <i className="mdi mdi-minus paper-shadow"></i>
@@ -82,6 +82,7 @@ DefinitionWord = React.createClass({
 
             </div>
 
+            <div className="bottom-gradient"></div>
           </div>
 
      );
