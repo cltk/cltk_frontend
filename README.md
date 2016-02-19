@@ -1,6 +1,6 @@
 # Notice
 
-The Classics Archive application is currently under active development and thusshould not be considered ready for production.
+The Classics Archive application is currently under active development and is not ready for production.
 
 # About the Classics Archive application
 
