@@ -7,9 +7,15 @@ ReadingChapter = React.createClass({
   renderChapterText() {
 
     return this.props.chapter.sections.map((section, i) => {
+      let showNumber = false;
+      if(section.n%5 === 0){
+        showNumber = true;
+      }
       return <ReadingText
                 key={section._id}
-                text={section} />;
+                showNumber={showNumber}
+                text={section}
+                />;
 
             });
 

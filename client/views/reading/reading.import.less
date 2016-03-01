@@ -89,10 +89,13 @@ header .navigation-primary .reading-location {
   }
 
   h1.work-title {
-    font-family:@font-section-title;
-    font-weight:700;
-    margin:0;
-    padding-bottom:40px;
+    span {
+      font-family:@font-section-title;
+      font-weight:700;
+      margin:0;
+      padding-bottom:40px;
+
+    }
 
   }
 
@@ -111,11 +114,11 @@ header .navigation-primary .reading-location {
   }
 
   .chapter-heading {
-
       text-align: left;
   		margin:5px auto;
   		width:95%;
-  		max-width:770px;
+  		max-width:900px;
+
       h3 {
         font-family:@font-reading;
         font-weight:bold;
@@ -139,11 +142,42 @@ header .navigation-primary .reading-location {
 
   width:100%;
   position:relative;
+	margin:0px auto;
+	width:95%;
+	max-width:730px;
 
   &:hover {
     .text-meta-options {
       height:180px;
       opacity:1;
+    }
+
+  }
+
+  &.show-number, &.bookmarked {
+    .text-left-header {
+      .text-n {
+        display:inline-block;
+      }
+    }
+  }
+
+  &.text-bookmarked {
+    .text-html {
+      border-top:2px solid @md-primary;
+
+    }
+
+    .text-left-header {
+      .text-bookmark {
+        display:inline-block;
+      }
+    }
+    .text-meta-option{
+      .mdi.mdi-bookmark {
+        background: @md-primary;
+        opacity:1;
+      }
     }
 
   }
@@ -157,9 +191,8 @@ header .navigation-primary .reading-location {
     line-height:1.75em;
     letter-spacing: -.0025em;
     text-align: left;
-		margin:15px auto;
-		width:95%;
-		max-width:730px;
+    margin:0px auto;
+    padding:15px 0 20px;
 
   }
 
@@ -230,17 +263,46 @@ header .navigation-primary .reading-location {
 
 }
 
+.text-left-header {
+  position:absolute;
+  top:30px;
+  left:-42px;
+
+  .text-n {
+    font-size:18px;
+    display: none;
+    vertical-align: top;
+    margin:5px 2px;
+
+  }
+
+  .text-bookmark {
+    color:@md-primary;
+    display: none;
+    vertical-align: top;
+    margin-top:12px;
+
+    &::before {
+      font-size:34px;
+
+    }
+  }
+
+}
+
 .text-meta-options {
   position:absolute;
   top:30px;
-  right:30px;
+  right:-130px;
   height:70px;
   overflow:hidden;
   opacity:0;
   text-align:left;
+  display:inline-block;
 
   .text-meta-option {
     cursor:pointer;
+    margin:5px 0;
 
     &:hover {
       i {
@@ -274,7 +336,7 @@ header .navigation-primary .reading-location {
     }
     span {
       font-size:12px;
-      padding:3px 2px;
+      padding:3px 5px;
     }
   }
 
