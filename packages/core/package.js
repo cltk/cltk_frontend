@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'archimedes:core',
+  name: 'archimedigital:core',
   version: '0.0.1',
   // Brief, one-line summary of the package.
   summary: '',
@@ -39,6 +39,6 @@ Package.onUse(function(api) {
 
 Package.onTest(function(api) {
   api.use('tinytest');
-  api.use('archimedes:core');
+  api.use('archimedigital:core');
   api.addFiles('core-tests.js');
 });
