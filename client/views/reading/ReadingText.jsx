@@ -8,7 +8,9 @@ ReadingText = React.createClass({
   getInitialState(){
 
     return {
-      bookmarked: false
+      bookmarked: false,
+      showRelatedPassages: false,
+      showEntities: false
 
     };
 
@@ -17,6 +19,20 @@ ReadingText = React.createClass({
   toggleBookmarked(){
     this.setState({
       bookmarked: ! this.state.bookmarked
+
+    });
+  },
+
+  toggleShowEntities(){
+    this.setState({
+      showEntities: ! this.state.showEntities
+
+    });
+  },
+
+  toggleShowRelatedPassages(){
+    this.setState({
+      showRelatedPassages: ! this.state.showRelatedPassages
 
     });
   },
@@ -33,6 +49,14 @@ ReadingText = React.createClass({
       textClasses = textClasses + " text-bookmarked";
     }
 
+    if (this.state.showEntities){
+      textClasses = textClasses + " show-entities";
+    }
+
+    if (this.state.showRelatedPassages){
+      textClasses = textClasses + " show-related-passages";
+    }
+
     return(
        <div className={textClasses}>
          <div className="text-left-header">
@@ -44,26 +68,20 @@ ReadingText = React.createClass({
           </div>
 
           <div className="text-meta-options">
-            <div className="text-meta-option" onClick={this.toggleBookmarked}>
+            <div className="text-meta-option text-meta-option-bookmark" onClick={this.toggleBookmarked}>
               <i className="mdi mdi-bookmark"></i>
               <span className="option-label">Bookmark</span>
             </div>
 
-            <div className="text-meta-option">
+            <div className="text-meta-option text-meta-option-entities" onClick={this.toggleShowEntities}>
               <i className="mdi mdi-account"></i>
               <span className="option-label">Entities</span>
             </div>
 
-            <div className="text-meta-option">
+            <div className="text-meta-option text-meta-option-related-passages" onClick={this.toggleShowRelatedPassages}>
               <i className="mdi mdi-share-variant"></i>
               <span className="option-label">Related Passages</span>
             </div>
-
-            <div className="text-meta-option">
-              <i className="mdi mdi-dots-horizontal"></i>
-              <span className="option-label"></span>
-            </div>
-
 
           </div>
 
