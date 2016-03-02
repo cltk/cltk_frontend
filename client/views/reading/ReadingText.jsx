@@ -67,6 +67,36 @@ ReadingText = React.createClass({
 
           </div>
 
+          <div className="text-meta text-related-passages">
+            <div className="related-passage">
+              <span className="related-passage-edition">1920, A. S. F. Gow</span>
+              <a href="#" className="related-passage-ref">
+                <h4 >Theocritus, Idylls 17.2-3</h4>
+              </a>
+              <div className="related-passage-lemma">
+                <p>ἄλλοκα δ’ αὖ ποτὶ τὸν ῥιπτεῖ νόον· οἳ δ’ ὑπ’ ἔρωτος</p>
+                <p>δηθὰ κυλοιδιόωντες ἐτώσια μοχθίζοντι.</p>
+                
+              </div>
+
+            </div>
+
+          </div>
+          <div className="text-meta text-entities">
+            <div className="entity">
+              <div className="entity-thumnail-image image-wrap">
+                <img src="/images/entities/herodotus_thumbnail.jpg"/>
+              </div>
+              <div className="entity-description">
+                <h4 className="related-passage-ref">Herodotus</h4>
+                <p>Herodotus was a Greek historian who was born in Halicarnassus, Caria ...</p>
+                <a href="#" className="entity-read-more">Read more</a>
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
 
       );
