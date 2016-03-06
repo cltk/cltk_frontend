@@ -12,9 +12,10 @@ The goal of this application is to provide a modern reading environment for docu
 The CLTK frontend reading environment is built with Meteor and React.  
 
 To get started developing:
-1. [install Meteor](https://www.meteor.com/install).  
-1. Clone this repo
-1. In the application root directory run "$ meteor" to start the application.
+
+1.  [Install Meteor](https://www.meteor.com/install)
+2.  Clone this repo
+3.  In the application root directory run "meteor" to start the application
 
 For managing lists of outstanding development items, we're using ZenHub: https://www.zenhub.io/.  If you're interested in contributing, please consider installing the ZenHub plugin for your browser.
 
