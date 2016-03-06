@@ -1,4 +1,5 @@
 Package.describe({
+  name: 'yogiben:bootstrap',
   summary: "Bootstrap 3 with easy-access variables.",
   version: "0.3.1",
   git: "https://github.com/yogiben/meteor-bootstrap",
@@ -6,9 +7,9 @@ Package.describe({
 
 
 Package.on_use(function (api) {
-  api.versionsFrom("METEOR@1.1.0.2");
+  api.versionsFrom("METEOR@1.0.3");
   api.use('jquery', 'client');
-  api.use('less', 'client');
+  api.use('less@2.5.1', 'client');
 
   // javascript
   api.add_files('lib/js/transition.js', 'client');

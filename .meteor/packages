@@ -3,17 +3,14 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-platform
-coffeescript
-ecmascript
-react
+# Packages from meteor-starter template application
 less
-http
 accounts-base
 accounts-password
-aldeed:autoform@5.1.2
-alanning:roles
 aldeed:collection2
+dburles:collection-helpers
+matb33:collection-hooks
+alanning:roles
 aldeed:simple-schema
 fortawesome:fontawesome
 raix:handlebar-helpers
@@ -23,17 +20,12 @@ aldeed:template-extension
 cfs:graphicsmagick
 yogiben:helpers
 iron:router
-yogiben:autoform-modals
-yogiben:pretty-email
-yogiben:autoform-file
-yogiben:autoform-map
 multiply:iron-router-progress
 manuelschoebel:ms-seo
 spiderable
 accounts-facebook
 accounts-google
 accounts-twitter
-bootstrap
 accounts-ui
 jparker:gravatar
 tap:i18n
@@ -43,22 +35,39 @@ yogiben:mixpanel
 juliancwirko:s-alert
 juliancwirko:s-alert-stackslide
 momentjs:moment
-zimme:iron-router-active
-user-thumbs
-comments
-favorites
-dburles:collection-helpers
+zimme:active-route
+twbs:bootstrap
+useraccounts:iron-routing
 reywood:publish-composite
 percolate:momentum-iron-router
 percolate:momentum
 natestrauser:animate-css
 meteorhacks:subs-manager
-fastclick
-notifications
 yogiben:admin
 timmyg:wow
 tsega:skrollr
 utilities:avatar
+standard-minifiers
+meteor-base
+mongo
+blaze-html-templates
+session
+jquery
+tracker
+logging
+reload
+random
+ejson
+yogiben:bootstrap
+yogiben:pretty-email
+yogiben:autoform-modals
+yogiben:autoform-file
+yogiben:autoform-map
+check
+
+# Packages added for project
+ecmascript
+react
 archimedigital:core
 jabbslad:basic-auth
 react-template-helper

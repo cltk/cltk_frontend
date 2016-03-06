@@ -58,4 +58,4 @@ Schemas.Texts = new SimpleSchema({
   }
 });
 
-Subworks.attachSchema(Schemas.Subworks);
+Texts.attachSchema(Schemas.Texts);
