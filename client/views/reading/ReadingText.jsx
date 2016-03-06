@@ -83,6 +83,10 @@ ReadingText = React.createClass({
               <span className="option-label">Related Passages</span>
             </div>
 
+            <div className="text-meta-option text-meta-option-other-options" >
+              <i className="mdi mdi-dots-horizontal"></i>
+            </div>
+
           </div>
 
           <div className="text-meta text-related-passages">
