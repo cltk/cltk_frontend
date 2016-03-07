@@ -1,8 +1,8 @@
 Template.readingLayout.onRendered(function() {
-  React.render(<Reading />, document.getElementById("reading"));
-  React.render(<AnnotateWidget />, document.getElementById("annotate-widget"));
-  React.render(<CommentaryPanel />, document.getElementById("commentary-panel"));
-  React.render(<DefinitionsPanel />, document.getElementById("definitions-panel"));
+  ReactDOM.render(<Reading />, document.getElementById("reading"));
+  ReactDOM.render(<AnnotateWidget />, document.getElementById("annotate-widget"));
+  ReactDOM.render(<CommentaryPanel />, document.getElementById("commentary-panel"));
+  ReactDOM.render(<DefinitionsPanel />, document.getElementById("definitions-panel"));
 
 });
 

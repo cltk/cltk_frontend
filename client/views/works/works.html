@@ -1,64 +1,7 @@
 <template name="works">
 
-    <div class="works-wrap">
+    <div id="works-list" class="works-wrap"></div>
 
-      {{#each works}}
-    		{{> workTeaser}}
-
-  		{{else}}
-    		{{> noWorks}}
-
-  		{{/each}}
-
-
-    </div>
-
-
-
-</template>
-
-<template name="workTeaser">
-    <md-card class="work-teaser paper-card" >
-
-      <md-card-content>
-
-        <a href="/">
-          <h3 class="work-author">{{author}}</h3>
-        </a>
-
-        <a href="/works/histories/1">
-          <h2 class="card-title work-title">{{title}}</h2>
-        </a>
-
-        <hr>
-
-        <a href="/">
-          <p class="work-editor">{{editor}}, {{year}}</p>
-        </a>
-
-      </md-card-content>
-
-      <md-card-actions class="clearfix" >
-
-        <a href="#" class="comments-action md-button md-ink-ripple">
-          <i class="mdi mdi-comment-outline"></i>227
-          <div class="md-ripple-container"></div>
-        </a>
-
-        <a href="#" class="favorite-action md-button md-ink-ripple">
-          <i class="mdi mdi-star-outline"></i>32
-          <div class="md-ripple-container"></div>
-        </a>
-
-        <a href="#" class="export-action md-button md-ink-ripple">
-          Export
-          <i class="mdi mdi-export"></i>
-          <div class="md-ripple-container"></div>
-        </a>
-
-      </md-card-actions>
-
-    </md-card>
 </template>
 
 <template name="noWorks">

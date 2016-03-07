@@ -1,6 +1,11 @@
-Template.works.helpers({
-  works: function() {
-    return [
+// App component - represents the whole app
+WorksList = React.createClass({
+
+  propTypes: {
+  },
+
+  renderWorks() {
+    let works = [
       {
         title: "Histories",
         slug: "histories",
@@ -57,5 +62,26 @@ Template.works.helpers({
         year: 1911
       }
     ];
-  }
+
+    return works.map((work) => {
+      return <WorkTeaser
+              key={work._id}
+              work={work} />;
+
+    });
+
+  },
+
+  render() {
+
+     return (
+       <div className="works-inner">
+         {this.renderWorks()}
+       </div>
+
+
+      );
+    }
+
+
 });

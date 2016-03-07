@@ -60,6 +60,7 @@ random
 ejson
 yogiben:bootstrap
 yogiben:pretty-email
+aldeed:autoform
 yogiben:autoform-modals
 yogiben:autoform-file
 yogiben:autoform-map
