@@ -1,6 +1,6 @@
-this.Authors = new Meteor.Collection('authors');
+this.Corpora = new Meteor.Collection('corpora');
 
-Schemas.Authors = new SimpleSchema({
+Schemas.Corpora = new SimpleSchema({
   title: {
     type: String,
     max: 60
@@ -10,26 +10,12 @@ Schemas.Authors = new SimpleSchema({
     max: 60
   },
   /*
-   * Remove language and corpus in the future when we learn more about optimizing
+   * Remove language in the future when we learn more about optimizing
    * the sync with the text server
    */
   language: {
     type: String,
     max: 60
-  },
-  corpus: {
-    type: String,
-    max: 60
-  },
-  english_name: {
-    type: String,
-    max: 60,
-    optional: true,
-  },
-  original_name: {
-    type: String,
-    max: 60,
-    optional: true,
   },
   createdAt: {
     type: Date,
@@ -48,6 +34,7 @@ Schemas.Authors = new SimpleSchema({
       }
     }
   }
+
 });
 
-Authors.attachSchema(Schemas.Authors);
+Corpora.attachSchema(Schemas.Corpora);

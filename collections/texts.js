@@ -5,6 +5,31 @@ Schemas.Texts = new SimpleSchema({
     type: Number,
     min: 0
   },
+  language: {
+    type: String,
+    max: 60
+  },
+  corpus: {
+    type: String,
+    max: 60
+  },
+  author: {
+    type: String,
+    max: 60
+  },
+  work: {
+    type: Number,
+    max: 60
+  },
+  book: {
+    type: Number,
+    max: 60
+  },
+  chapter: {
+    type: Number,
+    max: 60,
+    optional : true
+  },
   createdAt: {
     type: Date,
     autoValue: function() {
@@ -22,35 +47,13 @@ Schemas.Texts = new SimpleSchema({
       }
     }
   },
-  work: {
+  text: {
     type: String,
-    regEx: SimpleSchema.RegEx.Id,
     autoform: {
-      options: function() {
-        return _.map(Meteor.works.find().fetch(), function(work) {
-          return {
-            label: work.title,
-            value: work._id
-          };
-        });
-      }
+      rows: 5
     }
   },
-  subwork: {
-    type: String,
-    regEx: SimpleSchema.RegEx.Id,
-    autoform: {
-      options: function() {
-        return _.map(Meteor.subworks.find().fetch(), function(subwork) {
-          return {
-            label: subwork.title,
-            value: subwork._id
-          };
-        });
-      }
-    }
-  },
-  content: {
+  html: {
     type: String,
     autoform: {
       rows: 5

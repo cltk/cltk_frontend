@@ -67,9 +67,11 @@ yogiben:autoform-map
 check
 
 # Packages added for project
+http
 ecmascript
 react
 archimedigital:core
 jabbslad:basic-auth
 react-template-helper
 izzilab:material-ui
+deanius:promise
