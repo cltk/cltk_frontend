@@ -76,204 +76,238 @@ function getText(work){
 
 }
 
+function doSync(){
+  console.log(" -- Sync with text server API started");
 
-if ( Meteor.isServer ) {
-  Meteor.startup(function () {
-    // Set interval to check and sync text content (currently 90 mins)
-    // For development, just run it on startup
-    //Meteor.setInterval(function() {
-      console.log(" -- Sync with text server API started");
+  // Removes for debugging
+  //Languages.remove({})
+  //Corpora.remove({})
+  //Authors.remove({})
+  //Works.remove({})
+  //Texts.remove({})
 
-      // Removes for debugging
-      //Languages.remove({})
-      //Corpora.remove({})
-      //Authors.remove({})
-      //Works.remove({})
-      //Texts.remove({})
+  getLanguages()
+    .then(function(response){
+      let languages = response.data.languages;
+      languages.forEach(function(language){
+          let existing = Languages.findOne({slug:language});
 
-      getLanguages()
-        .then(function(response){
-          let languages = response.data.languages;
-          languages.forEach(function(language){
-              let existing = Languages.find({slug:language}).fetch()
-
-              if (!existing.length){
-                Languages.insert({
-                    title : language,
-                    slug : language
-                  });
-              }
-
-            });
-
-          console.log(" -- -- synced", languages.length, "languages");
-
-        }, function(error){
-          console.error(" -- -- error with syncing languages:", error);
+          if (!existing){
+            Languages.insert({
+                title : language,
+                slug : language
+              });
+          }
 
         });
 
-      Languages.find().fetch().forEach(function(language){
-        getCorpora(language)
-          .then(function(response){
-            let corpora = response.data.corpora;
-            corpora.forEach(function(corpus){
-                let existing = Corpora.find({slug:corpus, language:language.slug}).fetch()
+      console.log(" -- -- synced", languages.length, "languages");
 
-                if (!existing.length){
-                  Corpora.insert({
-                      title : corpus,
-                      language : language.slug,
-                      slug : corpus
-                    });
-                }
+    }, function(error){
+      console.error(" -- -- error with syncing languages:", error);
 
-              });
-            console.log(" -- -- synced", corpora.length, "corpora");
+    });
 
-          }, function(error){
-            console.error(" -- -- error with syncing corpora:", error);
+  Languages.find().fetch().forEach(function(language){
+    getCorpora(language)
+      .then(function(response){
+        let corpora = response.data.corpora;
+        corpora.forEach(function(corpus){
+            let existing = Corpora.findOne({slug:corpus, language:language.slug});
+
+            if (!existing){
+              Corpora.insert({
+                  title : corpus,
+                  language : language.slug,
+                  slug : corpus
+                });
+            }
 
           });
+        console.log(" -- -- synced", corpora.length, "corpora");
+
+      }, function(error){
+        console.error(" -- -- error with syncing corpora:", error);
 
       });
 
-      Corpora.find().fetch().forEach(function(corpus){
-        getAuthors(corpus)
-          .then(function(response){
-            let authors = response.data.authors;
+  });
 
-            authors.forEach(function(author){
-                let existing = Authors.find({slug:author}).fetch();
+  Corpora.find().fetch().forEach(function(corpus){
+    getAuthors(corpus)
+      .then(function(response){
+        let authors = response.data.authors;
 
-                if (!existing.length){
-                  Authors.insert({
-                      title : author,
-                      slug : author,
-                      language : corpus.language,
-                      corpus : corpus.slug
-                    });
-                }
+        authors.forEach(function(author){
+            let existing = Authors.findOne({slug:author});
 
-              });
-            console.log(" -- -- synced", authors.length, "authors");
-
-          }, function(error){
-            console.error(" -- -- error with syncing authors:", error);
+            if (!existing){
+              Authors.insert({
+                  title : author,
+                  slug : author,
+                  language : corpus.language,
+                  corpus : corpus.slug
+                });
+            }
 
           });
+        console.log(" -- -- synced", authors.length, "authors");
+
+      }, function(error){
+        console.error(" -- -- error with syncing authors:", error);
 
       });
 
-      Authors.find().fetch().forEach(function(author){
-        getWorks(author)
-          .then(function(response){
-            let works = response.data.texts;
-            works.forEach(function(work){
-                let existing = Works.find({slug:work}).fetch()
+  });
 
-                if (!existing.length){
-                  Works.insert({
-                      title : work,
-                      slug : work,
-                      author : author.slug,
-                      language : author.language,
-                      corpus : author.corpus
-                    });
-                }
+  Authors.find().fetch().forEach(function(author){
+    getWorks(author)
+      .then(function(response){
+        let works = response.data.texts;
+        works.forEach(function(work){
+            let existing = Works.findOne({slug:work});
 
-              });
-            console.log(" -- -- synced", works.length, "works");
-
-          }, function(error){
-            console.error(" -- -- error with syncing authors:", error);
+            if (!existing){
+              Works.insert({
+                  title : work,
+                  slug : work,
+                  author : author.slug,
+                  language : author.language,
+                  corpus : author.corpus
+                });
+            }
 
           });
+        console.log(" -- -- synced", works.length, "works");
+
+      }, function(error){
+        console.error(" -- -- error with syncing works:", error);
 
       });
 
-      Works.find().fetch().forEach(function(work){
-        getText(work)
-          .then(function(response){
-            let text_objs = response.data.text;
-            let count = 0;
+  });
 
-            for ( book_key in text_objs ){
-              let existing = Texts.find({slug:work}).fetch()
-
-              if (response.data.meta === "book-chapter-section"){
-                for ( chapter_key in text_objs[book_key] ){
-                  for ( section_key in text_objs[book_key][chapter_key] ){
-                    var existing = Texts.find({
-                        n : section_key,
-                        chapter_n : chapter_key,
-                        book_n : book_key,
-                        author : work.author,
-                        language : work.language,
-                        corpus : work.corpus,
-                        work : work.slug,
-                      });
-
-                    if (!existing.length){
-                      Texts.insert({
-                          n : section_key,
-                          chapter : chapter_key,
-                          book : book_key,
-                          author : work.author,
-                          language : work.language,
-                          corpus : work.corpus,
-                          work : work.slug,
-                          text : text_objs[book_key][chapter_key][section_key],
-                          html : text_objs[book_key][chapter_key][section_key],
-                        });
-                    }
-
-                  }
-
-                }
-
-              }else if (response.data.meta === "book-line") {
-                for ( line_key in text_objs[book_key] ){
-                  var existing = Texts.find({
-                      n : line_key,
-                      book : book_key,
-                      author : work.author,
-                      language : work.language,
-                      corpus : work.corpus,
-                      work : work.slug,
-                    });
-
-                  if (!existing.length){
-                    Texts.insert({
-                        n : line_key,
-                        book : book_key,
-                        author : work.author,
-                        language : work.language,
-                        corpus : work.corpus,
-                        work : work.slug,
-                        text : text_objs[book_key][line_key],
-                        html : text_objs[book_key][line_key]
-                      });
-                  }
-
-                }
+  Works.find().fetch().forEach(function(work){
+    getText(work)
+      .then(function(response){
+        let text_objs = response.data.text;
+        let count = 0;
 
 
+        if (response.data.meta === "chapter"){
+          for ( section_key in text_objs ){
+            var existing = Texts.findOne({
+                n : parseInt(section_key),
+                author : work.author,
+                language : work.language,
+                corpus : work.corpus,
+                work : work.slug,
+              });
+
+            if (!existing){
+              Texts.insert({
+                  n : parseInt(section_key),
+                  author : work.author,
+                  language : work.language,
+                  corpus : work.corpus,
+                  work : work.slug,
+                  text : text_objs[section_key],
+                  html : text_objs[section_key],
+                });
+            }
+
+            count++;
+
+          }
+
+        }else if (response.data.meta === "book-chapter") {
+          for ( chapter_key in text_objs ){
+            for ( section_key in text_objs[chapter_key] ){
+              var existing = Texts.findOne({
+                  n : parseInt(section_key),
+                  chapter : parseInt(chapter_key),
+                  author : work.author,
+                  language : work.language,
+                  corpus : work.corpus,
+                  work : work.slug,
+                });
+
+              if (!existing){
+                Texts.insert({
+                    n : parseInt(section_key),
+                    chapter : parseInt(chapter_key),
+                    author : work.author,
+                    language : work.language,
+                    corpus : work.corpus,
+                    work : work.slug,
+                    text : text_objs[chapter_key][section_key],
+                    html : text_objs[chapter_key][section_key],
+                  });
               }
 
               count++;
 
             }
 
-            console.log(" -- -- synced", count, "text items" );
+          }
 
-          }, function(error){
-            console.error(" -- -- error with syncing authors:", error);
+        }else if (["poem-line", "book-line"].indexOf(response.data.meta) >= 0) {
+          for ( book_key in text_objs ){
+            for ( section_key in text_objs[book_key] ){
+              var existing = Texts.findOne({
+                  n : parseInt(section_key),
+                  book : parseInt(book_key),
+                  author : work.author,
+                  language : work.language,
+                  corpus : work.corpus,
+                  work : work.slug,
+                });
 
-          });
+              if (!existing){
+                Texts.insert({
+                    n : parseInt(section_key),
+                    book : parseInt(book_key),
+                    author : work.author,
+                    language : work.language,
+                    corpus : work.corpus,
+                    work : work.slug,
+                    text : text_objs[book_key][section_key],
+                    html : text_objs[book_key][section_key],
+                  });
+              }
+
+              count++;
+
+            }
+          }
+
+        }
+
+        console.log(" -- -- synced", count, "text items" );
+
+      }, function(error){
+        console.error(" -- -- error with syncing text items:", error);
 
       });
 
+  });
+
+}
+
+if ( Meteor.isServer ) {
+  Meteor.startup(function () {
+    //
+    // Set interval to check and sync text content (currently 90 mins)
+    //
+    // For development, just run it on startup
+    //Meteor.setInterval(function() {
+
+    /*
+     * During development, since we haven't yet built a good method of
+     * cache validation, it might make sense only to run this enough times
+     * to populate your local database and then comment it out. 
+     */
+      doSync();
 
     //},540000);
 

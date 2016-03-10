@@ -1,7 +1,6 @@
 Reading = React.createClass({
 
   propTypes: {
-
   },
 
 
@@ -11,10 +10,13 @@ Reading = React.createClass({
   getMeteorData() {
     let query = {};
 
+    // This is only for the prototype--investigate better routing options in the future
+    let work_slug = FlowRouter.current().path.split("/")[2];
+
     return {
-      text : {
-        genre : "prose"
-      }
+      work: Works.findOne({slug : work_slug}),
+      text: Texts.find({work : work_slug}, {sort : {book : 1, chapter : 1, n : 1}, limit : 10 }).fetch(),
+      currentUser: Meteor.user()
     };
 
   },
@@ -22,18 +24,27 @@ Reading = React.createClass({
 
   renderReadingEnvironment(){
 
-    if (this.data.text.genre === "poetry"){
+    let reading = {
+                  _id : 1,
+                  work : this.data.work,
+                  text : this.data.text
+                };
+    let genre = "prose";
+
+    if (genre === "poetry"){
       return (
           <ReadingPoetry
-            key={this.data.text._id}
-            text={this.data.text} />
+            key={reading._id}
+            work={reading.work}
+            text={reading.text} />
         );
 
     }else {
       return (
           <ReadingProse
-            key={this.data.text._id}
-            text={this.data.text} />
+            key={reading._id}
+            work={reading.work}
+            text={reading.text} />
         );
 
     }
@@ -43,7 +54,6 @@ Reading = React.createClass({
 
 
   render() {
-    let text = this.data.text;
     return(
       <div className="reading-environment book-chapter-section">
         {this.renderReadingEnvironment()}

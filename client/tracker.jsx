@@ -1,5 +1,4 @@
-/*
-Tracker.autorun(function() {
-  return subs.subscribe('myFavorites');
+/*Tracker.autorun(function() {
+  return subs.subscribe('annotations');
 });
 */

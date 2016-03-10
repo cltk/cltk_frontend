@@ -1,7 +1,8 @@
 ReadingProse = React.createClass({
 
   propTypes: {
-    text: React.PropTypes.object.isRequired
+    work: React.PropTypes.object.isRequired,
+    text: React.PropTypes.array.isRequired
   },
 
   getInitialState(){
@@ -47,26 +48,51 @@ ReadingProse = React.createClass({
 
   },
 
+  makeBooks() {
+    let books = [];
+
+    this.props.text.forEach(function(text_obj){
+        var text_obj_book = books.find(function(book){
+                        return book.n === text_obj.book;
+                      });
+        if(text_obj_book){
+          text_obj_book.text.push(text_obj);
+
+        }else {
+          books.push({
+              n : text_obj.book,
+              text : [text_obj]
+            });
+
+        }
+
+      });
+
+    return books;
+
+  },
+
   renderBooks(book) {
-    return this.state.text.books.map((book) => {
+    return this.makeBooks().map((book) => {
       return <ReadingBook
               key={book._id}
+              work={this.props.work}
               book={book}
-              text={this.state.text} />
+              />
           });
 
   },
 
 
   render() {
-    let text = this.state.text;
+    let work = this.props.work;
 
     return (
         <div className="reading-container">
 
           <div className="author-wrap">
             <h3 className="work-author">
-              {text.author.english_full} (<em>{text.author.original_full}</em>)
+              {work.author} (<em>{work.author}</em>)
             </h3>
           </div>
 

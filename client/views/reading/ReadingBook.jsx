@@ -2,8 +2,13 @@
 ReadingBook = React.createClass({
 
   propTypes: {
+    work: React.PropTypes.object.isRequired,
     book: React.PropTypes.object.isRequired,
     text: React.PropTypes.object.isRequired
+  },
+
+  makeChapters() {
+
   },
 
   renderBookChapters() {
@@ -17,11 +22,12 @@ ReadingBook = React.createClass({
   },
   render() {
     let text = this.props.text,
+      work = this.props.work,
       book = this.props.book;
     return (
         <div className="book">
           <div className="title-wrap">
-            <h1 className="work-title">{text.title} {book.book_n}</h1>
+            <h1 className="work-title">{work.title} {book.n}</h1>
           </div>
 
           {this.renderBookChapters()}

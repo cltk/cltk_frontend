@@ -9,6 +9,8 @@ WorkTeaser = React.createClass({
 
 
   render() {
+    let work = this.props.work;
+    let work_url = "/works/" + work.slug + "/1";
 
      return (
         <md-card class="work-teaser paper-card" >
@@ -16,17 +18,17 @@ WorkTeaser = React.createClass({
           <md-card-content>
 
             <a href="/">
-              <h3 className="work-author">{this.props.work.author}</h3>
+              <h3 className="work-author">{work.author}</h3>
             </a>
 
-            <a href="/works/histories/1">
-              <h2 className="card-title work-title">{this.props.work.title}</h2>
+            <a href={work_url}>
+              <h2 className="card-title work-title">{work.title}</h2>
             </a>
 
             <hr/>
 
             <a href="/">
-              <p className="work-editor">{this.props.work.editor}, {this.props.work.year}</p>
+              <p className="work-editor">{work.editor} {work.year}</p>
             </a>
 
           </md-card-content>
@@ -34,17 +36,17 @@ WorkTeaser = React.createClass({
           <md-card-actions className="clearfix" >
 
             <a href="#" className="comments-action md-button md-ink-ripple">
-              <i className="mdi mdi-comment-outline"></i>227
+              <i className="mdi mdi-comment-outline"></i>0
               <div className="md-ripple-container"></div>
             </a>
 
             <a href="#" className="favorite-action md-button md-ink-ripple">
-              <i className="mdi mdi-star-outline"></i>32
+              <i className="mdi mdi-star-outline"></i>0
               <div className="md-ripple-container"></div>
             </a>
 
             <a href="#" className="export-action md-button md-ink-ripple">
-              Export
+              Other Formats
               <i className="mdi mdi-export"></i>
               <div className="md-ripple-container"></div>
             </a>

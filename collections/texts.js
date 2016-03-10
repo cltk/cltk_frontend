@@ -18,12 +18,13 @@ Schemas.Texts = new SimpleSchema({
     max: 60
   },
   work: {
-    type: Number,
+    type: String,
     max: 60
   },
   book: {
     type: Number,
-    max: 60
+    max: 60,
+    optional: true,
   },
   chapter: {
     type: Number,

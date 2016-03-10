@@ -93,6 +93,7 @@ jquery@1.11.4
 jsx@0.2.3
 juliancwirko:s-alert@2.4.2
 juliancwirko:s-alert-stackslide@1.1.4
+kadira:flow-router@2.10.1
 less@2.5.1
 livedata@1.0.15
 localstorage@1.0.5
