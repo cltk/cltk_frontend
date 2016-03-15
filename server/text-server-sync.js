@@ -363,7 +363,7 @@ if ( Meteor.isServer ) {
 
     // If no languages have been synced from the CLTK API, then assume that no
     // content is in the database and sync content sequentially, languages to texts
-    if( !Languages.find().fetch() ){
+    if( !Languages.find().fetch().length ){
       doSyncSequence();
     }
 
