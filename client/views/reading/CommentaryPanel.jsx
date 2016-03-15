@@ -169,12 +169,10 @@ CommentaryPanel = React.createClass({
 
   },
 
-  toggleTranslation(e) {
-    var translation = {};
+  toggleTranslation(index) {
     this.setState({
-        selected_translation: translation
+        selected_translation: this.state.translations[index]
     });
-
   },
 
   renderComments(){
@@ -190,11 +188,9 @@ CommentaryPanel = React.createClass({
   renderTranslations(){
 
     // Eventually this will be this.data.translations from the database
-    return this.state.translations.map((translation) => {
-      return <Translation
-        key={translation._id}
-        translation={translation} />;
-    });
+    return <Translation
+      key={this.state.selected_translation._id}
+      translation={this.state.selected_translation} />;
 
   },
 
@@ -228,7 +224,7 @@ CommentaryPanel = React.createClass({
            <div className="translations-options">
              {this.state.translations.map(function(translation, i){
 
-               return <a key={i} className={ (i === 0) ? "md-button md-ink-ripple translation-selected" : "md-button md-ink-ripple" } onClick={this.toggleTranslation}>
+               return <a key={i} className={ (translation._id === this.state.selected_translation._id) ? "md-button md-ink-ripple translation-selected" : "md-button md-ink-ripple" } onClick={ this.toggleTranslation.bind(this, i) }>
                  {translation.translators.map(function(translator, i){
                    return <span key={i}>{translator.name_short}, </span>
 
@@ -236,7 +232,7 @@ CommentaryPanel = React.createClass({
                  {translation.date}
                  <div className="md-ripple-container"></div>
                </a>
-             })}
+             }, this)}
 
            </div>
 
