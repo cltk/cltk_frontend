@@ -44,6 +44,38 @@ We know that including all of these is possible and useful based on a previous i
 
 # Challenges
 
-We need to serve text and all the related materials to the web browser with the least possible load time.  _It will not be possible to identify, extract, and serve metadata (such as entities and related passages) on the fly_, much as that would simply the task.  Instead, we need to overcome the challenge of the time and server resources required to predict and mining the data for related materials by caching the source text from the [CLTK API](https://github.com/cltk/cltk_api) in the Meteor application's Mongo database and then for each passage of the source text, query the CLTK API for each type of related material.  
+We need to serve text and all the related materials to the web browser with the least possible load time.  It will not be possible to identify, extract, and serve metadata (such as entities and related passages) on the fly, much as that would simply the task.  Instead, we need to overcome the challenge of the time and server resources required to predict and mining the data for related materials by caching the source text from the [CLTK API](https://github.com/cltk/cltk_api) in the Meteor application's Mongo database and then for each passage of the source text, query the CLTK API for each type of related material.  
 
 Instead of the traditional model of a client-side Javascript application querying an API and rendering a JSON response to the page every time the page is loaded, this application will rely on server-side Javascript to sync content continually from the API, and Meteor's [DDP](https://www.meteor.com/ddp) layer will take care of rendering the data that is stored in the application database.  
+
+
+# Build/Deployment
+
+In general, building, deploying, and hosting this application follows the workflow described [here](https://www.digitalocean.com/community/tutorials/how-to-deploy-a-meteor-js-application-on-ubuntu-14-04-with-nginx).
+
+### Building
+In the application directory, run the following command:
+```
+meteor build .
+```
+(or if you like storing your build files in named directories, something like "meteor build ../builds/1.0.1/")
+
+### Deploying
+The server hosting this application will need Node 0.10.40 (nvm recommended), MongoDB, and NGINX.
+
+First, rsync the generated tar.gz file to the server. Extract the build archive in a directory of your choice (ideally one that makes sense with the build version--1.0.1, 1.1.0, etc.).
+
+Ensure you are using the correct version of Node for your build and cd to ./bundle/programs/server of your extracted application and run
+```
+npm install
+```
+
+Configure a Upstart service file as described in the tutorial linked at the start of this section. Ensure all parameters included in the file are set appropriately.
+
+Configure and enable an NGINX virtual host to proxy requests to the port the application is listening on.
+
+Start the Upstart service with whatever you named your service file.  Something such as this:
+```
+sudo start cltk_frontend
+```
+If you named your Upstart service file cltk_frontend.conf
