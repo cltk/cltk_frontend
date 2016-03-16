@@ -39,6 +39,7 @@ ReadingText = React.createClass({
 
   render() {
     let text = this.props.text;
+    let text_n = "";
     let textClasses = "text-wrap";
 
     if (this.props.showNumber){
@@ -57,15 +58,23 @@ ReadingText = React.createClass({
       textClasses = textClasses + " show-related-passages";
     }
 
+    if (text.n_3 !== null){
+        text_n = text.n_3;
+    }else if (text.n_2 !== null){
+        text_n = text.n_2;
+    }else{
+        text_n = text.n_1;
+    }
+
     return(
        <div className={textClasses}>
          <div className="text-left-header">
-           <span className="text-n">{text.n}</span>
+           <span className="text-n">{text_n}</span>
             <i className="text-bookmark mdi mdi-bookmark"></i>
          </div>
 
-          <div className="text-html" dangerouslySetInnerHTML={{__html: text.html}}>
-          </div>
+          <p className="text-html" dangerouslySetInnerHTML={{__html: text.html}}>
+          </p>
 
           <div className="text-meta-options">
             <div className="text-meta-option text-meta-option-bookmark" onClick={this.toggleBookmarked}>

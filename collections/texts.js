@@ -1,8 +1,18 @@
 this.Texts = new Meteor.Collection('texts');
 
 Schemas.Texts = new SimpleSchema({
-  n: {
+  n_1: {
     type: Number,
+    min: 0
+  },
+  n_2: {
+    type: Number,
+    optional: true,
+    min: 0
+  },
+  n_3: {
+    type: Number,
+    optional: true,
     min: 0
   },
   language: {
@@ -20,16 +30,6 @@ Schemas.Texts = new SimpleSchema({
   work: {
     type: String,
     max: 60
-  },
-  book: {
-    type: Number,
-    max: 60,
-    optional: true,
-  },
-  chapter: {
-    type: Number,
-    max: 60,
-    optional : true
   },
   createdAt: {
     type: Date,

@@ -15,7 +15,7 @@ Reading = React.createClass({
 
     return {
       work: Works.findOne({slug : work_slug}),
-      text: Texts.find({work : work_slug}, {sort : {book : 1, chapter : 1, n : 1}, limit : 10 }).fetch(),
+      text: Texts.find({work : work_slug}, {sort : {n_1 : 1, n_2 : 1, n_3 : 1}, limit : 20 }).fetch(),
       currentUser: Meteor.user()
     };
 
@@ -29,6 +29,8 @@ Reading = React.createClass({
                   work : this.data.work,
                   text : this.data.text
                 };
+
+    // For this stage of development, only work with prose
     let genre = "prose";
 
     if (genre === "poetry"){
