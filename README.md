@@ -48,6 +48,7 @@ We need to serve text and all the related materials to the web browser with the 
 
 Instead of the traditional model of a client-side Javascript application querying an API and rendering a JSON response to the page every time the page is loaded, this application will rely on server-side Javascript to sync content continually from the API, and Meteor's [DDP](https://www.meteor.com/ddp) layer will take care of rendering the data that is stored in the application database.  
 
+For more information and images of the proposed web application architecture, please reference this wiki page: https://github.com/cltk/cltk_frontend/wiki/Web-Application-Software-Architecture-Diagram 
 
 # Build/Deployment
 
