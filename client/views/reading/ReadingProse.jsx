@@ -10,14 +10,35 @@ ReadingProse = React.createClass({
     return this.props.text.map((text, i) => {
 
         let showNumber = false;
-        if(text.n%5 === 0){
-          showNumber = true;
+        let numbering = "";
+       
+        if(text.n_3) {
+          if(i==0){
+            showNumber = true;
+          }
+          else{
+            showNumber = this.props.text[i-1].n_2 != text.n_2;
+          }
+          if(showNumber) {
+            numbering = text.n_1 + "." + text.n_2;
+          }
+        } else if(text.n_2) {
+          if(i==0){
+            showNumber = true;
+          }
+          else{
+            showNumber = this.props.text[i-1].n_1 != text.n_1;
+          }
+          if(showNumber) {
+            numbering = text.n_1;
+          }
         }
 
         return <ReadingText
                   key={text._id}
                   showNumber={showNumber}
                   text={text}
+                  numbering={numbering}
                   />;
 
       });

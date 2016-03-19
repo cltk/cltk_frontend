@@ -3,6 +3,7 @@ ReadingText = React.createClass({
   propTypes: {
     text: React.PropTypes.object.isRequired,
     showNumber: React.PropTypes.bool.isRequired,
+    numbering: React.PropTypes.string.isRequired,
   },
 
   getInitialState(){
@@ -41,7 +42,8 @@ ReadingText = React.createClass({
     let text = this.props.text;
     let text_n = "";
     let textClasses = "text-wrap";
-
+    let numbering = this.props.numbering;
+    
     if (this.props.showNumber){
       textClasses = textClasses + " show-number";
     }
@@ -69,7 +71,7 @@ ReadingText = React.createClass({
     return(
        <div className={textClasses}>
          <div className="text-left-header">
-           <span className="text-n">{text_n}</span>
+            <h2>{numbering}</h2>
             <i className="text-bookmark mdi mdi-bookmark"></i>
          </div>
 
