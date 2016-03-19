@@ -28,7 +28,8 @@ Package.onUse(function(api) {
         'lib/client/smooth-scroll.min.js',
         'lib/client/parallax.js',
         'lib/client/headroom.min.js',
-        'lib/client/scripts.js'
+        'lib/client/scripts.js',
+        'lib/client/jquery-scrollLock.js'
       ], 'client');
 
 

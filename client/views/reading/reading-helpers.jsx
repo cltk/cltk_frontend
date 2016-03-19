@@ -20,6 +20,7 @@ Template.headerReading.events = {
       if ($target.data().type === "definitions") {
         $(".definitions-panel").removeClass("slide-visible");
         $("#reading").removeClass("with-definitions-shown");
+        $(".definitions").scrollLock(false);
 
       } else if ($target.data().type === "commentary") {
         $(".commentary-panel").removeClass("commentary-visible");
@@ -27,6 +28,7 @@ Template.headerReading.events = {
         if(!$(".commentary-panel").hasClass("translations-visible")){
           $(".commentary-panel").removeClass("slide-visible");
           $("#reading").removeClass("with-commentary-shown");
+          $(".comments").scrollLock(false);
 
         }
 
@@ -36,6 +38,7 @@ Template.headerReading.events = {
         if(!$(".commentary-panel").hasClass("commentary-visible")){
           $(".commentary-panel").removeClass("slide-visible");
           $("#reading").removeClass("with-commentary-shown");
+          $(".translations").scrollLock(false);
 
         }
 
@@ -46,16 +49,19 @@ Template.headerReading.events = {
       if ($target.data().type === "definitions") {
         $(".definitions-panel").addClass("slide-visible");
         $("#reading").addClass("with-definitions-shown");
+        $(".definitions").scrollLock(true);
 
       } else if ($target.data().type === "commentary") {
         $(".commentary-panel").addClass("slide-visible");
         $(".commentary-panel").addClass("commentary-visible");
         $("#reading").addClass("with-commentary-shown");
+        $(".comments").scrollLock(true);
 
       } else if ($target.data().type === "translations") {
         $(".commentary-panel").addClass("slide-visible");
         $(".commentary-panel").addClass("translations-visible");
         $("#reading").addClass("with-commentary-shown");
+        $(".translations").scrollLock(true);
 
       }
 
