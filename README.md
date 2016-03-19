@@ -48,7 +48,7 @@ We need to serve text and all the related materials to the web browser with the 
 
 Instead of the traditional model of a client-side Javascript application querying an API and rendering a JSON response to the page every time the page is loaded, this application will rely on server-side Javascript to sync content continually from the API, and Meteor's [DDP](https://www.meteor.com/ddp) layer will take care of rendering the data that is stored in the application database.  
 
-For more information and images of the proposed web application architecture, please reference this wiki page: https://github.com/cltk/cltk_frontend/wiki/Web-Application-Software-Architecture-Diagram 
+For more information and images of the proposed web application architecture, please reference this wiki page: https://github.com/cltk/cltk_frontend/wiki/Web-Application-Software-Architecture-Diagram
 
 # Build/Deployment
 
@@ -80,3 +80,33 @@ Start the Upstart service with whatever you named your service file.  Something 
 sudo start cltk_frontend
 ```
 If you named your Upstart service file cltk_frontend.conf
+
+## Building and Deploying with Docker
+
+From the meteor-starter application, here's a good workflow for interacting with docker:
+
+
+for Dev
+
+```
+docker build -t myrepo/meteordev -f Dockerfile-dev .
+```
+
+Run
+
+```
+docker run -it -p 3000:3000 --rm myrepo/meteordev
+```
+
+
+for Prod
+
+```
+docker build -t myrepo/mymeteorapp .
+```
+
+Run it
+```
+docker run --name mongodb -d mongo
+docker run -it --rm -p 3000:3000 --link mongodb:db -e "MONGO_URL=mongodb://db" -e "ROOT_URL=http://localhost:3000" myrepo/mymeteorapp
+```
