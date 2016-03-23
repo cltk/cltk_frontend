@@ -1,3 +1,6 @@
+var {
+    Toggle
+    } = MUI;
 
 DefinitionsPanel = React.createClass({
 
@@ -12,7 +15,21 @@ DefinitionsPanel = React.createClass({
     };
 
   },
+  handleDefinitionScroll() {
+    let scrollFactor = $(window).scrollTop()/(document.body.scrollHeight - document.body.offsetHeight);
+    let definitionsHiddenHeight = $(".definitions").prop('scrollHeight') - $(".definitions").prop('offsetHeight');
+    $(".definitions").scrollTop(scrollFactor * definitionsHiddenHeight);
+  },
 
+  toggleDefinitionScroll(event, toggled){
+    console.log("toggleDefinitionScroll", toggled);
+    if(toggled){
+      $(window).on("scroll", this.handleDefinitionScroll);
+    }
+    else{
+      $(window).off("scroll", this.handleDefinitionScroll);
+    }
+  },
 
   renderDefinitions(){
     var words = [
@@ -121,6 +138,12 @@ DefinitionsPanel = React.createClass({
 
      return (
         <div className="modal-panel-inner definitions-panel-inner">
+          <div className="toggle-item">
+            <Toggle
+             label="Auto Scroll"
+             labelPosition="right"
+             onToggle={this.toggleDefinitionScroll}/>
+          </div>
           <div className="definitions panel-items">
             {this.renderDefinitions()}
           </div>
