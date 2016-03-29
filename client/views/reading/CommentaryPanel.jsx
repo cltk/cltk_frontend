@@ -1,3 +1,8 @@
+injectTapEventPlugin();
+
+var {
+    Toggle
+    } = MUI;
 
 CommentaryPanel = React.createClass({
 
@@ -175,6 +180,38 @@ CommentaryPanel = React.createClass({
     });
   },
 
+  handleTranslationScroll() {
+    let scrollFactor = $(window).scrollTop()/(document.body.scrollHeight - document.body.offsetHeight);
+    let translationsHiddenHeight = $(".translations").prop('scrollHeight') -  $(".translations").prop('offsetHeight');
+    $(".translations").scrollTop(scrollFactor * translationsHiddenHeight);
+  },
+
+  toggleTranslationScroll(event, toggled){
+    console.log("translationScrollToggle", toggled);
+    if(toggled){
+      $(window).on("scroll", this.handleTranslationScroll);
+    }
+    else{
+      $(window).off("scroll", this.handleTranslationScroll);
+    }
+  },
+
+  handleCommentaryScroll() {
+    let scrollFactor = $(window).scrollTop()/(document.body.scrollHeight - document.body.offsetHeight);
+    let commentsHiddenHeight = $(".comments").prop('scrollHeight') -  $(".comments").prop('offsetHeight');
+    $(".comments").scrollTop(scrollFactor * commentsHiddenHeight);
+  },
+
+  toggleCommentaryScroll(event, toggled){
+    console.log("toggleCommentaryScroll", toggled);
+    if(toggled){
+      $(window).on("scroll", this.handleCommentaryScroll);
+    }
+    else{
+      $(window).off("scroll", this.handleCommentaryScroll);
+    }
+  },
+
   renderComments(){
     // Eventually this will be this.data.comments from the database
     return this.state.comments.map((comment) => {
@@ -199,7 +236,12 @@ CommentaryPanel = React.createClass({
      return (
        <div className="inner-groups">
          <div className="modal-panel-inner commentary-panel-inner">
-
+           <div className="toggle-item">
+             <Toggle
+              label="Auto Scroll"
+              labelPosition="right"
+              onToggle={this.toggleCommentaryScroll}/>
+            </div>
            <div className="comments panel-items">
             {this.renderComments()}
             {this.data.comments.length === 0 ?
@@ -213,7 +255,12 @@ CommentaryPanel = React.createClass({
 
          </div>
          <div className="modal-panel-inner translations-panel-inner">
-
+           <div className="toggle-item">
+             <Toggle
+              label="Auto Scroll"
+              labelPosition="right"
+              onToggle={this.toggleTranslationScroll}/>
+           </div>
            <div className="translations panel-items">
               {this.renderTranslations()}
               {this.data.translations.length === 0 ?
