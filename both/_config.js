@@ -15,11 +15,11 @@ this.Config = {
   emails: {
     from: 'noreply@' + Meteor.absoluteUrl()
   },
-  blog: 'http://cla.dev',
-  about: 'http://cla.dev',
+  blog: 'http://archive.cltk.org',
+  about: 'http://archive.cltk.org',
   username: false,
   homeRoute: '/dashboard',
-  socialMedia: [['http://facebook.com/cla', 'facebook'], ['http://twitter.com/cla', 'twitter'], ['http://github.com/cla', 'github']]
+  socialMedia: [['http://github.com/cltk', 'github']]
 };
 
 Avatar.options = {
