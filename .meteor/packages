@@ -13,14 +13,13 @@ matb33:collection-hooks
 alanning:roles
 aldeed:simple-schema
 fortawesome:fontawesome
+tap:i18n
 raix:handlebar-helpers
 cfs:standard-packages
 cfs:gridfs
 aldeed:template-extension
 cfs:graphicsmagick
 yogiben:helpers
-iron:router
-multiply:iron-router-progress
 manuelschoebel:ms-seo
 spiderable
 accounts-facebook
@@ -28,7 +27,6 @@ accounts-google
 accounts-twitter
 accounts-ui
 jparker:gravatar
-tap:i18n
 service-configuration
 yogiben:mixpanel
 juliancwirko:s-alert
@@ -36,10 +34,7 @@ juliancwirko:s-alert-stackslide
 momentjs:moment
 zimme:active-route
 twbs:bootstrap
-useraccounts:iron-routing
 reywood:publish-composite
-percolate:momentum-iron-router
-percolate:momentum
 natestrauser:animate-css
 meteorhacks:subs-manager
 yogiben:admin
@@ -62,6 +57,13 @@ yogiben:autoform-modals
 yogiben:autoform-file
 yogiben:autoform-map
 check
+iron:router
+multiply:iron-router-progress
+useraccounts:core
+useraccounts:bootstrap
+useraccounts:iron-routing
+percolate:momentum-iron-router
+percolate:momentum
 
 # Packages added for project
 http

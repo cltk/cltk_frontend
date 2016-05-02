@@ -1,7 +1,7 @@
 # -*- mode: gitignore; -*-
 
 local
-private/settings
+private/settings/production.json
 *.log
 .uploads
 node_modules

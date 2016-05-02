@@ -13,8 +13,11 @@ Package.onUse(function(api) {
 
   api.versionsFrom('1.1.0.3');
 
+  api.use("iron:router", "client");
+  api.use("iron:router", "server");
+
   api.addFiles([
-        //'both/routes.js'
+        'both/routes.js'
       ], both);
 
   api.addFiles([
