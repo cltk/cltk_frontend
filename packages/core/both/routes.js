@@ -15,13 +15,6 @@ OnBeforeActions = {
     }
 };
 
-// Restrict routes to authenticated users
-/*
-Router.onBeforeAction( OnBeforeActions.loginRequired ,{
-  only:['create','videos']
-
-});
-*/
 
 Router.onBeforeAction(function( ){
   if (Meteor.isClient && typeof window !== "undefined" ){

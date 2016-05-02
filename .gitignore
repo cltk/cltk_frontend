@@ -4,6 +4,8 @@ local
 private/settings
 *.log
 .uploads
+node_modules
+
 
 #########################
 # Emacs temporary files #

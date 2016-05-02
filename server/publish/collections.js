@@ -8,7 +8,7 @@ if (Meteor.isServer){
   });
 
   Meteor.publish('texts', function() {
-    return Texts.find({}, {limit:10});
+    return Texts.find();
   });
 
   Meteor.publish('attachments', function() {

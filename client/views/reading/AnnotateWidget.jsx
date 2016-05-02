@@ -1,9 +1,3 @@
-var {
-  FloatingActionButton,
-  ContentAdd
-} = MUI;
-var { ThemeManager } = MUI.Styles;
-
 // App component - represents the whole app
 AnnotateWidget = React.createClass({
 

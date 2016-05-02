@@ -46,7 +46,6 @@ yogiben:admin
 timmyg:wow
 tsega:skrollr
 utilities:avatar
-standard-minifiers
 meteor-base
 mongo
 blaze-html-templates
@@ -67,12 +66,15 @@ check
 # Packages added for project
 http
 ecmascript
-react
+react@0.14.6
 archimedigital:core
 jabbslad:basic-auth
 react-template-helper
-izzilab:material-ui
 deanius:promise
 kadira:flow-router
+kadira:react-layout
 user-thumbs
-autopublish
+standard-minifier-css
+standard-minifier-js
+simple:rest
+dburles:google-maps
