@@ -1,4 +1,4 @@
-Template.home.onRendered(function() {
+/*Template.home.onRendered(function() {
   var options, w, winHeight, winWidth;
   w = new WOW().init();
   winWidth = $(window).width();
@@ -50,3 +50,5 @@ Template.home.events = {
     return $(".home-layout").removeClass("home-layout").addClass("master-layout");
   }
 };
+
+*/

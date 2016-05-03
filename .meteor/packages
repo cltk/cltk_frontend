@@ -57,8 +57,8 @@ yogiben:autoform-modals
 yogiben:autoform-file
 yogiben:autoform-map
 check
-iron:router
-multiply:iron-router-progress
+#iron:router
+#multiply:iron-router-progress
 useraccounts:core
 useraccounts:bootstrap
 useraccounts:iron-routing
@@ -80,3 +80,4 @@ standard-minifier-css
 standard-minifier-js
 simple:rest
 dburles:google-maps
+autopublish

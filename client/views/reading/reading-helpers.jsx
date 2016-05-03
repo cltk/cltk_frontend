@@ -1,10 +1,10 @@
-Template.readingLayout.onRendered(function() {
+/*Template.readingLayout.onRendered(function() {
   ReactDOM.render(<Reading />, document.getElementById("reading"));
   ReactDOM.render(<AnnotateWidget />, document.getElementById("annotate-widget"));
   ReactDOM.render(<CommentaryPanel />, document.getElementById("commentary-panel"));
   ReactDOM.render(<DefinitionsPanel />, document.getElementById("definitions-panel"));
 
-});
+});*/
 
 Template.headerReading.events = {
   "click .meta-toggle": function(e) {

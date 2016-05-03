@@ -17,6 +17,7 @@ aldeed:tabular@1.4.2
 aldeed:template-extension@3.4.3
 allow-deny@1.0.4
 archimedigital:core@0.1.1
+autopublish@1.0.7
 autoupdate@1.2.9
 babel-compiler@6.6.4
 babel-runtime@0.1.8
@@ -121,7 +122,6 @@ mongo-livedata@1.0.12
 mpowaga:jquery-fileupload@9.11.2
 mpowaga:jquery-ui-widget@1.11.4
 mpowaga:string-template@0.1.0
-multiply:iron-router-progress@1.0.2
 natestrauser:animate-css@3.5.1
 npm-bcrypt@0.8.5
 npm-mongo@1.4.43
