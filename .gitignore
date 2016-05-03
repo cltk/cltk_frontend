@@ -1,5 +1,6 @@
 # -*- mode: gitignore; -*-
 
+# Application specific
 local
 private/settings/production.json
 *.log
@@ -7,9 +8,7 @@ private/settings/production.json
 node_modules
 
 
-#########################
-# Emacs temporary files #
-#########################
+# Editors
 *~
 \#*\#
 /.emacs.desktop
@@ -18,23 +17,12 @@ node_modules
 auto-save-list
 tramp
 .\#*
-
-#################
-# Other Editors #
-#################
 *.sw[po]
 .idea/
 *.iml
 *.iws
 
-##########################
-# Temporary backup files #
-##########################
-Backup of*.docx
-
-######################
-# OS generated files #
-######################
+# OS
 .DS_Store
 .DS_Store?
 ._*
