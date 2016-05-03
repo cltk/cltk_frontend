@@ -13,7 +13,7 @@ WorkTeaser = React.createClass({
     let work_url = "/works/" + work.slug + "/1";
 
      return (
-        <md-card class="work-teaser paper-card" >
+        <md-card className="work-teaser paper-card" >
 
           <md-card-content>
 

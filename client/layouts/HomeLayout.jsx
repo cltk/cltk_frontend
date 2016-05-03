@@ -3,7 +3,7 @@ HomeLayout = React.createClass({
 		return(
 			<div className="cltk-layout home-layout">
 				<Header />
-				<HomeViewContent />
+				<HomeView />
 				<Footer/>
 			</div>
 			);

@@ -5,21 +5,21 @@ AboutPage = React.createClass({
     return (
 
 
-        <div class="page page-about">
+        <div className="page page-about">
 
-      		<section class="page-head fullscreen image-bg bg-dark">
+      		<section className="page-head fullscreen image-bg bg-dark">
 
-      			<div class="background-image-holder blur">
-      				<img class="background-image" alt='image' src='/images/amphorae-many.jpg'/>
+      			<div className="background-image-holder blur">
+      				<img className="background-image" alt='image' src='/images/amphorae-many.jpg'/>
             </div>
 
-            <div class="background-screen">
+            <div className="background-screen">
             </div>
 
-      			<div class="container v-align-transform">
-      				<div class="row">
-      					<div class="col-sm-10 col-sm-offset-1 text-center">
-      					  <h1 class="mb40 mb-xs-16 large">
+      			<div className="container v-align-transform">
+      				<div className="row">
+      					<div className="col-sm-10 col-sm-offset-1 text-center">
+      					  <h1 className="mb40 mb-xs-16 large">
       							About the Classics Archive
                   </h1>
                 </div>
@@ -29,7 +29,7 @@ AboutPage = React.createClass({
 
           </section>
 
-      		<section class="page-content">
+      		<section className="page-content">
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id ante vel diam dignissim lobortis vitae non arcu. Nulla at dignissim mauris. Nam tempor posuere volutpat. Praesent posuere, neque quis facilisis dictum, nunc ante sodales sem, vitae tempus est odio id augue. Donec ac felis velit. Suspendisse in auctor magna. Donec finibus aliquam lacus eget faucibus. Aliquam tincidunt nibh id nibh placerat mollis. Nam vestibulum libero id eros semper, eget feugiat odio ultricies. Sed sodales maximus nisl vel placerat. Aenean vel elit elementum, eleifend turpis vitae, ornare tellus. Integer mollis ligula quam, ut consequat turpis pharetra id. Duis nisi odio, ullamcorper non nisl sit amet, pellentesque euismod risus. Aenean neque risus, faucibus nec dolor vitae, iaculis eleifend est. Nunc euismod nunc et ante iaculis tristique. Praesent iaculis augue efficitur, tempus nisi vel, varius tortor.
 

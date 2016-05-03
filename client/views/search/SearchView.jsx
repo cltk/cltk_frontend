@@ -33,21 +33,21 @@ SearchView = React.createClass({
   render() {
 
     return (
-      <div class="page page-search">
+      <div className="page page-search">
 
-    		<section class="page-head fullscreen image-bg bg-dark">
+    		<section className="page-head fullscreen image-bg bg-dark">
 
-    			<div class="background-image-holder blur">
-    				<img class="background-image" alt='image' src='/images/bronze-characters.jpg'/>
+    			<div className="background-image-holder blur">
+    				<img className="background-image" alt='image' src='/images/bronze-characters.jpg'/>
           </div>
 
-          <div class="background-screen">
+          <div className="background-screen">
           </div>
 
-    			<div class="container v-align-transform">
-    				<div class="row">
-    					<div class="col-sm-10 col-sm-offset-1 text-center">
-    					  <h1 class="mb40 mb-xs-16 large">
+    			<div className="container v-align-transform">
+    				<div className="row">
+    					<div className="col-sm-10 col-sm-offset-1 text-center">
+    					  <h1 className="mb40 mb-xs-16 large">
                   Search
                 </h1>
               </div>
@@ -57,7 +57,7 @@ SearchView = React.createClass({
 
         </section>
 
-    		<section class="page-content">
+    		<section className="page-content">
           {this.renderWorks}
 
         </section>

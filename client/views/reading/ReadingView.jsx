@@ -1,4 +1,4 @@
-Reading = React.createClass({
+ReadingView = React.createClass({
 
   propTypes: {
   },

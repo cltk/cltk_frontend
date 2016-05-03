@@ -72,8 +72,8 @@ ReadingProse = React.createClass({
             <div className="row">
 
 
-                <div class="author-wrap">
-                  <h3 class="work-author">{text.author.english_full} (<em>{text.author.original_full}</em>)</h3>
+                <div className="author-wrap">
+                  <h3 className="work-author">{text.author.english_full} (<em>{text.author.original_full}</em>)</h3>
                 </div>
                 {this.state.text.work.books.map(function(book, i){
                   <div className="title-wrap">

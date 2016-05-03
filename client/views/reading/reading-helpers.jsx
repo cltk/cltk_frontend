@@ -6,6 +6,7 @@
 
 });*/
 
+/*
 Template.headerReading.events = {
   "click .meta-toggle": function(e) {
     var $target = $(e.target);
@@ -73,3 +74,5 @@ Template.headerReading.events = {
 
   }
 };
+
+*/

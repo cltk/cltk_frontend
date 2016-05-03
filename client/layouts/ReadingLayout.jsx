@@ -12,16 +12,12 @@ ReadingLayout = React.createClass({
 					<div className="well-spinner"></div>
 				</div>
 
-			  <div id="annotate-widget">
-			  </div>
+				<AnnotateWidget />
 
-			  <div id="definitions-panel" className="modal-panel definitions-panel paper-shadow">
-			  </div>
+				<DefinitionsPanel />
 
-			  <div id="commentary-panel" className="modal-panel commentary-panel paper-shadow">
-			  </div>
-
-				<Footer/>
+				<CommentaryPanel />
+				
 			</div>
 			);
 	}
