@@ -1,6 +1,15 @@
 
 DefinitionsPanel = React.createClass({
 
+  propTypes: {
+    toggleDefinitions: React.PropTypes.bool
+  },
+  getDefaultProps() {
+    return {
+      toggleDefinitions: false
+    };
+  },
+
   // This mixin makes the getMeteorData method work
   mixins: [ReactMeteorData],
 
@@ -120,16 +129,18 @@ DefinitionsPanel = React.createClass({
   render() {
 
      return (
-        <div className="modal-panel-inner definitions-panel-inner">
-          <div className="definitions panel-items">
-            {this.renderDefinitions()}
+        <div className={(this.props.toggleDefinitions)? "slide-visible modal-panel definitions-panel paper-shadow"
+          :"modal-panel definitions-panel paper-shadow"}>
+          <div className="modal-panel-inner definitions-panel-inner">
+            <div className="definitions panel-items">
+              {this.renderDefinitions()}
+            </div>
+
+            {this.data.words.length === 0 ?
+                <span className="no-results no-results-definitions">No definitions available.</span>
+              : null }
           </div>
-
-          {this.data.words.length === 0 ?
-              <span className="no-results no-results-definitions">No definitions available.</span>
-            : null }
-
-        </div>
+         </div>
 
 
      );
