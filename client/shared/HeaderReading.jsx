@@ -1,4 +1,27 @@
 HeaderReading = React.createClass({
+
+  propTypes: {
+    toggleSidePanel: React.PropTypes.func,
+    toggleCommentary: React.PropTypes.bool,
+    toggleDefinitions: React.PropTypes.bool,
+    toggleTranslations: React.PropTypes.bool
+  },
+
+  getDefaultProps() {
+    return {
+      toggleDefinitions: false,
+      toggleCommentary: false,
+      toggleTranslations: false
+    };
+  },
+
+  toggleSidePanel(metadata){
+    console.log("fuck "+ metadata);
+    if (typeof this.props.toggleSidePanel === 'function') {
+      this.props.toggleSidePanel(metadata);
+    }
+  },
+
   render(){
     return (
         <header className="header-nav paper-shadow">
@@ -41,21 +64,21 @@ HeaderReading = React.createClass({
                   <div className="module left">
                     <ul className="menu ">
 
-          						<li className="meta-toggle" data-type="definitions">
+          						<li className={(this.props.toggleDefinitions)? "checked meta-toggle":"meta-toggle"} data-type="definitions" onClick={this.toggleSidePanel.bind(this,"definitions")}>
                         <a className="md-button md-ink-ripple" href="#" aria-label="Works">
                           Definitions
                           <div className="md-ripple-container"></div>
                         </a>
                       </li>
 
-          						<li className="meta-toggle" data-type="commentary">
+          						<li className={(this.props.toggleCommentary)? "checked meta-toggle":"meta-toggle"}  data-type="commentary" onClick={this.toggleSidePanel.bind(this,"commentary")}>
                         <a className="md-button md-ink-ripple" href="#" aria-label="Contribute">
                           Commentary
                           <div className="md-ripple-container"></div>
                         </a>
                       </li>
 
-          						<li className="meta-toggle" data-type="translations">
+          						<li className={(this.props.toggleTranslations)? "checked meta-toggle":"meta-toggle"}  data-type="translations" onClick={this.toggleSidePanel.bind(this,"translations")}>
                         <a className="md-button md-ink-ripple" href="#" aria-label="Contribute">
                           Translations
                           <div className="md-ripple-container"></div>

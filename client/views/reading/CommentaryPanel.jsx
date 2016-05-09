@@ -1,6 +1,17 @@
 
 CommentaryPanel = React.createClass({
 
+  propTypes: {
+    toggleCommentary: React.PropTypes.bool,
+    toggleTranslations: React.PropTypes.bool
+  },
+  getDefaultProps() {
+    return {
+      toggleCommentary: false,
+      toggleTranslations: false
+    };
+  },
+
   mixins: [ReactMeteorData],
 
   getMeteorData(){
@@ -195,52 +206,55 @@ CommentaryPanel = React.createClass({
   },
 
   render() {
-
-     return (
-       <div className="inner-groups">
-         <div className="modal-panel-inner commentary-panel-inner">
-
-           <div className="comments panel-items">
-            {this.renderComments()}
-            {this.data.comments.length === 0 ?
-                <span className="no-results no-results-commentary">No commentary available.</span>
+    let className;
+    if(this.props.toggleTranslations && this.props.toggleCommentary){
+      className = "modal-panel commentary-panel paper-shadow slide-visible commentary-visible translations-visible";
+    }
+    else if(this.props.toggleCommentary){
+      className = "modal-panel commentary-panel paper-shadow slide-visible commentary-visible";
+    }
+    else if(this.props.toggleTranslations){
+      className = "modal-panel commentary-panel paper-shadow slide-visible translations-visible";
+    }
+    else{
+      className = "modal-panel commentary-panel paper-shadow";
+    }
+    return (
+      <div className={className}>
+        <div className="inner-groups">
+          <div className="modal-panel-inner commentary-panel-inner">
+            <div className="comments panel-items">
+              {this.renderComments()}
+              {this.data.comments.length === 0 ?
+              <span className="no-results no-results-commentary">No commentary available.</span>
               : null }
-
-           </div>
+            </div>
             <div className="bottom-gradient"></div>
-
-
-
-         </div>
-         <div className="modal-panel-inner translations-panel-inner">
-
-           <div className="translations panel-items">
+          </div>
+          <div className="modal-panel-inner translations-panel-inner">
+            <div className="translations panel-items">
               {this.renderTranslations()}
               {this.data.translations.length === 0 ?
-                  <span className="no-results no-results-translation">No translations available.</span>
-                : null }
-
-           </div>
-           <div className="translations-options">
-             {this.state.translations.map(function(translation, i){
-
-               return <a key={i} className={ (translation._id === this.state.selected_translation._id) ? "md-button md-ink-ripple translation-selected" : "md-button md-ink-ripple" } onClick={ this.toggleTranslation.bind(this, i) }>
-                 {translation.translators.map(function(translator, i){
-                   return <span key={i}>{translator.name_short}, </span>
-
-                 })}
-                 {translation.date}
-                 <div className="md-ripple-container"></div>
-               </a>
-             }, this)}
-
-           </div>
-
-
-
-         </div>
+              <span className="no-results no-results-translation">No translations available.</span>
+              : null }
+            </div>
+            <div className="translations-options">
+              {this.state.translations.map(function(translation, i){
+              return <a key={i} className={ (translation._id === this.state.selected_translation._id) ?
+                "md-button md-ink-ripple translation-selected" : "md-button md-ink-ripple" }
+                onClick={ this.toggleTranslation.bind(this, i) }>
+              {translation.translators.map(function(translator, i){
+              return <span key={i}>{translator.name_short}, </span>
+              })}
+              {translation.date}
+              <div className="md-ripple-container"></div>
+              </a>
+              }, this)}
+            </div>
+          </div>
         </div>
-     );
-   }
+      </div>
+   );
+  }
 
 });
