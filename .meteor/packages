@@ -20,8 +20,8 @@ cfs:gridfs
 aldeed:template-extension
 cfs:graphicsmagick
 yogiben:helpers
-manuelschoebel:ms-seo
-spiderable
+# manuelschoebel:ms-seo
+# spiderable
 accounts-facebook
 accounts-google
 accounts-twitter
@@ -67,11 +67,10 @@ percolate:momentum
 
 # Packages added for project
 http
+react
 ecmascript
-react@0.14.6
 archimedigital:core
 jabbslad:basic-auth
-react-template-helper
 deanius:promise
 kadira:flow-router
 kadira:react-layout

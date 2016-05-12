@@ -1,4 +1,5 @@
 
+
 BrowseView = React.createClass({
 
   // This mixin makes the getMeteorData method work

@@ -1,7 +1,7 @@
 Package.describe({
   name: 'archimedigital:core',
   version: '0.1.1',
-  summary: 'Core funcitonality across Meteor projects.',
+  summary: 'Core funcitonality/libraries across Meteor projects.',
   git: '',
   documentation: 'README.md'
 
@@ -12,13 +12,6 @@ Package.onUse(function(api) {
   var both = ['client','server'];
 
   api.versionsFrom('1.1.0.3');
-
-  api.use("iron:router", "client");
-  api.use("iron:router", "server");
-
-  api.addFiles([
-        'both/routes.js'
-      ], both);
 
   api.addFiles([
         'client/smooth-scroll.min.js',

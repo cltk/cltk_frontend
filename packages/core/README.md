@@ -1,1 +1,1 @@
-Package for core functionality duplicated across applications.
+Package for core functionality and libraries duplicated across applications.
