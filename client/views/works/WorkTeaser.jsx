@@ -1,5 +1,22 @@
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import IconButton from 'material-ui/IconButton';
+import Divider from 'material-ui/Divider';
+import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import CommunicationComment from 'material-ui/svg-icons/communication/comment';
+import ActionInput from 'material-ui/svg-icons/action/input';
+import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
+// Needed for onTouchTap
+// Check this repo:
+// https://github.com/zilverline/react-tap-event-plugin
+injectTapEventPlugin();
 // Work Teaser
 WorkTeaser = React.createClass({
+
+  getChildContext() {
+    return { muiTheme: getMuiTheme(baseTheme) };
+  },
 
   propTypes: {
     // This component gets the work to display through a React prop.
@@ -13,49 +30,39 @@ WorkTeaser = React.createClass({
     let work_url = "/works/" + work.slug + "/1";
 
      return (
-        <md-card className="work-teaser paper-card" >
-
-          <md-card-content>
-
-            <a href="/">
-              <h3 className="work-author">{work.author}</h3>
-            </a>
-
+       <div className="work-teaser">
+         <Card>
             <a href={work_url}>
-              <h2 className="card-title work-title">{work.title}</h2>
+              <CardTitle title={work.title} subtitle={work.author} />
             </a>
-
-            <hr/>
-
-            <a href="/">
-              <p className="work-editor">{work.editor} {work.year}</p>
-            </a>
-
-          </md-card-content>
-
-          <md-card-actions className="clearfix" >
-
-            <a href="#" className="comments-action md-button md-ink-ripple">
-              <i className="mdi mdi-comment-outline"></i>0
-              <div className="md-ripple-container"></div>
-            </a>
-
-            <a href="#" className="favorite-action md-button md-ink-ripple">
-              <i className="mdi mdi-star-outline"></i>0
-              <div className="md-ripple-container"></div>
-            </a>
-
-            <a href="#" className="export-action md-button md-ink-ripple">
-              Other Formats
-              <i className="mdi mdi-export"></i>
-              <div className="md-ripple-container"></div>
-            </a>
-
-          </md-card-actions>
-
-        </md-card>
-
+            <CardText>
+              {work.editor} {work.year}
+            </CardText>
+            <Divider />
+            <CardActions>
+              <a href="#">
+                <IconButton tooltip="Comment">
+                  <CommunicationComment />
+                </IconButton>
+              </a>
+              <a href="#">
+                <IconButton tooltip="Favorite">
+                  <ActionFavoriteBorder />
+                </IconButton>
+              </a>
+              <a href="#">
+                <IconButton tooltip="Other Formats">
+                  <ActionInput />
+                </IconButton>
+              </a>
+            </CardActions>
+          </Card>
+        </div>
       );
     }
 
 });
+
+WorkTeaser.childContextTypes = {
+    muiTheme: React.PropTypes.object.isRequired,
+};

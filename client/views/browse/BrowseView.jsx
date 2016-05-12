@@ -58,8 +58,7 @@ BrowseView = React.createClass({
         </section>
 
     		<section className="page-content">
-          {this.renderWorks}
-
+         <WorksList/>
         </section>
 
 

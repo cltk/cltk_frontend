@@ -32,8 +32,12 @@ WorksList = React.createClass({
   render() {
 
      return (
-       <div className="works-inner">
-         {this.renderWorks()}
+       <div className="works-wrap">
+         {this.data.works.map((work) => {
+            return <WorkTeaser
+              key={work._id}
+              work={work} />;
+          })}
        </div>
 
 
