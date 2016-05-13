@@ -30,7 +30,7 @@ ReadingProse = React.createClass({
             showNumber = this.props.textNodes[i-1].n_1 != text.n_1;
           }
           if(showNumber) {
-            numbering = text.n_1.toString();
+            numbering = (text.n_1).toString();
           }
         }
 
