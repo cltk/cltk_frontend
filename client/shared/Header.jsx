@@ -23,10 +23,10 @@ Header = React.createClass({
                 icon={<FontIcon className="mdi mdi-menu" />}
               />
 
-              <a className="logo md-button md-ink-ripple" href="/" aria-label="Menu">
-                Classics Archive [Development Prototype]
-                <div className="md-ripple-container"></div>
-              </a>
+              <FlatButton
+                className="logo-button"
+                label="CLTK Archive [Development Prototype]"
+                />
 
     				</div>
 
@@ -36,11 +36,28 @@ Header = React.createClass({
 
         					<ul className="nav navbar-nav navbar-right">
         						<li>
-                      <FlatButton label="READ" href="/browse" />
+                      <FlatButton
+                        linkButton={true}
+                        label="READ"
+                        href="/browse"
+                        />
                     </li>
 
         						<li>
-                      <FlatButton label="ABOUT" href="/about" />
+                      <FlatButton
+                        linkButton={true}
+                        label="ABOUT"
+                        href="/about"
+                        />
+                    </li>
+        						<li>
+                      <FlatButton
+                        linkButton={true}
+                        label="UPDATES"
+                        href="//cltk.org/blog"
+                        target="_blank"
+
+                        />
                     </li>
 
         					</ul>
@@ -58,13 +75,13 @@ Header = React.createClass({
                       />
                     </li>
                     {/*<!--li>
-                      <a className="close-navbar md-button md-ink-ripple" href="http://twitter.com/@classicsarchive" target="_blank">
+                      <a className="close-navbar md-button md-ink-ripple" href="http://twitter.com/@cltk" target="_blank">
                         <i className="mdi mdi-twitter"></i>
                         <div className="md-ripple-container"></div>
                       </a>
                     </li>
                     <li>
-                      <a className="close-navbar md-button md-ink-ripple" href="http://plus.google.com/+ClassicsArchive" target="_blank">
+                      <a className="close-navbar md-button md-ink-ripple" href="http://plus.google.com/+CLTK" target="_blank">
                         <i className="mdi mdi-google-plus"></i>
                         <div className="md-ripple-container"></div>
                       </a>
@@ -76,6 +93,7 @@ Header = React.createClass({
                   <ul className="menu icon-menu">
                     <li>
                       <FlatButton
+                        linkButton={true}
                         href="/search"
                         icon={<FontIcon className="mdi mdi-magnify" />}
                       />

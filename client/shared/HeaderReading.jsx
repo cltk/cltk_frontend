@@ -16,8 +16,8 @@ HeaderReading = React.createClass({
   },
 
   toggleSidePanel(metadata){
-    console.log("fuck "+ metadata);
     if (typeof this.props.toggleSidePanel === 'function') {
+      console.log("toggle "+ metadata);
       this.props.toggleSidePanel(metadata);
     }
   },

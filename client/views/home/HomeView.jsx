@@ -128,7 +128,7 @@ HomeView = React.createClass({
 
               <div className="row">
 
-                <h2 className="section-title">Create or Contribute</h2>
+                <h2 className="section-title">Contribute code to the CLTK Archive or Core</h2>
 
                 <hr className="section-header-line" />
               </div>
@@ -139,16 +139,16 @@ HomeView = React.createClass({
 
                   <a href="https://github.com/cltk/cltk_frontend" target="_blank" className="start-building-item">
                     <i className="mdi mdi-github-circle icon-lg mb40 mb-xs-24 "></i>
-                    <h5 className="uppercase">Create your own archive</h5>
+                    <h5 className="uppercase">Lorem ipsum dolor sit amet</h5>
                     <span className="item-text">Quid faciat laetas segetes quo sidere terram vertere Mycenas ulmisque adiungere vites conveniat</span>
 
                   </a>
                 </div>
                 <div className="col-sm-6 text-center">
 
-                <a href="/about#contribute" target="_blank" className="start-building-item">
-                  <i className="mdi mdi-email-outline icon-lg mb40 mb-xs-24  "></i>
-                  <h5 className="uppercase">Contribute</h5>
+                <a href="https://github.com/cltk/cltk" target="_blank" className="start-building-item">
+                  <i className="mdi mdi-github-circle icon-lg mb40 mb-xs-24  "></i>
+                  <h5 className="uppercase">Lorem ipsum dolor sit amet</h5>
                   <span className="item-text">Quid faciat laetas segetes quo sidere terram vertere Mycenas ulmisque adiungere vites conveniat</span>
                 </a>
 
