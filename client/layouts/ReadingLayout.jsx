@@ -59,24 +59,23 @@ ReadingLayout = React.createClass({
 	},
 
   renderReadingEnvironment(){
-    // For this stage of development, only work with prose
     let genre = "prose";
 
-		if(this.data.work){
+		if(this.data.work && this.data.textNodes){
 			debugger;
 
 	    if (genre === "poetry"){
 	      return (
 	          <ReadingPoetry
 	            work={this.data.work}
-	            texts={this.data.texts} />
+	            texts={this.data.textNodes} />
 	        );
 
 	    }else {
 	      return (
 	          <ReadingProse
 	            work={this.data.work}
-	            texts={this.data.texts} />
+	            texts={this.data.textNodes} />
 	        );
 
 	    }

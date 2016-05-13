@@ -21,6 +21,11 @@ Schemas.Works = new SimpleSchema({
     type: String,
     max: 60
   },
+  structure: {
+    type: String,
+    optional: true,
+    max: 60
+  },
   createdAt: {
     type: Date,
     autoValue: function() {
