@@ -2,12 +2,12 @@ ReadingProse = React.createClass({
 
   propTypes: {
     work: React.PropTypes.object.isRequired,
-    text: React.PropTypes.array.isRequired
+    textNodes: React.PropTypes.array.isRequired
   },
 
   renderText() {
 
-    return this.props.text.map((text, i) => {
+    return this.props.textNodes.map((text, i) => {
 
         let showNumber = false;
         let numbering = "";
@@ -17,7 +17,7 @@ ReadingProse = React.createClass({
             showNumber = true;
           }
           else{
-            showNumber = this.props.text[i-1].n_2 != text.n_2;
+            showNumber = this.props.textNodes[i-1].n_2 != text.n_2;
           }
           if(showNumber) {
             numbering = text.n_1 + "." + text.n_2;
@@ -27,10 +27,10 @@ ReadingProse = React.createClass({
             showNumber = true;
           }
           else{
-            showNumber = this.props.text[i-1].n_1 != text.n_1;
+            showNumber = this.props.textNodes[i-1].n_1 != text.n_1;
           }
           if(showNumber) {
-            numbering = text.n_1;
+            numbering = text.n_1.toString();
           }
         }
 
@@ -62,12 +62,7 @@ ReadingProse = React.createClass({
             <h1 className="work-title">{work.title}</h1>
           </div>
 
-          <div className="chapter-heading">
-              <h3 className="chapter-number"></h3>
-          </div>
-
           {this.renderText()}
-
 
   				<div className="reading-loading-area">
   					<div className="well-spinner"></div>

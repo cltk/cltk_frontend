@@ -293,6 +293,11 @@ function syncTextNodes(textNodes, metaStructure, work){
   var count = 0;
 
   /*
+   * Save the meta structure on the work
+   */
+  Works.update({_id:work._id},{$set: {structure: metaStructure}});
+
+  /*
    * Parse the input document based on the document structure denoted in the
    * meta field
    */
@@ -509,7 +514,7 @@ if ( Meteor.isServer ) {
   Meteor.startup(function () {
 
     // If necessary for development purposes, reset and re-sync database
-    resetDb();
+    //resetDb();
 
     // If no languages have been synced from the CLTK API, then assume that no
     // content is in the database and sync content sequentially, languages to texts

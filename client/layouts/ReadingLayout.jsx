@@ -21,7 +21,7 @@ ReadingLayout = React.createClass({
 
     return {
       work: Works.findOne(work_query),
-      textNodes: Texts.find(text_query, {sort : {n_1 : 1, n_2 : 1, n_3 : 1}, limit : 20 }).fetch()	,
+      textNodes: Texts.find(text_query, {sort : {n_1 : 1, n_2 : 1, n_3 : 1}, limit : 1000 }).fetch()	,
       currentUser: Meteor.user()
     };
 
@@ -59,33 +59,39 @@ ReadingLayout = React.createClass({
 	},
 
   renderReadingEnvironment(){
-    let genre = "prose";
+		let work = this.data.work;
+		let textNodes = this.data.textNodes;
 
-		if(this.data.work && this.data.textNodes){
-			debugger;
+		// If data is loaded
+		if(work && textNodes){
 
-	    if (genre === "poetry"){
+			// Infer Reading layout by the work meta structure value
+			if(['line', 'poem-line', 'book-line'].indexOf(work.structure)){
+				/*
 	      return (
 	          <ReadingPoetry
-	            work={this.data.work}
-	            texts={this.data.textNodes} />
+	            work={work}
+	            textNodes={textNodes} />
+	        );
+				*/
+	      return (
+	          <ReadingProse
+	            work={work}
+	            textNodes={textNodes} />
 	        );
 
 	    }else {
 	      return (
 	          <ReadingProse
-	            work={this.data.work}
-	            texts={this.data.textNodes} />
+	            work={work}
+	            textNodes={textNodes} />
 	        );
 
 	    }
 
 		}
 
-
-
   },
-
 
 	render(){
 		return(
@@ -95,7 +101,7 @@ ReadingLayout = React.createClass({
 					toggleCommentary={this.state.toggleCommentary} toggleTranslations={this.state.toggleTranslations}
 					/>
 				<main>
-		      <div className="reading-environment book-chapter-section">
+		      <div id="reading">
 		        {this.renderReadingEnvironment()}
 
 
