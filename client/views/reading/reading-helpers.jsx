@@ -1,3 +1,4 @@
+/*
 Template.readingLayout.onRendered(function() {
   ReactDOM.render(<Reading />, document.getElementById("reading"));
   ReactDOM.render(<AnnotateWidget />, document.getElementById("annotate-widget"));
@@ -79,3 +80,4 @@ Template.headerReading.events = {
 
   }
 };
+*/
