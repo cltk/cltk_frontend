@@ -12,6 +12,24 @@ Header = React.createClass({
   },
 
   render(){
+
+    let styles = {
+      flatButton : {
+        width: "auto",
+        minWidth: "none",
+        height: "55px",
+        padding: "10px 5px"
+      },
+      flatIconButton : {
+        padding: "10px 20px",
+        width: "auto",
+        minWidth: "none",
+        height: "55px",
+
+      }
+
+    };
+
     return (
     <div>
       <header className="header-nav paper-shadow">
@@ -20,11 +38,16 @@ Header = React.createClass({
 
     				<div className="navbar-header">
               <FlatButton
+                className="left-drawer-toggle"
+                style={styles.flatIconButton}
                 icon={<FontIcon className="mdi mdi-menu" />}
               />
 
               <FlatButton
-                className="logo-button"
+                className="logo"
+                linkButton={true}
+                style={styles.flatButton}
+                href="/"
                 label="CLTK Archive [Development Prototype]"
                 />
 
@@ -37,6 +60,7 @@ Header = React.createClass({
         					<ul className="nav navbar-nav navbar-right">
         						<li>
                       <FlatButton
+                        style={styles.flatButton}
                         linkButton={true}
                         label="READ"
                         href="/browse"
@@ -45,6 +69,7 @@ Header = React.createClass({
 
         						<li>
                       <FlatButton
+                        style={styles.flatButton}
                         linkButton={true}
                         label="ABOUT"
                         href="/about"
@@ -52,6 +77,7 @@ Header = React.createClass({
                     </li>
         						<li>
                       <FlatButton
+                        style={styles.flatButton}
                         linkButton={true}
                         label="UPDATES"
                         href="//cltk.org/blog"
@@ -68,6 +94,7 @@ Header = React.createClass({
                   <ul className="menu icon-menu">
                     <li>
                       <FlatButton
+                        style={styles.flatIconButton}
                         linkButton={true}
                         href="https://github.com/cltk"
                         icon={<FontIcon className="mdi mdi-github-circle" />}
@@ -93,6 +120,7 @@ Header = React.createClass({
                   <ul className="menu icon-menu">
                     <li>
                       <FlatButton
+                        style={styles.flatIconButton}
                         linkButton={true}
                         href="/search"
                         icon={<FontIcon className="mdi mdi-magnify" />}

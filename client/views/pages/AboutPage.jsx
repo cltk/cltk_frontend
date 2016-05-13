@@ -9,18 +9,18 @@ AboutPage = React.createClass({
 
       		<section className="page-head fullscreen image-bg bg-dark">
 
-      			<div className="background-image-holder blur">
+      			<div className="background-image-holder less-blur blur">
       				<img className="background-image" alt='image' src='/images/amphorae-many.jpg'/>
             </div>
 
-            <div className="background-screen">
+            <div className="background-screen cyan">
             </div>
 
       			<div className="container v-align-transform">
       				<div className="row">
       					<div className="col-sm-10 col-sm-offset-1 text-center">
       					  <h1 className="mb40 mb-xs-16 large">
-      							About the Classics Archive
+      							About the CLTK Archive
                   </h1>
                 </div>
               </div>
