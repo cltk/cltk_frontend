@@ -1,5 +1,32 @@
 
 ReadingLayout = React.createClass({
+
+  // This mixin makes the getMeteorData method work
+  mixins: [ReactMeteorData],
+
+  propTypes: {
+    params: React.PropTypes.object.isRequired,
+    queryParams: React.PropTypes.object.isRequired
+  },
+
+  getMeteorData() {
+    let work_query = {};
+		let text_query = {};
+
+		if("work" in this.props.params){
+				work_query = {slug: this.props.params.work};
+				text_query = {work: this.props.params.work};
+		}
+
+
+    return {
+      work: Works.findOne(work_query),
+      textNodes: Texts.find(text_query, {sort : {n_1 : 1, n_2 : 1, n_3 : 1}, limit : 20 }).fetch()	,
+      currentUser: Meteor.user()
+    };
+
+  },
+
 	getInitialState(){
 	    return {
 	      toggleCommentary: false,
@@ -7,6 +34,7 @@ ReadingLayout = React.createClass({
 	      toggleTranslations: false
 	    }
 	},
+
 	toggleSidePanel(metadata){
 		console.log(metadata);
 		if(metadata==="definitions"){
@@ -29,26 +57,60 @@ ReadingLayout = React.createClass({
 			});
 		}
 	},
+
+  renderReadingEnvironment(){
+    // For this stage of development, only work with prose
+    let genre = "prose";
+
+		if(this.data.work){
+			debugger;
+
+	    if (genre === "poetry"){
+	      return (
+	          <ReadingPoetry
+	            work={this.data.work}
+	            texts={this.data.texts} />
+	        );
+
+	    }else {
+	      return (
+	          <ReadingProse
+	            work={this.data.work}
+	            texts={this.data.texts} />
+	        );
+
+	    }
+
+		}
+
+
+
+  },
+
+
 	render(){
 		return(
 			<div className="cltk-layout reading-layout">
-				<HeaderReading toggleSidePanel={this.toggleSidePanel} toggleDefinitions={this.state.toggleDefinitions}
-					toggleCommentary={this.state.toggleCommentary} toggleTranslations={this.state.toggleTranslations} />
+				<HeaderReading
+					toggleSidePanel={this.toggleSidePanel} toggleDefinitions={this.state.toggleDefinitions}
+					toggleCommentary={this.state.toggleCommentary} toggleTranslations={this.state.toggleTranslations}
+					/>
 				<main>
-					{this.props.content}
+		      <div className="reading-environment book-chapter-section">
+		        {this.renderReadingEnvironment()}
+
+
+		      </div>
+
 				</main>
 
-				<div className="reading-loading-area">
-					<div className="well-spinner"></div>
-				</div>
-
-				<AnnotateWidget />
+				{/*<AnnotateWidget />*/}
 
 				<DefinitionsPanel toggleDefinitions={this.state.toggleDefinitions} />
 
 				<CommentaryPanel toggleCommentary={this.state.toggleCommentary} toggleTranslations={this.state.toggleTranslations} />
 
-				
+
 			</div>
 			);
 	}

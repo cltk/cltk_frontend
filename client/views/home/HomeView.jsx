@@ -59,6 +59,8 @@ HomeView = React.createClass({
               </div>
             </div>
 
+            <WorksList />
+
 
             <div className="container text-center">
               <div className="row">

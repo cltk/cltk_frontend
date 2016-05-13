@@ -11,7 +11,7 @@ ReadingProse = React.createClass({
 
         let showNumber = false;
         let numbering = "";
-       
+
         if(text.n_3) {
           if(i==0){
             showNumber = true;
@@ -68,6 +68,10 @@ ReadingProse = React.createClass({
 
           {this.renderText()}
 
+
+  				<div className="reading-loading-area">
+  					<div className="well-spinner"></div>
+  				</div>
 
 
         </div>

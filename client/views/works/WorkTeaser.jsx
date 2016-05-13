@@ -19,15 +19,13 @@ WorkTeaser = React.createClass({
   },
 
   propTypes: {
-    // This component gets the work to display through a React prop.
-    // We can use propTypes to indicate it is required
     work: React.PropTypes.object.isRequired
   },
 
 
   render() {
     let work = this.props.work;
-    let work_url = "/works/" + work.slug + "/1";
+    let work_url = "/works/" + work.author + "/" + work.slug ;
 
      return (
        <div className="work-teaser">
