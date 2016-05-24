@@ -35,30 +35,40 @@ ReadingLayout = React.createClass({
 	    }
 	},
 
+	resetScrollLock(){
+		$(".definitions").scrollLock(false);
+		$(".comments").scrollLock(false);
+		$(".translations").scrollLock(false);
+	},
+
 	toggleSidePanel(metadata){
 		console.log(metadata);
+		this.resetScrollLock();
 		if(metadata==="definitions"){
 			let toggle = !this.state.toggleDefinitions;
 			this.setState({
 				toggleDefinitions: toggle
 			});
 			console.log("toggleDefinitions" + this.state.toggleDefinitions);
+			$(".definitions").scrollLock(true);
 		}
 		if(metadata==="commentary"){
 			let toggle = !this.state.toggleCommentary;
 			this.setState({
 				toggleCommentary: toggle
 			});
+			$(".comments").scrollLock(true);
 		}
 		if(metadata==="translations"){
 			let toggle = !this.state.toggleTranslations;
 			this.setState({
 				toggleTranslations: toggle
 			});
+			$(".translations").scrollLock(true);
 		}
 	},
 
-  renderReadingEnvironment(){
+	renderReadingEnvironment(){
 		let work = this.data.work;
 		let textNodes = this.data.textNodes;
 
@@ -91,7 +101,7 @@ ReadingLayout = React.createClass({
 
 		}
 
-  },
+	},
 
 	render(){
 		return(
