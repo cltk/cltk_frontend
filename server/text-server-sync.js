@@ -82,6 +82,21 @@ function getTextNodes(work){
 
 }
 
+function getDefinitions(word, lang){
+   return new Promise(function(resolve, reject){
+    // TODO: Change the url to "api.cltk.org:5000" once the updated api is deployed
+    HTTP.get("http://localhost:5000/lang/" + lang + "/define/" + word, {}, function(error, response){
+      if (error){
+        reject(error);
+      }else {
+        resolve(response);
+      }
+    });
+
+  });
+
+}
+
 // Get all the available languages from the API synchronously
 function getLanguagesSequence(){
 
@@ -201,6 +216,33 @@ function getTextNodesSequence(res){
 
   });
 
+}
+
+// Get word definitions for text synchronously
+function getDefinitionSequence(res){
+
+  return new Promise(function(resolve, reject){
+
+    Texts.find().fetch().forEach(function(text){
+    words = text.text.split(" ");
+    words.forEach(function(word){
+      // Cleaning word
+      word = word.toLowerCase().replace(/[.,"";:{}=\-_`~()]/g,"");
+      let existing = Wordforms.findOne({word: word});
+      if(!existing){
+        response = HTTP.get("http://localhost:5000/lang/" + text.language + "/define/" + word);
+        if(response.statusCode === 200){
+          syncDefinitions(word, text, response.data);
+        }else{
+          console.error("Error with definitions sync at", response);
+
+        }
+
+      }
+    });
+
+  });
+  });
 }
 
 // Removes all content synced from the API
@@ -424,6 +466,41 @@ function syncTextNodes(textNodes, metaStructure, work){
 
 }
 
+function syncDefinitions(word, text, definitions){
+  definitions.forEach(function(item){
+    let existing = Definitions.findOne({headword: item.headword});
+    if(!existing){
+      Definitions.insert({
+          headword: item.headword,
+          pos: item.pos,
+          definition: item.definition,
+        },
+        function(err,docsInserted){
+          if(err){
+            return err;
+          }
+          existing = docsInserted;
+        }
+      );
+    }
+    let wordform = Wordforms.findOne({word: word, texts: text._id});
+    if(!wordform){
+      Wordforms.insert({
+          word: word,
+          definitions: existing._id,
+          texts: text._id,
+      },
+      function(err,docsInserted){
+            if(err){
+              return err;
+            }
+          }
+      );
+    }
+  })
+  console.log(" -- -- synced", definitions.length, "definition items" );
+}
+
 /*
  * Sync content from the API with parallel requests to each level of the API
  */
@@ -493,6 +570,25 @@ function doSyncParallel(){
 
   });
 
+  // Get the definitions for each word in the texts
+  Texts.find().fetch().forEach(function(text){
+    words = text.text.split(" ");
+    words.forEach(function(word){
+      // Cleaning word
+      word = word.toLowerCase().replace(/[.,"";:{}=\-_`~()]/g,"");
+      let existing = Wordforms.findOne({word: word});
+      if(!existing){
+        getDefinitions(word, text.language)
+        .then(function(response){
+          syncDefinitions(word, text, response.data);
+        }, function(error){
+          // Do better error handling here in the future
+          console.error(" -- -- error with syncing definitions:", error);
+        });
+      }
+    });
+  });
+
 }
 
 
@@ -501,7 +597,7 @@ function doSyncParallel(){
  */
 function doSyncSequence(){
   // Promise returning functions to execute
-  pseries([getLanguagesSequence, getCorporaSequence, getAuthorsSequence, getWorksSequence, getTextNodesSequence]);
+  pseries([getLanguagesSequence, getCorporaSequence, getAuthorsSequence, getWorksSequence, getTextNodesSequence, getDefinitionSequence]);
 
 }
 
