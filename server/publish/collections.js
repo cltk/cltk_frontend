@@ -28,6 +28,13 @@ if (Meteor.isServer){
     return Works.find();
   });
 
+  Meteor.publish('definitions', function() {
+    return Definitions.find();
+  });
+
+  Meteor.publish('wordforms', function() {
+    return Wordforms.find();
+  });
 
 
 }

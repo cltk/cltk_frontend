@@ -483,20 +483,17 @@ function syncDefinitions(word, text, definitions){
         }
       );
     }
-    let wordform = Wordforms.findOne({word: word, texts: text._id});
-    if(!wordform){
-      Wordforms.insert({
-          word: word,
-          definitions: existing._id,
-          texts: text._id,
-      },
-      function(err,docsInserted){
-            if(err){
-              return err;
-            }
+    Wordforms.insert({
+        word: word,
+        definitions: existing._id,
+        texts: text._id,
+    },
+    function(err,docsInserted){
+          if(err){
+            return err;
           }
-      );
-    }
+        }
+    );
   })
   console.log(" -- -- synced", definitions.length, "definition items" );
 }

@@ -21,7 +21,7 @@ DefinitionWord = React.createClass({
 
   render() {
      const wordClassName = "meta-item panel-item definition " + (this.state.showMore ? "expanded" : "");
-
+     //console.log(this.props.word);
      return (
           <div className={wordClassName}>
             <div className="show-more-toggle" onClick={this.toggleShowMore}>
@@ -43,39 +43,13 @@ DefinitionWord = React.createClass({
               {this.props.word.definitions.map(function(definition, i){
 
                 return <div className="meaning" key={i}>
-                  <span className="root">{definition.orthography.join(", ")}</span>
-                  <span className="meaning-definition">{definition.senses.join(", ")}</span>
+                  <span className="root">{definition.headword}</span>
+                  <span className="meaning-definition">{definition.definition}</span>
 
-                  {definition.inflections.map(function(inflection, j){
-                    return <div className="forms" key={j}>
+                  <div className="forms">
+                    <span className="form">-{definition.pos}</span>
+                  </div>
 
-                      {(() => {
-                        switch (inflection.pos) {
-                          case "noun":
-                            return <span className="form">-{inflection.ending}: {inflection.pos} {inflection.declension.title} declension, {inflection.declension.case} {inflection.gender} {inflection.number}</span>
-
-                          case "pronoun":
-                            return <span className="form">-{inflection.ending}: {inflection.pos} {inflection.declension.title} declension, {inflection.declension.case} {inflection.gender} {inflection.number}</span>
-
-                          case "adjective":
-                            return <span className="form">-{inflection.ending}: {inflection.pos} {inflection.declension.title} declension, {inflection.declension.case} {inflection.gender} {inflection.number}</span>
-
-                          case "verb":
-                            return <span className="form">-{inflection.ending}: {inflection.pos} {inflection.conjugation} conjugation, {inflection.person} {inflection.number} {inflection.tense} {inflection.voice} {inflection.mood}</span>
-
-                          case "participle":
-                            return <span className="form">-{inflection.ending}: {inflection.pos} {inflection.declension.title} declension, {inflection.declension.case} {inflection.gender} {inflection.number} {inflection.tense} {inflection.voice}</span>
-
-                          default:
-                            return <span className="form">-{inflection.ending}: {inflection.pos} {inflection.form}</span>
-
-                          }
-
-                      })()}
-
-                    </div>
-
-                  })}
                 </div>
 
               })}

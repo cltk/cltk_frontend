@@ -2,11 +2,13 @@
 DefinitionsPanel = React.createClass({
 
   propTypes: {
-    toggleDefinitions: React.PropTypes.bool
+    toggleDefinitions: React.PropTypes.bool,
+    textNodes: React.PropTypes.array
   },
   getDefaultProps() {
     return {
-      toggleDefinitions: false
+      toggleDefinitions: false,
+      textNodes: []
     };
   },
 
@@ -14,17 +16,36 @@ DefinitionsPanel = React.createClass({
   mixins: [ReactMeteorData],
 
   getMeteorData() {
-    let query = {};
+    words = [];
+    this.props.textNodes.map((textNode) => {
+      definitions = {};
+      Wordforms.find({texts: textNode._id}).fetch().map((wordform) => {
+        if(definitions[wordform.word] == null){
+          definitions[wordform.word] = [];
+        }
+        definitions[wordform.word].push(Definitions.findOne({_id: wordform.definitions}));
+      });
+      //console.log(definitions);
+      for(key in definitions) {
+        word = {};
+        word["_id"] = textNode._id;
+        word["lemma"] = key;
+        //console.log(definitions[key]);
+        word["definitions"] = definitions[key];
+        words.push(word);
+      }
+      //console.log(words);
+      });
 
     return {
-      words : [{}]
+      words : words
     };
 
   },
 
 
   renderDefinitions(){
-    var words = [
+    /*var words = [
       {
         _id : 123,
         lemma: "arma",
@@ -117,10 +138,10 @@ DefinitionsPanel = React.createClass({
         ]
       }
     ];
-
-    return words.map((word) => {
+    */
+    //console.log(this.data.words);
+    return this.data.words.map((word) => {
       return <DefinitionWord
-        key={word._id}
         word={word} />;
     });
 

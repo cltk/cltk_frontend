@@ -121,7 +121,7 @@ ReadingLayout = React.createClass({
 
 				{/*<AnnotateWidget />*/}
 
-				<DefinitionsPanel toggleDefinitions={this.state.toggleDefinitions} />
+				<DefinitionsPanel toggleDefinitions={this.state.toggleDefinitions} textNodes={this.data.textNodes} />
 
 				<CommentaryPanel toggleCommentary={this.state.toggleCommentary} toggleTranslations={this.state.toggleTranslations} />
 
