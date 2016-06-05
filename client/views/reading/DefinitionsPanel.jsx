@@ -17,24 +17,24 @@ DefinitionsPanel = React.createClass({
 
   getMeteorData() {
     words = [];
-    this.props.textNodes.map((textNode) => {
+    this.props.textNodes.map((textNode, i) => {
       definitions = {};
       Wordforms.find({texts: textNode._id}).fetch().map((wordform) => {
         if(definitions[wordform.word] == null){
           definitions[wordform.word] = [];
         }
-        definitions[wordform.word].push(Definitions.findOne({_id: wordform.definitions}));
+        definition = Definitions.findOne({_id: wordform.definitions});
+        if(definition != undefined){
+          definitions[wordform.word].push(definition);
+        }
       });
-      //console.log(definitions);
       for(key in definitions) {
         word = {};
-        word["_id"] = textNode._id;
+        word["index"] = i;
         word["lemma"] = key;
-        //console.log(definitions[key]);
         word["definitions"] = definitions[key];
         words.push(word);
       }
-      //console.log(words);
       });
 
     return {
@@ -139,16 +139,15 @@ DefinitionsPanel = React.createClass({
       }
     ];
     */
-    //console.log(this.data.words);
-    return this.data.words.map((word) => {
+    return this.data.words.map((word, i) => {
       return <DefinitionWord
+        key={i}
         word={word} />;
     });
 
   },
 
   render() {
-
      return (
         <div className={(this.props.toggleDefinitions)? "slide-visible modal-panel definitions-panel paper-shadow"
           :"modal-panel definitions-panel paper-shadow"}>

@@ -1,6 +1,7 @@
 ReadingText = React.createClass({
 
   propTypes: {
+    index: React.PropTypes.number.isRequired,
     text: React.PropTypes.object.isRequired,
     showNumber: React.PropTypes.bool.isRequired,
     numbering: React.PropTypes.string.isRequired,
@@ -69,7 +70,7 @@ ReadingText = React.createClass({
     }
 
     return(
-       <div className={textClasses}>
+       <div className={textClasses} data-num={this.props.index}>
          <div className="text-left-header">
             <h2>{numbering}</h2>
             <i className="text-bookmark mdi mdi-bookmark"></i>
