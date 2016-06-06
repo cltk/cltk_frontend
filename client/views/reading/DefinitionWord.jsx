@@ -22,7 +22,7 @@ DefinitionWord = React.createClass({
   render() {
      const wordClassName = "meta-item panel-item definition " + (this.state.showMore ? "expanded" : "");
      return (
-          <div className={wordClassName} data-ref={this.props.word.index}>
+          <div className={wordClassName}>
             <div className="show-more-toggle" onClick={this.toggleShowMore}>
               <i className="mdi mdi-plus paper-shadow"></i>
               <i className="mdi mdi-minus paper-shadow"></i>

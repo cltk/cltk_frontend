@@ -36,7 +36,6 @@ ReadingProse = React.createClass({
 
         return <ReadingText
                   key={text._id}
-                  index={i}
                   showNumber={showNumber}
                   text={text}
                   numbering={numbering}

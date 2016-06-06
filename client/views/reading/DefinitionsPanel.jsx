@@ -16,27 +16,39 @@ DefinitionsPanel = React.createClass({
   mixins: [ReactMeteorData],
 
   getMeteorData() {
-    words = [];
-    this.props.textNodes.map((textNode, i) => {
-      definitions = {};
-      Wordforms.find({texts: textNode._id}).fetch().map((wordform) => {
-        if(definitions[wordform.word] == null){
-          definitions[wordform.word] = [];
-        }
-        definition = Definitions.findOne({_id: wordform.definitions});
-        if(definition != undefined){
-          definitions[wordform.word].push(definition);
-        }
+    let words = [];
+    let textIds = [];
+    let definitionIds = [];
+    let definitions = {};
+    let wordForms = [];
+    this.props.textNodes.map((textNode) => {
+      textIds.push(textNode._id);
+    });
+    let handleWordforms = Meteor.subscribe('wordForms', textIds);
+    if(handleWordforms.ready()) {
+      wordForms = Wordforms.find().fetch();
+      wordForms.map((wordForm) => {
+        definitionIds.push(wordForm.definitions);
       });
-      for(key in definitions) {
-        word = {};
-        word["index"] = i;
-        word["lemma"] = key;
-        word["definitions"] = definitions[key];
-        words.push(word);
+      let handleDefinitions = Meteor.subscribe('definitions', definitionIds);
+      if(handleDefinitions.ready()) {
+        wordForms.map((wordForm) => {
+          if(definitions[wordForm.word] == null){
+            definitions[wordForm.word] = [];
+          }
+          definition = Definitions.findOne({_id: wordForm.definitions});
+          if(definition != undefined){
+            definitions[wordForm.word].push(definition);
+          }
+        });
+        for(key in definitions) {
+          word = {};
+          word["lemma"] = key;
+          word["definitions"] = definitions[key];
+          words.push(word);
+        }
       }
-      });
-
+    }
     return {
       words : words
     };
