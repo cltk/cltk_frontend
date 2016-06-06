@@ -1,15 +1,30 @@
+import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+import TextField from 'material-ui/TextField';
 
 DefinitionsPanel = React.createClass({
+
+  getChildContext() {
+    return { muiTheme: getMuiTheme(baseTheme) };
+  },
 
   propTypes: {
     toggleDefinitions: React.PropTypes.bool,
     textNodes: React.PropTypes.array
   },
+
   getDefaultProps() {
     return {
       toggleDefinitions: false,
       textNodes: []
     };
+  },
+
+  getInitialState(){
+      return {
+        searchText: ""
+      }
   },
 
   // This mixin makes the getMeteorData method work
@@ -26,7 +41,7 @@ DefinitionsPanel = React.createClass({
     });
     let handleWordforms = Meteor.subscribe('wordForms', textIds);
     if(handleWordforms.ready()) {
-      wordForms = Wordforms.find().fetch();
+      wordForms = Wordforms.find({word: {$regex: this.state.searchText}}).fetch();
       wordForms.map((wordForm) => {
         definitionIds.push(wordForm.definitions);
       });
@@ -55,9 +70,13 @@ DefinitionsPanel = React.createClass({
 
   },
 
+  handleChange: function(event) {
+    this.setState({searchText: event.target.value});
+  },
 
   renderDefinitions(){
-    /*var words = [
+    /*
+    var words = [
       {
         _id : 123,
         lemma: "arma",
@@ -164,6 +183,7 @@ DefinitionsPanel = React.createClass({
         <div className={(this.props.toggleDefinitions)? "slide-visible modal-panel definitions-panel paper-shadow"
           :"modal-panel definitions-panel paper-shadow"}>
           <div className="modal-panel-inner definitions-panel-inner">
+            <TextField hintText="Search text" fullWidth={true} onChange={this.handleChange}/>
             <div className="definitions panel-items">
               {this.renderDefinitions()}
             </div>
@@ -179,3 +199,7 @@ DefinitionsPanel = React.createClass({
    }
 
 });
+
+DefinitionsPanel.childContextTypes = {
+    muiTheme: React.PropTypes.object.isRequired,
+};
