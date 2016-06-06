@@ -71,7 +71,7 @@ DefinitionsPanel = React.createClass({
   },
 
   handleChange: function(event) {
-    this.setState({searchText: event.target.value});
+    this.setState({searchText: event.target.value.toLowerCase()});
   },
 
   renderDefinitions(){
