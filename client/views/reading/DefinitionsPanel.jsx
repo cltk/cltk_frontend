@@ -179,24 +179,22 @@ DefinitionsPanel = React.createClass({
   },
 
   render() {
-     return (
-        <div className={(this.props.toggleDefinitions)? "slide-visible modal-panel definitions-panel paper-shadow"
-          :"modal-panel definitions-panel paper-shadow"}>
-          <div className="modal-panel-inner definitions-panel-inner">
-            <TextField hintText="Search text" fullWidth={true} onChange={this.handleChange}/>
-            <div className="definitions panel-items">
-              {this.renderDefinitions()}
-            </div>
-
-            {this.data.words.length === 0 ?
-                <span className="no-results no-results-definitions">No definitions available.</span>
-              : null }
+    return (
+      <div className={(this.props.toggleDefinitions)?
+        "slide-visible modal-panel definitions-panel paper-shadow":"modal-panel definitions-panel paper-shadow"}>
+        <div className="modal-panel-inner definitions-panel-inner">
+          <TextField hintText="Search text" fullWidth={true} onChange={this.handleChange}/>
+          <div className="definitions panel-items">
+            {this.renderDefinitions()}
           </div>
-         </div>
 
-
-     );
-   }
+          {this.data.words.length === 0 ?
+              <span className="no-results no-results-definitions">No definitions available.</span>
+            : null }
+        </div>
+       </div>
+    );
+  }
 
 });
 
