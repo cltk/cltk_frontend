@@ -6,12 +6,10 @@ Schemas.Definitions = new SimpleSchema({
     max: 60
   },
   pos: {
-    type: String,
-    max: 60
+    type: String
   },
   definition: {
-    type: String,
-    max: 60
+    type: String
   },
   createdAt: {
     type: Date,
