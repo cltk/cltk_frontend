@@ -2,6 +2,7 @@ import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import TextField from 'material-ui/TextField';
+import ReactList from 'react-list';
 
 DefinitionsPanel = React.createClass({
 
@@ -178,14 +179,25 @@ DefinitionsPanel = React.createClass({
 
   },
 
+  renderDefinition(index, key) {
+    return <DefinitionWord
+        key={key}
+        word={this.data.words[index]} />;
+  },
+
   render() {
     return (
       <div className={(this.props.toggleDefinitions)?
         "slide-visible modal-panel definitions-panel paper-shadow":"modal-panel definitions-panel paper-shadow"}>
         <div className="modal-panel-inner definitions-panel-inner">
           <TextField hintText="Search text" fullWidth={true} onChange={this.handleChange}/>
-          <div className="definitions panel-items">
-            {this.renderDefinitions()}
+          <div className="definitions panel-items" >
+            <ReactList
+              itemRenderer={this.renderDefinition}
+              length={this.data.words.length}
+              type='variable'
+            />
+
           </div>
 
           {this.data.words.length === 0 ?

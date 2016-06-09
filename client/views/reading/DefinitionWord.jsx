@@ -33,7 +33,7 @@ DefinitionWord = React.createClass({
           <h4 className="word">
             {this.props.word.lemma}
           </h4>
-          <a className="definition-link" href="http://www.perseus.tufts.edu/hopper/morph?l={this.props.word.lemma}&la=la" target="_blank">
+          <a className="definition-link" href={"http://www.perseus.tufts.edu/hopper/morph?l=" + this.props.word.lemma + "&la=la"} target="_blank">
             Perseus
           </a>
         </div>
