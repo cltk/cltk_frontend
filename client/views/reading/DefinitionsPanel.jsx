@@ -190,7 +190,7 @@ DefinitionsPanel = React.createClass({
       <div className={(this.props.toggleDefinitions)?
         "slide-visible modal-panel definitions-panel paper-shadow":"modal-panel definitions-panel paper-shadow"}>
         <div className="modal-panel-inner definitions-panel-inner">
-          <TextField hintText="Search text" fullWidth={true} onChange={this.handleChange}/>
+          <TextField className="search-box" hintText="Search text" fullWidth={true} onChange={this.handleChange}/>
           <div className="definitions panel-items" >
             <ReactList
               itemRenderer={this.renderDefinition}
