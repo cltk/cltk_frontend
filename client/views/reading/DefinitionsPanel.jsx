@@ -1,29 +1,82 @@
+import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+import TextField from 'material-ui/TextField';
+import ReactList from 'react-list';
 
 DefinitionsPanel = React.createClass({
 
-  propTypes: {
-    toggleDefinitions: React.PropTypes.bool
+  getChildContext() {
+    return { muiTheme: getMuiTheme(baseTheme) };
   },
+
+  propTypes: {
+    toggleDefinitions: React.PropTypes.bool,
+    textNodes: React.PropTypes.array
+  },
+
   getDefaultProps() {
     return {
-      toggleDefinitions: false
+      toggleDefinitions: false,
+      textNodes: []
     };
+  },
+
+  getInitialState(){
+      return {
+        searchText: ""
+      }
   },
 
   // This mixin makes the getMeteorData method work
   mixins: [ReactMeteorData],
 
   getMeteorData() {
-    let query = {};
-
+    let words = [];
+    let textIds = [];
+    let definitionIds = [];
+    let definitions = {};
+    let wordForms = [];
+    this.props.textNodes.map((textNode) => {
+      textIds.push(textNode._id);
+    });
+    let handleWordforms = Meteor.subscribe('wordForms', textIds);
+    if(handleWordforms.ready()) {
+      wordForms = Wordforms.find({word: {$regex: this.state.searchText}}).fetch();
+      wordForms.map((wordForm) => {
+        definitionIds.push(wordForm.definitions);
+      });
+      let handleDefinitions = Meteor.subscribe('definitions', definitionIds);
+      if(handleDefinitions.ready()) {
+        wordForms.map((wordForm) => {
+          if(definitions[wordForm.word] == null){
+            definitions[wordForm.word] = [];
+          }
+          definition = Definitions.findOne({_id: wordForm.definitions});
+          if(definition != undefined){
+            definitions[wordForm.word].push(definition);
+          }
+        });
+        for(key in definitions) {
+          word = {};
+          word["lemma"] = key;
+          word["definitions"] = definitions[key];
+          words.push(word);
+        }
+      }
+    }
     return {
-      words : [{}]
+      words : words
     };
 
   },
 
+  handleChange: function(event) {
+    this.setState({searchText: event.target.value.toLowerCase()});
+  },
 
   renderDefinitions(){
+    /*
     var words = [
       {
         _id : 123,
@@ -117,33 +170,46 @@ DefinitionsPanel = React.createClass({
         ]
       }
     ];
-
-    return words.map((word) => {
+    */
+    return this.data.words.map((word, i) => {
       return <DefinitionWord
-        key={word._id}
+        key={i}
         word={word} />;
     });
 
   },
 
+  renderDefinition(index, key) {
+    return <DefinitionWord
+        key={key}
+        word={this.data.words[index]} />;
+  },
+
   render() {
+    return (
+      <div className={(this.props.toggleDefinitions)?
+        "slide-visible modal-panel definitions-panel paper-shadow":"modal-panel definitions-panel paper-shadow"}>
+        <div className="modal-panel-inner definitions-panel-inner">
+          <TextField className="search-box" hintText="Search text" fullWidth={true} onChange={this.handleChange}/>
+          <div className="definitions panel-items" >
+            <ReactList
+              itemRenderer={this.renderDefinition}
+              length={this.data.words.length}
+              type='variable'
+            />
 
-     return (
-        <div className={(this.props.toggleDefinitions)? "slide-visible modal-panel definitions-panel paper-shadow"
-          :"modal-panel definitions-panel paper-shadow"}>
-          <div className="modal-panel-inner definitions-panel-inner">
-            <div className="definitions panel-items">
-              {this.renderDefinitions()}
-            </div>
-
-            {this.data.words.length === 0 ?
-                <span className="no-results no-results-definitions">No definitions available.</span>
-              : null }
           </div>
-         </div>
 
-
-     );
-   }
+          {this.data.words.length === 0 ?
+              <span className="no-results no-results-definitions">No definitions available.</span>
+            : null }
+        </div>
+       </div>
+    );
+  }
 
 });
+
+DefinitionsPanel.childContextTypes = {
+    muiTheme: React.PropTypes.object.isRequired,
+};

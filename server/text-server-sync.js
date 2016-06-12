@@ -82,6 +82,21 @@ function getTextNodes(work){
 
 }
 
+function getDefinitions(word, lang){
+   return new Promise(function(resolve, reject){
+    // TODO: Change the url to "api.cltk.org:5000" once the updated api is deployed
+    HTTP.get("http://localhost:5000/lang/" + lang + "/define/" + word, {}, function(error, response){
+      if (error){
+        reject(error);
+      }else {
+        resolve(response);
+      }
+    });
+
+  });
+
+}
+
 // Get all the available languages from the API synchronously
 function getLanguagesSequence(){
 
@@ -203,13 +218,56 @@ function getTextNodesSequence(res){
 
 }
 
+// Get word definitions for text synchronously
+function getDefinitionSequence(res){
+  return new Promise(function(resolve, reject){
+
+    Texts.find().fetch().forEach(function(text){
+
+      words = text.text.split(" ");
+      words.forEach(function(word){
+
+        // Cleaning word
+        word = word.toLowerCase().replace(/[.,"";:{}=\-_`~()]/g,"");
+        let existing = Wordforms.findOne({word: word});
+
+        if(!existing){
+
+          response = HTTP.get("http://localhost:5000/lang/" + text.language + "/define/" + word);
+
+          if(response.statusCode === 200){
+            syncDefinitions(word, text, response.data);
+
+          }else{
+            console.error("Error with definitions sync at", response);
+
+          }
+
+        }
+
+      });
+
+    });
+
+    resolve();
+
+  });
+}
+
 // Removes all content synced from the API
 function resetDb(){
-  Languages.remove({})
-  Corpora.remove({})
-  Authors.remove({})
-  Works.remove({})
-  Texts.remove({})
+  try{
+    Languages.remove({});
+    Corpora.remove({});
+    Authors.remove({});
+    Works.remove({});
+    Texts.remove({});
+    Definitions.remove({});
+    Wordforms.remove({});
+  }
+  catch(err){
+    console.error(err);
+  }
 
 }
 
@@ -220,10 +278,16 @@ function syncLanguages(languages){
 
       // Insert languages
       if (!existing){
-        Languages.insert({
-            title : language,
-            slug : language
-          });
+        try{
+          Languages.insert({
+              title : language,
+              slug : language
+            }
+          );
+        }
+        catch(err){
+          console.error(err);
+        }
       }
 
     });
@@ -237,11 +301,17 @@ function syncCorpora(corpora, language){
 
       // If corpus is not already in the database, insert it
       if (!existing){
-        Corpora.insert({
-            title : corpus,
-            language : language.slug,
-            slug : corpus
-          });
+        try{
+          Corpora.insert({
+              title : corpus,
+              language : language.slug,
+              slug : corpus
+            }
+          );
+        }
+        catch(err){
+          console.error(err);
+        }
       }
 
     });
@@ -256,12 +326,18 @@ function syncAuthors(authors, corpus){
 
       // If the author is not in the datbase already, add it
       if (!existing){
-        Authors.insert({
-            title : author,
-            slug : author,
-            language : corpus.language,
-            corpus : corpus.slug
-          });
+        try{
+          Authors.insert({
+              title : author,
+              slug : author,
+              language : corpus.language,
+              corpus : corpus.slug
+            }
+          );
+        }
+        catch(err){
+          console.error(err);
+        }
       }
 
     });
@@ -275,13 +351,19 @@ function syncWorks(works, author){
 
       // If this work is not in the database yet, add it
       if (!existing){
-        Works.insert({
-            title : work,
-            slug : work,
-            author : author.slug,
-            language : author.language,
-            corpus : author.corpus
-          });
+        try{
+          Works.insert({
+              title : work,
+              slug : work,
+              author : author.slug,
+              language : author.language,
+              corpus : author.corpus
+            }
+          );
+        }
+        catch(err){
+          console.error(err);
+        }
       }
 
     });
@@ -319,21 +401,28 @@ function syncTextNodes(textNodes, metaStructure, work){
 
         // If text object is not yet exiting in the database, add it
         if (!existing){
-          Texts.insert({
-              n_1 : parseInt(n_1_key),
-              author : work.author,
-              language : work.language,
-              corpus : work.corpus,
-              work : work.slug,
-              text : textNodes[n_1_key],
-              html : textNodes[n_1_key],
-            });
+          try{
+            Texts.insert({
+                n_1 : parseInt(n_1_key),
+                author : work.author,
+                language : work.language,
+                corpus : work.corpus,
+                work : work.slug,
+                text : textNodes[n_1_key],
+                html : textNodes[n_1_key],
+              }
+            );
+          }
+          catch(err){
+            console.error(err);
+          }
         }
 
         count++;
       }
 
     } // n_1
+    console.log(" -- -- synced", count, "text items" );
 
   }else if (["poem-line", "book-line", "chapter-section", "book-chapter", "fragment-line"].indexOf(metaStructure) >= 0) {
     for ( n_1_key in textNodes ){
@@ -354,7 +443,8 @@ function syncTextNodes(textNodes, metaStructure, work){
 
           // If text object is not yet exiting in the database, add it
           if (!existing){
-            Texts.insert({
+            try{
+              Texts.insert({
                 n_1 : parseInt(n_1_key),
                 n_2 : parseInt(n_2_key),
                 author : work.author,
@@ -364,6 +454,11 @@ function syncTextNodes(textNodes, metaStructure, work){
                 text : textNodes[n_1_key][n_2_key],
                 html : textNodes[n_1_key][n_2_key],
               });
+            }
+            catch(err){
+              console.error(err);
+            }
+
           }
 
           count++;
@@ -371,6 +466,7 @@ function syncTextNodes(textNodes, metaStructure, work){
 
       } // n_2
     } // n_1
+    console.log(" -- -- synced", count, "text items" );
 
   }else if (["book-chapter-section"].indexOf(metaStructure) >= 0){
     for ( n_1_key in textNodes ){
@@ -393,17 +489,23 @@ function syncTextNodes(textNodes, metaStructure, work){
 
             // If text object is not yet exiting in the database, add it
             if (!existing){
-              Texts.insert({
-                  n_1 : parseInt(n_1_key),
-                  n_2 : parseInt(n_2_key),
-                  n_3 : parseInt(n_3_key),
-                  author : work.author,
-                  language : work.language,
-                  corpus : work.corpus,
-                  work : work.slug,
-                  text : textNodes[n_1_key][n_2_key][n_3_key],
-                  html : textNodes[n_1_key][n_2_key][n_3_key],
-                });
+              try{
+                Texts.insert({
+                    n_1 : parseInt(n_1_key),
+                    n_2 : parseInt(n_2_key),
+                    n_3 : parseInt(n_3_key),
+                    author : work.author,
+                    language : work.language,
+                    corpus : work.corpus,
+                    work : work.slug,
+                    text : textNodes[n_1_key][n_2_key][n_3_key],
+                    html : textNodes[n_1_key][n_2_key][n_3_key],
+                  }
+                );
+              }
+              catch(err){
+                console.error(err);
+              }
             }
 
             count++;
@@ -421,7 +523,42 @@ function syncTextNodes(textNodes, metaStructure, work){
 
   }
 
+}
 
+function syncDefinitions(word, text, definitions){
+  definitions.forEach(function(item){
+    let existing = Definitions.findOne({headword: item.headword});
+    let definition_id = "";
+    if(!existing){
+      try{
+        definition_id = Definitions.insert({
+            headword: item.headword,
+            pos: item.pos,
+            definition: item.definition,
+          }
+        );
+      }
+      catch(err){
+        console.error(err);
+      }
+
+    }else{
+      definition_id = existing._id;
+    }
+    try{
+      Wordforms.insert({
+          word: word,
+          definitions: definition_id,
+          texts: text._id,
+        }
+      );
+    }
+    catch(err){
+      console.error(err);
+    }
+
+  });
+  console.log(" -- -- synced", definitions.length, "definition items" );
 }
 
 /*
@@ -493,6 +630,25 @@ function doSyncParallel(){
 
   });
 
+  // Get the definitions for each word in the texts
+  Texts.find().fetch().forEach(function(text){
+    words = text.text.split(" ");
+    words.forEach(function(word){
+      // Cleaning word
+      word = word.toLowerCase().replace(/[.,"";:{}=\-_`~()]/g,"");
+      let existing = Wordforms.findOne({word: word});
+      if(!existing){
+        getDefinitions(word, text.language)
+        .then(function(response){
+          syncDefinitions(word, text, response.data);
+        }, function(error){
+          // Do better error handling here in the future
+          console.error(" -- -- error with syncing definitions:", error);
+        });
+      }
+    });
+  });
+
 }
 
 
@@ -501,7 +657,7 @@ function doSyncParallel(){
  */
 function doSyncSequence(){
   // Promise returning functions to execute
-  pseries([getLanguagesSequence, getCorporaSequence, getAuthorsSequence, getWorksSequence, getTextNodesSequence]);
+  pseries([getLanguagesSequence, getCorporaSequence, getAuthorsSequence, getWorksSequence, getTextNodesSequence, getDefinitionSequence]);
 
 }
 

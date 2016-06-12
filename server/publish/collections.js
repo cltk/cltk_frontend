@@ -28,6 +28,13 @@ if (Meteor.isServer){
     return Works.find();
   });
 
+  Meteor.publish('definitions', function(definitionIds) {
+    return Definitions.find({_id: {$in: definitionIds}});
+  });
+
+  Meteor.publish('wordForms', function(textIds) {
+    return Wordforms.find({texts: {$in: textIds}});
+  });
 
 
 }
