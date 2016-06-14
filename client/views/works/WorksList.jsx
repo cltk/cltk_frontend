@@ -19,7 +19,6 @@ WorksList = React.createClass({
 
   renderWorks() {
 
-    console.log("Works:", this.data.works);
     return this.data.works.map((work) => {
       return <WorkTeaser
               key={work._id}
