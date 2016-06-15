@@ -4,6 +4,17 @@
  */
  import pseries from 'pseries';
 
+//Utility function to clean word for definitions
+function cleanWord(word, language) {
+  switch(language) {
+    // For latin, keep only latin alphabets
+    case "latin":
+      word = word.toLowerCase().replace(/[^a-z]/g,"");
+      break;
+    //TODO: Add word cleaning logic for other languages
+  }
+  return word;
+}
 
 // Get the available languages from the API
 function getLanguages(){
@@ -228,11 +239,12 @@ function getDefinitionSequence(res){
       words.forEach(function(word){
 
         // Cleaning word
-        word = word.toLowerCase().replace(/[.,"";:{}=\-_`~()]/g,"");
+        word = cleanWord(word, text.language);
         let existing = Wordforms.findOne({word: word});
 
         if(!existing){
 
+          // TODO: Change the url to "api.cltk.org:5000" once the updated api is deployed
           response = HTTP.get("http://localhost:5000/lang/" + text.language + "/define/" + word);
 
           if(response.statusCode === 200){
@@ -558,7 +570,7 @@ function syncDefinitions(word, text, definitions){
     }
 
   });
-  console.log(" -- -- synced", definitions.length, "definition items" );
+  console.log(" -- -- synced", definitions.length, "definition items", "for", word, "in", text.work);
 }
 
 /*
@@ -635,7 +647,7 @@ function doSyncParallel(){
     words = text.text.split(" ");
     words.forEach(function(word){
       // Cleaning word
-      word = word.toLowerCase().replace(/[.,"";:{}=\-_`~()]/g,"");
+      word = cleanWord(word, text.language);
       let existing = Wordforms.findOne({word: word});
       if(!existing){
         getDefinitions(word, text.language)

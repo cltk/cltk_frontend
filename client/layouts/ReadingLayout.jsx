@@ -42,14 +42,12 @@ ReadingLayout = React.createClass({
 	},
 
 	toggleSidePanel(metadata){
-		console.log(metadata);
 		this.resetScrollLock();
 		if(metadata==="definitions"){
 			let toggle = !this.state.toggleDefinitions;
 			this.setState({
 				toggleDefinitions: toggle
 			});
-			console.log("toggleDefinitions" + this.state.toggleDefinitions);
 			$(".definitions").scrollLock(true);
 		}
 		if(metadata==="commentary"){

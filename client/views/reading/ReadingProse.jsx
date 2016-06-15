@@ -9,7 +9,6 @@ ReadingProse = React.createClass({
 
   renderText(index, key) {
 
-    console.log(index + " " + key);
     let text = this.props.textNodes[index];
     let showNumber = false;
     let numbering = "";
