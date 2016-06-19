@@ -36,5 +36,9 @@ if (Meteor.isServer){
     return Wordforms.find({texts: {$in: textIds}});
   });
 
+  Meteor.publish('translations', function(work) {
+    return Translations.find({work: work});
+  });
+
 
 }
