@@ -686,7 +686,7 @@ if ( Meteor.isServer ) {
 
     // If no languages have been synced from the CLTK API, then assume that no
     // content is in the database and sync content sequentially, languages to texts
-    if( !Languages.find().fetch().length ){
+    if( !Languages.find({}, {limit: 1}).fetch().length || !Definitions.find({}, {limit: 1}).fetch().length ){
       var date = new Date();
       console.log(" -- Initial sequence sync with text server API started at", date.toString());
       doSyncSequence();
