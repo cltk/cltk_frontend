@@ -34,7 +34,7 @@ CommentaryPanel = React.createClass({
     let handle =  Meteor.subscribe('translations', this.props.work);
     if(handle.ready()) {
       let translations = {};
-      Translations.find().fetch().map((translation) => {
+      Translations.find({}, {sort : {n_1 : 1, n_2 : 1, n_3 : 1}, limit: 1000}).fetch().map((translation) => {
         if(translations[translation.translator] == null) {
           translations[translation.translator] = [];
         }
@@ -51,7 +51,7 @@ CommentaryPanel = React.createClass({
         index += 1
       }
     }
-    console.log(translationsList);
+    
     return {
       comments: [{}],
       translations: translationsList
@@ -286,6 +286,7 @@ CommentaryPanel = React.createClass({
             <div className="translations-options">
               {this.data.translations.map(function(translation, i){
               return <FlatButton
+                    key={i}
                     label={translation.translator}
                     onClick={this.toggleTranslation.bind(this, i)}
                     style={styles.flatButton}
