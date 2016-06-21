@@ -4,6 +4,7 @@
  */
 import pseries from 'pseries';
 
+// TODO: Change the url to "api.cltk.org" once the updated api is deployed
 let BASE_URL  = "http://localhost:5000"
 //Utility function to clean word for definitions
 function cleanWord(word, language) {
@@ -113,7 +114,6 @@ function getTranslations(work, language){
 
 function getDefinitions(word, lang){
    return new Promise(function(resolve, reject){
-    // TODO: Change the url to "api.cltk.org:5000" once the updated api is deployed
     HTTP.get(BASE_URL + "/lang/" + lang + "/define/" + word, {}, function(error, response){
       if (error){
         reject(error);
@@ -247,12 +247,35 @@ function getTextNodesSequence(res){
 
 }
 
+// Get translations for texts synchronously
+function getTranslationsSequence(res) {
+  return new Promise(function(resolve, reject){
+
+    Works.find().fetch().forEach(function(work){
+
+      // For each work, fetch the document text from the API
+      response = HTTP.get(BASE_URL + "/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.slug,
+                  {params: {translation: "english"}});
+
+      if(response.statusCode === 200 && response.data != null){
+        syncTranslations(response.data.translations, response.data.meta, work);
+      }
+      else{
+      }
+
+    });
+
+    resolve();
+
+  });
+
+}
+
 // Get word definitions for text synchronously
 function getDefinitionSequence(res){
   return new Promise(function(resolve, reject){
 
     Texts.find().fetch().forEach(function(text){
-
       words = text.text.split(" ");
       words.forEach(function(word){
 
@@ -262,8 +285,7 @@ function getDefinitionSequence(res){
 
         if(!existing){
 
-          // TODO: Change the url to "api.cltk.org:5000" once the updated api is deployed
-          response = HTTP.get(BASE_URL + "lang/" + text.language + "/define/" + word);
+          response = HTTP.get(BASE_URL + "/lang/" + text.language + "/define/" + word);
 
           if(response.statusCode === 200){
             syncDefinitions(word, text, response.data);
@@ -294,6 +316,7 @@ function resetDb(){
     Texts.remove({});
     Definitions.remove({});
     Wordforms.remove({});
+    Translations.remove({});
   }
   catch(err){
     console.log("Error reset db");
@@ -407,7 +430,7 @@ function syncWorks(works, author){
 }
 
 function syncTextNodes(textNodes, metaStructure, work){
-  var count = 0;
+  let count = 0;
 
   /*
    * Save the meta structure on the work
@@ -419,14 +442,14 @@ function syncTextNodes(textNodes, metaStructure, work){
    * meta field
    */
   if (["chapter", "fragment", "line"].indexOf(metaStructure) >= 0){
-    for ( n_1_key in textNodes ){
+    for (let n_1_key in textNodes ){
       //
       // Only adding the first 100 text chunks / objects makes debugging the sync script
       // and development easier
       //
       if (count < 100){
 
-        var existing = Texts.findOne({
+        let existing = Texts.findOne({
             n_1 : parseInt(n_1_key),
             author : work.author,
             language : work.language,
@@ -461,14 +484,14 @@ function syncTextNodes(textNodes, metaStructure, work){
     console.log(" -- -- synced", count, "text items" );
 
   }else if (["poem-line", "book-line", "chapter-section", "book-chapter", "fragment-line"].indexOf(metaStructure) >= 0) {
-    for ( n_1_key in textNodes ){
-      for ( n_2_key in textNodes[n_1_key] ){
+    for (let n_1_key in textNodes ){
+      for (let n_2_key in textNodes[n_1_key] ){
         //
         // Only adding the first 100 text chunks / objects makes debugging the sync script
         // and development easier
         //
         if (count < 100){
-          var existing = Texts.findOne({
+          let existing = Texts.findOne({
               n_1 : parseInt(n_1_key),
               n_2 : parseInt(n_2_key),
               author : work.author,
@@ -506,15 +529,15 @@ function syncTextNodes(textNodes, metaStructure, work){
     console.log(" -- -- synced", count, "text items" );
 
   }else if (["book-chapter-section"].indexOf(metaStructure) >= 0){
-    for ( n_1_key in textNodes ){
-      for ( n_2_key in textNodes[n_1_key] ){
-        for ( n_3_key in textNodes[n_2_key] ){
+    for (let n_1_key in textNodes ){
+      for (let n_2_key in textNodes[n_1_key] ){
+        for (let n_3_key in textNodes[n_2_key] ){
           //
           // Only adding the first 100 text chunks / objects makes debugging the sync script
           // and development easier!
           //
           if (count < 100){
-            var existing = Texts.findOne({
+            let existing = Texts.findOne({
                 n_1 : parseInt(n_1_key),
                 n_2 : parseInt(n_2_key),
                 n_3 : parseInt(n_3_key),
@@ -568,17 +591,17 @@ function syncTranslations(translations, metaStructure, work){
    * Parse the input document based on the document structure denoted in the
    * meta field
    */
-  translations.forEach(function(translation) {
+  translations.forEach((translation) => {
     let count  = 0;
     if (["chapter", "fragment", "line"].indexOf(metaStructure) >= 0){
-      for ( n_1_key in translation.text ){
+      for (let n_1_key in translation.text ){
         //
         // Only adding the first 100 translation chunks / objects makes debugging the sync script
         // and development easier
         //
         if (count < 100){
 
-          var existing = Translations.findOne({
+          let existing = Translations.findOne({
               n_1 : parseInt(n_1_key),
               author : work.author,
               language : work.language,
@@ -612,17 +635,17 @@ function syncTranslations(translations, metaStructure, work){
         }
 
       } // n_1
-      console.log(" -- -- synced", count, "translation for text items" );
+      console.log(" -- -- synced", count, "translation items" );
 
     }else if (["poem-line", "book-line", "chapter-section", "book-chapter", "fragment-line"].indexOf(metaStructure) >= 0) {
-      for ( n_1_key in translation.text ){
-        for ( n_2_key in translation.text[n_1_key] ){
+      for (let n_1_key in translation.text ){
+        for (let n_2_key in translation.text[n_1_key] ){
           //
           // Only adding the first 100 translation chunks / objects makes debugging the sync script
           // and development easier
           //
           if (count < 100){
-            var existing = Translations.findOne({
+            let existing = Translations.findOne({
                 n_1 : parseInt(n_1_key),
                 n_2 : parseInt(n_2_key),
                 author : work.author,
@@ -652,7 +675,6 @@ function syncTranslations(translations, metaStructure, work){
                 console.log("Error insert translation");
                 //console.error(err);
               }
-
             }
 
             count++;
@@ -660,18 +682,18 @@ function syncTranslations(translations, metaStructure, work){
 
         } // n_2
       } // n_1
-      console.log(" -- -- synced", count, "translation for text items" );
+      console.log(" -- -- synced", count, "translation items" );
 
     }else if (["book-chapter-section"].indexOf(metaStructure) >= 0){
-      for ( n_1_key in translation.text ){
-        for ( n_2_key in translation.text[n_1_key] ){
-          for ( n_3_key in translation.text[n_2_key] ){
+      for (let n_1_key in translation.text ){
+        for (let n_2_key in translation.text[n_1_key] ){
+          for (let n_3_key in translation.text[n_2_key] ){
             //
             // Only adding the first 100 translation chunks / objects makes debugging the sync script
             // and development easier!
             //
             if (count < 100){
-              var existing = Translations.findOne({
+              let existing = Translations.findOne({
                   n_1 : parseInt(n_1_key),
                   n_2 : parseInt(n_2_key),
                   n_3 : parseInt(n_3_key),
@@ -712,7 +734,7 @@ function syncTranslations(translations, metaStructure, work){
         } // n_2
       } // n_1
 
-      console.log(" -- -- synced", count, "translation for text items" );
+      console.log(" -- -- synced", count, "translation items" );
 
     }else {
       // Provide information about an unregonized document structure
@@ -829,21 +851,22 @@ function doSyncParallel(){
       });
 
   });
+
   // Get the translations for document texts
   Works.find().fetch().forEach(function(work){
     // For each work, fetch the document text from the API
-    // For now, sync translation for poemata work only
-    if(work.slug == "poemata"){
-      getTranslations(work, "english")
-      .then(function(response){
+    getTranslations(work, "english")
+    .then(function(response){
+      // We might not have transaltions for all works
+      if(response.data != null) {
         syncTranslations(response.data.translations, response.data.meta, work);
+      }
 
-      }, function(error){
-        // Do better error handling here in the future
-        console.error(" -- -- error with syncing translations for text items:", error);
+    }, function(error){
+      // Do better error handling here in the future
+      console.error(" -- -- error with syncing translations:", error);
 
-      });
-    }
+    });
 
   });
 
@@ -874,7 +897,8 @@ function doSyncParallel(){
  */
 function doSyncSequence(){
   // Promise returning functions to execute
-  pseries([getLanguagesSequence, getCorporaSequence, getAuthorsSequence, getWorksSequence, getTextNodesSequence, getDefinitionSequence]);
+  pseries([getLanguagesSequence, getCorporaSequence, getAuthorsSequence, getWorksSequence, getTextNodesSequence,
+    getTranslationsSequence, getDefinitionSequence]);
 
 }
 
@@ -892,7 +916,7 @@ if ( Meteor.isServer ) {
     // If no languages have been synced from the CLTK API, then assume that no
     // content is in the database and sync content sequentially, languages to texts
     if( !Languages.find({}, {limit: 1}).fetch().length || !Definitions.find({}, {limit: 1}).fetch().length ){
-      var date = new Date();
+      let date = new Date();
       console.log(" -- Initial sequence sync with text server API started at", date.toString());
       doSyncSequence();
     }
@@ -903,7 +927,7 @@ if ( Meteor.isServer ) {
     Meteor.setInterval(function() {
 
       // Sync content from the text server with parallel requests to the API
-      var date = new Date();
+      let date = new Date();
       console.log(" -- Interval sync with text server API started at", date.toString());
       doSyncParallel();
 
