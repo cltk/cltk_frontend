@@ -1,3 +1,7 @@
+import FlatButton from 'material-ui/FlatButton';
+
+import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 CommentaryPanel = React.createClass({
 
@@ -6,6 +10,15 @@ CommentaryPanel = React.createClass({
     toggleTranslations: React.PropTypes.bool,
     work: React.PropTypes.string
   },
+
+  childContextTypes: {
+    muiTheme: React.PropTypes.object.isRequired
+  },
+
+  getChildContext() {
+    return { muiTheme: getMuiTheme(baseTheme) };
+  },
+
   getDefaultProps() {
     return {
       toggleCommentary: false,
@@ -231,6 +244,14 @@ CommentaryPanel = React.createClass({
   },
 
   render() {
+    let styles = {
+      flatButton : {
+        width: "auto",
+        minWidth: "none",
+        height: "55px",
+        padding: "10px 5px"
+      }
+    };
     let className;
     if(this.props.toggleTranslations && this.props.toggleCommentary){
       className = "modal-panel commentary-panel paper-shadow slide-visible commentary-visible translations-visible";
@@ -264,12 +285,12 @@ CommentaryPanel = React.createClass({
             </div>
             <div className="translations-options">
               {this.data.translations.map(function(translation, i){
-              return <a key={i} className={ (translation._id === this.state.selected_translation) ?
-                "md-button md-ink-ripple translation-selected" : "md-button md-ink-ripple" }
-                onClick={ this.toggleTranslation.bind(this, i) }>
-                <span key={i}>{translation.translator}, </span>
-                <div className="md-ripple-container"></div>
-              </a>
+              return <FlatButton
+                    label={translation.translator}
+                    onClick={this.toggleTranslation.bind(this, i)}
+                    style={styles.flatButton}
+                    primary={(translation._id === this.state.selected_translation)}
+                  />
               }, this)}
             </div>
           </div>
