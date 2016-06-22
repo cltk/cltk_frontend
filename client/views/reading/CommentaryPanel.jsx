@@ -1,10 +1,24 @@
+import FlatButton from 'material-ui/FlatButton';
+
+import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 CommentaryPanel = React.createClass({
 
   propTypes: {
     toggleCommentary: React.PropTypes.bool,
-    toggleTranslations: React.PropTypes.bool
+    toggleTranslations: React.PropTypes.bool,
+    work: React.PropTypes.string
   },
+
+  childContextTypes: {
+    muiTheme: React.PropTypes.object.isRequired
+  },
+
+  getChildContext() {
+    return { muiTheme: getMuiTheme(baseTheme) };
+  },
+
   getDefaultProps() {
     return {
       toggleCommentary: false,
@@ -15,9 +29,32 @@ CommentaryPanel = React.createClass({
   mixins: [ReactMeteorData],
 
   getMeteorData(){
+    //console.log(this.props.work);
+    let translationsList = [];
+    let handle =  Meteor.subscribe('translations', this.props.work);
+    if(handle.ready()) {
+      let translations = {};
+      Translations.find({}, {sort : {n_1 : 1, n_2 : 1, n_3 : 1}, limit: 1000}).fetch().map((translation) => {
+        if(translations[translation.translator] == null) {
+          translations[translation.translator] = [];
+        }
+        translations[translation.translator].push(translation.text);
+      });
+      let index = 0;
+
+      for(key in translations) {
+        let translation = {};
+        translation["_id"] = index;
+        translation["translator"] = key;
+        translation["text"] = translations[key];
+        translationsList.push(translation);
+        index += 1
+      }
+    }
+    
     return {
       comments: [{}],
-      translations: [{}]
+      translations: translationsList
 
     };
 
@@ -25,6 +62,7 @@ CommentaryPanel = React.createClass({
   },
 
   getInitialState(){
+    /*
     var translations = [{
           _id : 1234,
           date : 1920,
@@ -78,6 +116,7 @@ CommentaryPanel = React.createClass({
 
 
         }];
+    */
 
     var comments = [{
         _id : 1233,
@@ -174,15 +213,14 @@ CommentaryPanel = React.createClass({
 
     return {
       comments: comments,
-      translations: translations,
-      selected_translation: translations[0]
+      selected_translation: 0
     }
 
   },
 
   toggleTranslation(index) {
     this.setState({
-        selected_translation: this.state.translations[index]
+        selected_translation: index
     });
   },
 
@@ -200,12 +238,20 @@ CommentaryPanel = React.createClass({
 
     // Eventually this will be this.data.translations from the database
     return <Translation
-      key={this.state.selected_translation._id}
-      translation={this.state.selected_translation} />;
+      key={this.state.selected_translation}
+      translation={this.data.translations[this.state.selected_translation]} />;
 
   },
 
   render() {
+    let styles = {
+      flatButton : {
+        width: "auto",
+        minWidth: "none",
+        height: "55px",
+        padding: "10px 5px"
+      }
+    };
     let className;
     if(this.props.toggleTranslations && this.props.toggleCommentary){
       className = "modal-panel commentary-panel paper-shadow slide-visible commentary-visible translations-visible";
@@ -233,22 +279,19 @@ CommentaryPanel = React.createClass({
           </div>
           <div className="modal-panel-inner translations-panel-inner">
             <div className="translations panel-items">
-              {this.renderTranslations()}
               {this.data.translations.length === 0 ?
               <span className="no-results no-results-translation">No translations available.</span>
-              : null }
+              : this.renderTranslations() }
             </div>
             <div className="translations-options">
-              {this.state.translations.map(function(translation, i){
-              return <a key={i} className={ (translation._id === this.state.selected_translation._id) ?
-                "md-button md-ink-ripple translation-selected" : "md-button md-ink-ripple" }
-                onClick={ this.toggleTranslation.bind(this, i) }>
-              {translation.translators.map(function(translator, i){
-              return <span key={i}>{translator.name_short}, </span>
-              })}
-              {translation.date}
-              <div className="md-ripple-container"></div>
-              </a>
+              {this.data.translations.map(function(translation, i){
+              return <FlatButton
+                    key={i}
+                    label={translation.translator}
+                    onClick={this.toggleTranslation.bind(this, i)}
+                    style={styles.flatButton}
+                    primary={(translation._id === this.state.selected_translation)}
+                  />
               }, this)}
             </div>
           </div>

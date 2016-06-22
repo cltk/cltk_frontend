@@ -121,7 +121,11 @@ ReadingLayout = React.createClass({
 
 				<DefinitionsPanel toggleDefinitions={this.state.toggleDefinitions} textNodes={this.data.textNodes} />
 
-				<CommentaryPanel toggleCommentary={this.state.toggleCommentary} toggleTranslations={this.state.toggleTranslations} />
+				<CommentaryPanel
+					toggleCommentary={this.state.toggleCommentary}
+					toggleTranslations={this.state.toggleTranslations}
+					work = {this.props.params.work}
+				 />
 
 
 			</div>

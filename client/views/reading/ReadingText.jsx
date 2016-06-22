@@ -1,9 +1,10 @@
 ReadingText = React.createClass({
 
   propTypes: {
+    index: React.PropTypes.number.isRequired,
     text: React.PropTypes.object.isRequired,
     showNumber: React.PropTypes.bool.isRequired,
-    numbering: React.PropTypes.string.isRequired,
+    numbering: React.PropTypes.string.isRequired
   },
 
   getInitialState(){
@@ -38,6 +39,13 @@ ReadingText = React.createClass({
     });
   },
 
+  handleClick() {
+    elem = $('.translation-text[data-num="'+ this.props.index + '"]');
+    if(elem){
+      $(".translations").scrollTo(elem, { duration:800 });
+    }
+  },
+
   render() {
     let text = this.props.text;
     let text_n = "";
@@ -69,13 +77,15 @@ ReadingText = React.createClass({
     }
 
     return(
-       <div className={textClasses}>
+       <div className={textClasses} data-num={this.props.index}
+        onClick={this.handleClick}>
          <div className="text-left-header">
             <h2>{numbering}</h2>
             <i className="text-bookmark mdi mdi-bookmark"></i>
          </div>
 
-          <p className="text-html" dangerouslySetInnerHTML={{__html: text.html}}>
+          <p className="text-html">
+            <span dangerouslySetInnerHTML={{__html: text.html}}></span>
           </p>
 
           <div className="text-meta-options">
