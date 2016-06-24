@@ -102,6 +102,13 @@ ReadingLayout = React.createClass({
 	},
 
 	render(){
+		let readingClassName = "";
+		if(this.state.toggleCommentary||this.state.toggleTranslations) {
+			readingClassName += " with-commentary-shown";
+		}
+		if(this.state.toggleDefinitions) {
+			readingClassName += " with-definitions-shown";
+		}
 		return(
 			<div className="cltk-layout reading-layout">
 				<HeaderReading
@@ -109,7 +116,7 @@ ReadingLayout = React.createClass({
 					toggleCommentary={this.state.toggleCommentary} toggleTranslations={this.state.toggleTranslations}
 					/>
 				<main>
-		      <div id="reading">
+		      <div id="reading" className={readingClassName}>
 		        {this.renderReadingEnvironment()}
 
 
