@@ -8,7 +8,8 @@ CommentaryPanel = React.createClass({
   propTypes: {
     toggleCommentary: React.PropTypes.bool,
     toggleTranslations: React.PropTypes.bool,
-    work: React.PropTypes.string
+    work: React.PropTypes.string,
+    textNodes: React.PropTypes.array
   },
 
   childContextTypes: {
@@ -48,12 +49,24 @@ CommentaryPanel = React.createClass({
         translation["translator"] = key;
         translation["text"] = translations[key];
         translationsList.push(translation);
-        index += 1
+        index += 1;
       }
+    }
+    let commentsList = [];
+    let handleCommentary = Meteor.subscribe('commentary');
+    if(handleCommentary.ready()) {
+      this.props.textNodes.forEach((textNode, i) => {
+        if(textNode.comments) {
+          Commentary.find({_id: {$in: textNode.comments}}).fetch().forEach((comment) => {
+            comment['index'] = i;
+            commentsList.push(comment);
+          });
+        }
+      });
     }
     
     return {
-      comments: [{}],
+      comments: commentsList,
       translations: translationsList
 
     };
@@ -116,7 +129,7 @@ CommentaryPanel = React.createClass({
 
 
         }];
-    */
+
 
     var comments = [{
         _id : 1233,
@@ -209,10 +222,9 @@ CommentaryPanel = React.createClass({
 
 
       }];
-
+    */
 
     return {
-      comments: comments,
       selected_translation: 0
     }
 
@@ -226,9 +238,9 @@ CommentaryPanel = React.createClass({
 
   renderComments(){
     // Eventually this will be this.data.comments from the database
-    return this.state.comments.map((comment) => {
+    return this.data.comments.map((comment, i) => {
       return <Comment
-        key={comment._id}
+        key={i}
         comment={comment} />;
     });
 

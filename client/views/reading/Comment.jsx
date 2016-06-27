@@ -20,11 +20,10 @@ Comment = React.createClass({
 
   render() {
 
-     const authors_length = this.props.comment.authors.length;
      const commentClassName = "meta-item panel-item commentary-comment " + (this.state.showMore ? "expanded" : "");
 
      return (
-       <div className={commentClassName}>
+       <div className={commentClassName} data-num={this.props.comment.index}>
           <div className="show-more-toggle" onClick={this.toggleShowMore}>
             <i className="mdi mdi-plus paper-shadow"></i>
             <i className="mdi mdi-minus paper-shadow"></i>
@@ -32,21 +31,10 @@ Comment = React.createClass({
           </div>
          <div className="comment-meta">
            <span className="comment-ref">
-             {this.props.comment.subwork.n}.{this.props.comment.text_n.from.s}
-             {this.props.comment.text_n.to.s ? "-" + this.props.comment.text_n.to.s : ""}:&nbsp;
+             {this.props.comment.ref}&nbsp;
            </span>
-           <span className="comment-authors">
-             {this.props.comment.authors.map(function(author, i){
-               let is_last = (i == authors_length - 1);
-
-               return <span key={i}>{author.name_short}{is_last ? " - " : ", "}</span>
-
-             })}
-
-           </span>
-           <span className="comment-date">
-             {this.props.comment.date}
-           </span>
+           <span className="comment-authors">{this.props.comment.author}</span>
+           <span className="comment-date">{this.props.comment.year}</span>
          </div>
 
          <p className="comment-content" dangerouslySetInnerHTML={{__html: this.props.comment.content}}>
