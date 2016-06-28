@@ -6,6 +6,7 @@ import pseries from 'pseries';
 
 // TODO: Change the url to "api.cltk.org" once the updated api is deployed
 let BASE_URL  = "http://localhost:5000"
+
 //Utility function to clean word for definitions
 function cleanWord(word, language) {
   switch(language) {
@@ -124,6 +125,21 @@ function getDefinitions(word, lang){
 
   });
 
+}
+
+function getCommentary(work){
+  return new Promise(function(resolve, reject){
+    HTTP.get(BASE_URL + "/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.slug,
+      {params: {commentary: "all"}},
+      function(error, response){
+        if (error){
+          reject(error);
+        }else {
+          resolve(response);
+        }
+      }
+    );
+  });
 }
 
 // Get all the available languages from the API synchronously
@@ -253,12 +269,35 @@ function getTranslationsSequence(res) {
 
     Works.find().fetch().forEach(function(work){
 
-      // For each work, fetch the document text from the API
+      // For each work, fetch the translations from the API
       response = HTTP.get(BASE_URL + "/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.slug,
                   {params: {translation: "english"}});
 
       if(response.statusCode === 200 && response.data != null){
         syncTranslations(response.data.translations, response.data.meta, work);
+      }
+      else{
+      }
+
+    });
+
+    resolve();
+
+  });
+
+}
+// Get commentary for texts synchronously
+function getCommentarySequence(res) {
+  return new Promise(function(resolve, reject){
+
+    Works.find().fetch().forEach(function(work){
+
+      // For each work, fetch the commentary from the API
+      response = HTTP.get(BASE_URL + "/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.slug,
+                  {params: {commentary: "all"}});
+
+      if(response.statusCode === 200 && response.data != null){
+        syncCommentary(response.data.commentary, response.data.meta, work);
       }
       else{
       }
@@ -317,6 +356,7 @@ function resetDb(){
     Definitions.remove({});
     Wordforms.remove({});
     Translations.remove({});
+    Commentary.remove({});
   }
   catch(err){
     console.log("Error reset db");
@@ -720,6 +760,7 @@ function syncTranslations(translations, metaStructure, work){
                       html : translation.text[n_1_key][n_2_key][n_3_key],
                     }
                   );
+                  count++;
                 }
                 catch(err){
                   console.log("Error insert translation");
@@ -781,6 +822,113 @@ function syncDefinitions(word, text, definitions){
 
   });
   console.log(" -- -- synced", definitions.length, "definition items", "for", word, "in", text.work);
+}
+
+// Utility function to insert commentary
+function insertCommentary(author, year, comment, ref) {
+  let comment_id = "";
+  let existing = Commentary.findOne({
+    author: author,
+    year: year,
+    ref: ref
+  });
+  if(!existing){
+    try {
+      comment_id = Commentary.insert({
+        author: author,
+        year: year,
+        ref: ref,
+        content: comment
+      });
+    }
+    catch(err){
+      console.log("Error insert commentary");
+    }
+  }
+  else {
+    comment_id = existing._id;
+  }
+  return comment_id;
+}
+
+function syncCommentary(commentaries, metaStructure, work) {
+  if (["chapter", "fragment", "line"].indexOf(metaStructure) >= 0) {
+
+    commentaries.forEach((commentary) => {
+      let count = 0;
+      commentary.comments.forEach((comment) => {
+        let ref = comment.start.n_1 + "-" + comment.end.n_1;
+        let comment_id = insertCommentary(commentary.author, commentary.year, comment.content, ref);
+        count++;
+        try {
+          Texts.update(
+            {
+              n_1: {$gte: parseInt(comment.start.n_1), $lte: parseInt(comment.end.n_1)},
+              work: work.slug
+            },
+            {$addToSet: {comments: comment_id}}, {multi: true}
+          );
+        }
+        catch(err){
+          console.log("Error update texts comments");
+          //console.error(err);
+        }
+      });
+      console.log(" -- -- synced", count, "commentary items");
+    });
+
+  }else if (["poem-line", "book-line", "chapter-section", "book-chapter", "fragment-line"].indexOf(metaStructure) >= 0) {
+     commentaries.forEach((commentary) => {
+      let count = 0;
+      commentary.comments.forEach((comment) => {
+        let ref = comment.start.n_1 + "." + comment.start.n_2 + "-"
+                  + comment.end.n_1 + "." + comment.end.n_2;
+        let comment_id = insertCommentary(commentary.author, commentary.year, comment.content, ref);
+        count++;
+        try {
+          Texts.update(
+            {
+              n_1: {$gte: parseInt(comment.start.n_1), $lte: parseInt(comment.end.n_1)},
+              n_2: {$gte: parseInt(comment.start.n_2), $lte: parseInt(comment.end.n_2)},
+              work: work.slug
+            },
+            {$addToSet: {comments: comment_id}}, {multi: true}
+          );
+        }
+        catch(err){
+          console.log("Error update texts comments");
+          //console.error(err);
+        }
+      });
+      console.log(" -- -- synced", count, "commentary items");
+    });
+  }else if (["book-chapter-section"].indexOf(metaStructure) >= 0){
+    commentaries.forEach((commentary) => {
+      let count = 0;
+      commentary.comments.forEach((comment) => {
+        let ref = comment.start.n_1 + "." + comment.start.n_2 + "." + comment.start.n_3  + "-"
+                  + comment.end.n_1 + "." + comment.end.n_2 + "." + comment.end.n_3;
+        let comment_id = insertCommentary(commentary.author, commentary.year, comment.content, ref);
+        count++;
+        try {
+          Texts.update(
+            {
+              n_1: {$gte: parseInt(comment.start.n_1), $lte: parseInt(comment.end.n_1)},
+              n_2: {$gte: parseInt(comment.start.n_2), $lte: parseInt(comment.end.n_2)},
+              n_3: {$gte: parseInt(comment.start.n_3), $lte: parseInt(comment.end.n_3)},
+              work: work.slug
+            },
+            {$addToSet: {comments: comment_id}}, {multi: true}
+          );
+        }
+        catch(err){
+          console.log("Error update texts comments");
+          //console.error(err);
+        }
+      });
+      console.log(" -- -- synced", count, "commentary items");
+    });
+  }
 }
 
 /*
@@ -854,7 +1002,7 @@ function doSyncParallel(){
 
   // Get the translations for document texts
   Works.find().fetch().forEach(function(work){
-    // For each work, fetch the document text from the API
+    // For each work, fetch the translations from the API
     getTranslations(work, "english")
     .then(function(response){
       // We might not have transaltions for all works
@@ -865,6 +1013,24 @@ function doSyncParallel(){
     }, function(error){
       // Do better error handling here in the future
       console.error(" -- -- error with syncing translations:", error);
+
+    });
+
+  });
+
+  // Get commentary for document texts
+  Works.find().fetch().forEach(function(work){
+    // For each work, fetch the commentary from the API
+    getCommentary(work)
+    .then(function(response){
+      // We might not have commentary for all works
+      if(response.data != null) {
+        syncCommentary(response.data.commentary, response.data.meta, work);
+      }
+
+    }, function(error){
+      // Do better error handling here in the future
+      console.error(" -- -- error with syncing commentary:", error);
 
     });
 
@@ -898,7 +1064,7 @@ function doSyncParallel(){
 function doSyncSequence(){
   // Promise returning functions to execute
   pseries([getLanguagesSequence, getCorporaSequence, getAuthorsSequence, getWorksSequence, getTextNodesSequence,
-    getTranslationsSequence, getDefinitionSequence]);
+    getTranslationsSequence, getCommentarySequence, getDefinitionSequence]);
 
 }
 

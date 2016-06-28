@@ -59,6 +59,10 @@ Schemas.Texts = new SimpleSchema({
     autoform: {
       rows: 5
     }
+  },
+  comments: {
+    type: [String],
+    optional: true
   }
 });
 

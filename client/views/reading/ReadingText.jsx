@@ -40,9 +40,13 @@ ReadingText = React.createClass({
   },
 
   handleClick() {
-    elem = $('.translation-text[data-num="'+ this.props.index + '"]');
-    if(elem){
-      $(".translations").scrollTo(elem, { duration:800 });
+    translation = $('.translation-text[data-num="'+ this.props.index + '"]');
+    if(translation.length != 0) {
+      $(".translations").scrollTo(translation, { duration:800 });
+    }
+    comment = $('.commentary-comment[data-num="'+ this.props.index + '"]').first();
+    if(comment.length != 0) {
+      $(".comments").scrollTo(comment, { duration:400 });
     }
   },
 
