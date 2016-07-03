@@ -37,7 +37,6 @@ twbs:bootstrap
 reywood:publish-composite
 natestrauser:animate-css
 meteorhacks:subs-manager
-yogiben:admin
 timmyg:wow
 tsega:skrollr
 utilities:avatar
@@ -61,8 +60,7 @@ check
 #multiply:iron-router-progress
 useraccounts:core
 useraccounts:materialize
-useraccounts:iron-routing
-percolate:momentum-iron-router
+useraccounts:flow-routing
 percolate:momentum
 
 # Packages added for project
@@ -74,6 +72,7 @@ jabbslad:basic-auth
 deanius:promise
 kadira:flow-router
 kadira:react-layout
+kadira:blaze-layout
 user-thumbs
 standard-minifier-css
 standard-minifier-js
@@ -81,3 +80,4 @@ simple:rest
 dburles:google-maps
 natestrauser:jquery-scrollto
 materialize:materialize@0.97.0
+gwendall:blaze-to-react
