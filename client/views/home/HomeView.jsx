@@ -20,7 +20,7 @@ HomeView = React.createClass({
               <div className="background-image-holder less-blur blur">
                 <img src="/images/column.jpg" alt="image" />
               </div>
-              <div className="background-screen cyan">
+              <div className="background-screen light">
               </div>
 
               <div className="container v-align-transform header-container">
