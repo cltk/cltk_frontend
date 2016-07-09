@@ -115,27 +115,24 @@ ReadingLayout = React.createClass({
 					toggleSidePanel={this.toggleSidePanel} toggleDefinitions={this.state.toggleDefinitions}
 					toggleCommentary={this.state.toggleCommentary} toggleTranslations={this.state.toggleTranslations}
 					/>
+
 				<main>
-		      <div id="reading" className={readingClassName}>
-		        {this.renderReadingEnvironment()}
-
-
-		      </div>
-
+			      <div id="reading" className={readingClassName}>
+			        {this.renderReadingEnvironment()}
+			      </div>
 				</main>
 
 				{/*<AnnotateWidget />*/}
 
-				<DefinitionsPanel toggleDefinitions={this.state.toggleDefinitions} textNodes={this.data.textNodes} />
+				<DefinitionsPanel
+					toggleDefinitions={this.state.toggleDefinitions}
+					textNodes={this.data.textNodes} />
 
 				<CommentaryPanel
 					toggleCommentary={this.state.toggleCommentary}
 					toggleTranslations={this.state.toggleTranslations}
 					work = {this.props.params.work}
-					textNodes={this.data.textNodes}
-				 />
-
-
+					textNodes={this.data.textNodes} />
 			</div>
 			);
 	}

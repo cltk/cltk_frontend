@@ -12,10 +12,6 @@ CommentaryPanel = React.createClass({
     textNodes: React.PropTypes.array
   },
 
-  childContextTypes: {
-    muiTheme: React.PropTypes.object.isRequired
-  },
-
   getChildContext() {
     return { muiTheme: getMuiTheme(baseTheme) };
   },
@@ -313,3 +309,7 @@ CommentaryPanel = React.createClass({
   }
 
 });
+
+CommentaryPanel.childContextTypes = {
+    muiTheme: React.PropTypes.object.isRequired
+};

@@ -211,5 +211,5 @@ DefinitionsPanel = React.createClass({
 });
 
 DefinitionsPanel.childContextTypes = {
-    muiTheme: React.PropTypes.object.isRequired,
+    muiTheme: React.PropTypes.object.isRequired
 };

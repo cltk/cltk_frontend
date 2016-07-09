@@ -1,10 +1,19 @@
+import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import Checkbox from 'material-ui/Checkbox';
+import Bookmark from 'material-ui/svg-icons/action/bookmark';
+import BookmarkBorder from 'material-ui/svg-icons/action/bookmark-border';
+import Done from 'material-ui/svg-icons/action/done';
+import {red500, yellow500, blue700} from 'material-ui/styles/colors';
+
 ReadingText = React.createClass({
 
   propTypes: {
     index: React.PropTypes.number.isRequired,
     text: React.PropTypes.object.isRequired,
     showNumber: React.PropTypes.bool.isRequired,
-    numbering: React.PropTypes.string.isRequired
+    numbering: React.PropTypes.string.isRequired,
+    addAnnotaion: React.PropTypes.func.isRequired
   },
 
   getInitialState(){
@@ -12,10 +21,15 @@ ReadingText = React.createClass({
     return {
       bookmarked: false,
       showRelatedPassages: false,
-      showEntities: false
+      showEntities: false,
+      annotated: false
 
     };
 
+  },
+
+  getChildContext() {
+    return { muiTheme: getMuiTheme(baseTheme) };
   },
 
   toggleBookmarked(){
@@ -50,7 +64,22 @@ ReadingText = React.createClass({
     }
   },
 
+  addAnnotaion(event, isChecked) {
+    this.setState({
+      annotated: !this.state.annotated
+    });
+    if (typeof this.props.addAnnotaion === 'function') {
+      this.props.addAnnotaion(this.props.text._id, isChecked);
+    }
+  },
+
   render() {
+    const styles = {
+      checkbox: {
+        display: "inline-block",
+        width: "auto"
+      },
+    };
     let text = this.props.text;
     let text_n = "";
     let textClasses = "text-wrap";
@@ -87,32 +116,26 @@ ReadingText = React.createClass({
             <h2>{numbering}</h2>
             <i className="text-bookmark mdi mdi-bookmark"></i>
          </div>
+         <div className="text-meta-actions">
+            <Checkbox
+              title="Bookmark"
+              checkedIcon={<Bookmark />}
+              uncheckedIcon={<BookmarkBorder />}
+              style={styles.checkbox}
+            />
+            <Checkbox
+              title="Select for annotaion"
+              onCheck={this.addAnnotaion}
+              checked={this.state.annotated}
+              checkedIcon={<Done color={blue700}/>}
+              uncheckedIcon={<Done />}
+              style={styles.checkbox}
+            />
+         </div>
 
           <p className="text-html">
             <span dangerouslySetInnerHTML={{__html: text.html}}></span>
           </p>
-
-          <div className="text-meta-options">
-            <div className="text-meta-option text-meta-option-bookmark" onClick={this.toggleBookmarked}>
-              <i className="mdi mdi-bookmark"></i>
-              <span className="option-label">Bookmark</span>
-            </div>
-
-            <div className="text-meta-option text-meta-option-entities" onClick={this.toggleShowEntities}>
-              <i className="mdi mdi-account"></i>
-              <span className="option-label">Entities</span>
-            </div>
-
-            <div className="text-meta-option text-meta-option-related-passages" onClick={this.toggleShowRelatedPassages}>
-              <i className="mdi mdi-share-variant"></i>
-              <span className="option-label">Related Passages</span>
-            </div>
-
-            <div className="text-meta-option text-meta-option-other-options" >
-              <i className="mdi mdi-dots-horizontal"></i>
-            </div>
-
-          </div>
 
           <div className="text-meta text-related-passages">
             <div className="related-passage">
@@ -187,3 +210,7 @@ ReadingText = React.createClass({
       );
   }
 });
+
+ReadingText.childContextTypes = {
+    muiTheme: React.PropTypes.object.isRequired
+};
