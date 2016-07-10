@@ -39,7 +39,17 @@ if (Meteor.isServer){
   Meteor.publish('translations', function(work) {
     return Translations.find({work: work});
   });
+
   Meteor.publish('commentary', function() {
     return Commentary.find();
+  });
+
+  Meteor.publish('annotation', function(textNodeIds, userId) {
+    return Annotation.find({
+      $and: [
+        {$or: [{userId: userId}, {isPrivate: false}]},
+        {textNodes: {$in: textNodeIds}}
+      ]
+    });
   });
 }
