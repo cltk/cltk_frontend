@@ -117,7 +117,7 @@ ReadingText = React.createClass({
     }else{
         text_n = text.n_1;
     }
-    console.log(text._id);
+
     return(
        <div className={textClasses} data-num={this.props.index}>
          <div className="text-left-header">

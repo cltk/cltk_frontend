@@ -21,7 +21,7 @@ ReadingLayout = React.createClass({
 
 		return {
 			work: Works.findOne(work_query),
-			textNodes: Texts.find(text_query, {sort : {n_1 : 1, n_2 : 1, n_3 : 1}, limit : 1000 }).fetch()	,
+			textNodes: Texts.find(text_query, {sort : {n_1 : 1, n_2 : 1, n_3 : 1}, limit : 10 }).fetch()	,
 			currentUser: Meteor.user()
 		};
 
