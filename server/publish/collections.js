@@ -44,12 +44,12 @@ if (Meteor.isServer){
     return Commentary.find();
   });
 
-  Meteor.publish('annotation', function(textNodeIds, userId) {
+  Meteor.publish('annotation', function() {
     return Annotation.find({
-      $and: [
-        {$or: [{userId: userId}, {isPrivate: false}]},
-        {textNodes: {$in: textNodeIds}}
-      ]
+      $or: [
+        { isPrivate: { $ne: true } },
+        { user: this.userId },
+      ],
     });
   });
 }

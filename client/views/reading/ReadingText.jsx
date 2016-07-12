@@ -5,6 +5,7 @@ import Bookmark from 'material-ui/svg-icons/action/bookmark';
 import BookmarkBorder from 'material-ui/svg-icons/action/bookmark-border';
 import Done from 'material-ui/svg-icons/action/done';
 import {red500, yellow500, blue700} from 'material-ui/styles/colors';
+import Popover from 'material-ui/Popover';
 
 ReadingText = React.createClass({
 
@@ -13,7 +14,8 @@ ReadingText = React.createClass({
     text: React.PropTypes.object.isRequired,
     showNumber: React.PropTypes.bool.isRequired,
     numbering: React.PropTypes.string.isRequired,
-    addAnnotaion: React.PropTypes.func.isRequired
+    addAnnotationCheckList: React.PropTypes.func.isRequired,
+    annotationCheckList: React.PropTypes.array.isRequired,
   },
 
   getInitialState(){
@@ -22,8 +24,6 @@ ReadingText = React.createClass({
       bookmarked: false,
       showRelatedPassages: false,
       showEntities: false,
-      annotated: false
-
     };
 
   },
@@ -53,7 +53,7 @@ ReadingText = React.createClass({
     });
   },
 
-  handleClick() {
+  handleClick(event) {
     translation = $('.translation-text[data-num="'+ this.props.index + '"]');
     if(translation.length != 0) {
       $(".translations").scrollTo(translation, { duration:800 });
@@ -62,15 +62,24 @@ ReadingText = React.createClass({
     if(comment.length != 0) {
       $(".comments").scrollTo(comment, { duration:400 });
     }
+    // This prevents ghost click.
+    event.preventDefault();
+
+    this.setState({
+      annotationOpen: true,
+      anchorEl: event.currentTarget
+    });
   },
 
-  addAnnotaion(event, isChecked) {
-    this.setState({
-      annotated: !this.state.annotated
-    });
-    if (typeof this.props.addAnnotaion === 'function') {
-      this.props.addAnnotaion(this.props.text._id, isChecked);
+  addAnnotationCheckList(event, isChecked) {
+    if (typeof this.props.addAnnotationCheckList === 'function') {
+      this.props.addAnnotationCheckList(this.props.text._id, isChecked);
     }
+  },
+  handleRequestClose() {
+    this.setState({
+      annotationOpen: false,
+    });
   },
 
   render() {
@@ -108,14 +117,14 @@ ReadingText = React.createClass({
     }else{
         text_n = text.n_1;
     }
-
+    console.log(text._id);
     return(
-       <div className={textClasses} data-num={this.props.index}
-        onClick={this.handleClick}>
+       <div className={textClasses} data-num={this.props.index}>
          <div className="text-left-header">
             <h2>{numbering}</h2>
             <i className="text-bookmark mdi mdi-bookmark"></i>
          </div>
+         {Meteor.userId() &&
          <div className="text-meta-actions">
             <Checkbox
               title="Bookmark"
@@ -124,16 +133,23 @@ ReadingText = React.createClass({
               style={styles.checkbox}
             />
             <Checkbox
-              title="Select for annotaion"
-              onCheck={this.addAnnotaion}
-              checked={this.state.annotated}
+              title="Select for annotation"
+              onCheck={this.addAnnotationCheckList}
+              checked={this.props.annotationCheckList.indexOf(text._id) != -1}
               checkedIcon={<Done color={blue700}/>}
               uncheckedIcon={<Done />}
               style={styles.checkbox}
             />
-         </div>
-
-          <p className="text-html">
+         </div>}
+         <Popover
+            open={this.state.annotationOpen}
+            anchorEl={this.state.anchorEl}
+            anchorOrigin={{"horizontal":"right","vertical":"top"}}
+            targetOrigin={{"horizontal":"left","vertical":"top"}}
+            onRequestClose={this.handleRequestClose}>
+              <AnnotationList textNodeId={this.props.text._id} />
+         </Popover>
+          <p className="text-html" onClick={this.handleClick}>
             <span dangerouslySetInnerHTML={{__html: text.html}}></span>
           </p>
 
