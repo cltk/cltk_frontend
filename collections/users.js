@@ -80,6 +80,10 @@ Schemas.User = new SimpleSchema({
     type: [String],
     blackbox: true,
     optional: true
+  },
+  bookmarks: {
+    type: [String],
+    optional: true
   }
 });
 

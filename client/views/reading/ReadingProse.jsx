@@ -94,12 +94,14 @@ ReadingProse = React.createClass({
             <h1 className="work-title">{work.title}</h1>
           </div>
           {this.renderText()}
-          <AnnotateWidget annotationCheckList={this.state.annotationCheckList} onActionCallback={this.resetAnnotationCheckList} />
-
+          {Meteor.userId() ?
+            <AnnotateWidget
+              annotationCheckList={this.state.annotationCheckList}
+              onActionCallback={this.resetAnnotationCheckList} /> : null
+          }
   				<div className="reading-loading-area">
   					<div className="well-spinner"></div>
   				</div>
-
 
         </div>
 

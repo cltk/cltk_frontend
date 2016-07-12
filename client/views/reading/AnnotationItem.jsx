@@ -9,7 +9,8 @@ import Toggle from 'material-ui/Toggle';
 AnnotationItem = React.createClass({
 
 	propTypes: {
-		annotation: React.PropTypes.object.isRequired
+		annotation: React.PropTypes.object.isRequired,
+		isOwner: React.PropTypes.bool.isRequired,
 	},
 
 	getChildContext() {
@@ -44,11 +45,11 @@ AnnotationItem = React.createClass({
 		this.setState({
 			editing: false,
 		});
-		let annotation = {
+		let annotationData = {
 			content: this.state.annotationText,
 			isPrivate: this.state.annotationPrivate,
 		};
-		Meteor.call('annotation.update', this.props.annotation._id, annotation);
+		Meteor.call('annotation.update', this.props.annotation._id, annotationData);
 	},
 
 	handleAnnotationToggle() {
@@ -83,39 +84,40 @@ AnnotationItem = React.createClass({
 			}
 
 	    };
-		if(this.state.editing) {
+
+		if(this.props.isOwner && this.state.editing) {
 			//render annotation edit UI
-		return (
-			<Card
-				style={style.annotationCard}>
-				<CardTitle
-					style={style.annotationTitle}
-					subtitle="Edit note" />
-	            <Toggle
-	                style={style.annotationToggle}
-	                label="Private"
-	                toggled={this.state.annotationPrivate}
-	                onToggle={this.handleAnnotationToggle}/>
-				<CardText>
-					<TextField
-						name="annotationInput"
-						style={style.annotationInput}
-						multiLine={true}
-						rowsMax={4}
-						value={this.state.annotationText}
-						onChange={this.handleAnnotationInput} />
-				</CardText>
-				<CardActions>
-					<FlatButton
-						label="Save"
-						primary={true}
-						onClick={this.handleSave} />
-					<FlatButton
-						label="Cancel"
-						onClick={this.handleCancel} />
-				</CardActions>
-			</Card>
-		);
+			return (
+				<Card
+					style={style.annotationCard}>
+					<CardTitle
+						style={style.annotationTitle}
+						subtitle="Edit note" />
+					<Toggle
+		                style={style.annotationToggle}
+		                label="Private"
+		                toggled={this.state.annotationPrivate}
+		                onToggle={this.handleAnnotationToggle}/>
+					<CardText>
+						<TextField
+							name="annotationInput"
+							style={style.annotationInput}
+							multiLine={true}
+							rowsMax={4}
+							value={this.state.annotationText}
+							onChange={this.handleAnnotationInput} />
+					</CardText>
+					<CardActions>
+						<FlatButton
+							label="Save"
+							primary={true}
+							onClick={this.handleSave} />
+						<FlatButton
+							label="Cancel"
+							onClick={this.handleCancel} />
+					</CardActions>
+				</Card>
+			);
 
 		}
 		else {
@@ -126,15 +128,17 @@ AnnotationItem = React.createClass({
 		            <CardText>
 		            	{this.props.annotation.content}
 		            </CardText>
-		            <CardActions>
-						<FlatButton 
-							label="Edit"
-							primary={true}
-							onClick={this.handleEdit} />
-						<FlatButton
-							label="Delete"
-							onClick={this.handleDelete} />
-		            </CardActions>
+			        {this.props.isOwner ?
+			           <CardActions>
+							<FlatButton
+								label="Edit"
+								primary={true}
+								onClick={this.handleEdit} />
+							<FlatButton
+								label="Delete"
+								onClick={this.handleDelete} />
+			            </CardActions> : null
+			        }
           		</Card>
 			);
 		}

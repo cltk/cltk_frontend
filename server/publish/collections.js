@@ -45,11 +45,25 @@ if (Meteor.isServer){
   });
 
   Meteor.publish('annotation', function() {
-    return Annotation.find({
-      $or: [
-        { isPrivate: { $ne: true } },
-        { user: this.userId },
-      ],
-    });
+    if(this.userId) {
+       return Annotation.find({
+        $or: [
+          {isPrivate: false},
+          {user: this.userId},
+        ],
+      });
+    }
+    else {
+      return Annotation.find({isPrivate: false});
+    }
+  });
+
+  Meteor.publish('bookmark', function() {
+    if(this.userId) {
+       return Meteor.users.find({_id: this.userId}, {fields: {'bookmarks': 1}});
+    }
+    else {
+      return this.ready();
+    }
   });
 }

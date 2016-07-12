@@ -309,7 +309,6 @@ CommentaryPanel = React.createClass({
   }
 
 });
-
 CommentaryPanel.childContextTypes = {
     muiTheme: React.PropTypes.object.isRequired
 };

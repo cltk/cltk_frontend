@@ -21,13 +21,23 @@ ReadingText = React.createClass({
   mixins: [ReactMeteorData],
 
   getMeteorData() {
-    let handle = Meteor.subscribe('annotation');
     let annotationList = [];
-    if(handle.ready()){
+    let bookmarked = false;
+    let handleAnnotation = Meteor.subscribe('annotation');
+    let handleBookmark = Meteor.subscribe('bookmark');
+    if(handleAnnotation.ready()) {
       annotationList = Annotation.find({textNodes: this.props.text._id}).fetch();
+    }
+    if(handleBookmark.ready()) {
+      let bookmarkList = Meteor.users.findOne({},{fields: {'bookmarks': 1}});
+      if(bookmarkList && bookmarkList.bookmarks) {
+        // Check if current textNode exist in bookmarked textNodes
+        bookmarked = bookmarkList.bookmarks.indexOf(this.props.text._id) != -1;
+      }
     }
     return {
       annotationList: annotationList,
+      bookmarked: bookmarked
     }
   },
 
@@ -90,6 +100,15 @@ ReadingText = React.createClass({
     }
   },
 
+  toggleBookmark(event, isChecked) {
+    if(isChecked) {
+      Meteor.call('bookmark.insert', this.props.text._id);
+    }
+    else {
+      Meteor.call('bookmark.remove', this.props.text._id);
+    }
+  },
+
   handleRequestClose() {
     this.setState({
       annotationOpen: false,
@@ -148,36 +167,40 @@ ReadingText = React.createClass({
     }
 
     return(
-       <div className={textClasses} data-num={this.props.index}>
-         <div className="text-left-header">
+        <div className={textClasses} data-num={this.props.index}>
+          <div className="text-left-header">
             <h2>{numbering}</h2>
             <i className="text-bookmark mdi mdi-bookmark"></i>
-         </div>
-         {Meteor.userId() &&
-         <div className="text-meta-actions">
-            <Checkbox
-              title="Bookmark"
-              checkedIcon={<Bookmark />}
-              uncheckedIcon={<BookmarkBorder />}
-              style={styles.checkbox}
-            />
-            <Checkbox
-              title="Select for annotation"
-              onCheck={this.addAnnotationCheckList}
-              checked={this.props.annotationCheckList.indexOf(text._id) != -1}
-              checkedIcon={<Done color={blue700}/>}
-              uncheckedIcon={<Done />}
-              style={styles.checkbox}
-            />
-         </div>}
-         <Popover
+          </div>
+          {Meteor.userId() ?
+            <div className="text-meta-actions">
+              <Checkbox
+                title="Bookmark"
+                onCheck={this.toggleBookmark}
+                checked={this.data.bookmarked}
+                checkedIcon={<Bookmark />}
+                uncheckedIcon={<BookmarkBorder />}
+                style={styles.checkbox}
+              />
+              <Checkbox
+                title="Select for annotation"
+                onCheck={this.addAnnotationCheckList}
+                // Check if current textNode exist in annotation checklist
+                checked={this.props.annotationCheckList.indexOf(text._id) != -1}
+                checkedIcon={<Done color={blue700}/>}
+                uncheckedIcon={<Done />}
+                style={styles.checkbox}
+              />
+            </div> : null
+          }
+          <Popover
             open={this.state.annotationOpen}
             anchorEl={this.state.anchorEl}
             anchorOrigin={{"horizontal":"right","vertical":"top"}}
             targetOrigin={{"horizontal":"left","vertical":"top"}}
             onRequestClose={this.handleRequestClose}>
               <AnnotationList annotationList={this.data.annotationList} />
-         </Popover>
+          </Popover>
           <p className="text-html" onClick={this.handleClick}>
             <span dangerouslySetInnerHTML={{__html: text.html}}></span>
           </p>
@@ -255,7 +278,6 @@ ReadingText = React.createClass({
       );
   }
 });
-
 ReadingText.childContextTypes = {
     muiTheme: React.PropTypes.object.isRequired
 };

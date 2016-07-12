@@ -40,7 +40,6 @@ AnnotateWidget = React.createClass({
   },
 
   handleAnnotationSubmit() {
-    console.log(Meteor.userId());
     let annotation = {
       user: Meteor.userId(),
       textNodes: this.props.annotationCheckList,
