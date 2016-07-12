@@ -18,6 +18,19 @@ ReadingText = React.createClass({
     annotationCheckList: React.PropTypes.array.isRequired,
   },
 
+  mixins: [ReactMeteorData],
+
+  getMeteorData() {
+    let handle = Meteor.subscribe('annotation');
+    let annotationList = [];
+    if(handle.ready()){
+      annotationList = Annotation.find({textNodes: this.props.text._id}).fetch();
+    }
+    return {
+      annotationList: annotationList,
+    }
+  },
+
   getInitialState(){
 
     return {
@@ -76,10 +89,19 @@ ReadingText = React.createClass({
       this.props.addAnnotationCheckList(this.props.text._id, isChecked);
     }
   },
+
   handleRequestClose() {
     this.setState({
       annotationOpen: false,
     });
+  },
+
+  renderAnnotations() {
+    return this.data.annotationList.map((annotation, i) => {
+        return <AnnotationItem
+          key={i}
+          annotation={annotation} />
+      });
   },
 
   render() {
@@ -108,6 +130,13 @@ ReadingText = React.createClass({
 
     if (this.state.showRelatedPassages){
       textClasses = textClasses + " show-related-passages";
+    }
+
+    if (this.data.annotationList.length != 0){
+      textClasses = textClasses + " text-annotated";
+      if (this.state.annotationOpen){
+        textClasses = textClasses + " annotation-shown";
+      }
     }
 
     if (text.n_3 !== null){
@@ -147,7 +176,7 @@ ReadingText = React.createClass({
             anchorOrigin={{"horizontal":"right","vertical":"top"}}
             targetOrigin={{"horizontal":"left","vertical":"top"}}
             onRequestClose={this.handleRequestClose}>
-              <AnnotationList textNodeId={this.props.text._id} />
+              <AnnotationList annotationList={this.data.annotationList} />
          </Popover>
           <p className="text-html" onClick={this.handleClick}>
             <span dangerouslySetInnerHTML={{__html: text.html}}></span>

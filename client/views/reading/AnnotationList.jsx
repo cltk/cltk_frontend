@@ -1,23 +1,11 @@
 AnnotationList = React.createClass({
 
 	propTypes: {
-		textNodeId: React.PropTypes.string.isRequired,
+		annotationList: React.PropTypes.array.isRequired,
 	},
 
-	mixins: [ReactMeteorData],
-
-	getMeteorData() {
-		let handle = Meteor.subscribe('annotation');
-		let annotationList = [];
-		if(handle.ready()){
-			annotationList = Annotation.find({textNodes: this.props.textNodeId}).fetch();
-		}
-		return {
-			annotationList: annotationList,
-		}
-	},
 	renderAnnotations() {
-		return this.data.annotationList.map((annotation, i) => {
+		return this.props.annotationList.map((annotation, i) => {
 	      return <AnnotationItem
 	        key={i}
 	        annotation={annotation} />
