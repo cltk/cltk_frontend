@@ -195,6 +195,22 @@ header .navigation-primary .reading-location {
 
   }
 
+  &.text-annotated {
+    p {
+      span {
+        color: white;
+        background-color: @md-primary;
+      }
+    }
+  }
+  &.text-annotated.annotation-shown {
+    p {
+      span {
+        background-color: @md-primary-light;
+      }
+    }
+  }
+
 
   p {
 		color:rgba(0,0,0,0.67);
@@ -209,7 +225,7 @@ header .navigation-primary .reading-location {
 
      span:hover {
       cursor: pointer;
-      background-color: #DADADA;
+      background-color: @md-primary-light;
     }
 
   }
@@ -307,6 +323,12 @@ header .navigation-primary .reading-location {
     }
   }
 
+}
+
+.text-meta-actions {
+  position: absolute;
+  top: 16px;
+  right: -80px;
 }
 
 .text-meta-options {

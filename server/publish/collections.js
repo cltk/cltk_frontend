@@ -39,7 +39,31 @@ if (Meteor.isServer){
   Meteor.publish('translations', function(work) {
     return Translations.find({work: work});
   });
+
   Meteor.publish('commentary', function() {
     return Commentary.find();
+  });
+
+  Meteor.publish('annotation', function() {
+    if(this.userId) {
+       return Annotation.find({
+        $or: [
+          {isPrivate: false},
+          {user: this.userId},
+        ],
+      });
+    }
+    else {
+      return Annotation.find({isPrivate: false});
+    }
+  });
+
+  Meteor.publish('bookmark', function() {
+    if(this.userId) {
+       return Meteor.users.find({_id: this.userId}, {fields: {'bookmarks': 1}});
+    }
+    else {
+      return this.ready();
+    }
   });
 }
