@@ -47,6 +47,7 @@ ReadingText = React.createClass({
       bookmarked: false,
       showRelatedPassages: false,
       showEntities: false,
+      showLoginDialog: false,
     };
 
   },
@@ -95,23 +96,43 @@ ReadingText = React.createClass({
   },
 
   addAnnotationCheckList(event, isChecked) {
-    if (typeof this.props.addAnnotationCheckList === 'function') {
-      this.props.addAnnotationCheckList(this.props.text._id, isChecked);
+    if(Meteor.userId()) {
+      if (typeof this.props.addAnnotationCheckList === 'function') {
+        this.props.addAnnotationCheckList(this.props.text._id, isChecked);
+      }
+    }
+    else {
+      this.setState({
+        showLoginDialog: true,
+      });
     }
   },
 
   toggleBookmark(event, isChecked) {
-    if(isChecked) {
-      Meteor.call('bookmark.insert', this.props.text._id);
+    if(Meteor.userId()) {
+      if(isChecked) {
+        Meteor.call('bookmark.insert', this.props.text._id);
+      }
+      else {
+        Meteor.call('bookmark.remove', this.props.text._id);
+      }
     }
     else {
-      Meteor.call('bookmark.remove', this.props.text._id);
+      this.setState({
+        showLoginDialog: true,
+      });
     }
   },
 
   handleRequestClose() {
     this.setState({
       annotationOpen: false,
+    });
+  },
+
+  handleLoginDialogClose() {
+    this.setState({
+      showLoginDialog: false,
     });
   },
 
@@ -172,7 +193,6 @@ ReadingText = React.createClass({
             <h2>{numbering}</h2>
             <i className="text-bookmark mdi mdi-bookmark"></i>
           </div>
-          {Meteor.userId() ?
             <div className="text-meta-actions">
               <Checkbox
                 title="Bookmark"
@@ -191,8 +211,10 @@ ReadingText = React.createClass({
                 uncheckedIcon={<Done />}
                 style={styles.checkbox}
               />
-            </div> : null
-          }
+            </div>
+            {this.state.showLoginDialog ?
+              <LoginDialog initialOpen={true} handleLoginDialogClose={this.handleLoginDialogClose} /> : null
+            }
           <Popover
             open={this.state.annotationOpen}
             anchorEl={this.state.anchorEl}

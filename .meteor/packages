@@ -22,9 +22,6 @@ cfs:graphicsmagick
 yogiben:helpers
 # manuelschoebel:ms-seo
 # spiderable
-accounts-facebook
-accounts-google
-accounts-twitter
 accounts-ui
 jparker:gravatar
 service-configuration
@@ -81,3 +78,4 @@ dburles:google-maps
 natestrauser:jquery-scrollto
 materialize:materialize@0.97.0
 gwendall:blaze-to-react
+gildaspk:autoform-materialize
