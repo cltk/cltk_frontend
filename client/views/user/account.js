@@ -1,4 +1,3 @@
-AutoForm.setDefaultTemplate('materialize');
 AutoForm.hooks({
   updatePassword: {
     onSubmit: function(insertDoc, updateDoc, currentDoc) {
