@@ -59,7 +59,6 @@ ReadingLayout = React.createClass({
 	renderReadingEnvironment(){
 		let work = this.data.work;
 		let textNodes = this.data.textNodes;
-
 		// If data is loaded
 		if(work && textNodes){
 
@@ -75,14 +74,16 @@ ReadingLayout = React.createClass({
 	      return (
 	          <ReadingProse
 	            work={work}
-	            textNodes={textNodes} />
+	            textNodes={textNodes}
+	            highlightId={this.props.queryParams.id} />
 	        );
 
 	    }else {
 	      return (
 	          <ReadingProse
 	            work={work}
-	            textNodes={textNodes} />
+	            textNodes={textNodes}
+	            highlightId={this.props.queryParams.id} />
 	        );
 
 	    }

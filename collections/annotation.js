@@ -13,6 +13,14 @@ Schemas.Annotation = new SimpleSchema({
   isPrivate: {
     type: Boolean,
   },
+  author: {
+    type: String,
+    max: 60
+  },
+  work: {
+    type: String,
+    max: 60
+  },
   createdAt: {
     type: Date,
     autoValue: function() {

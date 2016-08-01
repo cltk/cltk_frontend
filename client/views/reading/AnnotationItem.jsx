@@ -14,14 +14,14 @@ AnnotationItem = React.createClass({
 	},
 
 	getChildContext() {
-    	return { muiTheme: getMuiTheme(baseTheme) };
-  	},
+		return { muiTheme: getMuiTheme(baseTheme) };
+	},
 
 	getInitialState() {
 		return {
 			editing: false,
 			annotationText: this.props.annotation.content,
-      		annotationPrivate: this.props.annotation.isPrivate,
+			annotationPrivate: this.props.annotation.isPrivate,
 		}
 	},
 

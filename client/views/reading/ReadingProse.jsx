@@ -4,7 +4,8 @@ ReadingProse = React.createClass({
 
   propTypes: {
     work: React.PropTypes.object.isRequired,
-    textNodes: React.PropTypes.array.isRequired
+    textNodes: React.PropTypes.array.isRequired,
+    highlightId: React.PropTypes.string,
   },
 
   getInitialState() {
@@ -47,12 +48,9 @@ ReadingProse = React.createClass({
                 text={text}
                 numbering={numbering}
                 annotationCheckList = {this.state.annotationCheckList}
-                addAnnotationCheckList = {this.addAnnotationCheckList} />;
+                addAnnotationCheckList = {this.addAnnotationCheckList}
+                highlight={this.props.highlightId==text._id} />;
     });
-  },
-
-  scrollParentGetter() {
-    return window;
   },
 
   addAnnotationCheckList(textNodeId, isChecked) {
@@ -97,6 +95,7 @@ ReadingProse = React.createClass({
           {Meteor.userId() ?
             <AnnotateWidget
               annotationCheckList={this.state.annotationCheckList}
+              work={work}
               onActionCallback={this.resetAnnotationCheckList} /> : null
           }
   				<div className="reading-loading-area">

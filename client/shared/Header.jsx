@@ -58,6 +58,9 @@ Header = React.createClass({
 
         					<ul className="nav navbar-nav navbar-right">
         						<li>
+                      <LoginButtons />
+                    </li>
+                    <li>
                       <FlatButton
                         style={styles.flatButton}
                         linkButton={true}

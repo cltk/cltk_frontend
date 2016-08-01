@@ -75,7 +75,5 @@ standard-minifier-css
 standard-minifier-js
 simple:rest
 dburles:google-maps
-natestrauser:jquery-scrollto
 materialize:materialize@0.97.0
 gwendall:blaze-to-react
-gildaspk:autoform-materialize

@@ -16,6 +16,7 @@ ReadingText = React.createClass({
     numbering: React.PropTypes.string.isRequired,
     addAnnotationCheckList: React.PropTypes.func.isRequired,
     annotationCheckList: React.PropTypes.array.isRequired,
+    highlight: React.PropTypes.bool.isRequired,
   },
 
   mixins: [ReactMeteorData],
@@ -48,6 +49,7 @@ ReadingText = React.createClass({
       showRelatedPassages: false,
       showEntities: false,
       showLoginDialog: false,
+      annotationOpen: this.props.highlight,
     };
 
   },
@@ -77,21 +79,29 @@ ReadingText = React.createClass({
     });
   },
 
+  componentDidMount() {
+    if(this.props.highlight) {
+      $("html,body").animate({ scrollTop: this.anchorEl.getBoundingClientRect().top }, 400);
+    }
+    this.setState({
+      anchorEl: this.anchorEl,
+    });
+  },
+
   handleClick(event) {
     translation = $('.translation-text[data-num="'+ this.props.index + '"]');
     if(translation.length != 0) {
-      $(".translations").scrollTo(translation, { duration:800 });
+      $(".translations").animate({ scrollTop: translation.offset().top }, 800);
     }
     comment = $('.commentary-comment[data-num="'+ this.props.index + '"]').first();
     if(comment.length != 0) {
-      $(".comments").scrollTo(comment, { duration:400 });
+      $(".comments").animate({ scrollTop: comment.offset().top }, 800);
     }
     // This prevents ghost click.
     event.preventDefault();
 
     this.setState({
       annotationOpen: true,
-      anchorEl: event.currentTarget
     });
   },
 
@@ -188,7 +198,7 @@ ReadingText = React.createClass({
     }
 
     return(
-        <div className={textClasses} data-num={this.props.index}>
+        <div className={textClasses} data-id={text._id} data-num={this.props.index}>
           <div className="text-left-header">
             <h2>{numbering}</h2>
             <i className="text-bookmark mdi mdi-bookmark"></i>
@@ -223,7 +233,7 @@ ReadingText = React.createClass({
             onRequestClose={this.handleRequestClose}>
               <AnnotationList annotationList={this.data.annotationList} />
           </Popover>
-          <p className="text-html" onClick={this.handleClick}>
+          <p className="text-html" onClick={this.handleClick} ref={(ref) => this.anchorEl = ref}>
             <span dangerouslySetInnerHTML={{__html: text.html}}></span>
           </p>
 

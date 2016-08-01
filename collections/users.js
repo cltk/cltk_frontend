@@ -29,16 +29,6 @@ Schemas.UserProfile = new SimpleSchema({
       rows: 4
     }
   },
-  location: {
-    type: String,
-    optional: true,
-    autoform: {
-      type: 'map',
-      geolocation: true,
-      searchBox: true,
-      autolocate: true
-    }
-  },
   country: {
     type: String,
     label: 'Nationality',
