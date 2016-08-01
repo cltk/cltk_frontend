@@ -20,7 +20,6 @@ SearchView = React.createClass({
 
   renderWorks() {
 
-    console.log("Works:", this.data.works);
     return this.data.works.map((work) => {
       return <WorkTeaser
               key={work._id}
@@ -41,7 +40,7 @@ SearchView = React.createClass({
     				<img className="background-image" alt='image' src='/images/library-428034.jpg'/>
           </div>
 
-          <div className="background-screen cyan">
+          <div className="background-screen light">
           </div>
 
     			<div className="container v-align-transform">

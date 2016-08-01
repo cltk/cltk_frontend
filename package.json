@@ -1,8 +1,8 @@
 {
-  "name": "view",
-  "version": "1.0.0",
-  "description": "View from a view",
-  "main": "index.js",
+  "name": "cltk_frontend",
+  "version": "0.1.0",
+  "description": "A frontend reading environment for the Classical Language ToolKit Archive texts",
+  "main": "bundle/main.js",
   "dependencies": {
     "material-ui": "^0.15.0",
     "pseries": "^2.0.0",
@@ -16,6 +16,7 @@
     "react-addons-transition-group": "^15.0.2",
     "react-addons-update": "^15.0.2",
     "react-dom": "^15.0.2",
+    "react-list": "^0.7.18",
     "react-slick": "^0.12.2",
     "react-tap-event-plugin": "^1.0.0"
   },

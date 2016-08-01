@@ -20,7 +20,6 @@ BrowseView = React.createClass({
 
   renderWorks() {
 
-    console.log("Works:", this.data.works);
     return this.data.works.map((work) => {
       return <WorkTeaser
               key={work._id}
@@ -41,7 +40,7 @@ BrowseView = React.createClass({
     				<img className="background-image" alt='image' src='/images/books4.jpg'/>
           </div>
 
-          <div className="background-screen cyan">
+          <div className="background-screen light">
           </div>
 
     			<div className="container v-align-transform">

@@ -12,7 +12,7 @@ Translation = React.createClass({
         <div className={translationClassName}>
          {this.props.translation.text.map(function(text, i){
 
-          return <p key={i} className="translation-text" dangerouslySetInnerHTML={{__html: text.html}}></p>
+          return <p key={i} data-num={i} className="translation-text" dangerouslySetInnerHTML={{__html: text}}></p>
 
           })}
 

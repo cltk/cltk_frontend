@@ -74,7 +74,7 @@ header .navigation-primary .reading-location {
   &.with-commentary-shown {
     .reading-container {
       float:left;
-      width:65%;
+      width:64%;
     }
 
   }
@@ -82,7 +82,7 @@ header .navigation-primary .reading-location {
   &.with-definitions-shown {
     .reading-container {
       float:right;
-      width:80%;
+      width:73%;
 
     }
 
@@ -91,8 +91,8 @@ header .navigation-primary .reading-location {
   &.with-commentary-shown.with-definitions-shown {
     .reading-container {
       float:none;
-      margin:0 0 0 28%;
-      width:35%;
+      margin:0 0 0 30%;
+      width:34%;
     }
 
   }
@@ -195,6 +195,21 @@ header .navigation-primary .reading-location {
 
   }
 
+  &.text-annotated {
+    p {
+      span {
+        background-color: @highlight-grey;
+      }
+    }
+  }
+  &.text-annotated.annotation-shown {
+    p {
+      span {
+        background-color: @highlight-yellow;
+      }
+    }
+  }
+
 
   p {
 		color:rgba(0,0,0,0.67);
@@ -207,8 +222,12 @@ header .navigation-primary .reading-location {
     margin:0px auto;
     padding:8px 0 26px;
 
-  }
+     span:hover {
+      cursor: pointer;
+      background-color: @highlight-yellow;
+    }
 
+  }
 
 
 }
@@ -303,6 +322,12 @@ header .navigation-primary .reading-location {
     }
   }
 
+}
+
+.text-meta-actions {
+  position: absolute;
+  top: 16px;
+  right: -80px;
 }
 
 .text-meta-options {
@@ -579,5 +604,22 @@ header .navigation-primary .reading-location {
 	width:100%;
 	clear:both;
 	display:block;
+
+}
+
+
+.definitions-panel {
+
+  .definitions-panel-inner {
+
+    .search-box {
+      padding-left: 20px;
+    }
+
+    .definitions {
+      height: 90%;
+    }
+
+  }
 
 }

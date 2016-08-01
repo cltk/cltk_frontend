@@ -1,6 +1,6 @@
-this.Texts = new Meteor.Collection('texts');
+this.Translations = new Meteor.Collection('translations');
 
-Schemas.Texts = new SimpleSchema({
+Schemas.Translations = new SimpleSchema({
   n_1: {
     type: Number,
     min: 0
@@ -31,6 +31,10 @@ Schemas.Texts = new SimpleSchema({
     type: String,
     max: 60
   },
+  translator: {
+    type: String,
+    max: 160
+  },
   createdAt: {
     type: Date,
     autoValue: function() {
@@ -59,11 +63,7 @@ Schemas.Texts = new SimpleSchema({
     autoform: {
       rows: 5
     }
-  },
-  comments: {
-    type: [String],
-    optional: true
   }
 });
 
-Texts.attachSchema(Schemas.Texts);
+Translations.attachSchema(Schemas.Translations);

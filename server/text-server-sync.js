@@ -2,13 +2,27 @@
  * Sync text content from the CLTK API for text from the JSON
  *
  */
- import pseries from 'pseries';
+import pseries from 'pseries';
 
+// TODO: Change the url to "api.cltk.org" once the updated api is deployed
+let BASE_URL  = "http://localhost:5000"
+
+//Utility function to clean word for definitions
+function cleanWord(word, language) {
+  switch(language) {
+    // For latin, keep only latin alphabets
+    case "latin":
+      word = word.toLowerCase().replace(/[^a-z]/g,"");
+      break;
+    //TODO: Add word cleaning logic for other languages
+  }
+  return word;
+}
 
 // Get the available languages from the API
 function getLanguages(){
   return new Promise(function(resolve, reject){
-    HTTP.get('http://api.cltk.org:5000/lang', {}, function(error, response){
+    HTTP.get(BASE_URL + "/lang", {}, function(error, response){
       if (error){
         reject(error);
       }else {
@@ -23,7 +37,7 @@ function getLanguages(){
 function getCorpora(language){
 
   return new Promise(function(resolve, reject){
-    HTTP.get("http://api.cltk.org:5000/lang/" + language.slug + "/corpus", {}, function(error, response){
+    HTTP.get(BASE_URL + "/lang/" + language.slug + "/corpus", {}, function(error, response){
       if (error){
         reject(error);
       }else {
@@ -39,7 +53,7 @@ function getCorpora(language){
 function getAuthors(corpus){
 
   return new Promise(function(resolve, reject){
-    HTTP.get("http://api.cltk.org:5000/lang/" + corpus.language + "/corpus/" + corpus.slug + "/author", {}, function(error, response){
+    HTTP.get(BASE_URL + "/lang/" + corpus.language + "/corpus/" + corpus.slug + "/author", {}, function(error, response){
       if (error){
         reject(error);
       }else {
@@ -55,7 +69,7 @@ function getAuthors(corpus){
 function getWorks(author){
 
   return new Promise(function(resolve, reject){
-    HTTP.get("http://api.cltk.org:5000/lang/" + author.language + "/corpus/" + author.corpus + "/author/" + author.slug + "/text", {}, function(error, response){
+    HTTP.get(BASE_URL + "/lang/" + author.language + "/corpus/" + author.corpus + "/author/" + author.slug + "/text", {}, function(error, response){
       if (error){
         reject(error);
       }else {
@@ -70,7 +84,38 @@ function getWorks(author){
 // Get each invidual text in the text list
 function getTextNodes(work){
   return new Promise(function(resolve, reject){
-    HTTP.get("http://api.cltk.org:5000/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.slug, {}, function(error, response){
+    HTTP.get(BASE_URL + "/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.slug, {}, function(error, response){
+      if (error){
+        reject(error);
+      }else {
+        resolve(response);
+      }
+    });
+
+  });
+
+}
+// Get translation for each invidual text in the text list
+function getTranslations(work, language){
+  return new Promise(function(resolve, reject){
+    HTTP.get(BASE_URL + "/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.slug,
+      {params: {translation: language}},
+      function(error, response){
+        if (error){
+          reject(error);
+        }else {
+          resolve(response);
+        }
+      }
+    );
+
+  });
+
+}
+
+function getDefinitions(word, lang){
+   return new Promise(function(resolve, reject){
+    HTTP.get(BASE_URL + "/lang/" + lang + "/define/" + word, {}, function(error, response){
       if (error){
         reject(error);
       }else {
@@ -82,11 +127,26 @@ function getTextNodes(work){
 
 }
 
+function getCommentary(work){
+  return new Promise(function(resolve, reject){
+    HTTP.get(BASE_URL + "/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.slug,
+      {params: {commentary: "all"}},
+      function(error, response){
+        if (error){
+          reject(error);
+        }else {
+          resolve(response);
+        }
+      }
+    );
+  });
+}
+
 // Get all the available languages from the API synchronously
 function getLanguagesSequence(){
 
   return new Promise(function(resolve, reject){
-    response = HTTP.get('http://api.cltk.org:5000/lang')
+    response = HTTP.get(BASE_URL + "/lang")
 
     if(response.statusCode === 200){ syncLanguages(response.data.languages);
 
@@ -107,7 +167,7 @@ function getCorporaSequence(res){
 
   return new Promise(function(resolve, reject){
     Languages.find().fetch().forEach(function(language){
-      response = HTTP.get("http://api.cltk.org:5000/lang/" + language.slug + "/corpus")
+      response = HTTP.get(BASE_URL + "/lang/" + language.slug + "/corpus")
 
       if(response.statusCode === 200){
         syncCorpora(response.data.corpora, language);
@@ -129,7 +189,7 @@ function getAuthorsSequence(res){
 
   return new Promise(function(resolve, reject){
     Corpora.find().fetch().forEach(function(corpus){
-      response = HTTP.get("http://api.cltk.org:5000/lang/" + corpus.language + "/corpus/" + corpus.slug + "/author")
+      response = HTTP.get(BASE_URL + "/lang/" + corpus.language + "/corpus/" + corpus.slug + "/author")
 
       if(response.statusCode === 200){
         syncAuthors(response.data.authors, corpus);
@@ -155,7 +215,7 @@ function getWorksSequence(res){
   return new Promise(function(resolve, reject){
     Authors.find().fetch().forEach(function(author){
 
-      response = HTTP.get("http://api.cltk.org:5000/lang/" + author.language + "/corpus/" + author.corpus + "/author/" + author.slug + "/text")
+      response = HTTP.get(BASE_URL + "/lang/" + author.language + "/corpus/" + author.corpus + "/author/" + author.slug + "/text")
 
       if(response.statusCode === 200){
         syncWorks(response.data.texts, author);
@@ -182,7 +242,7 @@ function getTextNodesSequence(res){
     Works.find().fetch().forEach(function(work){
 
       // For each work, fetch the document text from the API
-      response = HTTP.get("http://api.cltk.org:5000/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.slug);
+      response = HTTP.get(BASE_URL + "/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.slug);
 
 
       if(response.statusCode === 200){
@@ -203,13 +263,105 @@ function getTextNodesSequence(res){
 
 }
 
+// Get translations for texts synchronously
+function getTranslationsSequence(res) {
+  return new Promise(function(resolve, reject){
+
+    Works.find().fetch().forEach(function(work){
+
+      // For each work, fetch the translations from the API
+      response = HTTP.get(BASE_URL + "/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.slug,
+                  {params: {translation: "english"}});
+
+      if(response.statusCode === 200 && response.data != null){
+        syncTranslations(response.data.translations, response.data.meta, work);
+      }
+      else{
+      }
+
+    });
+
+    resolve();
+
+  });
+
+}
+// Get commentary for texts synchronously
+function getCommentarySequence(res) {
+  return new Promise(function(resolve, reject){
+
+    Works.find().fetch().forEach(function(work){
+
+      // For each work, fetch the commentary from the API
+      response = HTTP.get(BASE_URL + "/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.slug,
+                  {params: {commentary: "all"}});
+
+      if(response.statusCode === 200 && response.data != null){
+        syncCommentary(response.data.commentary, response.data.meta, work);
+      }
+      else{
+      }
+
+    });
+
+    resolve();
+
+  });
+
+}
+
+// Get word definitions for text synchronously
+function getDefinitionSequence(res){
+  return new Promise(function(resolve, reject){
+
+    Texts.find().fetch().forEach(function(text){
+      words = text.text.split(" ");
+      words.forEach(function(word){
+
+        // Cleaning word
+        word = cleanWord(word, text.language);
+        let existing = Wordforms.findOne({word: word});
+
+        if(!existing){
+
+          response = HTTP.get(BASE_URL + "/lang/" + text.language + "/define/" + word);
+
+          if(response.statusCode === 200){
+            syncDefinitions(word, text, response.data);
+
+          }else{
+            console.error("Error with definitions sync at", response);
+
+          }
+
+        }
+
+      });
+
+    });
+
+    resolve();
+
+  });
+}
+
 // Removes all content synced from the API
 function resetDb(){
-  Languages.remove({})
-  Corpora.remove({})
-  Authors.remove({})
-  Works.remove({})
-  Texts.remove({})
+  try{
+    Languages.remove({});
+    Corpora.remove({});
+    Authors.remove({});
+    Works.remove({});
+    Texts.remove({});
+    Definitions.remove({});
+    Wordforms.remove({});
+    Translations.remove({});
+    Commentary.remove({});
+  }
+  catch(err){
+    console.log("Error reset db");
+    //console.error(err);
+  }
 
 }
 
@@ -220,10 +372,17 @@ function syncLanguages(languages){
 
       // Insert languages
       if (!existing){
-        Languages.insert({
-            title : language,
-            slug : language
-          });
+        try{
+          Languages.insert({
+              title : language,
+              slug : language
+            }
+          );
+        }
+        catch(err){
+          console.log("Error insert language");
+          //console.error(err);
+        }
       }
 
     });
@@ -237,11 +396,18 @@ function syncCorpora(corpora, language){
 
       // If corpus is not already in the database, insert it
       if (!existing){
-        Corpora.insert({
-            title : corpus,
-            language : language.slug,
-            slug : corpus
-          });
+        try{
+          Corpora.insert({
+              title : corpus,
+              language : language.slug,
+              slug : corpus
+            }
+          );
+        }
+        catch(err){
+          console.log("Error insert corpora");
+          //console.error(err);
+        }
       }
 
     });
@@ -256,12 +422,19 @@ function syncAuthors(authors, corpus){
 
       // If the author is not in the datbase already, add it
       if (!existing){
-        Authors.insert({
-            title : author,
-            slug : author,
-            language : corpus.language,
-            corpus : corpus.slug
-          });
+        try{
+          Authors.insert({
+              title : author,
+              slug : author,
+              language : corpus.language,
+              corpus : corpus.slug
+            }
+          );
+        }
+        catch(err){
+          console.log("Error insert author");
+          //console.error(err);
+        }
       }
 
     });
@@ -275,13 +448,20 @@ function syncWorks(works, author){
 
       // If this work is not in the database yet, add it
       if (!existing){
-        Works.insert({
-            title : work,
-            slug : work,
-            author : author.slug,
-            language : author.language,
-            corpus : author.corpus
-          });
+        try{
+          Works.insert({
+              title : work,
+              slug : work,
+              author : author.slug,
+              language : author.language,
+              corpus : author.corpus
+            }
+          );
+        }
+        catch(err){
+          console.log("Error insert works");
+          //console.error(err);
+        }
       }
 
     });
@@ -290,7 +470,7 @@ function syncWorks(works, author){
 }
 
 function syncTextNodes(textNodes, metaStructure, work){
-  var count = 0;
+  let count = 0;
 
   /*
    * Save the meta structure on the work
@@ -302,14 +482,14 @@ function syncTextNodes(textNodes, metaStructure, work){
    * meta field
    */
   if (["chapter", "fragment", "line"].indexOf(metaStructure) >= 0){
-    for ( n_1_key in textNodes ){
+    for (let n_1_key in textNodes ){
       //
       // Only adding the first 100 text chunks / objects makes debugging the sync script
       // and development easier
       //
       if (count < 100){
 
-        var existing = Texts.findOne({
+        let existing = Texts.findOne({
             n_1 : parseInt(n_1_key),
             author : work.author,
             language : work.language,
@@ -319,31 +499,39 @@ function syncTextNodes(textNodes, metaStructure, work){
 
         // If text object is not yet exiting in the database, add it
         if (!existing){
-          Texts.insert({
-              n_1 : parseInt(n_1_key),
-              author : work.author,
-              language : work.language,
-              corpus : work.corpus,
-              work : work.slug,
-              text : textNodes[n_1_key],
-              html : textNodes[n_1_key],
-            });
+          try{
+            Texts.insert({
+                n_1 : parseInt(n_1_key),
+                author : work.author,
+                language : work.language,
+                corpus : work.corpus,
+                work : work.slug,
+                text : textNodes[n_1_key],
+                html : textNodes[n_1_key],
+              }
+            );
+          }
+          catch(err){
+            console.log("Error insert text");
+            //console.error(err);
+          }
         }
 
         count++;
       }
 
     } // n_1
+    console.log(" -- -- synced", count, "text items" );
 
   }else if (["poem-line", "book-line", "chapter-section", "book-chapter", "fragment-line"].indexOf(metaStructure) >= 0) {
-    for ( n_1_key in textNodes ){
-      for ( n_2_key in textNodes[n_1_key] ){
+    for (let n_1_key in textNodes ){
+      for (let n_2_key in textNodes[n_1_key] ){
         //
         // Only adding the first 100 text chunks / objects makes debugging the sync script
         // and development easier
         //
         if (count < 100){
-          var existing = Texts.findOne({
+          let existing = Texts.findOne({
               n_1 : parseInt(n_1_key),
               n_2 : parseInt(n_2_key),
               author : work.author,
@@ -354,7 +542,8 @@ function syncTextNodes(textNodes, metaStructure, work){
 
           // If text object is not yet exiting in the database, add it
           if (!existing){
-            Texts.insert({
+            try{
+              Texts.insert({
                 n_1 : parseInt(n_1_key),
                 n_2 : parseInt(n_2_key),
                 author : work.author,
@@ -364,6 +553,12 @@ function syncTextNodes(textNodes, metaStructure, work){
                 text : textNodes[n_1_key][n_2_key],
                 html : textNodes[n_1_key][n_2_key],
               });
+            }
+            catch(err){
+              console.log("Error insert text");
+              //console.error(err);
+            }
+
           }
 
           count++;
@@ -371,17 +566,18 @@ function syncTextNodes(textNodes, metaStructure, work){
 
       } // n_2
     } // n_1
+    console.log(" -- -- synced", count, "text items" );
 
   }else if (["book-chapter-section"].indexOf(metaStructure) >= 0){
-    for ( n_1_key in textNodes ){
-      for ( n_2_key in textNodes[n_1_key] ){
-        for ( n_3_key in textNodes[n_2_key] ){
+    for (let n_1_key in textNodes ){
+      for (let n_2_key in textNodes[n_1_key] ){
+        for (let n_3_key in textNodes[n_2_key] ){
           //
           // Only adding the first 100 text chunks / objects makes debugging the sync script
           // and development easier!
           //
           if (count < 100){
-            var existing = Texts.findOne({
+            let existing = Texts.findOne({
                 n_1 : parseInt(n_1_key),
                 n_2 : parseInt(n_2_key),
                 n_3 : parseInt(n_3_key),
@@ -393,17 +589,24 @@ function syncTextNodes(textNodes, metaStructure, work){
 
             // If text object is not yet exiting in the database, add it
             if (!existing){
-              Texts.insert({
-                  n_1 : parseInt(n_1_key),
-                  n_2 : parseInt(n_2_key),
-                  n_3 : parseInt(n_3_key),
-                  author : work.author,
-                  language : work.language,
-                  corpus : work.corpus,
-                  work : work.slug,
-                  text : textNodes[n_1_key][n_2_key][n_3_key],
-                  html : textNodes[n_1_key][n_2_key][n_3_key],
-                });
+              try{
+                Texts.insert({
+                    n_1 : parseInt(n_1_key),
+                    n_2 : parseInt(n_2_key),
+                    n_3 : parseInt(n_3_key),
+                    author : work.author,
+                    language : work.language,
+                    corpus : work.corpus,
+                    work : work.slug,
+                    text : textNodes[n_1_key][n_2_key][n_3_key],
+                    html : textNodes[n_1_key][n_2_key][n_3_key],
+                  }
+                );
+              }
+              catch(err){
+                console.log("Error insert text");
+                //console.error(err);
+              }
             }
 
             count++;
@@ -421,7 +624,311 @@ function syncTextNodes(textNodes, metaStructure, work){
 
   }
 
+}
 
+function syncTranslations(translations, metaStructure, work){
+  /*
+   * Parse the input document based on the document structure denoted in the
+   * meta field
+   */
+  translations.forEach((translation) => {
+    let count  = 0;
+    if (["chapter", "fragment", "line"].indexOf(metaStructure) >= 0){
+      for (let n_1_key in translation.text ){
+        //
+        // Only adding the first 100 translation chunks / objects makes debugging the sync script
+        // and development easier
+        //
+        if (count < 100){
+
+          let existing = Translations.findOne({
+              n_1 : parseInt(n_1_key),
+              author : work.author,
+              language : work.language,
+              corpus : work.corpus,
+              work : work.slug,
+              translator: translation.translator
+            });
+
+          // If translation object is not yet exiting in the database, add it
+          if (!existing){
+            try{
+              Translations.insert({
+                  n_1 : parseInt(n_1_key),
+                  author : work.author,
+                  language : work.language,
+                  corpus : work.corpus,
+                  work : work.slug,
+                  translator: translation.translator,
+                  text : translation.text[n_1_key],
+                  html : translation.text[n_1_key],
+                }
+              );
+            }
+            catch(err){
+              console.log("Error insert translation");
+              //console.error(err);
+            }
+          }
+
+          count++;
+        }
+
+      } // n_1
+      console.log(" -- -- synced", count, "translation items" );
+
+    }else if (["poem-line", "book-line", "chapter-section", "book-chapter", "fragment-line"].indexOf(metaStructure) >= 0) {
+      for (let n_1_key in translation.text ){
+        for (let n_2_key in translation.text[n_1_key] ){
+          //
+          // Only adding the first 100 translation chunks / objects makes debugging the sync script
+          // and development easier
+          //
+          if (count < 100){
+            let existing = Translations.findOne({
+                n_1 : parseInt(n_1_key),
+                n_2 : parseInt(n_2_key),
+                author : work.author,
+                language : work.language,
+                corpus : work.corpus,
+                work : work.slug,
+                translator: translation.translator
+
+              });
+
+            // If translation object is not yet exiting in the database, add it
+            if (!existing){
+              try{
+                Translations.insert({
+                  n_1 : parseInt(n_1_key),
+                  n_2 : parseInt(n_2_key),
+                  author : work.author,
+                  language : work.language,
+                  corpus : work.corpus,
+                  work : work.slug,
+                  translator: translation.translator,
+                  text : translation.text[n_1_key][n_2_key],
+                  html : translation.text[n_1_key][n_2_key],
+                });
+              }
+              catch(err){
+                console.log("Error insert translation");
+                //console.error(err);
+              }
+            }
+
+            count++;
+          }
+
+        } // n_2
+      } // n_1
+      console.log(" -- -- synced", count, "translation items" );
+
+    }else if (["book-chapter-section"].indexOf(metaStructure) >= 0){
+      for (let n_1_key in translation.text ){
+        for (let n_2_key in translation.text[n_1_key] ){
+          for (let n_3_key in translation.text[n_2_key] ){
+            //
+            // Only adding the first 100 translation chunks / objects makes debugging the sync script
+            // and development easier!
+            //
+            if (count < 100){
+              let existing = Translations.findOne({
+                  n_1 : parseInt(n_1_key),
+                  n_2 : parseInt(n_2_key),
+                  n_3 : parseInt(n_3_key),
+                  author : work.author,
+                  language : work.language,
+                  corpus : work.corpus,
+                  work : work.slug,
+                  translator: translation.translator
+                });
+
+              // If translation object is not yet exiting in the database, add it
+              if (!existing){
+                try{
+                  Translations.insert({
+                      n_1 : parseInt(n_1_key),
+                      n_2 : parseInt(n_2_key),
+                      n_3 : parseInt(n_3_key),
+                      author : work.author,
+                      language : work.language,
+                      corpus : work.corpus,
+                      work : work.slug,
+                      translator: translation.translator,
+                      text : translation.text[n_1_key][n_2_key][n_3_key],
+                      html : translation.text[n_1_key][n_2_key][n_3_key],
+                    }
+                  );
+                  count++;
+                }
+                catch(err){
+                  console.log("Error insert translation");
+                  //console.error(err);
+                }
+              }
+
+              count++;
+            }
+
+          } // n_3
+        } // n_2
+      } // n_1
+
+      console.log(" -- -- synced", count, "translation items" );
+
+    }else {
+      // Provide information about an unregonized document structure
+      console.error(" -- -- unregonized document structure for work", work);
+
+    }
+  });
+
+}
+
+function syncDefinitions(word, text, definitions){
+  definitions.forEach(function(item){
+    let existing = Definitions.findOne({headword: item.headword});
+    let definition_id = "";
+    if(!existing){
+      try{
+        definition_id = Definitions.insert({
+            headword: item.headword,
+            pos: item.pos,
+            definition: item.definition,
+          }
+        );
+      }
+      catch(err){
+        console.log("Error insert definitions");
+        //console.error(err);
+      }
+
+    }else{
+      definition_id = existing._id;
+    }
+    try{
+      Wordforms.insert({
+          word: word,
+          definitions: definition_id,
+          texts: text._id,
+        }
+      );
+    }
+    catch(err){
+      console.log("Error insert wordforms");
+      //console.error(err);
+    }
+
+  });
+  console.log(" -- -- synced", definitions.length, "definition items", "for", word, "in", text.work);
+}
+
+// Utility function to insert commentary
+function insertCommentary(author, year, comment, ref) {
+  let comment_id = "";
+  let existing = Commentary.findOne({
+    author: author,
+    year: year,
+    ref: ref
+  });
+  if(!existing){
+    try {
+      comment_id = Commentary.insert({
+        author: author,
+        year: year,
+        ref: ref,
+        content: comment
+      });
+    }
+    catch(err){
+      console.log("Error insert commentary");
+    }
+  }
+  else {
+    comment_id = existing._id;
+  }
+  return comment_id;
+}
+
+function syncCommentary(commentaries, metaStructure, work) {
+  if (["chapter", "fragment", "line"].indexOf(metaStructure) >= 0) {
+
+    commentaries.forEach((commentary) => {
+      let count = 0;
+      commentary.comments.forEach((comment) => {
+        let ref = comment.start.n_1 + "-" + comment.end.n_1;
+        let comment_id = insertCommentary(commentary.author, commentary.year, comment.content, ref);
+        count++;
+        try {
+          Texts.update(
+            {
+              n_1: {$gte: parseInt(comment.start.n_1), $lte: parseInt(comment.end.n_1)},
+              work: work.slug
+            },
+            {$addToSet: {comments: comment_id}}, {multi: true}
+          );
+        }
+        catch(err){
+          console.log("Error update texts comments");
+          //console.error(err);
+        }
+      });
+      console.log(" -- -- synced", count, "commentary items");
+    });
+
+  }else if (["poem-line", "book-line", "chapter-section", "book-chapter", "fragment-line"].indexOf(metaStructure) >= 0) {
+     commentaries.forEach((commentary) => {
+      let count = 0;
+      commentary.comments.forEach((comment) => {
+        let ref = comment.start.n_1 + "." + comment.start.n_2 + "-"
+                  + comment.end.n_1 + "." + comment.end.n_2;
+        let comment_id = insertCommentary(commentary.author, commentary.year, comment.content, ref);
+        count++;
+        try {
+          Texts.update(
+            {
+              n_1: {$gte: parseInt(comment.start.n_1), $lte: parseInt(comment.end.n_1)},
+              n_2: {$gte: parseInt(comment.start.n_2), $lte: parseInt(comment.end.n_2)},
+              work: work.slug
+            },
+            {$addToSet: {comments: comment_id}}, {multi: true}
+          );
+        }
+        catch(err){
+          console.log("Error update texts comments");
+          //console.error(err);
+        }
+      });
+      console.log(" -- -- synced", count, "commentary items");
+    });
+  }else if (["book-chapter-section"].indexOf(metaStructure) >= 0){
+    commentaries.forEach((commentary) => {
+      let count = 0;
+      commentary.comments.forEach((comment) => {
+        let ref = comment.start.n_1 + "." + comment.start.n_2 + "." + comment.start.n_3  + "-"
+                  + comment.end.n_1 + "." + comment.end.n_2 + "." + comment.end.n_3;
+        let comment_id = insertCommentary(commentary.author, commentary.year, comment.content, ref);
+        count++;
+        try {
+          Texts.update(
+            {
+              n_1: {$gte: parseInt(comment.start.n_1), $lte: parseInt(comment.end.n_1)},
+              n_2: {$gte: parseInt(comment.start.n_2), $lte: parseInt(comment.end.n_2)},
+              n_3: {$gte: parseInt(comment.start.n_3), $lte: parseInt(comment.end.n_3)},
+              work: work.slug
+            },
+            {$addToSet: {comments: comment_id}}, {multi: true}
+          );
+        }
+        catch(err){
+          console.log("Error update texts comments");
+          //console.error(err);
+        }
+      });
+      console.log(" -- -- synced", count, "commentary items");
+    });
+  }
 }
 
 /*
@@ -493,6 +1000,61 @@ function doSyncParallel(){
 
   });
 
+  // Get the translations for document texts
+  Works.find().fetch().forEach(function(work){
+    // For each work, fetch the translations from the API
+    getTranslations(work, "english")
+    .then(function(response){
+      // We might not have transaltions for all works
+      if(response.data != null) {
+        syncTranslations(response.data.translations, response.data.meta, work);
+      }
+
+    }, function(error){
+      // Do better error handling here in the future
+      console.error(" -- -- error with syncing translations:", error);
+
+    });
+
+  });
+
+  // Get commentary for document texts
+  Works.find().fetch().forEach(function(work){
+    // For each work, fetch the commentary from the API
+    getCommentary(work)
+    .then(function(response){
+      // We might not have commentary for all works
+      if(response.data != null) {
+        syncCommentary(response.data.commentary, response.data.meta, work);
+      }
+
+    }, function(error){
+      // Do better error handling here in the future
+      console.error(" -- -- error with syncing commentary:", error);
+
+    });
+
+  });
+
+  // Get the definitions for each word in the texts
+  Texts.find().fetch().forEach(function(text){
+    words = text.text.split(" ");
+    words.forEach(function(word){
+      // Cleaning word
+      word = cleanWord(word, text.language);
+      let existing = Wordforms.findOne({word: word});
+      if(!existing){
+        getDefinitions(word, text.language)
+        .then(function(response){
+          syncDefinitions(word, text, response.data);
+        }, function(error){
+          // Do better error handling here in the future
+          console.error(" -- -- error with syncing definitions:", error);
+        });
+      }
+    });
+  });
+
 }
 
 
@@ -501,7 +1063,8 @@ function doSyncParallel(){
  */
 function doSyncSequence(){
   // Promise returning functions to execute
-  pseries([getLanguagesSequence, getCorporaSequence, getAuthorsSequence, getWorksSequence, getTextNodesSequence]);
+  pseries([getLanguagesSequence, getCorporaSequence, getAuthorsSequence, getWorksSequence, getTextNodesSequence,
+    getTranslationsSequence, getCommentarySequence, getDefinitionSequence]);
 
 }
 
@@ -518,8 +1081,8 @@ if ( Meteor.isServer ) {
 
     // If no languages have been synced from the CLTK API, then assume that no
     // content is in the database and sync content sequentially, languages to texts
-    if( !Languages.find().fetch().length ){
-      var date = new Date();
+    if( !Languages.find({}, {limit: 1}).fetch().length || !Definitions.find({}, {limit: 1}).fetch().length ){
+      let date = new Date();
       console.log(" -- Initial sequence sync with text server API started at", date.toString());
       doSyncSequence();
     }
@@ -530,7 +1093,7 @@ if ( Meteor.isServer ) {
     Meteor.setInterval(function() {
 
       // Sync content from the text server with parallel requests to the API
-      var date = new Date();
+      let date = new Date();
       console.log(" -- Interval sync with text server API started at", date.toString());
       doSyncParallel();
 

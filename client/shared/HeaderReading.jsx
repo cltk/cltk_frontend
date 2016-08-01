@@ -27,7 +27,6 @@ HeaderReading = React.createClass({
 
   toggleSidePanel(metadata){
     if (typeof this.props.toggleSidePanel === 'function') {
-      console.log("toggle "+ metadata);
       this.props.toggleSidePanel(metadata);
     }
   },
@@ -92,7 +91,9 @@ HeaderReading = React.createClass({
 
                   <div className="module left">
                     <ul className="menu ">
-
+                      <li>
+                        <LoginButtons />
+                      </li>
           						<li className={(this.props.toggleDefinitions) ? "checked meta-toggle" : "meta-toggle"} >
 
                           <FlatButton
