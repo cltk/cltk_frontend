@@ -16,6 +16,7 @@ ReadingText = React.createClass({
     numbering: React.PropTypes.string.isRequired,
     addAnnotationCheckList: React.PropTypes.func.isRequired,
     annotationCheckList: React.PropTypes.array.isRequired,
+    highlight: React.PropTypes.bool.isRequired,
   },
 
   mixins: [ReactMeteorData],
@@ -47,6 +48,8 @@ ReadingText = React.createClass({
       bookmarked: false,
       showRelatedPassages: false,
       showEntities: false,
+      showLoginDialog: false,
+      annotationOpen: this.props.highlight,
     };
 
   },
@@ -76,42 +79,70 @@ ReadingText = React.createClass({
     });
   },
 
+  componentDidMount() {
+    if(this.props.highlight) {
+      $("html,body").animate({ scrollTop: this.anchorEl.getBoundingClientRect().top }, 400);
+    }
+    this.setState({
+      anchorEl: this.anchorEl,
+    });
+  },
+
   handleClick(event) {
     translation = $('.translation-text[data-num="'+ this.props.index + '"]');
     if(translation.length != 0) {
-      $(".translations").scrollTo(translation, { duration:800 });
+      $(".translations").animate({ scrollTop: translation.offset().top }, 800);
     }
     comment = $('.commentary-comment[data-num="'+ this.props.index + '"]').first();
     if(comment.length != 0) {
-      $(".comments").scrollTo(comment, { duration:400 });
+      $(".comments").animate({ scrollTop: comment.offset().top }, 800);
     }
     // This prevents ghost click.
     event.preventDefault();
 
     this.setState({
       annotationOpen: true,
-      anchorEl: event.currentTarget
     });
   },
 
   addAnnotationCheckList(event, isChecked) {
-    if (typeof this.props.addAnnotationCheckList === 'function') {
-      this.props.addAnnotationCheckList(this.props.text._id, isChecked);
+    if(Meteor.userId()) {
+      if (typeof this.props.addAnnotationCheckList === 'function') {
+        this.props.addAnnotationCheckList(this.props.text._id, isChecked);
+      }
+    }
+    else {
+      this.setState({
+        showLoginDialog: true,
+      });
     }
   },
 
   toggleBookmark(event, isChecked) {
-    if(isChecked) {
-      Meteor.call('bookmark.insert', this.props.text._id);
+    if(Meteor.userId()) {
+      if(isChecked) {
+        Meteor.call('bookmark.insert', this.props.text._id);
+      }
+      else {
+        Meteor.call('bookmark.remove', this.props.text._id);
+      }
     }
     else {
-      Meteor.call('bookmark.remove', this.props.text._id);
+      this.setState({
+        showLoginDialog: true,
+      });
     }
   },
 
   handleRequestClose() {
     this.setState({
       annotationOpen: false,
+    });
+  },
+
+  handleLoginDialogClose() {
+    this.setState({
+      showLoginDialog: false,
     });
   },
 
@@ -167,12 +198,11 @@ ReadingText = React.createClass({
     }
 
     return(
-        <div className={textClasses} data-num={this.props.index}>
+        <div className={textClasses} data-id={text._id} data-num={this.props.index}>
           <div className="text-left-header">
             <h2>{numbering}</h2>
             <i className="text-bookmark mdi mdi-bookmark"></i>
           </div>
-          {Meteor.userId() ?
             <div className="text-meta-actions">
               <Checkbox
                 title="Bookmark"
@@ -191,8 +221,10 @@ ReadingText = React.createClass({
                 uncheckedIcon={<Done />}
                 style={styles.checkbox}
               />
-            </div> : null
-          }
+            </div>
+            {this.state.showLoginDialog ?
+              <LoginDialog initialOpen={true} handleLoginDialogClose={this.handleLoginDialogClose} /> : null
+            }
           <Popover
             open={this.state.annotationOpen}
             anchorEl={this.state.anchorEl}
@@ -201,7 +233,7 @@ ReadingText = React.createClass({
             onRequestClose={this.handleRequestClose}>
               <AnnotationList annotationList={this.data.annotationList} />
           </Popover>
-          <p className="text-html" onClick={this.handleClick}>
+          <p className="text-html" onClick={this.handleClick} ref={(ref) => this.anchorEl = ref}>
             <span dangerouslySetInnerHTML={{__html: text.html}}></span>
           </p>
 

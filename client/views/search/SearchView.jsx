@@ -40,7 +40,7 @@ SearchView = React.createClass({
     				<img className="background-image" alt='image' src='/images/library-428034.jpg'/>
           </div>
 
-          <div className="background-screen cyan">
+          <div className="background-screen light">
           </div>
 
     			<div className="container v-align-transform">

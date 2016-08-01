@@ -13,7 +13,7 @@ AboutPage = React.createClass({
       				<img className="background-image" alt='image' src='/images/amphorae-many.jpg'/>
             </div>
 
-            <div className="background-screen cyan">
+            <div className="background-screen light">
             </div>
 
       			<div className="container v-align-transform">

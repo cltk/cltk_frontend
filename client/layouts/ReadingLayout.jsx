@@ -35,41 +35,30 @@ ReadingLayout = React.createClass({
 	    }
 	},
 
-	resetScrollLock(){
-		$(".definitions").scrollLock(false);
-		$(".comments").scrollLock(false);
-		$(".translations").scrollLock(false);
-	},
-
 	toggleSidePanel(metadata){
-		this.resetScrollLock();
 		if(metadata==="definitions"){
 			let toggle = !this.state.toggleDefinitions;
 			this.setState({
 				toggleDefinitions: toggle
 			});
-			$(".definitions").scrollLock(true);
 		}
 		if(metadata==="commentary"){
 			let toggle = !this.state.toggleCommentary;
 			this.setState({
 				toggleCommentary: toggle
 			});
-			$(".comments").scrollLock(true);
 		}
 		if(metadata==="translations"){
 			let toggle = !this.state.toggleTranslations;
 			this.setState({
 				toggleTranslations: toggle
 			});
-			$(".translations").scrollLock(true);
 		}
 	},
 
 	renderReadingEnvironment(){
 		let work = this.data.work;
 		let textNodes = this.data.textNodes;
-
 		// If data is loaded
 		if(work && textNodes){
 
@@ -85,14 +74,16 @@ ReadingLayout = React.createClass({
 	      return (
 	          <ReadingProse
 	            work={work}
-	            textNodes={textNodes} />
+	            textNodes={textNodes}
+	            highlightId={this.props.queryParams.id} />
 	        );
 
 	    }else {
 	      return (
 	          <ReadingProse
 	            work={work}
-	            textNodes={textNodes} />
+	            textNodes={textNodes}
+	            highlightId={this.props.queryParams.id} />
 	        );
 
 	    }
