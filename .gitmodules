@@ -1,0 +1,3 @@
+[submodule "packages/flow-routing"]
+	path = packages/flow-routing
+	url = https://github.com/gwendall/flow-routing.git
