@@ -1084,7 +1084,7 @@ if ( Meteor.isServer ) {
     if( !Languages.find({}, {limit: 1}).fetch().length || !Definitions.find({}, {limit: 1}).fetch().length ){
       let date = new Date();
       console.log(" -- Initial sequence sync with text server API started at", date.toString());
-      doSyncSequence();
+      //doSyncSequence();
     }
 
     /*
@@ -1095,7 +1095,7 @@ if ( Meteor.isServer ) {
       // Sync content from the text server with parallel requests to the API
       let date = new Date();
       console.log(" -- Interval sync with text server API started at", date.toString());
-      doSyncParallel();
+      //doSyncParallel();
 
     },540000);
 

@@ -4,9 +4,9 @@
 # but you can also edit it by hand.
 
 # Packages from meteor-starter template application
-less
-accounts-base
-accounts-password
+less@2.7.4
+accounts-base@1.2.9
+accounts-password@1.2.12
 aldeed:collection2
 dburles:collection-helpers
 matb33:collection-hooks
@@ -22,12 +22,12 @@ cfs:graphicsmagick
 yogiben:helpers
 # manuelschoebel:ms-seo
 # spiderable
-accounts-facebook
-accounts-google
-accounts-twitter
-accounts-ui
+accounts-facebook@1.0.10
+accounts-google@1.0.10
+accounts-twitter@1.1.11
+accounts-ui@1.1.9
 jparker:gravatar
-service-configuration
+service-configuration@1.0.10
 yogiben:mixpanel
 juliancwirko:s-alert
 juliancwirko:s-alert-stackslide
@@ -41,22 +41,22 @@ yogiben:admin
 timmyg:wow
 tsega:skrollr
 utilities:avatar
-meteor-base
-mongo
-blaze-html-templates
-session
-jquery
-tracker
-logging
-reload
-random
-ejson
+meteor-base@1.0.4
+mongo@1.1.10
+blaze-html-templates@1.0.4
+session@1.1.6
+jquery@1.11.9
+tracker@1.1.0
+logging@1.1.14
+reload@1.1.10
+random@1.0.10
+ejson@1.0.12
 yogiben:pretty-email
 aldeed:autoform
 yogiben:autoform-modals
 yogiben:autoform-file
 yogiben:autoform-map
-check
+check@1.2.3
 #iron:router
 #multiply:iron-router-progress
 useraccounts:core
@@ -66,17 +66,17 @@ percolate:momentum-iron-router
 percolate:momentum
 
 # Packages added for project
-http
+http@1.2.8
 react
-ecmascript
+ecmascript@0.5.7
 archimedigital:core
 jabbslad:basic-auth
 deanius:promise
 kadira:flow-router
 kadira:react-layout
 user-thumbs
-standard-minifier-css
-standard-minifier-js
+standard-minifier-css@1.1.8
+standard-minifier-js@1.1.8
 simple:rest
 dburles:google-maps
 natestrauser:jquery-scrollto
