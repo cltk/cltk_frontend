@@ -25,7 +25,7 @@ NotesList = React.createClass({
 		};
 		return (
 			<ul className="collection with-header">
-				<li className="collection-header"> <h3>Annotaions</h3></li>
+				<li className="collection-header"> <h3>Annotations</h3></li>
 				{this.data.annotatedText.map(function(annotation, i){
 					return (
 						<li key={i} className="collection-item"  style={styles.listItem}>
