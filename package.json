@@ -4,9 +4,12 @@
   "description": "A frontend reading environment for the Classical Language ToolKit Archive texts",
   "main": "bundle/main.js",
   "dependencies": {
+		"ion-rangeslider": "^2.1.4",
+    "linkifyjs": "^2.0.5",
     "material-ui": "^0.15.0",
+    "mdi": "^1.6.50",
     "pseries": "^2.0.0",
-    "react": "^15.0.2",
+    "react": "^15.3.0",
     "react-addons-create-fragment": "^15.0.2",
     "react-addons-css-transition-group": "^15.0.2",
     "react-addons-linked-state-mixin": "^15.0.2",
@@ -15,10 +18,13 @@
     "react-addons-test-utils": "^15.0.2",
     "react-addons-transition-group": "^15.0.2",
     "react-addons-update": "^15.0.2",
-    "react-dom": "^15.0.2",
+    "react-dom": "^15.3.0",
     "react-list": "^0.7.18",
+    "react-mounter": "^1.2.0",
+    "react-rangeslider": "^1.0.3",
     "react-slick": "^0.12.2",
-    "react-tap-event-plugin": "^1.0.0"
+    "react-tap-event-plugin": "^1.0.0",
+    "throttle-debounce": "^1.0.1"
   },
   "devDependencies": {},
   "scripts": {
