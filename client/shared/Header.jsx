@@ -68,7 +68,6 @@ Header = React.createClass({
 
               <FlatButton
                 className="logo"
-                linkButton={true}
                 style={styles.flatButton}
                 href="/"
                 label="CLTK Archive [Development Prototype]"
@@ -87,7 +86,6 @@ Header = React.createClass({
                     <li>
                       <FlatButton
                         style={styles.flatButton}
-                        linkButton={true}
                         label="READ"
                         href="/browse"
                         />
@@ -96,7 +94,6 @@ Header = React.createClass({
         						<li>
                       <FlatButton
                         style={styles.flatButton}
-                        linkButton={true}
                         label="ABOUT"
                         href="/about"
                         />
@@ -104,7 +101,6 @@ Header = React.createClass({
         						<li>
                       <FlatButton
                         style={styles.flatButton}
-                        linkButton={true}
                         label="UPDATES"
                         href="//cltk.org/blog"
                         target="_blank"
@@ -121,7 +117,6 @@ Header = React.createClass({
                     <li>
                       <FlatButton
                         style={styles.flatIconButton}
-                        linkButton={true}
                         href="//github.com/cltk"
                         icon={<FontIcon className="mdi mdi-github-circle" />}
                         target="_blank"
@@ -135,7 +130,6 @@ Header = React.createClass({
                     <li>
                       <FlatButton
                         style={styles.flatIconButton}
-                        linkButton={true}
                         href="/search"
                         icon={<FontIcon className="mdi mdi-magnify" />}
                       />

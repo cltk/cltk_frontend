@@ -59,7 +59,6 @@ LoginButtons = React.createClass({
 					<FlatButton
 						label={"Hi "+ profile.firstName}
 						style={styles.flatButton}
-						linkButton={true}
 						href="#"
 						onTouchTap={this.handleClick} />
 					<Popover
@@ -82,7 +81,6 @@ LoginButtons = React.createClass({
 				<FlatButton
 					label="Sign In"
 					style={styles.flatButton}
-					linkButton={true}
 					href="/sign-in" />
 			);
 		}

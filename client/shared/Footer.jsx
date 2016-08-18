@@ -35,27 +35,22 @@ Footer = React.createClass({
 		          <h3 className="logo">CLTK Archive</h3>
 		          <div className="footer-nav">
                 <FlatButton
-                  linkButton={true}
                   label="HOME"
                   href="/"
                   />
                 <FlatButton
-                  linkButton={true}
                   label="READ"
                   href="/browse"
                   />
                 <FlatButton
-                  linkButton={true}
                   label="SEARCH"
                   href="/search"
                   />
                 <FlatButton
-                  linkButton={true}
                   label="CONTRIBUTE"
                   href="/contribute"
                   />
                 <FlatButton
-                  linkButton={true}
                   label="CLTK.ORG"
                   href="//cltk.org/"
                   target="_blank"
@@ -72,7 +67,6 @@ Footer = React.createClass({
                   <IconButton
                     style={styles.circleButton}
                     iconStyle={styles.circleButtonIcon}
-                    linkButton={true}
                     href="http://github.com/cltk"
                     iconClassName="mdi mdi-github-circle"
                     />
@@ -81,7 +75,6 @@ Footer = React.createClass({
                   <IconButton
                     style={styles.circleButton}
                     iconStyle={styles.circleButtonIcon}
-                    linkButton={true}
                     href="http://twitter.com/@cltkarchive"
                     iconClassName="mdi mdi-twitter"
                     />
@@ -90,7 +83,6 @@ Footer = React.createClass({
                   <IconButton
                     style={styles.circleButton}
                     iconStyle={styles.circleButtonIcon}
-                    linkButton={true}
                     href="http://plus.google.com/+cltkarchive"
                     iconClassName="mdi mdi-google-plus"
                     />
