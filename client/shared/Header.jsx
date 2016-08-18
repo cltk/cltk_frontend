@@ -1,6 +1,7 @@
 
 import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
+import IconButton from 'material-ui/IconButton';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
@@ -58,11 +59,12 @@ Header = React.createClass({
     			<div className="container close-navbar">
 
     				<div className="navbar-header">
-              <FlatButton
-                className="left-drawer-toggle"
-                style={styles.flatIconButton}
-                icon={<FontIcon className="mdi mdi-menu" />}
-              />
+							<IconButton
+								className="left-drawer-toggle"
+								style={styles.flatIconButton}
+								iconClassName="mdi mdi-menu"
+								onClick={this.toggleLeftMenu}
+							/>
 
               <FlatButton
                 className="logo"
