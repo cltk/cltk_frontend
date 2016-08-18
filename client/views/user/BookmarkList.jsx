@@ -24,11 +24,19 @@ BookmarkList = React.createClass({
 				textOverflow: "ellipsis",
 				whiteSpace: "nowrap",
 				font: "normal",
-			}
+			},
+			innerList: {
+				maxHeight: 250,
+				overflow: "auto",
+			},
+			list: {
+				marginTop: 0,
+			},
 		};
 		return (
-			<ul className="collection with-header">
+			<ul className="collection with-header" style={styles.list}>
 				<li className="collection-header"> <h3>Bookmarks</h3></li>
+				<div style={styles.innerList}>
 				{this.data.bookmarkedText.map(function(text, i){
 					return (
 						<li key={i} className="collection-item"  style={styles.listItem}>
@@ -39,6 +47,7 @@ BookmarkList = React.createClass({
 					)
 
 		        })}
+		        </div>
 			</ul>
 		);
 	}

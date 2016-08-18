@@ -21,11 +21,19 @@ NotesList = React.createClass({
 				textOverflow: "ellipsis",
 				whiteSpace: "nowrap",
 				font: "normal",
-			}
+			},
+			innerList: {
+				maxHeight: 250,
+				overflow: "auto",
+			},
+			list: {
+				margin: 0,
+			},
 		};
 		return (
-			<ul className="collection with-header">
+			<ul className="collection with-header" style={styles.list}>
 				<li className="collection-header"> <h3>Annotations</h3></li>
+				<div style={styles.innerList}>
 				{this.data.annotatedText.map(function(annotation, i){
 					return (
 						<li key={i} className="collection-item"  style={styles.listItem}>
@@ -36,6 +44,7 @@ NotesList = React.createClass({
 					)
 
 		        })}
+		        </div>
 			</ul>
 		);
 	}
