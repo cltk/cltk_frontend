@@ -80,3 +80,5 @@ standard-minifier-js@1.1.8
 simple:rest
 dburles:google-maps
 natestrauser:jquery-scrollto
+todda00:friendly-slugs
+mquandalle:promisify-core

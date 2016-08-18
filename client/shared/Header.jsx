@@ -10,6 +10,24 @@ Header = React.createClass({
     return { muiTheme: getMuiTheme(baseTheme) };
   },
 
+  getInitialState(){
+    return {
+      leftMenuOpen : false,
+		}
+	},
+
+  toggleLeftMenu(){
+    this.setState({
+      leftMenuOpen : !this.state.leftMenuOpen
+    });
+  },
+
+  closeLeftMenu(){
+    this.setState({
+      leftMenuOpen : false
+    });
+  },
+
   render(){
 
     let styles = {
@@ -31,6 +49,10 @@ Header = React.createClass({
 
     return (
     <div>
+      <LeftMenu
+        open={this.state.leftMenuOpen}
+        closeLeftMenu={this.closeLeftMenu}
+        />
       <header className="header-nav paper-shadow">
     		<div className="navigation-primary">
     			<div className="container close-navbar">
@@ -121,7 +143,6 @@ Header = React.createClass({
       			</div>{/*<!-- .container.close-navbar -->*/}
       		</div>{/*<!-- .navigation-primary-->*/}
       	</header>
-				<LeftMenu />
       </div>
     )
   }

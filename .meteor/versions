@@ -119,6 +119,7 @@ mongo-livedata@1.0.12
 mpowaga:jquery-fileupload@9.11.2
 mpowaga:jquery-ui-widget@1.11.4
 mpowaga:string-template@0.1.0
+mquandalle:promisify-core@0.1.0
 natestrauser:animate-css@3.5.1
 natestrauser:jquery-scrollto@1.4.7
 npm-bcrypt@0.8.7_1
@@ -161,6 +162,7 @@ templating@1.2.13
 templating-tools@1.0.4
 timmyg:wow@1.0.1
 tmeasday:check-npm-versions@0.2.0
+todda00:friendly-slugs@0.6.0
 tracker@1.1.0
 tsega:skrollr@0.0.2
 twbs:bootstrap@3.3.6
