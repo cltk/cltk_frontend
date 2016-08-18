@@ -20,7 +20,7 @@ HomeView = React.createClass({
               <div className="background-image-holder less-blur blur">
                 <img src="/images/column.jpg" alt="image" />
               </div>
-              <div className="background-screen cyan">
+              <div className="background-screen light">
               </div>
 
               <div className="container v-align-transform header-container">
@@ -33,11 +33,7 @@ HomeView = React.createClass({
 
                           <h6 className="uppercase mb16">Read classical works in Greek, Latin, Chinese, Coptic, and Pali <br/>  and research metadata on your favorite texts.</h6>
 
-                          <a className="btn btn-large learn-more-button md-ink-ripple paper-shadow" href="#beliefs" aria-label="Learn More">
-                            <span>Learn More</span>
-                            <div className="md-ripple-container"></div>
-
-                          </a>
+                          <a className="waves-effect waves-light btn-large" href="#beliefs" aria-label="Learn More">Learn More</a>
 
 
                       </div>
@@ -64,9 +60,7 @@ HomeView = React.createClass({
 
             <div className="container text-center">
               <div className="row">
-                <a href="#" className="btn btn-lg view-more paper-shadow" aria-label="View more">
-                  View more
-                </a>
+                <a className="waves-effect waves-light btn-large" aria-label="View more">View more</a>
               </div>
             </div>
           </section>

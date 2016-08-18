@@ -12,6 +12,7 @@ AnnotateWidget = React.createClass({
 
   propTypes: {
     annotationCheckList: React.PropTypes.array.isRequired,
+    work: React.PropTypes.object.isRequired,
     onActionCallback: React.PropTypes.func.isRequired,
   },
 
@@ -45,6 +46,8 @@ AnnotateWidget = React.createClass({
       textNodes: this.props.annotationCheckList,
       content: this.state.annotationText,
       isPrivate: this.state.annotationPrivate,
+      author: this.props.work.author,
+      work: this.props.work.slug,
     };
     Meteor.call('annotation.insert', annotation);
     this.setState({

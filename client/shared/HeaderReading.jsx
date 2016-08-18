@@ -87,7 +87,9 @@ HeaderReading = React.createClass({
 
                   <div className="module left">
                     <ul className="menu ">
-
+                      <li>
+                        <LoginButtons />
+                      </li>
           						<li className={(this.props.toggleDefinitions) ? "checked meta-toggle" : "meta-toggle"} >
 
                           <FlatButton

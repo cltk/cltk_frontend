@@ -14,10 +14,9 @@ Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
   api.addFiles([
-        //'client/smooth-scroll.min.js',
+        'client/smooth-scroll.min.js',
         //'client/parallax.js',
         'client/headroom.min.js',
-        'lib/client/jquery-scrollLock.js'
       ], 'client');
 
 

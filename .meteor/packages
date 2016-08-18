@@ -26,6 +26,7 @@ accounts-facebook@1.0.10
 accounts-google@1.0.10
 accounts-twitter@1.1.11
 accounts-ui@1.1.9
+accounts-ui
 jparker:gravatar
 service-configuration@1.0.10
 yogiben:mixpanel
@@ -37,7 +38,6 @@ twbs:bootstrap
 reywood:publish-composite
 natestrauser:animate-css
 meteorhacks:subs-manager
-yogiben:admin
 timmyg:wow
 tsega:skrollr
 utilities:avatar
@@ -60,9 +60,8 @@ check@1.2.3
 #iron:router
 #multiply:iron-router-progress
 useraccounts:core
-useraccounts:bootstrap
-useraccounts:iron-routing
-percolate:momentum-iron-router
+useraccounts:materialize
+useraccounts:flow-routing
 percolate:momentum
 
 # Packages added for project
@@ -74,6 +73,7 @@ jabbslad:basic-auth
 deanius:promise
 kadira:flow-router
 kadira:react-layout
+kadira:blaze-layout
 user-thumbs
 standard-minifier-css@1.1.8
 standard-minifier-js@1.1.8
@@ -82,3 +82,5 @@ dburles:google-maps
 natestrauser:jquery-scrollto
 todda00:friendly-slugs
 mquandalle:promisify-core
+materialize:materialize@0.97.0
+gwendall:blaze-to-react

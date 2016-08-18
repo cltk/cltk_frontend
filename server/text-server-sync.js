@@ -320,7 +320,7 @@ function getDefinitionSequence(res){
 
         // Cleaning word
         word = cleanWord(word, text.language);
-        let existing = Wordforms.findOne({word: word});
+        let existing = Wordforms.findOne({word: word, texts: text._id});
 
         if(!existing){
 
@@ -1042,7 +1042,7 @@ function doSyncParallel(){
     words.forEach(function(word){
       // Cleaning word
       word = cleanWord(word, text.language);
-      let existing = Wordforms.findOne({word: word});
+      let existing = Wordforms.findOne({word: word, texts: text._id});
       if(!existing){
         getDefinitions(word, text.language)
         .then(function(response){

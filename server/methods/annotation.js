@@ -8,6 +8,8 @@ Meteor.methods({
     check(annotation.textNodes, [String]);
     check(annotation.isPrivate, Boolean);
     check(annotation.content, String);
+    check(annotation.author, String);
+    check(annotation.work, String);
     try {
       Annotation.insert(annotation);
     }
