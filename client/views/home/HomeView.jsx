@@ -33,7 +33,7 @@ HomeView = React.createClass({
 
                           <h6 className="uppercase mb16">Read classical works in Greek, Latin, Chinese, Coptic, and Pali <br/>  and research metadata on your favorite texts.</h6>
 
-                          <a className="btn btn-large md-button learn-more-button md-ink-ripple paper-shadow" href="#beliefs" aria-label="Learn More">
+                          <a className="btn btn-large learn-more-button md-ink-ripple paper-shadow" href="#beliefs" aria-label="Learn More">
                             <span>Learn More</span>
                             <div className="md-ripple-container"></div>
 
@@ -64,7 +64,7 @@ HomeView = React.createClass({
 
             <div className="container text-center">
               <div className="row">
-                <a href="#" className="btn btn-lg md-button md-ink-ripple view-more paper-shadow" aria-label="View more">
+                <a href="#" className="btn btn-lg view-more paper-shadow" aria-label="View more">
                   View more
                 </a>
               </div>

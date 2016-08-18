@@ -63,24 +63,20 @@ HeaderReading = React.createClass({
                 />
 
                 <div className="reading-location">
-                  <a className="md-button md-ink-ripple" href="/" aria-label="Menu">
+                  <a className="reading-location-param reading-location-param--author" href="/" aria-label="Menu">
                     Herodotus,
-                    <div className="md-ripple-container"></div>
                   </a>
 
-                  <a className="md-button md-ink-ripple" href="/" aria-label="Menu">
-                    <em>Histories</em>,
-                    <div className="md-ripple-container"></div>
+                  <a className="reading-location-param reading-location-param--work" href="/" aria-label="Menu">
+                    Histories,
                   </a>
 
-                  <a className="md-button md-ink-ripple" href="/" aria-label="Menu">
+                  <a className="reading-location-param reading-location-param--subwork" href="/" aria-label="Menu">
                     Book I,
-                    <div className="md-ripple-container"></div>
                   </a>
 
-                  <a className="md-button md-ink-ripple" href="/" aria-label="Menu">
+                  <a className="reading-location-param reading-location-param--book-line" href="/" aria-label="Menu">
                     1.1
-                    <div className="md-ripple-container"></div>
                   </a>
 
                 </div>

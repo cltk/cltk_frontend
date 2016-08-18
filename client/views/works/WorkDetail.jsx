@@ -38,20 +38,17 @@ WorkDetail = React.createClass({
                           </div>
                           <div className="col-sm-12 right text-right">
 
-                            <a href="#" className="comments-action md-button md-ink-ripple">
+                            <a href="#" className="comments-action ">
                               <i className="mdi mdi-comment-outline"></i>227
-                              <div className="md-ripple-container"></div>
                             </a>
 
-                            <a href="#" className="favorite-action md-button md-ink-ripple">
+                            <a href="#" className="favorite-action ">
                               <i className="mdi mdi-star-outline"></i>32
-                              <div className="md-ripple-container"></div>
                             </a>
 
-                            <a href="#" className="export-action md-button md-ink-ripple">
+                            <a href="#" className="export-action ">
                               Export
                               <i className="mdi mdi-export"></i>
-                              <div className="md-ripple-container"></div>
                             </a>
 
                           </div>

@@ -95,23 +95,11 @@ Header = React.createClass({
                       <FlatButton
                         style={styles.flatIconButton}
                         linkButton={true}
-                        href="https://github.com/cltk"
+                        href="//github.com/cltk"
                         icon={<FontIcon className="mdi mdi-github-circle" />}
                         target="_blank"
                       />
                     </li>
-                    {/*<!--li>
-                      <a className="close-navbar md-button md-ink-ripple" href="http://twitter.com/@cltk" target="_blank">
-                        <i className="mdi mdi-twitter"></i>
-                        <div className="md-ripple-container"></div>
-                      </a>
-                    </li>
-                    <li>
-                      <a className="close-navbar md-button md-ink-ripple" href="http://plus.google.com/+CLTK" target="_blank">
-                        <i className="mdi mdi-google-plus"></i>
-                        <div className="md-ripple-container"></div>
-                      </a>
-                    </li-->*/}
                   </ul>
                 </div>
 

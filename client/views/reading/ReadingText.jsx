@@ -134,7 +134,7 @@ ReadingText = React.createClass({
     let text_n = "";
     let textClasses = "text-wrap";
     let numbering = this.props.numbering;
-    
+
     if (this.props.showNumber){
       textClasses = textClasses + " show-number";
     }
@@ -232,13 +232,11 @@ ReadingText = React.createClass({
                 <span className="entity-bio">Herodotus was a Greek historian who was born in Halicarnassus, Caria and lived in the 5th century BC, a contemporary of Socrates ... </span>
 
                 <div className="entity-meta">
-                  <a href="#" className="entity-meta-link entity-additional-refernces entity-action md-button md-ink-ripple">
+                  <a href="#" className="entity-meta-link entity-additional-refernces entity-action ">
                     <span>76 other references</span>
-                    <div className="md-ripple-container"></div>
                   </a>
-                  <a href="#" className="entity-meta-link entity-media entit-action md-button md-ink-ripple">
+                  <a href="#" className="entity-meta-link entity-media entit-action ">
                     <span>8 associated media</span>
-                    <div className="md-ripple-container"></div>
                   </a>
 
                 </div>
@@ -256,13 +254,11 @@ ReadingText = React.createClass({
                 <span className="entity-bio">Halicarnassus was an ancient Greek city at the site of modern Bodrum in Turkey. It is located in southwest Caria on a picturesque ... </span>
 
                 <div className="entity-meta">
-                  <a href="#" className="entity-meta-link entity-additional-refernces entity-action md-button md-ink-ripple">
+                  <a href="#" className="entity-meta-link entity-additional-refernces entity-action ">
                     <span>24 other references</span>
-                    <div className="md-ripple-container"></div>
                   </a>
-                  <a href="#" className="entity-meta-link entity-media entit-action md-button md-ink-ripple">
+                  <a href="#" className="entity-meta-link entity-media entity-action ">
                     <span>3 associated media</span>
-                    <div className="md-ripple-container"></div>
                   </a>
 
                 </div>
