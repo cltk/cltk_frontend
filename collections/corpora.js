@@ -5,10 +5,16 @@ Schemas.Corpora = new SimpleSchema({
     type: String,
     max: 60
   },
-  slug: {
+	slug: {
     type: String,
-    max: 60
+    max: 200,
+    optional: true,
+    autoform: {
+      type: "hidden",
+      label: false
+    }
   },
+
   language: {
     type: String,
     max: 60
@@ -45,3 +51,4 @@ Schemas.Corpora = new SimpleSchema({
 });
 
 Corpora.attachSchema(Schemas.Corpora);
+Corpora.friendlySlugs('title');

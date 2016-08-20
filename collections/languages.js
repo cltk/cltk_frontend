@@ -5,11 +5,17 @@ Schemas.Languages = new SimpleSchema({
     type: String,
     max: 60
   },
-  slug: {
+
+	slug: {
     type: String,
-    max: 60
+    max: 200,
+    optional: true,
+    autoform: {
+      type: "hidden",
+      label: false
+    }
   },
-	
+
   createdAt: {
 		type: Date,
     optional: true,
@@ -40,3 +46,4 @@ Schemas.Languages = new SimpleSchema({
 });
 
 Languages.attachSchema(Schemas.Languages);
+Languages.friendlySlugs('title');

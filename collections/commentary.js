@@ -9,13 +9,6 @@ Schemas.Commentary = new SimpleSchema({
     type: String,
     max: 60
   },
-  ref: {
-    type: String,
-    max: 60
-  },
-  content: {
-    type: String
-  },
 
 	createdAt: {
 		type: Date,

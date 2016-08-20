@@ -1,22 +1,6 @@
 this.Authors = new Meteor.Collection('authors');
 
 Schemas.Authors = new SimpleSchema({
-  title: {
-    type: String,
-    max: 60
-  },
-  slug: {
-    type: String,
-    max: 60
-  },
-  languages: {
-    type: [String],
-    max: 60
-  },
-  corpus: {
-    type: String,
-    max: 60
-  },
   english_name: {
     type: String,
     max: 60,
@@ -26,6 +10,25 @@ Schemas.Authors = new SimpleSchema({
     type: String,
     max: 60,
     optional: true,
+  },
+
+	slug: {
+    type: String,
+    max: 200,
+    optional: true,
+    autoform: {
+      type: "hidden",
+      label: false
+    }
+  },
+
+  languages: {
+    type: [String],
+    max: 60
+  },
+  corpus: {
+    type: String,
+    max: 60
   },
 
 	createdAt: {
@@ -58,3 +61,4 @@ Schemas.Authors = new SimpleSchema({
 });
 
 Authors.attachSchema(Schemas.Authors);
+Authors.friendlySlugs('english_title');

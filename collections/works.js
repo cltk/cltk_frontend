@@ -15,10 +15,17 @@ Schemas.Works = new SimpleSchema({
     type: String,
     max: 60
   },
+
   slug: {
     type: String,
-    max: 60
+    max: 200,
+    optional: true,
+    autoform: {
+      type: "hidden",
+      label: false
+    }
   },
+
   language: {
     type: String,
     max: 60
@@ -82,3 +89,4 @@ Schemas.Works = new SimpleSchema({
 });
 
 Works.attachSchema(Schemas.Works);
+Works.friendlySlugs('english_title');

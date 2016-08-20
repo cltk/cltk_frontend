@@ -1,14 +1,6 @@
 this.Editors = new Meteor.Collection('editors');
 
 Schemas.Editors = new SimpleSchema({
-  title: {
-    type: String,
-    max: 60
-  },
-  slug: {
-    type: String,
-    max: 60
-  },
   english_name: {
     type: String,
     max: 60
@@ -17,6 +9,17 @@ Schemas.Editors = new SimpleSchema({
     type: String,
     max: 60
   },
+
+	slug: {
+    type: String,
+    max: 200,
+    optional: true,
+    autoform: {
+      type: "hidden",
+      label: false
+    }
+  },
+
 
 	createdAt: {
 		type: Date,
@@ -48,3 +51,4 @@ Schemas.Editors = new SimpleSchema({
 });
 
 Editors.attachSchema(Schemas.Editors);
+Editors.friendlySlugs('english_name');
