@@ -50,7 +50,7 @@ HomeView = React.createClass({
               <div className="row">
                 <h2 className="section-title">Get Started </h2>
                 <hr className="section-header-line" />
-                <h4 className="uppercase" >Browse the archive's authors, poets, and historians</h4>
+                <h4 className="uppercase" >Browse the authors, poets, and historians in the archive</h4>
 
               </div>
             </div>
@@ -142,7 +142,7 @@ HomeView = React.createClass({
                 <div className="col-sm-6 text-center">
 
                   <a href="https://github.com/cltk/cltk_frontend" target="_blank" className="start-building-item">
-                    <i className="mdi mdi-github-circle icon-lg mb40 mb-xs-24 "></i>
+                    <i className="mdi mdi-book-open icon-lg mb40 mb-xs-24 "></i>
                     <h5 className="uppercase">Build the CLTK Archive</h5>
                     <span className="item-text">Contribute code, thoughts, or ideas to the CLTK Archive's public reading interface and annotation environment</span>
 

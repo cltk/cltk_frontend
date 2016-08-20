@@ -48,7 +48,8 @@ Footer = React.createClass({
                   />
                 <FlatButton
                   label="CONTRIBUTE"
-                  href="/contribute"
+									target="_blank"
+                  href="http://github.com/cltk/cltk"
                   />
                 <FlatButton
                   label="CLTK.ORG"
