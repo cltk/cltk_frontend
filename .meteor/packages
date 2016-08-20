@@ -57,7 +57,7 @@ yogiben:autoform-modals
 yogiben:autoform-file
 yogiben:autoform-map
 check
-#iron:router
+iron:router
 #multiply:iron-router-progress
 useraccounts:core
 useraccounts:materialize
@@ -89,3 +89,4 @@ jalik:ufs-local
 jalik:ufs-gridfs
 buishi:autoform-ufs
 mpowaga:autoform-summernote
+mfactory:admin-lte

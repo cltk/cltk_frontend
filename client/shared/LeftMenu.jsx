@@ -44,11 +44,13 @@ LeftMenu = React.createClass({
     render(){
         var userIsLoggedIn = this.data.currentUser ? true : false;
 				var username = "";
+				var userIsAdmin = false;
 
 				if(userIsLoggedIn){
 						if(this.data.currentUser.emails.length){
 							username = this.data.currentUser.emails[0].address;
 						}
+						userIsAdmin = Roles.userIsInRole(this.data.currentUser._id, ['admin']);
 
 				}
 
@@ -77,7 +79,7 @@ LeftMenu = React.createClass({
 
                     </div>
 
-										{Roles.userIsInRole(this.data.currentUser._id, ['admin']) ?
+										{userIsAdmin ?
 											<div>
 		                    <MenuItem
 		                        href="/admin"
