@@ -4,10 +4,10 @@
   "description": "A frontend reading environment for the Classical Language ToolKit Archive texts",
   "main": "bundle/main.js",
   "dependencies": {
-		"ion-rangeslider": "^2.1.4",
+    "ion-rangeslider": "^2.1.4",
     "linkifyjs": "^2.0.5",
     "material-ui": "^0.15.0",
-    "mdi": "^1.6.50",
+    "mdi": "^1.7.12",
     "pseries": "^2.0.0",
     "react": "^15.3.0",
     "react-addons-create-fragment": "^15.0.2",
