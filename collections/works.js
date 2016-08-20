@@ -34,14 +34,20 @@ Schemas.Works = new SimpleSchema({
     type: String,
     max: 60
   },
-  author: {
+  authors: {
     type: String,
-    max: 60
-  },
-  structure: {
-    type: String,
+    regEx: SimpleSchema.RegEx.Id,
     optional: true,
-    max: 60
+    autoform: {
+      options: function() {
+        return _.map(Authors.find().fetch(), function(author) {
+          return {
+            label: author.english_name,
+            value: author._id
+          };
+        });
+      }
+    }
   },
   editors: {
     type: String,
@@ -49,14 +55,19 @@ Schemas.Works = new SimpleSchema({
     optional: true,
     autoform: {
       options: function() {
-        return _.map(Meteor.authors.find().fetch(), function(author) {
+        return _.map(Editors.find().fetch(), function(editor) {
           return {
-            label: author.title,
-            value: author._id
+            label: editor.english_name,
+            value: editor._id
           };
         });
       }
     }
+  },
+
+  structure: {
+    type: String,
+    optional: true,
   },
 
 	createdAt: {

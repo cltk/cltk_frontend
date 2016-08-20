@@ -40,8 +40,8 @@ if (Meteor.isServer){
     return Translations.find({work: work});
   });
 
-  Meteor.publish('commentary', function() {
-    return Commentary.find();
+  Meteor.publish('commentary', function(work) {
+    return Commentary.find({work: work});
   });
 
   Meteor.publish('annotation', function() {
