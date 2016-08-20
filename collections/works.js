@@ -26,23 +26,6 @@ Schemas.Works = new SimpleSchema({
     optional: true,
     max: 60
   },
-  createdAt: {
-    type: Date,
-    autoValue: function() {
-      if (this.isInsert) {
-        return new Date();
-      }
-    }
-  },
-  updatedAt: {
-    type: Date,
-    optional: true,
-    autoValue: function() {
-      if (this.isUpdate) {
-        return new Date();
-      }
-    }
-  },
   editors: {
     type: String,
     regEx: SimpleSchema.RegEx.Id,
@@ -57,7 +40,35 @@ Schemas.Works = new SimpleSchema({
         });
       }
     }
-  }
+  },
+
+	createdAt: {
+		type: Date,
+		optional: true,
+		autoValue: function() {
+			if (this.isInsert) {
+				return new Date;
+			}
+		},
+		autoform: {
+			type: "hidden",
+			label: false
+		}
+	},
+	updatedAt: {
+		type: Date,
+		optional: true,
+		autoValue: function() {
+			if (this.isUpdate) {
+				return new Date;
+			}
+		},
+		autoform: {
+			type: "hidden",
+			label: false
+		}
+	},
+
 });
 
 Works.attachSchema(Schemas.Works);

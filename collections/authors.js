@@ -9,12 +9,8 @@ Schemas.Authors = new SimpleSchema({
     type: String,
     max: 60
   },
-  /*
-   * Remove language and corpus in the future when we learn more about optimizing
-   * the sync with the text server
-   */
-  language: {
-    type: String,
+  languages: {
+    type: [String],
     max: 60
   },
   corpus: {
@@ -31,23 +27,34 @@ Schemas.Authors = new SimpleSchema({
     max: 60,
     optional: true,
   },
-  createdAt: {
-    type: Date,
+
+	createdAt: {
+		type: Date,
+    optional: true,
     autoValue: function() {
       if (this.isInsert) {
-        return new Date();
+        return new Date;
       }
+    },
+    autoform: {
+      type: "hidden",
+      label: false
     }
   },
   updatedAt: {
-    type: Date,
+		type: Date,
     optional: true,
     autoValue: function() {
       if (this.isUpdate) {
-        return new Date();
+        return new Date;
       }
+    },
+    autoform: {
+      type: "hidden",
+      label: false
     }
-  }
+  },
+
 });
 
 Authors.attachSchema(Schemas.Authors);

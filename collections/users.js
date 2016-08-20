@@ -54,9 +54,6 @@ Schemas.User = new SimpleSchema({
   "emails.$.verified": {
     type: Boolean
   },
-  createdAt: {
-    type: Date
-  },
   profile: {
     type: Schemas.UserProfile,
     optional: true
@@ -74,7 +71,36 @@ Schemas.User = new SimpleSchema({
   bookmarks: {
     type: [String],
     optional: true
-  }
+  },
+
+
+	createdAt: {
+		type: Date,
+    optional: true,
+    autoValue: function() {
+      if (this.isInsert) {
+        return new Date;
+      }
+    },
+    autoform: {
+      type: "hidden",
+      label: false
+    }
+  },
+  updatedAt: {
+		type: Date,
+    optional: true,
+    autoValue: function() {
+      if (this.isUpdate) {
+        return new Date;
+      }
+    },
+    autoform: {
+      type: "hidden",
+      label: false
+    }
+  },
+
 });
 
 Meteor.users.attachSchema(Schemas.User);

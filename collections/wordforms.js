@@ -5,23 +5,7 @@ Schemas.Wordforms = new SimpleSchema({
     type: String,
     max: 60
   },
-  createdAt: {
-    type: Date,
-    autoValue: function() {
-      if (this.isInsert) {
-        return new Date();
-      }
-    }
-  },
-  updatedAt: {
-    type: Date,
-    optional: true,
-    autoValue: function() {
-      if (this.isUpdate) {
-        return new Date();
-      }
-    }
-  },
+
   definitions: {
     type: String,
     regEx: SimpleSchema.RegEx.Id,
@@ -29,7 +13,36 @@ Schemas.Wordforms = new SimpleSchema({
   texts: {
     type: String,
     regEx: SimpleSchema.RegEx.Id
-  }
+  },
+
+	createdAt: {
+		type: Date,
+		optional: true,
+		autoValue: function() {
+			if (this.isInsert) {
+				return new Date;
+			}
+		},
+		autoform: {
+			type: "hidden",
+			label: false
+		}
+	},
+	updatedAt: {
+		type: Date,
+		optional: true,
+		autoValue: function() {
+			if (this.isUpdate) {
+				return new Date;
+			}
+		},
+		autoform: {
+			type: "hidden",
+			label: false
+		}
+	},
+
+
 });
 
 Wordforms.attachSchema(Schemas.Wordforms);

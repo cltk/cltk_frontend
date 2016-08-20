@@ -13,23 +13,7 @@ Schemas.Subworks = new SimpleSchema({
     type: Number,
     min: 0
   },
-  createdAt: {
-    type: Date,
-    autoValue: function() {
-      if (this.isInsert) {
-        return new Date();
-      }
-    }
-  },
-  updatedAt: {
-    type: Date,
-    optional: true,
-    autoValue: function() {
-      if (this.isUpdate) {
-        return new Date();
-      }
-    }
-  },
+	
   work: {
     type: String,
     regEx: SimpleSchema.RegEx.Id,
@@ -43,7 +27,34 @@ Schemas.Subworks = new SimpleSchema({
         });
       }
     }
-  }
+  },
+
+  createdAt: {
+		type: Date,
+    optional: true,
+    autoValue: function() {
+      if (this.isInsert) {
+        return new Date;
+      }
+    },
+    autoform: {
+      type: "hidden",
+      label: false
+    }
+  },
+  updatedAt: {
+		type: Date,
+    optional: true,
+    autoValue: function() {
+      if (this.isUpdate) {
+        return new Date;
+      }
+    },
+    autoform: {
+      type: "hidden",
+      label: false
+    }
+  },
 });
 
 Subworks.attachSchema(Schemas.Subworks);

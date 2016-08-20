@@ -31,23 +31,7 @@ Schemas.Texts = new SimpleSchema({
     type: String,
     max: 60
   },
-  createdAt: {
-    type: Date,
-    autoValue: function() {
-      if (this.isInsert) {
-        return new Date();
-      }
-    }
-  },
-  updatedAt: {
-    type: Date,
-    optional: true,
-    autoValue: function() {
-      if (this.isUpdate) {
-        return new Date();
-      }
-    }
-  },
+
   text: {
     type: String,
     autoform: {
@@ -63,7 +47,36 @@ Schemas.Texts = new SimpleSchema({
   comments: {
     type: [String],
     optional: true
-  }
+  },
+
+
+  createdAt: {
+		type: Date,
+    optional: true,
+    autoValue: function() {
+      if (this.isInsert) {
+        return new Date;
+      }
+    },
+    autoform: {
+      type: "hidden",
+      label: false
+    }
+  },
+  updatedAt: {
+		type: Date,
+    optional: true,
+    autoValue: function() {
+      if (this.isUpdate) {
+        return new Date;
+      }
+    },
+    autoform: {
+      type: "hidden",
+      label: false
+    }
+  },
+
 });
 
 Texts.attachSchema(Schemas.Texts);

@@ -9,31 +9,38 @@ Schemas.Corpora = new SimpleSchema({
     type: String,
     max: 60
   },
-  /*
-   * Remove language in the future when we learn more about optimizing
-   * the sync with the text server
-   */
   language: {
     type: String,
     max: 60
   },
-  createdAt: {
-    type: Date,
+
+	createdAt: {
+		type: Date,
+    optional: true,
     autoValue: function() {
       if (this.isInsert) {
-        return new Date();
+        return new Date;
       }
+    },
+    autoform: {
+      type: "hidden",
+      label: false
     }
   },
   updatedAt: {
-    type: Date,
+		type: Date,
     optional: true,
     autoValue: function() {
       if (this.isUpdate) {
-        return new Date();
+        return new Date;
       }
+    },
+    autoform: {
+      type: "hidden",
+      label: false
     }
-  }
+  },
+
 
 });
 

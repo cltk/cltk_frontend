@@ -9,23 +9,33 @@ Schemas.Languages = new SimpleSchema({
     type: String,
     max: 60
   },
+	
   createdAt: {
-    type: Date,
+		type: Date,
+    optional: true,
     autoValue: function() {
       if (this.isInsert) {
-        return new Date();
+        return new Date;
       }
+    },
+    autoform: {
+      type: "hidden",
+      label: false
     }
   },
   updatedAt: {
-    type: Date,
+		type: Date,
     optional: true,
     autoValue: function() {
       if (this.isUpdate) {
-        return new Date();
+        return new Date;
       }
+    },
+    autoform: {
+      type: "hidden",
+      label: false
     }
-  }
+  },
 
 });
 
