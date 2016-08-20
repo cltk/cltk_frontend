@@ -1,6 +1,16 @@
 this.Works = new Meteor.Collection('works');
 
 Schemas.Works = new SimpleSchema({
+  english_title: {
+    type: String,
+    max: 60,
+    optional: true,
+  },
+  original_title: {
+    type: String,
+    max: 60,
+    optional: true,
+  },
   title: {
     type: String,
     max: 60
