@@ -103,6 +103,7 @@ Schemas.User = new SimpleSchema({
 
 });
 
-Meteor.users.attachSchema(Schemas.User);
 
+Meteor.users.attachSchema(Schemas.User);
+this.Users = Meteor.users;
 this.StarterSchemas = Schemas;

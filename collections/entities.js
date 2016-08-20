@@ -1,6 +1,6 @@
-this.Authors = new Meteor.Collection('authors');
+this.Entities = new Meteor.Collection('entities');
 
-Schemas.Authors = new SimpleSchema({
+Schemas.Entities = new SimpleSchema({
   english_name: {
     type: String,
     optional: true,
@@ -9,11 +9,6 @@ Schemas.Authors = new SimpleSchema({
     type: String,
     optional: true,
   },
-  title: {
-    type: String,
-    optional: true,
-  },
-
 	slug: {
     type: String,
     max: 200,
@@ -24,16 +19,16 @@ Schemas.Authors = new SimpleSchema({
     }
   },
 
-  languages: {
-    type: [String],
-    max: 60
-  },
-
-  /*
-	corpus: {
-    type: String,
-    max: 60
-  },*/
+	location: {
+		type: String,
+		optional: true,
+		autoform: {
+			type: 'map',
+			geolocation: true,
+			searchBox: true,
+			autolocate: true
+		}
+	},
 
 	createdAt: {
 		type: Date,
@@ -64,5 +59,5 @@ Schemas.Authors = new SimpleSchema({
 
 });
 
-Authors.attachSchema(Schemas.Authors);
-Authors.friendlySlugs('english_title');
+Entities.attachSchema(Schemas.Entities);
+Entities.friendlySlugs('english_title');
