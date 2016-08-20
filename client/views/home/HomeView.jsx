@@ -50,7 +50,7 @@ HomeView = React.createClass({
               <div className="row">
                 <h2 className="section-title">Get Started </h2>
                 <hr className="section-header-line" />
-                <h4 className="uppercase" >Browse popular authors, poets, and historians</h4>
+                <h4 className="uppercase" >Browse the archive's authors, poets, and historians</h4>
 
               </div>
             </div>
@@ -77,7 +77,7 @@ HomeView = React.createClass({
                 <div className="feature-line"></div>
 
                 <span className="feature-desc">
-                    Authors with works included quid faciat laetas segetes quo sidere terram vertere
+                    Classical authors with books and works included in the archive
                 </span>
 
               </div>
@@ -93,7 +93,7 @@ HomeView = React.createClass({
                 <div className="feature-line"></div>
 
                 <span className="feature-desc">
-                    Texts available to read quid faciat laetas segetes quo sidere terram vertere
+									Texts in multiple languages, with metadata, criticism, and commentary
                 </span>
 
               </div>
@@ -109,7 +109,7 @@ HomeView = React.createClass({
                 <div className="feature-line"></div>
 
                 <span className="feature-desc">
-                    Named entities annotated quid faciat laetas segetes quo sidere terram vertere
+                    Named entities annotated in text and linked to public datasets
                 </span>
 
               </div>
@@ -124,7 +124,7 @@ HomeView = React.createClass({
 
               <div className="row">
 
-                <h2 className="section-title">Contribute code to the CLTK Archive or Core</h2>
+                <h2 className="section-title">Contribute code to the CLTK Core or Archive</h2>
 
                 <hr className="section-header-line" />
               </div>
@@ -132,21 +132,21 @@ HomeView = React.createClass({
 
 
                 <div className="col-sm-6 text-center">
+	                <a href="https://github.com/cltk/cltk" target="_blank" className="start-building-item">
+	                  <i className="mdi mdi-github-circle icon-lg mb40 mb-xs-24  "></i>
+	                  <h5 className="uppercase">Code the CLTK Core NLP package</h5>
+	                  <span className="item-text">Help push forward what's possible with study of classical languages by developing the CLTK core natural language processing library</span>
+	                </a>
 
-                  <a href="https://github.com/cltk/cltk_frontend" target="_blank" className="start-building-item">
-                    <i className="mdi mdi-github-circle icon-lg mb40 mb-xs-24 "></i>
-                    <h5 className="uppercase">Lorem ipsum dolor sit amet</h5>
-                    <span className="item-text">Quid faciat laetas segetes quo sidere terram vertere Mycenas ulmisque adiungere vites conveniat</span>
-
-                  </a>
                 </div>
                 <div className="col-sm-6 text-center">
 
-                <a href="https://github.com/cltk/cltk" target="_blank" className="start-building-item">
-                  <i className="mdi mdi-github-circle icon-lg mb40 mb-xs-24  "></i>
-                  <h5 className="uppercase">Lorem ipsum dolor sit amet</h5>
-                  <span className="item-text">Quid faciat laetas segetes quo sidere terram vertere Mycenas ulmisque adiungere vites conveniat</span>
-                </a>
+                  <a href="https://github.com/cltk/cltk_frontend" target="_blank" className="start-building-item">
+                    <i className="mdi mdi-github-circle icon-lg mb40 mb-xs-24 "></i>
+                    <h5 className="uppercase">Build the CLTK Archive</h5>
+                    <span className="item-text">Contribute code, thoughts, or ideas to the CLTK Archive's public reading interface and annotation environment</span>
+
+                  </a>
 
                 </div>
 
