@@ -5,6 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
+import Divider from 'material-ui/Divider';
 
 LoginButtons = React.createClass({
 
@@ -81,15 +82,20 @@ LoginButtons = React.createClass({
 						href="#"
 						onTouchTap={this.handleClick} />
 					<Popover
-				        open={this.state.loginOptionOpen}
-				        anchorEl={this.state.anchorEl}
-				        anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-          				targetOrigin={{horizontal: 'left', vertical: 'top'}}
-				        onRequestClose={this.handleRequestClose}>
-				        <Menu>
-					        <MenuItem primaryText="Profile" href="/profile" />
-					        <MenuItem primaryText="Account" href="/account" />
-					        <MenuItem primaryText="Sign out" href="/sign-out" />
+		        open={this.state.loginOptionOpen}
+		        anchorEl={this.state.anchorEl}
+		        anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+    				targetOrigin={{horizontal: 'left', vertical: 'top'}}
+		        onRequestClose={this.handleRequestClose}
+						className="cltk-popover"
+						>
+		        <Menu
+							className="cltk-popover-menu login-buttons-popover-menu"
+							>
+			        <MenuItem primaryText="Profile" href="/profile" />
+			        <MenuItem primaryText="Account" href="/account" />
+							<Divider />
+							<MenuItem primaryText="Sign out" href="/sign-out" />
 						</Menu>
 					</Popover>
 				</div>
