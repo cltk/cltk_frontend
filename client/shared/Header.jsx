@@ -70,7 +70,7 @@ Header = React.createClass({
                 className="logo"
                 style={styles.flatButton}
                 href="/"
-                label="CLTK Archive [Development Prototype]"
+                label="CLTK Archive [Prototype]"
                 />
 
     				</div>
