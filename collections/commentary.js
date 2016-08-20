@@ -5,6 +5,10 @@ Schemas.Commentary = new SimpleSchema({
     type: String,
     max: 60
   },
+  work: {
+    type: String,
+    max: 60
+  },
   year: {
     type: String,
     max: 60

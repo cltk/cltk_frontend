@@ -76,6 +76,19 @@ LeftMenu = React.createClass({
 
 
                     </div>
+
+										{Roles.userIsInRole(this.data.currentUser._id, ['admin']) ?
+											<div>
+		                    <MenuItem
+		                        href="/admin"
+		                        primaryText="Admin"
+		                        onClick={this.props.closeLeftMenu}
+		                    />
+												<Divider />
+											</div>
+											: ""
+										}
+
                     <MenuItem
                         href="/"
                         primaryText="Home"
