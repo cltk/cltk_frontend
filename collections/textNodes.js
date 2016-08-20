@@ -15,6 +15,16 @@ Schemas.Texts = new SimpleSchema({
     optional: true,
     min: 0
   },
+  n_4: {
+    type: Number,
+    optional: true,
+    min: 0
+  },
+  n_5: {
+    type: Number,
+    optional: true,
+    min: 0
+  },
   language: {
     type: String,
     max: 60

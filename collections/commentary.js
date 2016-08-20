@@ -9,6 +9,30 @@ Schemas.Commentary = new SimpleSchema({
     type: String,
     max: 60
   },
+  n1: {
+    type: Number,
+    min: 0
+  },
+  n2: {
+    type: Number,
+    optional: true,
+    min: 0
+  },
+  n3: {
+    type: Number,
+    optional: true,
+    min: 0
+  },
+  n4: {
+    type: Number,
+    optional: true,
+    min: 0
+  },
+  n5: {
+    type: Number,
+    optional: true,
+    min: 0
+  },
 
 	createdAt: {
 		type: Date,
