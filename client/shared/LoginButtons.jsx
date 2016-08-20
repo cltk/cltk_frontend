@@ -51,13 +51,32 @@ LoginButtons = React.createClass({
 		        padding: "10px 5px"
 			},
 		};
+
+
 		if(this.data.user) {
+
 			// render logged in info
-			let profile = this.data.user.profile;
+
+			// make a user dispaly name from available user profile info
+			let userNiceName = "";
+
+			if("profile" in this.data.user){
+				let profile = this.data.user.profile;
+				userNiceName = profile.firstName;
+
+			}else if("emails" in this.data.user && this.data.user.emails.length > 0) {
+				userNiceName = this.data.user.emails[0].address;
+
+			}else {
+				userNiceName = "User";
+
+			}
+
+
 			return(
 				<div>
 					<FlatButton
-						label={"Hi "+ profile.firstName}
+						label={"Hi "+ userNiceName}
 						style={styles.flatButton}
 						href="#"
 						onTouchTap={this.handleClick} />
@@ -69,6 +88,7 @@ LoginButtons = React.createClass({
 				        onRequestClose={this.handleRequestClose}>
 				        <Menu>
 					        <MenuItem primaryText="Profile" href="/profile" />
+					        <MenuItem primaryText="Account" href="/account" />
 					        <MenuItem primaryText="Sign out" href="/sign-out" />
 						</Menu>
 					</Popover>
