@@ -4,6 +4,9 @@ ReadingLayout = React.createClass({
 	// This mixin makes the getMeteorData method work
 	mixins: [ReactMeteorData],
 
+	textLocation: [],
+	isTextRemaining: true,
+
 	propTypes: {
 		params: React.PropTypes.object.isRequired,
 		queryParams: React.PropTypes.object.isRequired
@@ -16,8 +19,7 @@ ReadingLayout = React.createClass({
       toggleTranslations: false,
       filters: [],
 			location: [],
-			skip: 0,
-			limit: 30 
+			limit: 30
     };
   },
 
@@ -39,9 +41,99 @@ ReadingLayout = React.createClass({
 			//query = {work: work.slug};
 			query = {work: work.title};
 
-			let handle = Meteor.subscribe('textNodes', query, this.state.skip, this.state.limit);
+			if(this.state.location.length === 5){
+				query.n_5 = {$gte: this.textLocation[4]};
+				query.n_4 = this.textLocation[3];
+				query.n_3 = this.textLocation[2];
+				query.n_2 = this.textLocation[1];
+				query.n_1 = this.textLocation[0];
+			}else if(this.state.location.length >= 4){
+				query.n_4 = {$gte: this.textLocation[3]};
+				query.n_3 = this.textLocation[2];
+				query.n_2 = this.textLocation[1];
+				query.n_1 = this.textLocation[0];
+			}else if(this.state.location.length >= 3){
+				query.n_3 = {$gte: this.textLocation[2]};
+				query.n_2 = this.textLocation[1];
+				query.n_1 = this.textLocation[0];
+			}else if(this.state.location.length >= 2){
+				query.n_2 = {$gte: this.textLocation[1]};
+				query.n_1 = this.textLocation[0];
+			}else if(this.state.location.length >= 1){
+				query.n_1 = {$gte: this.textLocation[0]};
+			}
+
+			console.log("ReadingLayout text Query:", query);
+
+			let handle = Meteor.subscribe('textNodes', query, this.state.limit);
 	    if(handle.ready()) {
 		    textNodes = Texts.find({}, {}).fetch();
+			}
+
+			if(textNodes.length){
+				if("rangeN5" in work){
+						if(this.textLocation.length === 0){
+							this.textLocation = [1,1,1,1,1];
+						}else {
+							if(work.rangeN5.high === textNodes[textNodes.length-1].n_5){
+								this.textLocation[3]++;
+								this.textLocation[4] = 1;
+							}else {
+								this.textLocation[4] += this.state.limit;
+
+							}
+
+						}
+				}else if("rangeN4" in work){
+						if(this.textLocation.length === 0){
+							this.textLocation = [1,1,1,1];
+						}else {
+							if(work.rangeN4.high === textNodes[textNodes.length-1].n_4){
+								this.textLocation[2]++;
+								this.textLocation[3] = 1;
+							}else {
+								this.textLocation[3] += this.state.limit;
+
+							}
+
+						}
+				}else if("rangeN3" in work){
+						if(this.textLocation.length === 0){
+							this.textLocation = [1,1,1];
+						}else {
+							if(work.rangeN3.high === textNodes[textNodes.length-1].n_3){
+								this.textLocation[1]++;
+								this.textLocation[2] = 1;
+							}else {
+								this.textLocation[2] += this.state.limit;
+
+							}
+						}
+				}else if("rangeN2" in work){
+						if(this.textLocation.length === 0){
+							this.textLocation = [1,1];
+						}else {
+							if(work.rangeN2.high === textNodes[textNodes.length-1].n_2){
+								this.textLocation[0]++;
+								this.textLocation[1] = 1;
+							}else {
+								this.textLocation[1] += this.state.limit;
+
+							}
+						}
+				}else if("rangeN1" in work){
+						if(this.textLocation.length === 0){
+							this.textLocation = [1];
+						}else {
+							if(work.rangeN1.high === textNodes[textNodes.length-1].n_1){
+								this.isTextRemaining = false;
+							}else {
+								this.textLocation[0] += this.state.limit;
+
+							}
+						}
+				}
+
 			}
 
 		}else {
@@ -59,11 +151,13 @@ ReadingLayout = React.createClass({
 	},
 
 	loadMore(){
+		if(this.isTextRemaining){
 	    this.setState({
-	      skip : this.state.skip + this.state.limit
+	      location : this.textLocation
 	    });
-
 			console.log("Load more:", this.state);
+
+		}
 	},
 
 	toggleSidePanel(metadata){

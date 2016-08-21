@@ -1,5 +1,6 @@
 import ReactList from 'react-list';
 import InfiniteScroll from '../../../imports/InfiniteScroll';
+import {debounce} from 'throttle-debounce';
 
 ReadingProse = React.createClass({
 
@@ -128,7 +129,7 @@ ReadingProse = React.createClass({
 
 					<InfiniteScroll
 						endPadding={120}
-						loadMore={this.props.loadMore}
+						loadMore={debounce(2000, this.props.loadMore)}
 						>
 
 						<div className="reading-text-outer">

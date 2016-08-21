@@ -20,16 +20,12 @@ if (Meteor.isServer){
     return Languages.find();
   });
 
-  Meteor.publish('textNodes', function(query, skip, limit) {
-		if(!skip){
-			skip = 0;
-		}
-
+  Meteor.publish('textNodes', function(query, limit) {
 		if(!limit){
-			limit = 100;
+			limit = 30;
 		}
 
-    return Texts.find(query, {skip: skip, limit: limit, sort: { n_1:1, n_2:1, n_3:1, n_4:1, n_5:1 }});
+    return Texts.find(query, {limit: limit, sort: { n_1:1, n_2:1, n_3:1, n_4:1, n_5:1 }});
 
   });
 
