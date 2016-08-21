@@ -81,53 +81,72 @@ header .navigation-primary .reading-location {
 
   }
 
-  h1.work-title {
-    span {
-      font-family:@font-title;
-      font-weight:700;
-      margin:0;
-      padding-bottom:40px;
-
-    }
+  .row {
+    text-align:center;
 
   }
 
-  h3 {
-    font-family:@font-title;
-    font-weight:300;
-
-  }
-
-  .title-wrap, .author-wrap {
+  .work-authors, .work-title-outer {
     text-align: center;
-    padding:10px 0;
+    padding:30px 0;
     max-width:790px;
     margin:0px auto;
 
   }
+  .work-author {
+		display:block;
+    padding:5px 0;
 
-  .title-wrap {
-    margin-bottom:50px;
+		h4 {
+			margin:0;
+			padding:0;
+			font-size:22px;
+			line-height:1.3em;
+			color:@text-color;
+			font-family:@font-light;
+			font-weight:bold;
+
+		}
+
+		&:hover {
+			h4 {
+				color:@md-primary;
+
+				.work-author-original-name {
+					color:@text-secondary;
+
+				}
+
+			}
+		}
+
+		.work-author-original-name {
+			font-size:20px;
+			color:@text-secondary;
+			font-weight:light;
+			font-style:italic;
+			padding:0 5px;
+
+		}
+
   }
 
-  .chapter-heading {
-      text-align: left;
-  		margin:5px auto;
-  		width:95%;
-  		max-width:900px;
+  h1.work-title {
 
-      h3 {
-        font-family:@font-reading;
-        font-weight:bold;
-        padding:50px 0 0;
-        margin:0;
+    font-family:@font-title;
+		font-size:52px;
+		line-height:1.3em;
+		color:@text-color;
 
-      }
+		.work-original-title {
+			display:block;
+			font-size:28px;
+			color:@text-secondary;
+			font-weight:light;
+			font-family:@font-light;
+			font-style:italic;
 
-  }
-
-  .row {
-    text-align:center;
+		}
 
   }
 
@@ -574,8 +593,19 @@ header .navigation-primary .reading-location {
 
 }
 
+.reading-text-outer {
+	padding:50px 0;
+
+}
+
 
 .reading-loading-area {
+
+	padding:10px 0 50px;
+	width:100%;
+	clear:both;
+	display:block;
+
   .transition(background 300ms ease-out);
 
   &.comment-mode-enabled {
@@ -583,12 +613,6 @@ header .navigation-primary .reading-location {
 
 
   }
-
-	padding:0px 0 200px;
-	width:100%;
-	clear:both;
-	display:block;
-
 }
 
 

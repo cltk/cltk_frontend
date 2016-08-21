@@ -9,30 +9,61 @@ ReadingLayout = React.createClass({
 		queryParams: React.PropTypes.object.isRequired
 	},
 
-	getMeteorData() {
-		let work_query = {};
-		let text_query = {};
+  getInitialState(){
+    return {
+      toggleCommentary: false,
+      toggleDefinitions: false,
+      toggleTranslations: false,
+      filters: [],
+			location: [],
+			skip: 0,
+			limit: 30 
+    };
+  },
 
-		if("work" in this.props.params){
-			work_query = {slug: this.props.params.work};
-			text_query = {work: this.props.params.work};
+	getMeteorData() {
+		let query = {};
+		let textNodes = [];
+
+		let work = Works.findOne({_id: this.props.params.id});
+
+
+		if(work){
+
+			// Get the work authors
+			work.authors = Authors.find({ _id : {$in: work.authors} }).fetch()
+
+			/*
+			 * Should be the slug when the text sync / ingest is reworked
+			 */
+			//query = {work: work.slug};
+			query = {work: work.title};
+
+			let handle = Meteor.subscribe('textNodes', query, this.state.skip, this.state.limit);
+	    if(handle.ready()) {
+		    textNodes = Texts.find({}, {}).fetch();
+			}
+
+		}else {
+			console.log("Reading query: work not available for _id", this.props.params.id)
 		}
 
 
+
 		return {
-			work: Works.findOne(work_query),
-			textNodes: Texts.find(text_query, {sort : {n_1 : 1, n_2 : 1, n_3 : 1}, limit : 10 }).fetch()	,
+			work: work,
+			textNodes: textNodes,
 			currentUser: Meteor.user()
 		};
 
 	},
 
-	getInitialState(){
-	    return {
-	      toggleCommentary: false,
-	      toggleDefinitions: false,
-	      toggleTranslations: false
-	    }
+	loadMore(){
+	    this.setState({
+	      skip : this.state.skip + this.state.limit
+	    });
+
+			console.log("Load more:", this.state);
 	},
 
 	toggleSidePanel(metadata){
@@ -64,17 +95,12 @@ ReadingLayout = React.createClass({
 
 			// Infer Reading layout by the work meta structure value
 			if(['line', 'poem-line', 'book-line'].indexOf(work.structure)){
-				/*
-	      return (
-	          <ReadingPoetry
-	            work={work}
-	            textNodes={textNodes} />
-	        );
-				*/
+				// Render reading poetry here instead of Prose
 	      return (
 	          <ReadingProse
 	            work={work}
 	            textNodes={textNodes}
+							loadMore={this.loadMore}
 	            highlightId={this.props.queryParams.id} />
 	        );
 
@@ -83,6 +109,7 @@ ReadingLayout = React.createClass({
 	          <ReadingProse
 	            work={work}
 	            textNodes={textNodes}
+							loadMore={this.loadMore}
 	            highlightId={this.props.queryParams.id} />
 	        );
 
@@ -93,18 +120,25 @@ ReadingLayout = React.createClass({
 	},
 
 	render(){
+
 		let readingClassName = "";
 		if(this.state.toggleCommentary||this.state.toggleTranslations) {
 			readingClassName += " with-commentary-shown";
 		}
+
 		if(this.state.toggleDefinitions) {
 			readingClassName += " with-definitions-shown";
 		}
+
 		return(
 			<div className="cltk-layout reading-layout">
 				<HeaderReading
-					toggleSidePanel={this.toggleSidePanel} toggleDefinitions={this.state.toggleDefinitions}
-					toggleCommentary={this.state.toggleCommentary} toggleTranslations={this.state.toggleTranslations}
+					work={this.data.work}
+					location={this.state.location}
+					toggleSidePanel={this.toggleSidePanel}
+					toggleDefinitions={this.state.toggleDefinitions}
+					toggleCommentary={this.state.toggleCommentary}
+					toggleTranslations={this.state.toggleTranslations}
 					/>
 
 				<main>
@@ -122,8 +156,9 @@ ReadingLayout = React.createClass({
 				<CommentaryPanel
 					toggleCommentary={this.state.toggleCommentary}
 					toggleTranslations={this.state.toggleTranslations}
-					work = {this.props.params.work}
+					work={this.props.params.work}
 					textNodes={this.data.textNodes} />
+
 			</div>
 			);
 	}

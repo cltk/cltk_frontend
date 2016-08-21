@@ -7,10 +7,12 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 HeaderReading = React.createClass({
 
   propTypes: {
-    toggleSidePanel: React.PropTypes.func,
-    toggleCommentary: React.PropTypes.bool,
-    toggleDefinitions: React.PropTypes.bool,
-    toggleTranslations: React.PropTypes.bool
+		work: React.PropTypes.object,
+		location: React.PropTypes.array.isRequired,
+    toggleSidePanel: React.PropTypes.func.isRequired,
+    toggleCommentary: React.PropTypes.bool.isRequired,
+    toggleDefinitions: React.PropTypes.bool.isRequired,
+    toggleTranslations: React.PropTypes.bool.isRequired
   },
 
   getDefaultProps() {
@@ -50,6 +52,9 @@ HeaderReading = React.createClass({
 
     };
 
+		let work = this.props.work;
+		let location = this.props.location;
+
     return (
         <header className="header-nav paper-shadow">
       		<div className="navigation-primary">
@@ -62,24 +67,35 @@ HeaderReading = React.createClass({
                   icon={<FontIcon className="mdi mdi-menu" />}
                 />
 
-                <div className="reading-location">
-                  <a className="reading-location-param reading-location-param--author" href="/" aria-label="Menu">
-                    Herodotus,
-                  </a>
+								{work && location ?
+	                <div className="reading-location">
+	                  <a className="reading-location-param reading-location-param--author" href="#" >
+											{work.authors.map((author, i) => {
+												return <span
+													key={i}
+													>
+														{author.english_name}
+												</span>;
+											})}
+	                  </a>
 
-                  <a className="reading-location-param reading-location-param--work" href="/" aria-label="Menu">
-                    Histories,
-                  </a>
+	                  <a className="reading-location-param reading-location-param--work" href="#">
+											{work.english_title}
+	                  </a>
 
-                  <a className="reading-location-param reading-location-param--subwork" href="/" aria-label="Menu">
-                    Book I,
-                  </a>
+	                  <a className="reading-location-param reading-location-param--book-line" href="#">
+										{location.map((textN, i) => {
+											return <span
+												key={i}
+												>
+												{textN}
+											</span>
 
-                  <a className="reading-location-param reading-location-param--book-line" href="/" aria-label="Menu">
-                    1.1
-                  </a>
+										})}
+										</a>
 
-                </div>
+	                </div>
+								: ""}
 
       				</div>
 

@@ -1,10 +1,12 @@
 import ReactList from 'react-list';
+import InfiniteScroll from '../../../imports/InfiniteScroll';
 
 ReadingProse = React.createClass({
 
   propTypes: {
     work: React.PropTypes.object.isRequired,
     textNodes: React.PropTypes.array.isRequired,
+    loadMore: React.PropTypes.func.isRequired,
     highlightId: React.PropTypes.string,
   },
 
@@ -14,8 +16,23 @@ ReadingProse = React.createClass({
     }
   },
 
+	textNodes: [],
+
   renderText() {
-    return this.props.textNodes.map((text, index) => {
+		var self = this;
+
+		if(this.props.textNodes.length){
+			this.props.textNodes.forEach(function(textNode){
+				if(!self.textNodes.some(function(existingTextNode){
+					return existingTextNode._id === textNode._id
+				})){
+					self.textNodes.push(textNode);
+				}
+
+			});
+		}
+
+    return this.textNodes.map((text, index) => {
       let showNumber = false;
       let numbering = "";
 
@@ -24,7 +41,7 @@ ReadingProse = React.createClass({
           showNumber = true;
         }
         else{
-          showNumber = this.props.textNodes[index-1].n_2 != text.n_2;
+          showNumber = this.textNodes[index-1].n_2 != text.n_2;
         }
         if(showNumber) {
           numbering = text.n_1 + "." + text.n_2;
@@ -34,7 +51,7 @@ ReadingProse = React.createClass({
           showNumber = true;
         }
         else{
-          showNumber = this.props.textNodes[index-1].n_1 != text.n_1;
+          showNumber = this.textNodes[index-1].n_1 != text.n_1;
         }
         if(showNumber) {
           numbering = (text.n_1).toString();
@@ -82,25 +99,54 @@ ReadingProse = React.createClass({
     return (
         <div className="reading-container">
 
-          <div className="author-wrap">
-            <h3 className="work-author">
-              {work.author}
-            </h3>
+          <div className="work-authors">
+						{work.authors.map((author, i) => {
+							return <a
+								key={i}
+								href={"/authors/" + author.slug}
+								className="work-author">
+								<h4>
+										{author.english_name}
+										<span className="work-author-original-name">
+											({author.original_name})
+										</span>
+								</h4>
+							</a>
+						})}
           </div>
 
-          <div className="title-wrap">
-            <h1 className="work-title">{work.title}</h1>
+          <div className="work-title-outer">
+            <h1 className="work-title">
+							{work.english_title}
+							{work.original_title ?
+								<span className="work-original-title">
+									{work.original_title}
+								</span>
+							: ""}
+						</h1>
           </div>
-          {this.renderText()}
+
+					<InfiniteScroll
+						endPadding={120}
+						loadMore={this.props.loadMore}
+						>
+
+						<div className="reading-text-outer">
+		          {this.renderText()}
+						</div>
+
+					</InfiniteScroll>
+
+  				<div className="reading-loading-area">
+						<LoadingWell />
+  				</div>
+
           {Meteor.userId() ?
             <AnnotateWidget
               annotationCheckList={this.state.annotationCheckList}
               work={work}
               onActionCallback={this.resetAnnotationCheckList} /> : null
           }
-  				<div className="reading-loading-area">
-  					<div className="well-spinner"></div>
-  				</div>
 
         </div>
 
