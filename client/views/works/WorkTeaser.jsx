@@ -25,7 +25,7 @@ WorkTeaser = React.createClass({
 
   render() {
     let work = this.props.work;
-    let work_url = "/works/" + work.slug ;
+    let work_url = "/works/" + work._id + "/" + work.slug;
 
      return (
          <Card
