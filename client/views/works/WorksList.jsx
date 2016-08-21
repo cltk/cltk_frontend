@@ -8,8 +8,14 @@ WorksList = React.createClass({
   getMeteorData() {
     let query = {};
 
+		let works = Works.find(query, {sort: {'author.english_name': 1, 'english_title': 1}}).fetch();
+
+		works.forEach(function(work){
+			work.authors = Authors.find({ _id : {$in: work.authors} }).fetch()
+		});
+
     return {
-      works: Works.find(query, {sort: {author: 1, title: 1}}).fetch(),
+      works: works
     };
   },
 
@@ -27,7 +33,7 @@ WorksList = React.createClass({
   render() {
 
      return (
-       <div className="works-wrap">
+       <div className="works-list">
 				 {this.renderWorks()}
        </div>
 

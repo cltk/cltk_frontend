@@ -25,18 +25,82 @@ WorkTeaser = React.createClass({
 
   render() {
     let work = this.props.work;
-    let work_url = "/works/" + work.author + "/" + work.slug ;
+    let work_url = "/works/" + work.slug ;
 
      return (
-       <div className="work-teaser">
-         <Card>
-            <a href={work_url}>
-              <CardTitle title={work.title} subtitle={work.author} />
+         <Card
+					 className="work-teaser"
+					 >
+
+					 	<div className="card-meta-left">
+							<IconButton
+								tooltip="Add to Your Library"
+					      tooltipPosition="top-center"
+								className="icon-favorite-button"
+								iconClassName="mdi mdi-book-open-variant"
+								/>
+
+							<div className="card-meta-items">
+								<span className="card-meta card-meta-left-language">
+										{Utils.capitalize(work.language)}
+								</span>
+								<span className="card-meta card-meta-left-date">
+										{work.date}
+								</span>
+							</div>
+					 	</div>
+
+						<div className="work-teaser-authors">
+							{work.authors.map((author, i) => {
+								return <a
+									key={i}
+									href={"/authors/" + author.slug}
+									className="work-teaser-author">
+									<h4>
+											{author.english_name}
+											{author.original_name ?
+												<span className="work-teaser-author-original-name">
+													({author.original_name})
+												</span>
+											: ""}
+									</h4>
+								</a>
+							})}
+						</div>
+
+            <a
+							href={work_url}
+							className="work-teaser-title"
+							>
+              <h3 >
+								{work.english_title}
+								{work.original_title ?
+									<span className="work-teaser-original-title">
+										{work.original_title}
+									</span>
+								: ""}
+              </h3>
             </a>
-            <CardText>
-              {work.editor} {work.year}
-            </CardText>
-            <Divider />
+
+						<div className="card-meta-bottom">
+							<span className="card-meta meta-count-commentary">
+								{work.countComments} Comments
+							</span>
+							<span className="card-meta meta-count-translations">
+								{work.countTranslations} Translations
+							</span>
+							<span className="card-meta meta-count-entities">
+								{work.countEntities} Entities
+							</span>
+							<span className="card-meta meta-count-annotations">
+								{work.countAnnotations} Annotations
+							</span>
+
+						</div>
+
+
+
+            {/*<Divider />
             <CardActions>
               <a href="#">
                 <IconButton tooltip="Comment">
@@ -53,9 +117,8 @@ WorkTeaser = React.createClass({
                   <ActionInput />
                 </IconButton>
               </a>
-            </CardActions>
+            </CardActions>*/}
           </Card>
-        </div>
       );
     }
 

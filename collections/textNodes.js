@@ -59,6 +59,23 @@ Schemas.Texts = new SimpleSchema({
     optional: true
   },
 
+  entities: {
+    type: [String],
+    regEx: SimpleSchema.RegEx.Id,
+    optional: true,
+    autoform: {
+      options: function() {
+        return _.map(Entities.find().fetch(), function(entity) {
+          return {
+            label: entity.english_name,
+            value: entity._id
+          };
+        });
+      }
+    }
+  },
+
+
 
   createdAt: {
 		type: Date,
