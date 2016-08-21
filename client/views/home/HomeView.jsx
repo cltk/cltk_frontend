@@ -142,7 +142,7 @@ HomeView = React.createClass({
                 <div className="col-sm-6 text-center">
 
                   <a href="https://github.com/cltk/cltk_frontend" target="_blank" className="start-building-item">
-                    <i className="mdi mdi-book-open icon-lg mb40 mb-xs-24 "></i>
+                    <i className="mdi mdi-book-open-page-variant icon-lg mb40 mb-xs-24 "></i>
                     <h5 className="uppercase">Build the CLTK Archive</h5>
                     <span className="item-text">Contribute code, thoughts, or ideas to the CLTK Archive's public reading interface and annotation environment</span>
 
