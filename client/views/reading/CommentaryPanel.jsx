@@ -26,7 +26,6 @@ CommentaryPanel = React.createClass({
   mixins: [ReactMeteorData],
 
   getMeteorData(){
-    //console.log(this.props.work);
     let translationsList = [];
     let handle =  Meteor.subscribe('translations', this.props.work);
     if(handle.ready()) {
@@ -49,7 +48,7 @@ CommentaryPanel = React.createClass({
       }
     }
     let commentsList = [];
-    let handleCommentary = Meteor.subscribe('commentary');
+    let handleCommentary = Meteor.subscribe('commentary', this.props.work);
     if(handleCommentary.ready()) {
       this.props.textNodes.forEach((textNode, i) => {
         if(textNode.comments) {

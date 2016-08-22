@@ -821,12 +821,13 @@ function syncDefinitions(word, text, definitions){
 }
 
 // Utility function to insert commentary
-function insertCommentary(author, year, comment, ref) {
+function insertCommentary(author, year, comment, ref, work) {
   let comment_id = "";
   let existing = Commentary.findOne({
     author: author,
     year: year,
-    ref: ref
+    ref: ref,
+    work: work,
   });
   if(!existing){
     try {
@@ -834,7 +835,8 @@ function insertCommentary(author, year, comment, ref) {
         author: author,
         year: year,
         ref: ref,
-        content: comment
+        content: comment,
+        work: work,
       });
     }
     catch(err){
@@ -855,7 +857,7 @@ function syncCommentary(commentaries, metaStructure, work) {
       let count = 0;
       commentary.comments.forEach((comment) => {
         let ref = comment.start.n_1 + "-" + comment.end.n_1;
-        let comment_id = insertCommentary(commentary.author, commentary.year, comment.content, ref);
+        let comment_id = insertCommentary(commentary.author, commentary.year, comment.content, ref, work.title);
         count++;
         try {
           Texts.update(
@@ -880,7 +882,7 @@ function syncCommentary(commentaries, metaStructure, work) {
       commentary.comments.forEach((comment) => {
         let ref = comment.start.n_1 + "." + comment.start.n_2 + "-"
                   + comment.end.n_1 + "." + comment.end.n_2;
-        let comment_id = insertCommentary(commentary.author, commentary.year, comment.content, ref);
+        let comment_id = insertCommentary(commentary.author, commentary.year, comment.content, ref, work.title);
         count++;
         try {
           Texts.update(
@@ -905,7 +907,7 @@ function syncCommentary(commentaries, metaStructure, work) {
       commentary.comments.forEach((comment) => {
         let ref = comment.start.n_1 + "." + comment.start.n_2 + "." + comment.start.n_3  + "-"
                   + comment.end.n_1 + "." + comment.end.n_2 + "." + comment.end.n_3;
-        let comment_id = insertCommentary(commentary.author, commentary.year, comment.content, ref);
+        let comment_id = insertCommentary(commentary.author, commentary.year, comment.content, ref, work.title);
         count++;
         try {
           Texts.update(

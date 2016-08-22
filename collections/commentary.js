@@ -16,6 +16,10 @@ Schemas.Commentary = new SimpleSchema({
   content: {
     type: String
   },
+  work: {
+    type: String,
+    max: 60
+  },
 
 	createdAt: {
 		type: Date,
