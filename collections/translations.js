@@ -1,26 +1,26 @@
 this.Translations = new Meteor.Collection('translations');
 
 Schemas.Translations = new SimpleSchema({
-  n1: {
+  n_1: {
     type: Number,
     min: 0
   },
-  n2: {
-    type: Number,
-    optional: true,
-    min: 0
-  },
-  n3: {
+  n_2: {
     type: Number,
     optional: true,
     min: 0
   },
-  n4: {
+  n_3: {
     type: Number,
     optional: true,
     min: 0
   },
-  n5: {
+  n_4: {
+    type: Number,
+    optional: true,
+    min: 0
+  },
+  n_5: {
     type: Number,
     optional: true,
     min: 0

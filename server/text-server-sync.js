@@ -37,7 +37,7 @@ function getLanguages(){
 function getCorpora(language){
 
   return new Promise(function(resolve, reject){
-    HTTP.get(BASE_URL + "/lang/" + language.slug + "/corpus", {}, function(error, response){
+    HTTP.get(BASE_URL + "/lang/" + language.title + "/corpus", {}, function(error, response){
       if (error){
         reject(error);
       }else {
@@ -53,7 +53,7 @@ function getCorpora(language){
 function getAuthors(corpus){
 
   return new Promise(function(resolve, reject){
-    HTTP.get(BASE_URL + "/lang/" + corpus.language + "/corpus/" + corpus.slug + "/author", {}, function(error, response){
+    HTTP.get(BASE_URL + "/lang/" + corpus.language + "/corpus/" + corpus.title + "/author", {}, function(error, response){
       if (error){
         reject(error);
       }else {
@@ -69,7 +69,7 @@ function getAuthors(corpus){
 function getWorks(author){
 
   return new Promise(function(resolve, reject){
-    HTTP.get(BASE_URL + "/lang/" + author.language + "/corpus/" + author.corpus + "/author/" + author.slug + "/text", {}, function(error, response){
+    HTTP.get(BASE_URL + "/lang/" + author.language + "/corpus/" + author.corpus + "/author/" + author.title + "/text", {}, function(error, response){
       if (error){
         reject(error);
       }else {
@@ -84,7 +84,7 @@ function getWorks(author){
 // Get each invidual text in the text list
 function getTextNodes(work){
   return new Promise(function(resolve, reject){
-    HTTP.get(BASE_URL + "/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.slug, {}, function(error, response){
+    HTTP.get(BASE_URL + "/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.title, {}, function(error, response){
       if (error){
         reject(error);
       }else {
@@ -98,7 +98,7 @@ function getTextNodes(work){
 // Get translation for each invidual text in the text list
 function getTranslations(work, language){
   return new Promise(function(resolve, reject){
-    HTTP.get(BASE_URL + "/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.slug,
+    HTTP.get(BASE_URL + "/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.title,
       {params: {translation: language}},
       function(error, response){
         if (error){
@@ -129,7 +129,7 @@ function getDefinitions(word, lang){
 
 function getCommentary(work){
   return new Promise(function(resolve, reject){
-    HTTP.get(BASE_URL + "/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.slug,
+    HTTP.get(BASE_URL + "/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.title,
       {params: {commentary: "all"}},
       function(error, response){
         if (error){
@@ -167,7 +167,7 @@ function getCorporaSequence(res){
 
   return new Promise(function(resolve, reject){
     Languages.find().fetch().forEach(function(language){
-      response = HTTP.get(BASE_URL + "/lang/" + language.slug + "/corpus")
+      response = HTTP.get(BASE_URL + "/lang/" + language.title + "/corpus")
 
       if(response.statusCode === 200){
         syncCorpora(response.data.corpora, language);
@@ -189,7 +189,7 @@ function getAuthorsSequence(res){
 
   return new Promise(function(resolve, reject){
     Corpora.find().fetch().forEach(function(corpus){
-      response = HTTP.get(BASE_URL + "/lang/" + corpus.language + "/corpus/" + corpus.slug + "/author")
+      response = HTTP.get(BASE_URL + "/lang/" + corpus.language + "/corpus/" + corpus.title + "/author")
 
       if(response.statusCode === 200){
         syncAuthors(response.data.authors, corpus);
@@ -215,7 +215,7 @@ function getWorksSequence(res){
   return new Promise(function(resolve, reject){
     Authors.find().fetch().forEach(function(author){
 
-      response = HTTP.get(BASE_URL + "/lang/" + author.language + "/corpus/" + author.corpus + "/author/" + author.slug + "/text")
+      response = HTTP.get(BASE_URL + "/lang/" + author.language + "/corpus/" + author.corpus + "/author/" + author.title + "/text")
 
       if(response.statusCode === 200){
         syncWorks(response.data.texts, author);
@@ -242,7 +242,7 @@ function getTextNodesSequence(res){
     Works.find().fetch().forEach(function(work){
 
       // For each work, fetch the document text from the API
-      response = HTTP.get(BASE_URL + "/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.slug);
+      response = HTTP.get(BASE_URL + "/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.title);
 
 
       if(response.statusCode === 200){
@@ -270,7 +270,7 @@ function getTranslationsSequence(res) {
     Works.find().fetch().forEach(function(work){
 
       // For each work, fetch the translations from the API
-      response = HTTP.get(BASE_URL + "/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.slug,
+      response = HTTP.get(BASE_URL + "/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.title,
                   {params: {translation: "english"}});
 
       if(response.statusCode === 200 && response.data != null){
@@ -293,7 +293,7 @@ function getCommentarySequence(res) {
     Works.find().fetch().forEach(function(work){
 
       // For each work, fetch the commentary from the API
-      response = HTTP.get(BASE_URL + "/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.slug,
+      response = HTTP.get(BASE_URL + "/lang/" + work.language + "/corpus/" + work.corpus + "/author/" + work.author + "/text/" + work.title,
                   {params: {commentary: "all"}});
 
       if(response.statusCode === 200 && response.data != null){
@@ -368,14 +368,13 @@ function resetDb(){
 function syncLanguages(languages){
 
   languages.forEach(function(language){
-      let existing = Languages.findOne({slug:language});
+      let existing = Languages.findOne({title:language});
 
       // Insert languages
       if (!existing){
         try{
           Languages.insert({
               title : language,
-              slug : language
             }
           );
         }
@@ -392,15 +391,14 @@ function syncLanguages(languages){
 
 function syncCorpora(corpora, language){
   corpora.forEach(function(corpus){
-      let existing = Corpora.findOne({slug:corpus, language:language.slug});
+      let existing = Corpora.findOne({title:corpus, language:language.title});
 
       // If corpus is not already in the database, insert it
       if (!existing){
         try{
           Corpora.insert({
               title : corpus,
-              language : language.slug,
-              slug : corpus
+              language : language.title,
             }
           );
         }
@@ -418,16 +416,15 @@ function syncCorpora(corpora, language){
 function syncAuthors(authors, corpus){
 
   authors.forEach(function(author){
-      let existing = Authors.findOne({slug:author});
+      let existing = Authors.findOne({title:author});
 
       // If the author is not in the datbase already, add it
       if (!existing){
         try{
           Authors.insert({
               title : author,
-              slug : author,
               language : corpus.language,
-              corpus : corpus.slug
+              corpus : corpus.title
             }
           );
         }
@@ -444,15 +441,14 @@ function syncAuthors(authors, corpus){
 
 function syncWorks(works, author){
   works.forEach(function(work){
-      let existing = Works.findOne({slug:work});
+      let existing = Works.findOne({title:work});
 
       // If this work is not in the database yet, add it
       if (!existing){
         try{
           Works.insert({
               title : work,
-              slug : work,
-              author : author.slug,
+              author : author.title,
               language : author.language,
               corpus : author.corpus
             }
@@ -494,7 +490,7 @@ function syncTextNodes(textNodes, metaStructure, work){
             author : work.author,
             language : work.language,
             corpus : work.corpus,
-            work : work.slug,
+            work : work.title,
           });
 
         // If text object is not yet exiting in the database, add it
@@ -505,7 +501,7 @@ function syncTextNodes(textNodes, metaStructure, work){
                 author : work.author,
                 language : work.language,
                 corpus : work.corpus,
-                work : work.slug,
+                work : work.title,
                 text : textNodes[n_1_key],
                 html : textNodes[n_1_key],
               }
@@ -537,7 +533,7 @@ function syncTextNodes(textNodes, metaStructure, work){
               author : work.author,
               language : work.language,
               corpus : work.corpus,
-              work : work.slug,
+              work : work.title,
             });
 
           // If text object is not yet exiting in the database, add it
@@ -549,7 +545,7 @@ function syncTextNodes(textNodes, metaStructure, work){
                 author : work.author,
                 language : work.language,
                 corpus : work.corpus,
-                work : work.slug,
+                work : work.title,
                 text : textNodes[n_1_key][n_2_key],
                 html : textNodes[n_1_key][n_2_key],
               });
@@ -584,7 +580,7 @@ function syncTextNodes(textNodes, metaStructure, work){
                 author : work.author,
                 language : work.language,
                 corpus : work.corpus,
-                work : work.slug,
+                work : work.title,
               });
 
             // If text object is not yet exiting in the database, add it
@@ -597,7 +593,7 @@ function syncTextNodes(textNodes, metaStructure, work){
                     author : work.author,
                     language : work.language,
                     corpus : work.corpus,
-                    work : work.slug,
+                    work : work.title,
                     text : textNodes[n_1_key][n_2_key][n_3_key],
                     html : textNodes[n_1_key][n_2_key][n_3_key],
                   }
@@ -646,7 +642,7 @@ function syncTranslations(translations, metaStructure, work){
               author : work.author,
               language : work.language,
               corpus : work.corpus,
-              work : work.slug,
+              work : work.title,
               translator: translation.translator
             });
 
@@ -658,7 +654,7 @@ function syncTranslations(translations, metaStructure, work){
                   author : work.author,
                   language : work.language,
                   corpus : work.corpus,
-                  work : work.slug,
+                  work : work.title,
                   translator: translation.translator,
                   text : translation.text[n_1_key],
                   html : translation.text[n_1_key],
@@ -691,7 +687,7 @@ function syncTranslations(translations, metaStructure, work){
                 author : work.author,
                 language : work.language,
                 corpus : work.corpus,
-                work : work.slug,
+                work : work.title,
                 translator: translation.translator
 
               });
@@ -705,7 +701,7 @@ function syncTranslations(translations, metaStructure, work){
                   author : work.author,
                   language : work.language,
                   corpus : work.corpus,
-                  work : work.slug,
+                  work : work.title,
                   translator: translation.translator,
                   text : translation.text[n_1_key][n_2_key],
                   html : translation.text[n_1_key][n_2_key],
@@ -740,7 +736,7 @@ function syncTranslations(translations, metaStructure, work){
                   author : work.author,
                   language : work.language,
                   corpus : work.corpus,
-                  work : work.slug,
+                  work : work.title,
                   translator: translation.translator
                 });
 
@@ -754,7 +750,7 @@ function syncTranslations(translations, metaStructure, work){
                       author : work.author,
                       language : work.language,
                       corpus : work.corpus,
-                      work : work.slug,
+                      work : work.title,
                       translator: translation.translator,
                       text : translation.text[n_1_key][n_2_key][n_3_key],
                       html : translation.text[n_1_key][n_2_key][n_3_key],
@@ -843,6 +839,7 @@ function insertCommentary(author, year, comment, ref) {
     }
     catch(err){
       console.log("Error insert commentary");
+      //console.error(err);
     }
   }
   else {
@@ -864,7 +861,7 @@ function syncCommentary(commentaries, metaStructure, work) {
           Texts.update(
             {
               n_1: {$gte: parseInt(comment.start.n_1), $lte: parseInt(comment.end.n_1)},
-              work: work.slug
+              work: work.title
             },
             {$addToSet: {comments: comment_id}}, {multi: true}
           );
@@ -890,7 +887,7 @@ function syncCommentary(commentaries, metaStructure, work) {
             {
               n_1: {$gte: parseInt(comment.start.n_1), $lte: parseInt(comment.end.n_1)},
               n_2: {$gte: parseInt(comment.start.n_2), $lte: parseInt(comment.end.n_2)},
-              work: work.slug
+              work: work.title
             },
             {$addToSet: {comments: comment_id}}, {multi: true}
           );
@@ -916,7 +913,7 @@ function syncCommentary(commentaries, metaStructure, work) {
               n_1: {$gte: parseInt(comment.start.n_1), $lte: parseInt(comment.end.n_1)},
               n_2: {$gte: parseInt(comment.start.n_2), $lte: parseInt(comment.end.n_2)},
               n_3: {$gte: parseInt(comment.start.n_3), $lte: parseInt(comment.end.n_3)},
-              work: work.slug
+              work: work.title
             },
             {$addToSet: {comments: comment_id}}, {multi: true}
           );
