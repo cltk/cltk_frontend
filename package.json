@@ -26,9 +26,71 @@
     "react-tap-event-plugin": "^1.0.0",
     "throttle-debounce": "^1.0.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-eslint": "^6.1.2",
+    "eslint": "^3.4.0",
+    "eslint-config-airbnb": "^10.0.1",
+    "eslint-import-resolver-meteor": "^0.3.3",
+    "eslint-plugin-import": "^1.14.0",
+    "eslint-plugin-jsx-a11y": "^2.2.0",
+    "eslint-plugin-meteor": "^4.0.0",
+    "eslint-plugin-react": "^6.2.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .js,.jsx",
+    "lint-fix": "eslint . --ext .js.jsx --fix",
+    "pretest": "npm run lint --silent"
+  },
+  "eslintConfig": {
+    "env": {
+      "es6": true,
+      "browser": true,
+      "node": true,
+      "meteor": true
+    },
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "allowImportExportEverywhere": true,
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "plugins": [
+      "meteor"
+    ],
+    "extends": [
+      "airbnb",
+      "plugin:meteor/recommended"
+    ],
+    "settings": {
+      "import/resolver": "meteor"
+    },
+    "rules": {
+      "indent": [
+        "error",
+        "tab"
+      ],
+      "no-underscore-dangle": "off",
+      "no-undef": "off",
+      "no-console": "off",
+      "react/jsx-indent": [
+        "error",
+        "tab"
+      ],
+      "react/jsx-indent-props": [
+        "error",
+        "tab"
+      ],
+      "react/react-in-jsx-scope": "off",
+      "react/prefer-es6-class": "off",
+      "react/prefer-stateless-function": "off",
+      "react/jsx-no-undef": "off",
+      "react/jsx-no-bind": "off",
+      "jsx-a11y/label-has-for": "off"
+    }
   },
   "repository": {
     "type": "git",
