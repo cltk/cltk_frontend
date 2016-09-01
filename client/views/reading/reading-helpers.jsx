@@ -69,7 +69,6 @@ Template.headerReading.events = {
     }
 
 
-
   },
   "click .close-definitions-panel": function(e) {
     return $(".definitions-panel").removeClass("slide-visible");

@@ -39,58 +39,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .js,.jsx",
-    "lint-fix": "eslint . --ext .js.jsx --fix",
+    "lint-fix": "eslint . --ext .js,.jsx --fix",
     "pretest": "npm run lint --silent"
-  },
-  "eslintConfig": {
-    "env": {
-      "es6": true,
-      "browser": true,
-      "node": true,
-      "meteor": true
-    },
-    "parser": "babel-eslint",
-    "parserOptions": {
-      "allowImportExportEverywhere": true,
-      "ecmaVersion": 6,
-      "sourceType": "module",
-      "ecmaFeatures": {
-        "jsx": true
-      }
-    },
-    "plugins": [
-      "meteor"
-    ],
-    "extends": [
-      "airbnb",
-      "plugin:meteor/recommended"
-    ],
-    "settings": {
-      "import/resolver": "meteor"
-    },
-    "rules": {
-      "indent": [
-        "error",
-        "tab"
-      ],
-      "no-underscore-dangle": "off",
-      "no-undef": "off",
-      "no-console": "off",
-      "react/jsx-indent": [
-        "error",
-        "tab"
-      ],
-      "react/jsx-indent-props": [
-        "error",
-        "tab"
-      ],
-      "react/react-in-jsx-scope": "off",
-      "react/prefer-es6-class": "off",
-      "react/prefer-stateless-function": "off",
-      "react/jsx-no-undef": "off",
-      "react/jsx-no-bind": "off",
-      "jsx-a11y/label-has-for": "off"
-    }
   },
   "repository": {
     "type": "git",

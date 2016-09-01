@@ -4,27 +4,26 @@ NotesList = React.createClass({
 
 	getMeteorData() {
 		let annotatedText = [];
-    	let handleAnnotation = Meteor.subscribe('annotation');
-	    if(handleAnnotation.ready()) {
-	    	annotatedText = Annotation.find({user: Meteor.userId()}).fetch();
-	    }
-	    return {
-	    	annotatedText: annotatedText,
-	    }
-
+		const handleAnnotation = Meteor.subscribe('annotation');
+		if (handleAnnotation.ready()) {
+			annotatedText = Annotation.find({ user: Meteor.userId() }).fetch();
+		}
+		return {
+			annotatedText,
+		};
 	},
 
 	render() {
 		styles = {
 			listItem: {
-				overflow: "hidden",
-				textOverflow: "ellipsis",
-				whiteSpace: "nowrap",
-				font: "normal",
+				overflow: 'hidden',
+				textOverflow: 'ellipsis',
+				whiteSpace: 'nowrap',
+				font: 'normal',
 			},
 			innerList: {
 				maxHeight: 250,
-				overflow: "auto",
+				overflow: 'auto',
 			},
 			list: {
 				margin: 0,
@@ -34,19 +33,19 @@ NotesList = React.createClass({
 			<ul className="collection with-header" style={styles.list}>
 				<li className="collection-header"> <h3>Annotations</h3></li>
 				<div style={styles.innerList}>
-				{this.data.annotatedText.map(function(annotation, i){
-					return (
-						<li key={i} className="collection-item"  style={styles.listItem}>
-							<a href={"/works/" + annotation.author + "/" + annotation.work + "?id=" + annotation.textNodes[0]}>
+					{this.data.annotatedText.map((annotation, i) => (
+						<li key={i} className="collection-item" style={styles.listItem}>
+							<a
+								href={`/works/${annotation.author}/\
+						    	${annotation.work}?id=${annotation.textNodes[0]}`}
+							>
 								{annotation.content}
 							</a>
 						</li>
-					)
-
-		        })}
-		        </div>
+					))}
+				</div>
 			</ul>
 		);
-	}
+	},
 
 });

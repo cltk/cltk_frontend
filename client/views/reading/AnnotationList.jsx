@@ -7,11 +7,14 @@ AnnotationList = React.createClass({
 	renderAnnotations() {
 		return this.props.annotationList.map((annotation, i) => {
 			const isOwner = Meteor.userId() === annotation.user;
-			return <AnnotationItem
-				key={i}
-				annotation={annotation}
-				isOwner={isOwner} />
-	    });
+			return (
+				<AnnotationItem
+					key={i}
+					annotation={annotation}
+					isOwner={isOwner}
+				/>
+			);
+		});
 	},
 
 	render() {
@@ -20,6 +23,6 @@ AnnotationList = React.createClass({
 				{this.renderAnnotations()}
 			</div>
 		);
-	}
+	},
 
 });

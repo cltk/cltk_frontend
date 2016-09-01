@@ -9,32 +9,32 @@ import Divider from 'material-ui/Divider';
 
 LoginButtons = React.createClass({
 
-	getChildContext() {
-		return { muiTheme: getMuiTheme(baseTheme) };
-	},
-
 	mixins: [ReactMeteorData],
-
-   	getMeteorData(){
-        return{
-            user: Meteor.user(),
-        }
-    },
 
 	getInitialState() {
 		return {
 			loginOptionOpen: false,
 			anchorEl: null,
-		}
+		};
+	},
+
+	getChildContext() {
+		return { muiTheme: getMuiTheme(baseTheme) };
+	},
+
+	getMeteorData() {
+		return {
+			user: Meteor.user(),
+		};
 	},
 
 	handleClick(event) {
 		// This prevents ghost click.
-	    event.preventDefault();
-	    this.setState({
-	      loginOptionOpen: true,
-	      anchorEl: event.currentTarget,
-	    });
+		event.preventDefault();
+		this.setState({
+			loginOptionOpen: true,
+			anchorEl: event.currentTarget,
+		});
 	},
 
 	handleRequestClose() {
@@ -45,55 +45,52 @@ LoginButtons = React.createClass({
 
 	render() {
 		const styles = {
-			flatButton : {
-		        width: "auto",
-		        minWidth: "none",
-		        height: "55px",
-		        padding: "10px 5px"
+			flatButton: {
+				width: 'auto',
+				minWidth: 'none',
+				height: '55px',
+				padding: '10px 5px',
 			},
 		};
 
 
-		if(this.data.user) {
-
+		if (this.data.user) {
 			// render logged in info
 
 			// make a user dispaly name from available user profile info
-			let userNiceName = "";
+			let userNiceName = '';
 
-			if("profile" in this.data.user){
-				let profile = this.data.user.profile;
+			if ('profile' in this.data.user) {
+				const profile = this.data.user.profile;
 				userNiceName = profile.firstName;
-
-			}else if("emails" in this.data.user && this.data.user.emails.length > 0) {
+			} else if ('emails' in this.data.user && this.data.user.emails.length > 0) {
 				userNiceName = this.data.user.emails[0].address;
-
-			}else {
-				userNiceName = "User";
-
+			} else {
+				userNiceName = 'User';
 			}
 
 
-			return(
+			return (
 				<div>
 					<FlatButton
-						label={"Hi "+ userNiceName}
+						label={`Hi ${userNiceName}`}
 						style={styles.flatButton}
 						href="#"
-						onTouchTap={this.handleClick} />
+						onTouchTap={this.handleClick}
+					/>
 					<Popover
-		        open={this.state.loginOptionOpen}
-		        anchorEl={this.state.anchorEl}
-		        anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-    				targetOrigin={{horizontal: 'left', vertical: 'top'}}
-		        onRequestClose={this.handleRequestClose}
+						open={this.state.loginOptionOpen}
+						anchorEl={this.state.anchorEl}
+						anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+						targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+						onRequestClose={this.handleRequestClose}
 						className="cltk-popover"
-						>
-		        <Menu
+					>
+						<Menu
 							className="cltk-popover-menu login-buttons-popover-menu"
-							>
-			        <MenuItem primaryText="Profile" href="/profile" />
-			        <MenuItem primaryText="Account" href="/account" />
+						>
+							<MenuItem primaryText="Profile" href="/profile" />
+							<MenuItem primaryText="Account" href="/account" />
 							<Divider />
 							<MenuItem primaryText="Sign out" href="/sign-out" />
 						</Menu>
@@ -101,17 +98,16 @@ LoginButtons = React.createClass({
 				</div>
 			);
 		}
-		else {
-			// render sign in button
-			return(
-				<FlatButton
-					label="Sign In"
-					style={styles.flatButton}
-					href="/sign-in" />
-			);
-		}
-	}
+		// render sign in button
+		return (
+			<FlatButton
+				label="Sign In"
+				style={styles.flatButton}
+				href="/sign-in"
+			/>
+		);
+	},
 });
 LoginButtons.childContextTypes = {
-    muiTheme: React.PropTypes.object.isRequired
+	muiTheme: React.PropTypes.object.isRequired,
 };
