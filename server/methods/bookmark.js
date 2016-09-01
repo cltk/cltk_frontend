@@ -1,10 +1,10 @@
 Meteor.methods({
 	'bookmark.insert': function bookmarkInsert(textNodeId) {
 		// Make sure the user is logged in before inserting
+		check(textNodeId, String);
 		if (!this.userId) {
 			throw new Meteor.Error('not-authorized');
 		}
-		check(textNodeId, String);
 		try {
 			Meteor.users.update(
 				{ _id: this.userId },
@@ -16,10 +16,10 @@ Meteor.methods({
 	},
 	'bookmark.remove': function bookmarkRemove(textNodeId) {
 		// Make sure the user is logged in before removing
+		check(textNodeId, String);
 		if (!this.userId) {
 			throw new Meteor.Error('not-authorized');
 		}
-		check(textNodeId, String);
 		try {
 			Meteor.users.update(
 				{ _id: this.userId },

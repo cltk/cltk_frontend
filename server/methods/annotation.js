@@ -4,13 +4,14 @@ Meteor.methods({
 		if (!this.userId) {
 			throw new Meteor.Error('not-authorized');
 		}
-		check(annotation, Object);
-		check(annotation.user, String);
-		check(annotation.textNodes, [String]);
-		check(annotation.isPrivate, Boolean);
-		check(annotation.content, String);
-		check(annotation.author, String);
-		check(annotation.work, String);
+		check(annotation, {
+			user: String,
+			textNodes: [String],
+			isPrivate: Boolean,
+			content: String,
+			author: String,
+			work: String,
+		});
 		try {
 			Annotation.insert(annotation);
 		} catch (err) {
@@ -19,11 +20,11 @@ Meteor.methods({
 	},
 	'annotation.remove': function annotationRemove(annotationId) {
 		// Make sure the user is permitted to remove
+		check(annotationId, String);
 		const annotation = Annotation.findOne(annotationId);
 		if (this.userId !== annotation.user) {
 			throw new Meteor.Error('not-authorized');
 		}
-		check(annotationId, String);
 		try {
 			Annotation.remove(annotationId);
 		} catch (err) {
@@ -32,14 +33,15 @@ Meteor.methods({
 	},
 	'annotation.update': function annotationUpdate(annotationId, annotationData) {
 		// Make sure the user is permitted to update
+		check(annotationId, String);
+		check(annotationData, {
+			isPrivate: Boolean,
+			content: String,
+		});
 		const annotation = Annotation.findOne(annotationId);
 		if (this.userId !== annotation.user) {
 			throw new Meteor.Error('not-authorized');
 		}
-		check(annotationId, String);
-		check(annotationData, Object);
-		check(annotationData.isPrivate, Boolean);
-		check(annotationData.content, String);
 		try {
 			Annotation.update(annotationId, { $set: annotationData });
 		} catch (err) {
