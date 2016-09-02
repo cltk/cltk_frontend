@@ -1,16 +1,14 @@
-Meteor.method("cron_users", function () {
+Meteor.method('cron_users', () => {
+	// var users = users.find().fetch();
 
-		//var users = users.find().fetch();
+	console.log(' -- Cron run complete: users');
 
-		console.log(" -- Cron run complete: users")
+	return 1;
+}, {
+	url: 'cron/users',
+	getArgsFromRequest() {
+		// Do validation here if necessary for pagination
 
-		return 1;
-
-	}, {
-	  url: "cron/users",
-	  getArgsFromRequest: function (request) {
-			// Do validation here if necessary for pagination
-
-	    return [];
-	  }
+		return [];
+	},
 });

@@ -1,12 +1,12 @@
 HomeLayout = React.createClass({
-	render(){
-		return(
+	render() {
+		return (
 			<div className="cltk-layout home-layout">
 				<Header />
 				<HomeView />
-				<Footer/>
+				<Footer />
 			</div>
-			);
-		}
+		);
+	},
 
 });

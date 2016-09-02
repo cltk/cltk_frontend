@@ -1,16 +1,14 @@
-Meteor.method("cron_authors", function () {
+Meteor.method('cron_authors', () => {
+	// const Authors = Authors.find().fetch();
 
-		var Authors = Authors.find().fetch();
+	console.log(' -- Cron run complete: Authors');
 
-		console.log(" -- Cron run complete: Authors")
+	return 1;
+}, {
+	url: 'cron/authors',
+	getArgsFromRequest() {
+		// Do validation here if necessary for pagination
 
-		return 1;
-
-	}, {
-	  url: "cron/authors",
-	  getArgsFromRequest: function (request) {
-			// Do validation here if necessary for pagination
-
-	    return [];
-	  }
+		return [];
+	},
 });

@@ -2,14 +2,14 @@
 
 LoadingWell = React.createClass({
 
-	render(){
+	render() {
 		return (
-				<div className="well-spinner-double">
-				  <div className="double-bounce1"></div>
-				  <div className="double-bounce2"></div>
-				</div>
+			<div className="well-spinner-double">
+				<div className="double-bounce1" />
+				<div className="double-bounce2" />
+			</div>
 
-		)
-	}
+		);
+	},
 
 });

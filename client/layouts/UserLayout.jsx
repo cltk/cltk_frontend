@@ -1,9 +1,9 @@
 UserLayout = React.createClass({
-	render(){
-		return(
+	render() {
+		return (
 			<div className="cltk-layout">
 				<Header />
-				<div className="container" style={{paddingTop: 70}}>
+				<div className="container" style={{ paddingTop: 70 }}>
 					<div className="row">
 						<div className="col-md-8">
 							<BlazeToReact blazeTemplate="profile" />
@@ -18,9 +18,9 @@ UserLayout = React.createClass({
 						</div>
 					</div>
 				</div>
-				<Footer/>
+				<Footer />
 			</div>
-			);
-		}
+		);
+	},
 
 });
