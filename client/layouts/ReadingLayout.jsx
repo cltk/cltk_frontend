@@ -225,7 +225,7 @@ ReadingLayout = React.createClass({
 				<CommentaryPanel
 					toggleCommentary={this.state.toggleCommentary}
 					toggleTranslations={this.state.toggleTranslations}
-					work={this.data.work.title}
+					work={(this.data.work && 'title' in this.data.work) ? this.data.work.title : ''}
 					textNodes={this.data.textNodes}
 				/>
 
