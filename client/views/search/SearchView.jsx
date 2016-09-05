@@ -1,15 +1,10 @@
-
-// List of works
 SearchView = React.createClass({
-
-	// This mixin makes the getMeteorData method work
 
 	propTypes: {
 	},
 
 	mixins: [ReactMeteorData],
 
-	// Loads items from the Works collection and puts them on this.data.works
 	getMeteorData() {
 		const query = {};
 

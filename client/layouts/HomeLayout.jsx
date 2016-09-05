@@ -5,6 +5,7 @@ HomeLayout = React.createClass({
 				<Header />
 				<HomeView />
 				<Footer />
+				<SearchModal />
 			</div>
 		);
 	},
