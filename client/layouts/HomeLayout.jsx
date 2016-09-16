@@ -1,4 +1,5 @@
 HomeLayout = React.createClass({
+
 	render() {
 		return (
 			<div className="cltk-layout home-layout">
