@@ -38,7 +38,7 @@ SearchTools = React.createClass({
 			if (err) {
 				console.log(err);
 			} else {
-				console.log('searchTools response', res);
+				//console.log('searchTools response', res);
 				this.setState({
 					languages: res.languages,
 					corpora: res.corpora,
@@ -76,10 +76,15 @@ SearchTools = React.createClass({
 	render() {
 		const self = this;
 		const filters = this.props.filters;
+
+
+
+
 		return (
 			<div className="search-tools">
 				<div className="text-search-row">
 					<TextField
+						className="text-search-field"
 						hintText=""
 						floatingLabelText="Search"
 						onChange={this.handleChangeTextsearch}
