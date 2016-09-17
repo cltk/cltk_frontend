@@ -196,6 +196,11 @@ SearchModal = React.createClass({
 					handleChangeTextsearch={this.handleChangeTextsearch}
 				/>
 
+				<SearchFilters
+					filters={this.state.filters}
+					toggleSearchTerm={this.toggleSearchTerm}
+				/>
+
 				<section className="search-results">
 					<WorksList />
 

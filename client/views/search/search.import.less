@@ -13,12 +13,32 @@
 }
 
 .search-tools {
-	margin:15px auto;
+	margin:60px auto 15px;
 	width:90%;
 	max-width:1300px;
+	position:relative;
+
 
 	.text-search-field {
 		width:100% !important;
+		height:auto !important;
+		input {
+			font-size:45px !important;
+			font-family:@font-reading !important;
+			padding:20px;
+			box-shadow: none !important;
+
+		}
+		label {
+			display:none !important;
+		}
+
+		// Placeholder text
+		> div:nth-child(2) {
+			font-size:45px !important;
+			font-family:@font-reading !important;
+			bottom:30px !important;
+		}
 
 	}
 
