@@ -1,10 +1,20 @@
+import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import IconButton from 'material-ui/IconButton';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+
 SearchModal = React.createClass({
 
 	propTypes: {
+		closeSearchModal: React.PropTypes.func,
 		visible: React.PropTypes.bool,
 	},
 
 	mixins: [ReactMeteorData],
+
+	childContextTypes: {
+		muiTheme: React.PropTypes.object.isRequired,
+	},
 
 	getInitialState() {
 		return {
@@ -15,16 +25,83 @@ SearchModal = React.createClass({
 		};
 	},
 
+	getChildContext() {
+		return { muiTheme: getMuiTheme(baseTheme) };
+	},
+
+
 	getMeteorData() {
 		const query = {};
+		let works = [];
+		let stillMoreWorks = true;
+
+		// Parse the filters to the query
+		this.state.filters.forEach((filter) => {
+			const date = moment(`${filter.values[0]}-01-01`, 'YYYY MM DD');
+			switch (filter.key) {
+			case 'textsearch':
+				query.$text = { $search: filter.values[0] };
+				break;
+
+			case '':
+				query.$or = [{$where: "this.miradorLink && this.miradorLink.length > 0"}, {hasImageViewer: true}];
+				break;
+
+			case 'scribes':
+				query.scribe = { $in: filter.values };
+				break;
+
+			case 'illuminators':
+				query.illuminator = { $in: filter.values };
+				break;
+
+			case 'institutions':
+				query.institution = { $in: filter.values };
+				break;
+
+			case 'places':
+				query.place = { $in: filter.values };
+				break;
+
+			case 'dateFrom':
+				query.dateBegun = { $gte: new Date(date.toISOString()) };
+				break;
+
+			case 'dateTo':
+				query.dateEnded = { $lte: new Date(date.toISOString()) };
+				break;
+			default:
+				// do nothing
+			}
+		});
+
+		console.log('Works query:', query);
+		const handle = Meteor.subscribe('works', query, this.props.skip, this.props.limit);
+		if (handle.ready()) {
+			works = Works.find({}, {}).fetch();
+			/*
+			objects.forEach((object, i) => {
+				const imageSubscription = Meteor.subscribe('objectImages', object.slug);
+				if (imageSubscription.ready()) {
+					objects[i].images = Images.find({}).fetch();
+					objects[i].thumbnails = Thumbnails.find({}).fetch();
+				}
+			});
+			*/
+
+			if (works.length < this.props.limit) {
+				stillMoreWorks = false;
+			}
+		}
 
 		return {
-			works: Works.find(query, { sort: { author: 1, title: 1 } }).fetch(),
+			works,
+			stillMoreWorks,
 		};
 	},
 
-	loadMoreObjects() {
-		console.log('SearchModal.loadMoreObjects', this.state.skip + this.state.limit);
+	loadMoreWorks() {
+		console.log('SearchModal.loadMoreWorks', this.state.skip + this.state.limit);
 		this.setState({
 			skip: this.state.skip + this.state.limit,
 		});
@@ -188,23 +265,38 @@ SearchModal = React.createClass({
 
 	render() {
 		return (
-			<div className="cltk-modal search-modal">
-				<SearchTools
-					filters={this.state.filters}
-					toggleSearchTerm={this.toggleSearchTerm}
-					handleChangeDate={this.handleChangeDate}
-					handleChangeTextsearch={this.handleChangeTextsearch}
-				/>
+			<div className={'cltk-modal search-modal ' + (this.props.visible ? 'search-modal--visible' : '')} >
+				<div className="close-search">
+					<IconButton
+						iconClassName={'close-search-icon mdi mdi-close'}
+						onClick={this.props.closeSearchModal}
+						onTouchTap={this.props.closeSearchModal}
+						/>
+				</div>
 
-				<SearchFilters
-					filters={this.state.filters}
-					toggleSearchTerm={this.toggleSearchTerm}
-				/>
+				{this.props.visible ?
+					<div>
+						<SearchTools
+							filters={this.state.filters}
+							toggleSearchTerm={this.toggleSearchTerm}
+							handleChangeDate={this.handleChangeDate}
+							handleChangeTextsearch={this.handleChangeTextsearch}
+						/>
+						<SearchFilters
+							filters={this.state.filters}
+							toggleSearchTerm={this.toggleSearchTerm}
+						/>
 
-				<section className="search-results">
-					<WorksList />
+						<section className="search-results">
+							<SearchResultsList
+								works={this.data.works}
+								/>
 
-				</section>
+						</section>
+
+					</div>
+					: ""
+				}
 
 
 			</div>
