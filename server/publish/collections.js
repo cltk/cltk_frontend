@@ -17,7 +17,20 @@ if (Meteor.isServer) {
 		return Texts.find(query, { limit, sort: { n_1: 1, n_2: 1, n_3: 1, n_4: 1, n_5: 1 } });
 	});
 
-	Meteor.publish('works', () => Works.find());
+	Meteor.publish('works', (query, skip, limit) => {
+		if(!skip){
+			skip = 0;
+		}
+		if(!limit){
+			limit = 0;
+		}
+
+		check(query, Object);
+		check(skip, Number);
+		check(limit, Number);
+
+		return Works.find(query, { limit, sort: { english_title: 1 } });
+	});
 
 	Meteor.publish('definitions', definitionIds => {
 		check(definitionIds, [String]);

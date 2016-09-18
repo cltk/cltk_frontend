@@ -243,9 +243,10 @@ SearchTools = React.createClass({
 										<SearchTermButton
 											key={i}
 											toggleSearchTerm={self.toggleSearchTerm}
-											label={author}
+											label={author.english_name}
 											searchTermKey="authors"
-											value={author}
+											value={author.english_name}
+											authorValue={author}
 											active={active}
 										/>
 									);

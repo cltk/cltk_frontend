@@ -2,7 +2,7 @@ HomeLayout = React.createClass({
 
 	getInitialState() {
 		return {
-			searchModalVisible: true,
+			searchModalVisible: false,
 		}
 	},
 
@@ -38,10 +38,12 @@ HomeLayout = React.createClass({
 		return (
 			<div className='cltk-layout home-layout'>
 				<div className={'home-content ' + (this.state.searchModalVisible ? 'home-content--scaled' : '')}>
-					<Header />
+					<Header
+						showSearchModal={this.showSearchModal}
+					/>
 					<HomeIntro
 						showSearchModal={this.showSearchModal}
-						 />
+					/>
 					<HomeGetStarted />
 					<HomeFeatures />
 					<HomeBuild />

@@ -20,8 +20,10 @@ Meteor.methods({
 		worksAuthorsRaw.forEach((authorsRaw) => {
 			authorsRaw.forEach((authorRaw) => {
 				author = Authors.findOne({ _id: authorRaw });
-				if (author && authors.indexOf(author.english_name) < 0) {
-					authors.push(author.english_name);
+				if (author && !(authors.some(function(existingAuthor){
+					return existingAuthor._id === author._id
+				}))) {
+					authors.push(author);
 				}
 			});
 		});

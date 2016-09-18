@@ -8,7 +8,6 @@ import { mount } from 'react-mounter';
 */
 
 FlowRouter.subscriptions = function subscriptions() {
-	this.register('works', Meteor.subscribe('works'));
 	this.register('authors', Meteor.subscribe('authors'));
 };
 

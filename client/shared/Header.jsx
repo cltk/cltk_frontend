@@ -7,6 +7,11 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 Header = React.createClass({
 
+	propTypes: {
+		showSearchModal: React.PropTypes.func
+
+	},
+
 	getInitialState() {
 		return {
 			leftMenuOpen: false,
@@ -85,7 +90,7 @@ Header = React.createClass({
 										<li>
 											<FlatButton
 												style={styles.flatButton}
-												label="READ"
+												label="BROWSE"
 												href="/browse"
 											/>
 										</li>
@@ -125,17 +130,20 @@ Header = React.createClass({
 									</ul>
 								</div>
 
-								<div className="module search-module widget-handle left">
-									<ul className="menu icon-menu">
-										<li>
-											<FlatButton
-												style={styles.flatIconButton}
-												href="/search"
-												icon={<FontIcon className="mdi mdi-magnify" />}
-											/>
-										</li>
-									</ul>
-								</div>
+								{this.props.showSearchModal ?
+									<div className="module search-module widget-handle left">
+										<ul className="menu icon-menu">
+											<li>
+												<FlatButton
+													style={styles.flatIconButton}
+													href="#"
+													onClick={this.props.showSearchModal}
+													icon={<FontIcon className="mdi mdi-magnify" />}
+												/>
+											</li>
+										</ul>
+									</div>
+								 : ""}
 
 							</div>{/* <!-- .module-group.right -->*/}
 						</div>{/* <!-- .container.close-navbar -->*/}

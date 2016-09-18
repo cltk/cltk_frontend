@@ -17,6 +17,13 @@ SearchFilters = React.createClass({
 		return { muiTheme: getMuiTheme(baseTheme) };
 	},
 
+	getMeteorData() {
+
+		return {
+			authors: [],
+		}
+	},
+
 	render() {
 		const self = this;
 		return (
@@ -36,6 +43,18 @@ SearchFilters = React.createClass({
 										className="filter-val "
 										label={val.title || val.name || val}
 									/>
+								);
+							}else if (['authors'].indexOf(filter.key) >= 0) {
+								return (
+									<RaisedButton
+										key={j}
+										labelPosition="before"
+										className="filter-val "
+										label={val.english_name || val.original_name}
+										onClick={self.props.toggleSearchTerm.bind(null, filter.key, val)}
+									>
+										<i className="mdi mdi-close" />
+									</RaisedButton>
 								);
 							}
 							return (

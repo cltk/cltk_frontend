@@ -3,6 +3,7 @@
 body {
   font-family:@font-family-default;
   .transition(background 300ms ease-out);
+	background:#666;
 }
 
 
@@ -48,6 +49,21 @@ ul.menu.icon-menu {
     padding:0;
 
   }
+
+}
+
+.home-content, .master-content {
+	.transition(all 200ms ease-out 00ms);
+	opacity:1;
+	.transform(scale(1));
+
+	&.home-content--scaled, &.master-content--scaled {
+		.transform(scale(0.95));
+		opacity:0.95;
+		position:fixed;
+		top:0px;
+
+	}
 
 }
 

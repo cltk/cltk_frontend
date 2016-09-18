@@ -1,3 +1,5 @@
+import Masonry from 'react-masonry-component/lib';
+
 SearchResultsList = React.createClass({
 
 	propTypes: {
@@ -14,9 +16,24 @@ SearchResultsList = React.createClass({
 	},
 
 	render() {
+
+		const masonryOptions = {
+			// columnWidth : "400px",
+			// isFitWidth : true,
+			transitionDuration: 300,
+		};
+
+
 		return (
 			<div className="works-list search-results-list">
-				{this.renderWorks()}
+				<Masonry
+					options={masonryOptions}
+					className="works-container works-container--grid row"
+					onImagesLoaded={this.handleImagesLoaded}
+				>
+
+					{this.renderWorks()}
+				</Masonry>
 			</div>
 		);
 	},

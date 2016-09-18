@@ -9,6 +9,7 @@ SearchTermButton = React.createClass({
 		label: React.PropTypes.string.isRequired,
 		searchTermKey: React.PropTypes.string.isRequired,
 		value: React.PropTypes.string.isRequired,
+		authorValue: React.PropTypes.object,
 		activeWork: React.PropTypes.bool,
 		active: React.PropTypes.bool,
 	},
@@ -28,7 +29,11 @@ SearchTermButton = React.createClass({
 	},
 
 	toggleSearchTerm() {
-		this.props.toggleSearchTerm(this.props.searchTermKey, this.props.value);
+		if(this.props.authorValue){
+			this.props.toggleSearchTerm(this.props.searchTermKey, this.props.authorValue);
+		}else {
+			this.props.toggleSearchTerm(this.props.searchTermKey, this.props.value);
+		}
 	},
 
 	render() {

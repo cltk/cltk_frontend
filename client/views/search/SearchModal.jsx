@@ -43,31 +43,29 @@ SearchModal = React.createClass({
 				query.$text = { $search: filter.values[0] };
 				break;
 
-			case '':
-				query.$or = [{$where: "this.miradorLink && this.miradorLink.length > 0"}, {hasImageViewer: true}];
+			case 'language':
+				query.languages = { $in: filter.values };
 				break;
 
-			case 'scribes':
-				query.scribe = { $in: filter.values };
+			case 'corpora':
+				query.corpus = { $in: filter.values };
 				break;
 
-			case 'illuminators':
-				query.illuminator = { $in: filter.values };
+			case 'authors':
+				const authorSlugs = filter.values.reduce(function(carry, item){
+														if(item.slug && !~carry.indexOf(item.slug)) {
+															carry.push(item.slug);
+														}
+														return carry;
+													}, []);
+				query.author = { $in: authorSlugs };
 				break;
 
-			case 'institutions':
-				query.institution = { $in: filter.values };
-				break;
-
-			case 'places':
-				query.place = { $in: filter.values };
-				break;
-
-			case 'dateFrom':
+			case 'dateStart':
 				query.dateBegun = { $gte: new Date(date.toISOString()) };
 				break;
 
-			case 'dateTo':
+			case 'dateEnd':
 				query.dateEnded = { $lte: new Date(date.toISOString()) };
 				break;
 			default:
@@ -75,7 +73,7 @@ SearchModal = React.createClass({
 			}
 		});
 
-		console.log('Works query:', query);
+		console.log('Works query:', query, this.props.skip, this.props.limit);
 		const handle = Meteor.subscribe('works', query, this.props.skip, this.props.limit);
 		if (handle.ready()) {
 			works = Works.find({}, {}).fetch();
@@ -89,6 +87,14 @@ SearchModal = React.createClass({
 			});
 			*/
 
+			works.forEach((work, i) => {
+				works[i].authors = Authors.find({ _id: { $in: work.authors } }).fetch();
+			});
+
+			works.sort((a,b) => {
+				return (a.authors[0].english_name > b.authors[0].english_name) ? 1 : ((b.authors[0].english_name > a.authors[0].english_name) ? -1 : 0);
+			});
+
 			if (works.length < this.props.limit) {
 				stillMoreWorks = false;
 			}
@@ -101,7 +107,7 @@ SearchModal = React.createClass({
 	},
 
 	loadMoreWorks() {
-		console.log('SearchModal.loadMoreWorks', this.state.skip + this.state.limit);
+		//console.log('SearchModal.loadMoreWorks', this.state.skip + this.state.limit);
 		this.setState({
 			skip: this.state.skip + this.state.limit,
 		});
@@ -118,9 +124,18 @@ SearchModal = React.createClass({
 			if (filter.key === key) {
 				keyIsInFilter = true;
 
-				if (filter.values.indexOf(value) >= 0) {
-					valueIsInFilter = true;
-					filterValueToRemove = filter.values.indexOf(value);
+				if(key === "authors"){
+					if (filter.values.some(function(existingValue){
+						return existingValue._id === value._id
+					})) {
+						valueIsInFilter = true;
+						filterValueToRemove = filter.values.indexOf(value);
+					}
+				}else {
+					if (filter.values.indexOf(value) >= 0) {
+						valueIsInFilter = true;
+						filterValueToRemove = filter.values.indexOf(value);
+					}
 				}
 
 				if (valueIsInFilter) {
@@ -264,6 +279,7 @@ SearchModal = React.createClass({
 
 
 	render() {
+		//console.log("SearchModal.filters", this.state.filters);
 		return (
 			<div className={'cltk-modal search-modal ' + (this.props.visible ? 'search-modal--visible' : '')} >
 				<div className="close-search">

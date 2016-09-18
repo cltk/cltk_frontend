@@ -17,7 +17,13 @@ HomeGetStarted = React.createClass({
 				<WorksList />
 				<div className="container text-center">
 					<div className="row">
-						<a className="waves-effect waves-light btn-large" aria-label="View more">View more</a>
+						<a
+							className="waves-effect waves-light btn-large"
+							aria-label="View more"
+							href="/browse"
+						>
+							View more
+						</a>
 					</div>
 				</div>
 			</section>
