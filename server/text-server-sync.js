@@ -511,8 +511,8 @@ function syncCommentary(commentaries, metaStructure, work) {
 		commentaries.forEach((commentary) => {
 			let count = 0;
 			commentary.comments.forEach((comment) => {
-				const ref = `${comment.start.n_1}.${comment.start.n_2}.${comment.start.n_3}\
-				-${comment.end.n_1}.${comment.end.n_2}.${comment.end.n_3}`;
+				const ref = `${comment.start.n_1}.${comment.start.n_2}.${comment.start.n_3}-${
+					comment.end.n_1}.${comment.end.n_2}.${comment.end.n_3}`;
 				const commentId =
 					insertCommentary(commentary.author, commentary.year, comment.content, ref, work.title);
 				count++;
@@ -595,8 +595,8 @@ function getWorks(author) {
 function getTextNodes(work) {
 	return new Promise((resolve, reject) => {
 		HTTP.get(
-			`${BASE_URL}/lang/${work.language}/corpus/${work.corpus}/\
-			author/${work.author}/text/${work.title}`,
+			`${BASE_URL}/lang/${work.language}/corpus/${work.corpus}/author/${
+				work.author}/text/${work.title}`,
 			{}, (error, response) => {
 				if (error) {
 					reject(error);
@@ -609,8 +609,8 @@ function getTextNodes(work) {
 // Get translation for each invidual text in the text list
 function getTranslations(work, language) {
 	return new Promise((resolve, reject) => {
-		HTTP.get(`${BASE_URL}/lang/${work.language}/corpus/${work.corpus}/\
-			author/${work.author}/text/${work.title}`,
+		HTTP.get(`${BASE_URL}/lang/${work.language}/corpus/${work.corpus}/author/${
+			work.author}/text/${work.title}`,
 			{ params: { translation: language } }, (error, response) => {
 				if (error) {
 					reject(error);
@@ -636,8 +636,8 @@ function getDefinitions(word, lang) {
 function getCommentary(work) {
 	return new Promise((resolve, reject) => {
 		HTTP.get(
-			`${BASE_URL}/lang/${work.language}/corpus/${work.corpus}/\
-			author/${work.author}/text/${work.title}`,
+			`${BASE_URL}/lang/${work.language}/corpus/${work.corpus}/author/${
+				work.author}/text/${work.title}`,
 			{ params: { commentary: 'all' } }, (error, response) => {
 				if (error) {
 					reject(error);
@@ -701,8 +701,8 @@ function getAuthorsSequence() {
 function getWorksSequence() {
 	return new Promise((resolve) => {
 		Authors.find().fetch().forEach(author => {
-			response = HTTP.get(`${BASE_URL}/lang/${author.language}/corpus/\
-				${author.corpus}/author/${author.title}/text`);
+			response = HTTP.get(`${BASE_URL}/lang/${author.language}/corpus/${
+				author.corpus}/author/${author.title}/text`);
 
 			if (response.statusCode === 200) {
 				syncWorks(response.data.texts, author);
@@ -720,8 +720,8 @@ function getTextNodesSequence() {
 	return new Promise((resolve) => {
 		Works.find().fetch().forEach(work => {
 // For each work, fetch the document text from the API
-			response = HTTP.get(`${BASE_URL}/lang/${work.language}/corpus/\
-				${work.corpus}/author/${work.author}/text/${work.title}`);
+			response = HTTP.get(`${BASE_URL}/lang/${work.language}/corpus/${
+				work.corpus}/author/${work.author}/text/${work.title}`);
 
 
 			if (response.statusCode === 200) {
@@ -759,8 +759,8 @@ function getCommentarySequence() {
 	return new Promise((resolve) => {
 		Works.find().fetch().forEach(work => {
 			// For each work, fetch the commentary from the API
-			response = HTTP.get(`${BASE_URL}/lang/${work.language}/corpus/\
-				${work.corpus}/author/${work.author}/text/${work.title}`,
+			response = HTTP.get(`${BASE_URL}/lang/${work.language}/corpus/${
+				work.corpus}/author/${work.author}/text/${work.title}`,
 				{ params: { commentary: 'all' } });
 
 			if (response.statusCode === 200 && response.data != null) {
