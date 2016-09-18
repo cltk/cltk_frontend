@@ -5,6 +5,10 @@ HomeIntro = React.createClass({
 		showSearchModal: React.PropTypes.func.isRequired,
 	},
 
+	scrollDown(){
+		$('html, body').animate({ scrollTop: $("#get-started").offset().top - 100 }, 300);
+	},
+
 	render() {
 		return (
 			<section id="intro" className="cover fullscreen image-bg bg-dark ">
@@ -36,7 +40,9 @@ HomeIntro = React.createClass({
 
 							<a
 								className="waves-effect waves-light btn-large"
-								href="#beliefs" aria-label="Learn More"
+								href="#get-started"
+								aria-label="Learn More"
+								onClick={this.scrollDown}
 							>
 								Learn More
 							</a>

@@ -1,4 +1,4 @@
-import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
@@ -49,7 +49,7 @@ SearchTermButton = React.createClass({
 
 		return (
 			<li>
-				<RaisedButton
+				<FlatButton
 					className={className}
 					onClick={this.toggleSearchTerm}
 					label={this.props.label}

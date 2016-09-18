@@ -101,7 +101,7 @@ SearchTools = React.createClass({
 				<div className="dropdown-search-row">
 
 					<div
-						className={`dropdown search-dropdown search-dropdown-date${
+						className={`cltk-dropdown search-dropdown search-dropdown-date${
 							self.state.searchDropdownOpen === 'date' ? ' open' : ''}`}
 					>
 						<FlatButton
@@ -127,7 +127,7 @@ SearchTools = React.createClass({
 
 					</div>
 					<div
-						className={`dropdown search-dropdown search-dropdown-languages${
+						className={`cltk-dropdown search-dropdown search-dropdown-languages${
 							self.state.searchDropdownOpen === 'languages' ? ' open' : ''}`}
 					>
 						<FlatButton
@@ -170,7 +170,7 @@ SearchTools = React.createClass({
 						</ul>
 					</div>
 					<div
-						className={`dropdown search-dropdown search-dropdown-corpora${
+						className={`cltk-dropdown search-dropdown search-dropdown-corpora${
 							self.state.searchDropdownOpen === 'corpora' ? ' open' : ''}`}
 					>
 						<FlatButton
@@ -215,7 +215,7 @@ SearchTools = React.createClass({
 
 					</div>
 					<div
-						className={`dropdown search-dropdown search-dropdown-authors${
+						className={`cltk-dropdown search-dropdown search-dropdown-authors${
 							self.state.searchDropdownOpen === 'authors' ? ' open' : ''}`}
 					>
 						<FlatButton

@@ -11,6 +11,13 @@ HomeLayout = React.createClass({
 		* Init wow animations on homepage
 		*/
 		new WOW().init();
+
+		if (typeof location.hash !== 'undefined' && location.hash.length > 0) {
+			setTimeout(() => {
+				$('html, body').animate({ scrollTop: $(location.hash).offset().top - 100 }, 300);
+			}, 1000);
+		}
+
 	},
 
 	showSearchModal() {
@@ -29,15 +36,17 @@ HomeLayout = React.createClass({
 
 	render() {
 		return (
-			<div className="cltk-layout home-layout">
-				<Header />
-				<HomeIntro
-					showSearchModal={this.showSearchModal}
-					 />
-				<HomeGetStarted />
-				<HomeFeatures />
-				<HomeBuild />
-				<Footer />
+			<div className='cltk-layout home-layout'>
+				<div className={'home-content ' + (this.state.searchModalVisible ? 'home-content--scaled' : '')}>
+					<Header />
+					<HomeIntro
+						showSearchModal={this.showSearchModal}
+						 />
+					<HomeGetStarted />
+					<HomeFeatures />
+					<HomeBuild />
+					<Footer />
+				</div>
 				<SearchModal
 					visible={this.state.searchModalVisible}
 					closeSearchModal={this.closeSearchModal}
