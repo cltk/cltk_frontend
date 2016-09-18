@@ -50,6 +50,7 @@ section#intro {
       max-width:830px;
       color:@dark;
       border-bottom:2px solid @text-secondary !important;
+
       &::-webkit-input-placeholder {
         color: @text-secondary;
       }
@@ -80,8 +81,14 @@ section#intro {
     padding:20px 30px 10px;
     margin:40px auto 60px;
     height:auto;
+		cursor:text;
 
     .transition(all 300ms ease-out);
+
+		&:hover {
+			background:rgba(255,255,255,0.05);
+
+		}
 
 
     &:focus {
