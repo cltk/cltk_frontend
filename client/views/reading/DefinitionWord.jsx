@@ -18,8 +18,8 @@ DefinitionWord = React.createClass({
 	},
 
 	render() {
-		const wordClassName = `meta-item panel-item definition \
-		${(this.state.showMore ? 'expanded' : '')}`;
+		const wordClassName = `meta-item panel-item definition ${
+			(this.state.showMore ? 'expanded' : '')}`;
 		return (
 			<div className={wordClassName}>
 				<div className="show-more-toggle" onClick={this.toggleShowMore}>

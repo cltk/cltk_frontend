@@ -36,8 +36,8 @@ NotesList = React.createClass({
 					{this.data.annotatedText.map((annotation, i) => (
 						<li key={i} className="collection-item" style={styles.listItem}>
 							<a
-								href={`/works/${annotation.author}/\
-						    	${annotation.work}?id=${annotation.textNodes[0]}`}
+								href={`/works/${annotation.author}/${
+									annotation.work}?id=${annotation.textNodes[0]}`}
 							>
 								{annotation.content}
 							</a>

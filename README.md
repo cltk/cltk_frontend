@@ -21,6 +21,12 @@ To get started developing:
 For managing lists of outstanding development items, we're using ZenHub: https://www.zenhub.io/.  If you're interested in contributing, please consider installing the ZenHub plugin for your browser.
 
 
+# Contributing
+
+1. Run `meteor npm run lint` and make sure there are no errors.
+2. Make your PR against the `develop` branch.
+
+
 # Project Goals and Status
 
 The goal of this application to to provide an immersive multimedia reading environment that includes the related materials necessary for study of classical texts.  When someone reads Latin, for instance, their desk will often be filled with several books draped over each other (the source text, a dictionary, a commentary, a translation, a notebook, etc).  This reading environment will simplify the reading experience by providing all of those materials in a browser or on a mobile device.  Read more about it on [the CLTK ideas page](https://github.com/cltk/cltk/wiki/Project-ideas).

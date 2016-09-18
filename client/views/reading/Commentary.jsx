@@ -17,8 +17,8 @@ Commentary = React.createClass({
 	},
 
 	render() {
-		const commentClassName = `meta-item panel-item commentary-comment \
-		${(this.state.showMore ? 'expanded' : '')}`;
+		const commentClassName = `meta-item panel-item commentary-comment ${
+			(this.state.showMore ? 'expanded' : '')}`;
 
 		return (
 			<div className={commentClassName} data-num={this.props.comment.index}>
