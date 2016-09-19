@@ -26,7 +26,7 @@ Schemas.Works = new SimpleSchema({
 		},
 	},
 
-	language: {
+	workLanguage: {
 		type: String,
 		max: 60,
 	},

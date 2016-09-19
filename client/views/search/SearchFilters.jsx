@@ -35,12 +35,12 @@ SearchFilters = React.createClass({
 					>
 						<span className="filter-key paper-shadow">{filter.key}</span>
 						{filter.values.map((val, j) => {
-							if (['dateFrom', 'dateTo', 'hasViewer'].indexOf(filter.key) >= 0) {
+							if (['dateFrom', 'dateTo', 'hasViewer', 'textsearch'].indexOf(filter.key) >= 0) {
 								return (
 									<RaisedButton
 										key={j}
 										labelPosition="before"
-										className="filter-val "
+										className="filter-val no-cursor-pointer"
 										label={val.title || val.name || val}
 									/>
 								);
