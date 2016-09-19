@@ -54,7 +54,7 @@ LeftMenu = React.createClass({
 				<Drawer
 					open={this.props.open}
 					docked={false}
-					onRequestChange={open => this.setState({ open })}
+					onRequestChange={this.props.closeLeftMenu}
 					className="md-sidenav-left"
 				>
 					<div className="sidenav-top">
