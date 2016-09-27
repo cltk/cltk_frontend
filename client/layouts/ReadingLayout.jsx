@@ -22,11 +22,16 @@ ReadingLayout = React.createClass({
 	getMeteorData() {
 		let query = {};
 		let textNodes = [];
+		let workQuery = { _id: this.props.params.id };
+		let work = {authors:[]};
 
-		const work = Works.findOne({ _id: this.props.params.id });
+		const handle = Meteor.subscribe('works', workQuery);
+		if (handle.ready()) {
+			work = Works.findOne();
 
+			console.log(this.props.params);
+			console.log(work);
 
-		if (work) {
 			// Get the work authors
 			work.authors = Authors.find({ _id: { $in: work.authors } }).fetch();
 
@@ -111,11 +116,10 @@ ReadingLayout = React.createClass({
 						this.textLocation[0] += this.state.limit;
 					}
 				}
+			}else {
+				console.log("No text found for work", work);
 			}
-		} else {
-			console.log('Reading query: work not available for _id', this.props.params.id);
 		}
-
 
 		return {
 			work,
