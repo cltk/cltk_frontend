@@ -106,7 +106,6 @@ SearchTools = React.createClass({
 					>
 						<FlatButton
 							className="search-tool search-type-date dropdown-toggle"
-							// label={<span><i className='mdi mdi-calendar button-prefix-icon'></i>Date</span>}
 							label="Date"
 							labelPosition="before"
 							icon={<FontIcon className="mdi mdi-chevron-down" />}
@@ -163,7 +162,7 @@ SearchTools = React.createClass({
 									);
 								})}
 								{self.state.languages.length === 0 ?
-									<div className="no-results">No languages found in archive.</div>
+									<span className="no-results">No languages found in archive.</span>
 									: ''
 								}
 							</div>
@@ -206,7 +205,7 @@ SearchTools = React.createClass({
 									);
 								})}
 								{self.state.corpora.length === 0 ?
-									<div className="no-results">No corpora found in archive.</div>
+									<span className="no-results">No corpora found in archive.</span>
 									: ''
 								}
 							</div>
@@ -252,7 +251,7 @@ SearchTools = React.createClass({
 									);
 								})}
 								{self.state.authors.length === 0 ?
-									<div className="no-results">No authors found in archive.</div>
+									<span className="no-results">No authors found in archive.</span>
 									: ''
 								}
 							</div>
