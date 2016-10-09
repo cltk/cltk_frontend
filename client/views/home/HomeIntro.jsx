@@ -34,8 +34,7 @@ HomeIntro = React.createClass({
 								/>
 
 							<h6 className="uppercase mb16">
-								Read classical works in Greek, Latin, Chinese, Coptic, and Pali <br />
-								and research metadata on your favorite texts.
+								Read and research works in Chinese, Coptic, Greek, Hebrew, Latin, Pali, Punjabi, Sanskrit, <br />Telugu, and Tibetan and contribute annotations to the community.						
 							</h6>
 
 							<a
