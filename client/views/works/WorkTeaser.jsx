@@ -42,7 +42,7 @@ WorkTeaser = React.createClass({
 							<span className="card-meta card-meta-left-language">
 								{Utils.capitalize(work.workLanguage)}
 							</span>
-						: ""	
+						: ""
 						}
 						<span className="card-meta card-meta-left-date">
 							{work.date}
@@ -93,9 +93,6 @@ WorkTeaser = React.createClass({
 					</span>
 					<span className="card-meta meta-count-translations">
 						{work.countTranslations} Translations
-					</span>
-					<span className="card-meta meta-count-entities">
-						{work.countEntities} Entities
 					</span>
 					<span className="card-meta meta-count-annotations">
 						{work.countAnnotations} Annotations

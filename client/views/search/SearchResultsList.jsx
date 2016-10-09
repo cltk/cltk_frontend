@@ -19,7 +19,7 @@ SearchResultsList = React.createClass({
 
 		const masonryOptions = {
 			// columnWidth : "400px",
-			// isFitWidth : true,
+			isFitWidth : true,
 			transitionDuration: 300,
 		};
 
@@ -29,7 +29,6 @@ SearchResultsList = React.createClass({
 				<Masonry
 					options={masonryOptions}
 					className="works-container works-container--grid row"
-					onImagesLoaded={this.handleImagesLoaded}
 				>
 
 					{this.renderWorks()}

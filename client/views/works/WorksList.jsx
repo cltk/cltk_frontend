@@ -41,7 +41,7 @@ WorksList = React.createClass({
 	render() {
 		const masonryOptions = {
 			// columnWidth : "400px",
-			// isFitWidth : true,
+			isFitWidth : true,
 			transitionDuration: 300,
 		};
 
@@ -50,7 +50,6 @@ WorksList = React.createClass({
 				<Masonry
 					options={masonryOptions}
 					className="works-container works-container--grid row"
-					onImagesLoaded={this.handleImagesLoaded}
 				>
 					{this.renderWorks()}
 				</Masonry>
