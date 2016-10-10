@@ -1,7 +1,7 @@
 import { debounce } from 'throttle-debounce';
 import InfiniteScroll from '../../../imports/InfiniteScroll.jsx';
 
-ReadingPoetry = React.createClass({
+ReadingEnvironment = React.createClass({
 
 	propTypes: {
 		work: React.PropTypes.object.isRequired,
@@ -11,9 +11,9 @@ ReadingPoetry = React.createClass({
 	},
 
 	renderText() {
-		const self = this;
+		const textNodes = this.props.textNodes;
 
-		return this.props.textNodes.map((text, index) => {
+		return textNodes.map((text, index) => {
 			let showNumber = false;
 			let numbering = '';
 
@@ -21,7 +21,7 @@ ReadingPoetry = React.createClass({
 				if (index === 0) {
 					showNumber = true;
 				} else {
-					showNumber = this.props.textNodes[index - 1].n_2 !== text.n_2;
+					showNumber = textNodes[index - 1].n_2 !== text.n_2;
 				}
 				if (showNumber) {
 					numbering = `${text.n_1}.${text.n_2}`;
@@ -30,7 +30,7 @@ ReadingPoetry = React.createClass({
 				if (index === 0) {
 					showNumber = true;
 				} else {
-					showNumber = this.props.textNodes[index - 1].n_1 !== text.n_1;
+					showNumber = textNodes[index - 1].n_1 !== text.n_1;
 				}
 				if (showNumber) {
 					numbering = (text.n_1).toString();
@@ -38,7 +38,7 @@ ReadingPoetry = React.createClass({
 			}
 
 			return (
-				<ReadingText
+				<ReadingTextNode
 					key={text._id}
 					index={index}
 					showNumber={showNumber}
@@ -54,9 +54,10 @@ ReadingPoetry = React.createClass({
 
 	render() {
 		const work = this.props.work;
+		const genre = work.genre || 'prose';
 
 		return (
-			<div className="reading-container reading-container--poetry">
+			<div className={`reading-container reading-container--${genre}`}>
 
 				<div className="work-authors">
 					{work.authors.map((author, i) => (
@@ -89,8 +90,8 @@ ReadingPoetry = React.createClass({
 				</div>
 
 				<InfiniteScroll
-					endPadding={120}
-					loadMore={debounce(2000, this.props.loadMore)}
+					endPadding={0}
+					loadMore={debounce(200, this.props.loadMore)}
 				>
 
 					<div className="reading-text-outer">

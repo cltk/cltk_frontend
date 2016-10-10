@@ -7,7 +7,7 @@ import Done from 'material-ui/svg-icons/action/done';
 import { blue700 } from 'material-ui/styles/colors';
 import Popover from 'material-ui/Popover';
 
-ReadingText = React.createClass({
+ReadingTextNode = React.createClass({
 
 	propTypes: {
 		index: React.PropTypes.number.isRequired,

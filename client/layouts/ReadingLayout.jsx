@@ -1,7 +1,6 @@
 
 ReadingLayout = React.createClass({
 
-	textNodes : [],
 
 	propTypes: {
 		params: React.PropTypes.object.isRequired,
@@ -25,8 +24,8 @@ ReadingLayout = React.createClass({
 	getMeteorData() {
 		let query = {};
 		let textNodes = [];
-		let workQuery = { _id: this.props.params.id };
-		let work = {authors:[]};
+		const workQuery = { _id: this.props.params.id };
+		let work = { authors: [] };
 
 		const handle = Meteor.subscribe('works', workQuery);
 		if (handle.ready()) {
@@ -55,31 +54,26 @@ ReadingLayout = React.createClass({
 				query.n_3 = this.textLocation[2];
 				query.n_2 = this.textLocation[1];
 				query.n_1 = this.textLocation[0];
-
 			} else if (this.state.location.length >= 4) {
 				query.n_4 = { $gte: this.textLocation[3] };
 				query.n_3 = this.textLocation[2];
 				query.n_2 = this.textLocation[1];
 				query.n_1 = this.textLocation[0];
-
 			} else if (this.state.location.length >= 3) {
 				query.n_3 = { $gte: this.textLocation[2] };
 				query.n_2 = this.textLocation[1];
 				query.n_1 = this.textLocation[0];
-
 			} else if (this.state.location.length >= 2) {
 				query.n_2 = { $gte: this.textLocation[1] };
 				query.n_1 = this.textLocation[0];
-
 			} else if (this.state.location.length >= 1) {
 				query.n_1 = { $gte: this.textLocation[0] };
-
 			}
 
 			console.log('ReadingLayout text Query:', query);
 
-			const handle = Meteor.subscribe('textNodes', query, this.state.limit);
-			if (handle.ready()) {
+			const handleText = Meteor.subscribe('textNodes', query, this.state.limit);
+			if (handleText.ready()) {
 				textNodes = Texts.find({}, {}).fetch();
 			}
 
@@ -129,8 +123,8 @@ ReadingLayout = React.createClass({
 						this.textLocation[0] += this.state.limit;
 					}
 				}
-			}else {
-				console.log("No text found for work", work);
+			} else {
+				console.log('No text found for work', work);
 			}
 		}
 
@@ -143,7 +137,7 @@ ReadingLayout = React.createClass({
 
 
 	textLocation: [],
-
+	textNodes: [],
 	isTextRemaining: true,
 
 	loadMore() {
@@ -176,35 +170,6 @@ ReadingLayout = React.createClass({
 		}
 	},
 
-	renderReadingEnvironment() {
-		const work = this.data.work;
-		const textNodes = this.data.textNodes;
-		// If data is loaded
-		if (work && textNodes) {
-			// Infer Reading layout by the work meta structure value
-			if ('genre' in work && work.genre === "poetry"){
-				return (
-					<ReadingPoetry
-						work={work}
-						textNodes={textNodes}
-						loadMore={this.loadMore}
-						highlightId={this.props.queryParams.id}
-					/>
-				);
-			}else {
-				return (
-					<ReadingProse
-						work={work}
-						textNodes={textNodes}
-						loadMore={this.loadMore}
-						highlightId={this.props.queryParams.id}
-					/>
-				);
-
-			}
-		}
-		return null;
-	},
 
 	addAnnotationCheckList(textNodeId, isChecked) {
 		const annotationCheckList = this.state.annotationCheckList;
@@ -228,6 +193,33 @@ ReadingLayout = React.createClass({
 		});
 	},
 
+	renderReadingEnvironment() {
+		const self = this;
+		const work = this.data.work;
+		const textNodes = this.textNodes;
+
+		if (this.data.textNodes.length) {
+			this.data.textNodes.forEach(textNode => {
+				if (!self.textNodes.some(existingTextNode => existingTextNode._id === textNode._id)) {
+					self.textNodes.push(textNode);
+				}
+			});
+		}
+
+		// If data is loaded
+		if (work && textNodes) {
+			return (
+				<ReadingEnvironment
+					work={work}
+					textNodes={textNodes}
+					loadMore={this.loadMore}
+					highlightId={this.props.queryParams.id}
+				/>
+			);
+		}
+		return null;
+	},
+
 	render() {
 		let readingClassName = '';
 		if (this.state.toggleCommentary || this.state.toggleTranslations) {
@@ -236,14 +228,6 @@ ReadingLayout = React.createClass({
 
 		if (this.state.toggleDefinitions) {
 			readingClassName += ' with-right-panel-shown';
-		}
-
-		if (this.props.textNodes.length) {
-			this.props.textNodes.forEach(textNode => {
-				if (!self.textNodes.some(existingTextNode => existingTextNode._id === textNode._id)) {
-					self.textNodes.push(textNode);
-				}
-			});
 		}
 
 		return (
