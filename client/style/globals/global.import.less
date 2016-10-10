@@ -4,6 +4,11 @@ body {
   font-family:@font-family-default;
   .transition(background 300ms ease-out);
 	background:#666;
+
+	&[class="fixed"] {
+		background:#ecf0f5;
+	}
+
 }
 
 
@@ -73,6 +78,12 @@ ul.menu.icon-menu {
 }
 section.parallax > .background-image-holder.blur {
   transition:all 800ms ease-out !important;
+
+}
+
+.modal {
+	background-color:transparent !important;
+	box-shadow: none !important;
 
 }
 

@@ -82,6 +82,10 @@ Schemas.Works = new SimpleSchema({
 		type: String,
 		optional: true,
 	},
+	genre: {
+		type: String,
+		optional: true,
+	},
 
 	images: {
 		type: [String],

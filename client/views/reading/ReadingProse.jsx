@@ -10,47 +10,10 @@ ReadingProse = React.createClass({
 		highlightId: React.PropTypes.string,
 	},
 
-	getInitialState() {
-		return {
-			annotationCheckList: [],
-		};
-	},
-
-	textNodes: [],
-
-	addAnnotationCheckList(textNodeId, isChecked) {
-		const annotationCheckList = this.state.annotationCheckList;
-		if (isChecked) {
-			annotationCheckList.push(textNodeId);
-		} else {
-			const index = annotationCheckList.indexOf(textNodeId);
-			if (index > -1) {
-				annotationCheckList.splice(index, 1);
-			}
-		}
-		this.setState({
-			annotationCheckList,
-		});
-	},
-
-	resetAnnotationCheckList() {
-		this.setState({
-			annotationCheckList: [],
-		});
-	},
-
 	renderText() {
 		const self = this;
 
-		if (this.props.textNodes.length) {
-			this.props.textNodes.forEach(textNode => {
-				if (!self.textNodes.some(existingTextNode => existingTextNode._id === textNode._id)) {
-					self.textNodes.push(textNode);
-				}
-			});
-		}
-
-		return this.textNodes.map((text, index) => {
+		return this.props.textNodes.map((text, index) => {
 			let showNumber = false;
 			let numbering = '';
 
@@ -58,7 +21,7 @@ ReadingProse = React.createClass({
 				if (index === 0) {
 					showNumber = true;
 				} else {
-					showNumber = this.textNodes[index - 1].n_2 !== text.n_2;
+					showNumber = this.props.textNodes[index - 1].n_2 !== text.n_2;
 				}
 				if (showNumber) {
 					numbering = `${text.n_1}.${text.n_2}`;
@@ -67,7 +30,7 @@ ReadingProse = React.createClass({
 				if (index === 0) {
 					showNumber = true;
 				} else {
-					showNumber = this.textNodes[index - 1].n_1 !== text.n_1;
+					showNumber = this.props.textNodes[index - 1].n_1 !== text.n_1;
 				}
 				if (showNumber) {
 					numbering = (text.n_1).toString();
@@ -93,7 +56,7 @@ ReadingProse = React.createClass({
 		const work = this.props.work;
 
 		return (
-			<div className="reading-container">
+			<div className="reading-container reading-container--prose">
 
 				<div className="work-authors">
 					{work.authors.map((author, i) => (
@@ -139,16 +102,6 @@ ReadingProse = React.createClass({
 				<div className="reading-loading-area">
 					<LoadingWell />
 				</div>
-
-				{Meteor.userId() ?
-					<AnnotateWidget
-						annotationCheckList={this.state.annotationCheckList}
-						work={work}
-						onActionCallback={this.resetAnnotationCheckList}
-					/>
-					:
-					null
-				}
 
 			</div>
 

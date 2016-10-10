@@ -14,11 +14,11 @@ Meteor.method('cron_works', () => {
 		// This needs to lookup on work slug instead of deprecated title value in the future
 		const textNodes = Texts.find({ work: work.title }).fetch();
 
-		const rangeN1 = { low: 1, high: 0 };
-		const rangeN2 = { low: 1, high: 0 };
-		const rangeN3 = { low: 1, high: 0 };
-		const rangeN4 = { low: 1, high: 0 };
-		const rangeN5 = { low: 1, high: 0 };
+		let rangeN1 = { low: 1, high: 0 };
+		let rangeN2 = null;
+		let rangeN3 = null;
+		let rangeN4 = null;
+		let rangeN5 = null;
 
 		textNodes.forEach(textNode => {
 			if ('entities' in textNode) {
@@ -30,25 +30,28 @@ Meteor.method('cron_works', () => {
 			}
 
 			if ('n_5' in textNode) {
+				rangeN5 = { low: 1, high: 0 };
 				if (textNode.n_5 > rangeN5.high) {
 					rangeN5.high = textNode.n_5;
 				}
 			}
 
 			if ('n_4' in textNode) {
+				rangen4 = { low: 1, high: 0 };
 				if (textNode.n_4 > rangeN4.high) {
 					rangeN4.high = textNode.n_4;
 				}
 			}
 
 			if ('n_3' in textNode) {
+				rangen3 = { low: 1, high: 0 };
 				if (textNode.n_3 > rangeN3.high) {
 					rangeN3.high = textNode.n_3;
 				}
 			}
 
 			if ('n_2' in textNode) {
-				if (textNode.n_2 > rangeN2.high) {
+				rangen2 = { low: 1, high: 0 }; if (textNode.n_2 > rangeN2.high) {
 					rangeN2.high = textNode.n_2;
 				}
 			}

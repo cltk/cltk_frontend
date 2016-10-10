@@ -13,7 +13,10 @@ AnnotateWidget = React.createClass({
 	propTypes: {
 		annotationCheckList: React.PropTypes.array.isRequired,
 		work: React.PropTypes.object.isRequired,
-		onActionCallback: React.PropTypes.func.isRequired,
+	},
+
+	childContextTypes: {
+		muiTheme: React.PropTypes.object.isRequired,
 	},
 
 	getInitialState() {
@@ -53,7 +56,7 @@ AnnotateWidget = React.createClass({
 		this.setState({
 			annotationOpen: false,
 		});
-		this.props.onActionCallback();
+		this.props.annotationSubmit();
 	},
 
 	handleAnnotationCancel() {
@@ -103,7 +106,6 @@ AnnotateWidget = React.createClass({
 				<FloatingActionButton
 					title="Add annotation"
 					style={style.fab}
-					disabled={this.props.annotationCheckList.length === 0}
 					onTouchTap={this.handleTouchTap}
 				>
 					<ContentAdd />
@@ -155,6 +157,3 @@ AnnotateWidget = React.createClass({
 		);
 	},
 });
-AnnotateWidget.childContextTypes = {
-	muiTheme: React.PropTypes.object.isRequired,
-};

@@ -1,6 +1,8 @@
 
 ReadingLayout = React.createClass({
 
+	textNodes : [],
+
 	propTypes: {
 		params: React.PropTypes.object.isRequired,
 		queryParams: React.PropTypes.object.isRequired,
@@ -16,6 +18,7 @@ ReadingLayout = React.createClass({
 			filters: [],
 			location: [],
 			limit: 30,
+			annotationCheckList: [],
 		};
 	},
 
@@ -37,30 +40,40 @@ ReadingLayout = React.createClass({
 
 			/*
 			* Should be the slug when the text sync / ingest is reworked
+			*
 			*/
 			// query = {work: work.slug};
 			query = { work: work.title };
 
+
+			/*
+			 * This needs much more attention for a simpler solution in the future.
+			 */
 			if (this.state.location.length === 5) {
 				query.n_5 = { $gte: this.textLocation[4] };
 				query.n_4 = this.textLocation[3];
 				query.n_3 = this.textLocation[2];
 				query.n_2 = this.textLocation[1];
 				query.n_1 = this.textLocation[0];
+
 			} else if (this.state.location.length >= 4) {
 				query.n_4 = { $gte: this.textLocation[3] };
 				query.n_3 = this.textLocation[2];
 				query.n_2 = this.textLocation[1];
 				query.n_1 = this.textLocation[0];
+
 			} else if (this.state.location.length >= 3) {
 				query.n_3 = { $gte: this.textLocation[2] };
 				query.n_2 = this.textLocation[1];
 				query.n_1 = this.textLocation[0];
+
 			} else if (this.state.location.length >= 2) {
 				query.n_2 = { $gte: this.textLocation[1] };
 				query.n_1 = this.textLocation[0];
+
 			} else if (this.state.location.length >= 1) {
 				query.n_1 = { $gte: this.textLocation[0] };
+
 			}
 
 			console.log('ReadingLayout text Query:', query);
@@ -169,12 +182,11 @@ ReadingLayout = React.createClass({
 		// If data is loaded
 		if (work && textNodes) {
 			// Infer Reading layout by the work meta structure value
-			if (['line', 'poem-line', 'book-line'].indexOf(work.structure)) {
-				// Render reading poetry here instead of Prose
+			if ('genre' in work && work.genre === "poetry"){
 				return (
-					<ReadingProse
+					<ReadingPoetry
 						work={work}
-						textNodes={textNodes}
+						textNodes={textNodes || []}
 						loadMore={this.loadMore}
 						highlightId={this.props.queryParams.id}
 					/>
@@ -183,13 +195,35 @@ ReadingLayout = React.createClass({
 			return (
 				<ReadingProse
 					work={work}
-					textNodes={textNodes}
+					textNodes={textNodes || []}
 					loadMore={this.loadMore}
 					highlightId={this.props.queryParams.id}
 				/>
 			);
 		}
 		return null;
+	},
+
+	addAnnotationCheckList(textNodeId, isChecked) {
+		const annotationCheckList = this.state.annotationCheckList;
+		if (isChecked) {
+			annotationCheckList.push(textNodeId);
+		} else {
+			const index = annotationCheckList.indexOf(textNodeId);
+			if (index > -1) {
+				annotationCheckList.splice(index, 1);
+			}
+		}
+		this.setState({
+			annotationCheckList,
+		});
+	},
+
+
+	resetAnnotationCheckList() {
+		this.setState({
+			annotationCheckList: [],
+		});
 	},
 
 	render() {
@@ -199,7 +233,15 @@ ReadingLayout = React.createClass({
 		}
 
 		if (this.state.toggleDefinitions) {
-			readingClassName += ' with-definitions-shown';
+			readingClassName += ' with-right-panel-shown';
+		}
+		
+		if (this.props.textNodes.length) {
+			this.props.textNodes.forEach(textNode => {
+				if (!self.textNodes.some(existingTextNode => existingTextNode._id === textNode._id)) {
+					self.textNodes.push(textNode);
+				}
+			});
 		}
 
 		return (
@@ -231,6 +273,12 @@ ReadingLayout = React.createClass({
 					toggleTranslations={this.state.toggleTranslations}
 					work={(this.data.work && 'title' in this.data.work) ? this.data.work.title : ''}
 					textNodes={this.data.textNodes}
+				/>
+
+				<AnnotateWidget
+					annotationCheckList={this.state.annotationCheckList}
+					work={this.data.work || {}}
+					submitAnnotation={this.submitAnnotation}
 				/>
 
 			</div>
