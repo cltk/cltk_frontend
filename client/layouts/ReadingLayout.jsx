@@ -186,20 +186,22 @@ ReadingLayout = React.createClass({
 				return (
 					<ReadingPoetry
 						work={work}
-						textNodes={textNodes || []}
+						textNodes={textNodes}
 						loadMore={this.loadMore}
 						highlightId={this.props.queryParams.id}
 					/>
 				);
+			}else {
+				return (
+					<ReadingProse
+						work={work}
+						textNodes={textNodes}
+						loadMore={this.loadMore}
+						highlightId={this.props.queryParams.id}
+					/>
+				);
+
 			}
-			return (
-				<ReadingProse
-					work={work}
-					textNodes={textNodes || []}
-					loadMore={this.loadMore}
-					highlightId={this.props.queryParams.id}
-				/>
-			);
 		}
 		return null;
 	},
@@ -235,7 +237,7 @@ ReadingLayout = React.createClass({
 		if (this.state.toggleDefinitions) {
 			readingClassName += ' with-right-panel-shown';
 		}
-		
+
 		if (this.props.textNodes.length) {
 			this.props.textNodes.forEach(textNode => {
 				if (!self.textNodes.some(existingTextNode => existingTextNode._id === textNode._id)) {
