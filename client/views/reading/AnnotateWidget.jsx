@@ -83,11 +83,6 @@ AnnotateWidget = React.createClass({
 
 	render() {
 		const style = {
-			fab: {
-				position: 'fixed',
-				bottom: 23,
-				right: 23,
-			},
 			annotationCard: {
 				width: 400,
 			},
@@ -112,12 +107,12 @@ AnnotateWidget = React.createClass({
 					<div className="annotations-buttons" >
 
 						<div
-							className="annotations-button add-annotation-button"
+							className="annotations-button correction-button"
 							onClick={this.toggleBaseannotationDrawer}
 						>
 							<IconButton
 								className="annotations-icon-button"
-								iconClassName="mdi mdi-pencil"
+								iconClassName="mdi mdi-alpha"
 							/>
 							<span className="annotations-button-label">
 								Submit Correction
@@ -125,12 +120,12 @@ AnnotateWidget = React.createClass({
 						</div>
 
 						<div
-							className="annotations-button add-annotation-button"
+							className="annotations-button media-button"
 							onClick={this.toggleBaseannotationDrawer}
 						>
 							<IconButton
 								className="annotations-icon-button"
-								iconClassName="mdi mdi-annotations"
+								iconClassName="mdi mdi-message-image"
 							/>
 							<span className="annotations-button-label">
 								Upload Media
@@ -143,9 +138,9 @@ AnnotateWidget = React.createClass({
 						>
 							<IconButton
 								className="annotations-icon-button"
-								iconClassName="mdi mdi-database"
+								iconClassName="mdi mdi-pencil"
 							/>
-							<span className="annotations-button-label label--data-source">
+							<span className="annotations-button-label">
 								Annotation
 							</span>
 						</div>
@@ -154,8 +149,7 @@ AnnotateWidget = React.createClass({
 
 
 					<FloatingActionButton
-						style={style.fab}
-						className="annotation-fab"
+						className="annotations-fab"
 					>
 						<ContentAdd />
 					</FloatingActionButton>

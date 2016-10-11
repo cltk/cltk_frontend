@@ -957,8 +957,8 @@ if (Meteor.isServer) {
 		*/
 		Meteor.setInterval(() => {
 			// Sync content from the text server with parallel requests to the API
-			const date = new Date();
-			console.log(' -- Interval sync with text server API started at', date.toString());
+			// const date = new Date();
+			// console.log(' -- Interval sync with text server API started at', date.toString());
 			// doSyncParallel();
 		}, 540000);
 	});

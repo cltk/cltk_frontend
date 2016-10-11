@@ -18,17 +18,14 @@
     .annotations-fab {
       button {
         background-color:#aaa !important;
+				&:hover {
+					background:#666 !important;
+				}
       }
     }
 
   }
 
-}
-
-.annotations-fab {
-  button {
-    background-color:@md-primary-900 !important;
-  }
 }
 
 .annotations-buttons {
@@ -42,6 +39,7 @@
   position:relative;
   margin:10px 0;
   transform: scale(0.8);
+
 
   &:hover {
     .annotations-button-label {
@@ -58,7 +56,9 @@
     right:50px;
     text-align:right;
     font-family:@font-label;
+		text-transform: uppercase;
     font-weight:bold;
+		white-space:nowrap;
     color:@light;
     background:rgba(0,0,0,0.7) !important;
     padding:1px 10px;
@@ -68,23 +68,30 @@
     opacity:0;
   	.transition( opacity 100ms ease-out );
 
-    &.label--data-source {
-      width:90px;
-    }
-
 
   }
 
   .annotations-icon-button {
-    background:@light !important;
+    background:@md-primary-400 !important;
     border-radius:50%;
   	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),0 1px 5px 0 rgba(0, 0, 0, 0.12),0 3px 1px -2px rgba(0, 0, 0, 0.2);
     height:40px !important;
     width:40px !important;
-    padding:11px !important;
+    padding:7px 0px !important;
+		.transition(background 100ms ease-out);
+
+		&:hover {
+	    background:@md-primary-600 !important;
+
+		}
 
     span.mdi {
-      font-size:18px !important;
+			color:@light !important;
+
+			&:before {
+	      font-size:18px !important;
+
+			}
 
     }
 

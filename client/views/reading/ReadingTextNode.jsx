@@ -5,7 +5,6 @@ import Bookmark from 'material-ui/svg-icons/action/bookmark';
 import BookmarkBorder from 'material-ui/svg-icons/action/bookmark-border';
 import Done from 'material-ui/svg-icons/action/done';
 import { blue700 } from 'material-ui/styles/colors';
-import Popover from 'material-ui/Popover';
 
 ReadingTextNode = React.createClass({
 
