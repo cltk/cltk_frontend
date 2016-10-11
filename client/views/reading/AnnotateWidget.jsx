@@ -7,12 +7,15 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card';
 import Toggle from 'material-ui/Toggle';
+import IconButton from 'material-ui/IconButton';
 
 AnnotateWidget = React.createClass({
 
 	propTypes: {
 		annotationCheckList: React.PropTypes.array.isRequired,
 		work: React.PropTypes.object.isRequired,
+		annotationSubmit: React.PropTypes.func,
+		onActionCallback: React.PropTypes.func,
 	},
 
 	childContextTypes: {
@@ -52,10 +55,12 @@ AnnotateWidget = React.createClass({
 			author: this.props.work.author,
 			work: this.props.work.slug,
 		};
+
 		Meteor.call('annotation.insert', annotation);
 		this.setState({
 			annotationOpen: false,
 		});
+
 		this.props.annotationSubmit();
 	},
 
@@ -103,13 +108,60 @@ AnnotateWidget = React.createClass({
 		};
 		return (
 			<div>
-				<FloatingActionButton
-					title="Add annotation"
-					style={style.fab}
-					onTouchTap={this.handleTouchTap}
-				>
-					<ContentAdd />
-				</FloatingActionButton>
+				<div className="annotations-toggles" >
+					<div className="annotations-buttons" >
+
+						<div
+							className="annotations-button add-annotation-button"
+							onClick={this.toggleBaseannotationDrawer}
+						>
+							<IconButton
+								className="annotations-icon-button"
+								iconClassName="mdi mdi-pencil"
+							/>
+							<span className="annotations-button-label">
+								Submit Correction
+							</span>
+						</div>
+
+						<div
+							className="annotations-button add-annotation-button"
+							onClick={this.toggleBaseannotationDrawer}
+						>
+							<IconButton
+								className="annotations-icon-button"
+								iconClassName="mdi mdi-annotations"
+							/>
+							<span className="annotations-button-label">
+								Upload Media
+							</span>
+						</div>
+
+						<div
+							className="annotations-button add-annotation-button"
+							onClick={this.toggleBaseannotationDrawer}
+						>
+							<IconButton
+								className="annotations-icon-button"
+								iconClassName="mdi mdi-database"
+							/>
+							<span className="annotations-button-label label--data-source">
+								Annotation
+							</span>
+						</div>
+
+					</div>
+
+
+					<FloatingActionButton
+						style={style.fab}
+						className="annotation-fab"
+					>
+						<ContentAdd />
+					</FloatingActionButton>
+
+				</div>
+
 				<Popover
 					open={this.state.annotationOpen}
 					anchorEl={this.state.anchorEl}

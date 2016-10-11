@@ -14,9 +14,13 @@ ReadingTextNode = React.createClass({
 		text: React.PropTypes.object.isRequired,
 		showNumber: React.PropTypes.bool.isRequired,
 		numbering: React.PropTypes.string.isRequired,
-		addAnnotationCheckList: React.PropTypes.func.isRequired,
-		annotationCheckList: React.PropTypes.array.isRequired,
-		highlight: React.PropTypes.bool.isRequired,
+		addAnnotationCheckList: React.PropTypes.func,
+		annotationCheckList: React.PropTypes.array,
+		highlight: React.PropTypes.bool,
+	},
+
+	childContextTypes: {
+		muiTheme: React.PropTypes.object.isRequired,
 	},
 
 	mixins: [ReactMeteorData],
@@ -179,7 +183,7 @@ ReadingTextNode = React.createClass({
 		if (this.data.annotationList.length !== 0) {
 			textClasses = `${textClasses} text-annotated`;
 			if (this.state.annotationOpen) {
-				textClasses = `${textClasses} annotation-shown`;
+				textClasses = `${textClasses} has-annotation`;
 			}
 		}
 
@@ -199,29 +203,20 @@ ReadingTextNode = React.createClass({
 						style={styles.checkbox}
 					/>
 					<Checkbox
-						title="Select for annotation"
-						onCheck={this.addAnnotationCheckList}
-						// Check if current textNode exist in annotation checklist
-						checked={this.props.annotationCheckList.indexOf(text._id) !== -1}
+						title="Annotations"
+						onCheck={this.showAnnotations}
+						checkedIcon={<Done color={blue700} />}
+						uncheckedIcon={<Done />}
+						style={styles.checkbox}
+					/>
+					<Checkbox
+						title="Related Passages"
+						onCheck={this.showRelatedPassages}
 						checkedIcon={<Done color={blue700} />}
 						uncheckedIcon={<Done />}
 						style={styles.checkbox}
 					/>
 				</div>
-				{this.state.showLoginDialog ?
-					<LoginDialog initialOpen handleLoginDialogClose={this.handleLoginDialogClose} />
-					:
-					null
-				}
-				<Popover
-					open={this.state.annotationOpen}
-					anchorEl={this.state.anchorEl}
-					anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-					targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-					onRequestClose={this.handleRequestClose}
-				>
-					<AnnotationList annotationList={this.data.annotationList} />
-				</Popover>
 				<p
 					className="text-html"
 					onClick={this.handleClick}
@@ -317,6 +312,3 @@ ReadingTextNode = React.createClass({
 		);
 	},
 });
-ReadingText.childContextTypes = {
-	muiTheme: React.PropTypes.object.isRequired,
-};

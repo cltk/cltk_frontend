@@ -14,6 +14,10 @@ ReadingLayout = React.createClass({
 			toggleCommentary: false,
 			toggleDefinitions: false,
 			toggleTranslations: false,
+			toggleScansion: false,
+			toggleMedia: false,
+			toggleEntities: false,
+			toggleAnnotations: false,
 			filters: [],
 			location: [],
 			limit: 30,
@@ -239,6 +243,10 @@ ReadingLayout = React.createClass({
 					toggleDefinitions={this.state.toggleDefinitions}
 					toggleCommentary={this.state.toggleCommentary}
 					toggleTranslations={this.state.toggleTranslations}
+					toggleScansion={this.state.toggleScansion}
+					toggleMedia={this.state.toggleMedia}
+					toggleEntities={this.state.toggleEntities}
+					toggleAnnotations={this.state.toggleAnnotations}
 				/>
 
 				<main>

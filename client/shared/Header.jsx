@@ -8,8 +8,12 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 Header = React.createClass({
 
 	propTypes: {
-		showSearchModal: React.PropTypes.func
+		showSearchModal: React.PropTypes.func,
 
+	},
+
+	childContextTypes: {
+		muiTheme: React.PropTypes.object.isRequired,
 	},
 
 	getInitialState() {
@@ -143,7 +147,7 @@ Header = React.createClass({
 											</li>
 										</ul>
 									</div>
-								 : ""}
+								: ''}
 
 							</div>{/* <!-- .module-group.right -->*/}
 						</div>{/* <!-- .container.close-navbar -->*/}
@@ -153,7 +157,3 @@ Header = React.createClass({
 		);
 	},
 });
-
-Header.childContextTypes = {
-	muiTheme: React.PropTypes.object.isRequired,
-};

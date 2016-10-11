@@ -44,7 +44,6 @@ ReadingEnvironment = React.createClass({
 					showNumber={showNumber}
 					text={text}
 					numbering={numbering}
-					annotationCheckList={this.state.annotationCheckList}
 					addAnnotationCheckList={this.addAnnotationCheckList}
 					highlight={this.props.highlightId === text._id}
 				/>

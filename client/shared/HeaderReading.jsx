@@ -13,6 +13,10 @@ HeaderReading = React.createClass({
 		toggleCommentary: React.PropTypes.bool.isRequired,
 		toggleDefinitions: React.PropTypes.bool.isRequired,
 		toggleTranslations: React.PropTypes.bool.isRequired,
+		toggleScansion: React.PropTypes.bool.isRequired,
+		toggleMedia: React.PropTypes.bool.isRequired,
+		toggleEntities: React.PropTypes.bool.isRequired,
+		toggleAnnotations: React.PropTypes.bool.isRequired,
 	},
 
 	getDefaultProps() {
@@ -108,9 +112,6 @@ HeaderReading = React.createClass({
 
 							<div className="module left">
 								<ul className="menu ">
-									<li>
-										<LoginButtons />
-									</li>
 									<li
 										className={(this.props.toggleDefinitions) ? 'checked meta-toggle' :
 										'meta-toggle'}
@@ -142,6 +143,38 @@ HeaderReading = React.createClass({
 											style={styles.flatButton}
 											label="Translations"
 											onClick={this.toggleSidePanel.bind(this, 'translations')}
+										/>
+									</li>
+
+									<li
+										className={(this.props.toggleEntities) ? 'checked meta-toggle' :
+										'meta-toggle'}
+									>
+										<FlatButton
+											style={styles.flatButton}
+											label="Entities"
+											onClick={this.toggleSidePanel.bind(this, 'entities')}
+										/>
+									</li>
+
+									<li
+										className={(this.props.toggleScansion) ? 'checked meta-toggle' :
+										'meta-toggle'}
+									>
+										<FlatButton
+											style={styles.flatButton}
+											label="Scansion"
+											onClick={this.toggleSidePanel.bind(this, 'scansion')}
+										/>
+									</li>
+
+									<li
+										className={(this.props.toggleMedia) ? 'checked meta-toggle' : 'meta-toggle'}
+									>
+										<FlatButton
+											style={styles.flatButton}
+											label="Media"
+											onClick={this.toggleSidePanel.bind(this, 'media')}
 										/>
 									</li>
 
