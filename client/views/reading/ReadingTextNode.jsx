@@ -1,9 +1,6 @@
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import Checkbox from 'material-ui/Checkbox';
-import Bookmark from 'material-ui/svg-icons/action/bookmark';
-import BookmarkBorder from 'material-ui/svg-icons/action/bookmark-border';
-import Done from 'material-ui/svg-icons/action/done';
+import IconButton from 'material-ui/IconButton';
 import { blue700 } from 'material-ui/styles/colors';
 
 ReadingTextNode = React.createClass({
@@ -193,27 +190,29 @@ ReadingTextNode = React.createClass({
 					<i className="text-bookmark mdi mdi-bookmark" />
 				</div>
 				<div className="text-meta-actions">
-					<Checkbox
-						title="Bookmark"
-						onCheck={this.toggleBookmark}
-						checked={this.data.bookmarked}
-						checkedIcon={<Bookmark />}
-						uncheckedIcon={<BookmarkBorder />}
+					<IconButton
+						className="text-meta-button"
+						onClick={this.toggleBookmark}
 						style={styles.checkbox}
+						iconClassName="mdi mdi-bookmark"
+						tooltip="Bookmark"
+						tooltipPosition="top-center"
 					/>
-					<Checkbox
-						title="Annotations"
-						onCheck={this.showAnnotations}
-						checkedIcon={<Done color={blue700} />}
-						uncheckedIcon={<Done />}
+					<IconButton
+						className="text-meta-button"
+						onClick={this.showAnnotations}
 						style={styles.checkbox}
+						iconClassName="mdi mdi-comment-text-outline"
+						tooltip="Annoations"
+						tooltipPosition="top-center"
 					/>
-					<Checkbox
-						title="Related Passages"
-						onCheck={this.showRelatedPassages}
-						checkedIcon={<Done color={blue700} />}
-						uncheckedIcon={<Done />}
+					<IconButton
+						className="text-meta-button"
+						onClick={this.showRelatedPassages}
 						style={styles.checkbox}
+						iconClassName="mdi mdi-information-variant"
+						tooltip="Related Passages"
+						tooltipPosition="top-center"
 					/>
 				</div>
 				<p

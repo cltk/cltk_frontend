@@ -177,6 +177,16 @@ HeaderReading = React.createClass({
 											onClick={this.toggleSidePanel.bind(this, 'media')}
 										/>
 									</li>
+									<li
+										className={'meta-toggle'}
+									>
+										<FlatButton
+											style={styles.flatButton}
+											label=""
+											onClick={this.toggleSidePanel.bind(this, 'show-more')}
+											icon={<span className="mdi mdi-dots-horizontal" />}
+										/>
+									</li>
 
 								</ul>
 

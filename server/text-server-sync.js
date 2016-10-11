@@ -955,12 +955,12 @@ if (Meteor.isServer) {
 		/*
 		* Set interval to check and sync text content (currently 90 mins)
 		*/
-		Meteor.setInterval(() => {
+		// Meteor.setInterval(() => {
 			// Sync content from the text server with parallel requests to the API
 			// const date = new Date();
 			// console.log(' -- Interval sync with text server API started at', date.toString());
 			// doSyncParallel();
-		}, 540000);
+		// }, 540000);
 	});
 }
 /* eslint no-unused-vars: "off" */
