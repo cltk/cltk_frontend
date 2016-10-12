@@ -22,6 +22,7 @@ ReadingLayout = React.createClass({
 			location: [],
 			limit: 30,
 			annotationCheckList: [],
+			searchModalVisible: false,
 		};
 	},
 
@@ -197,6 +198,18 @@ ReadingLayout = React.createClass({
 		});
 	},
 
+	showSearchModal() {
+		this.setState({
+			searchModalVisible: true,
+		});
+	},
+
+	closeSearchModal() {
+		this.setState({
+			searchModalVisible: false,
+		});
+	},
+
 	renderReadingEnvironment() {
 		const self = this;
 		const work = this.data.work;
@@ -239,6 +252,7 @@ ReadingLayout = React.createClass({
 				<HeaderReading
 					work={this.data.work}
 					location={this.state.location}
+					showSearchModal={this.showSearchModal}
 					toggleSidePanel={this.toggleSidePanel}
 					toggleDefinitions={this.state.toggleDefinitions}
 					toggleCommentary={this.state.toggleCommentary}
@@ -273,6 +287,12 @@ ReadingLayout = React.createClass({
 					annotationCheckList={this.state.annotationCheckList}
 					work={this.data.work || {}}
 					submitAnnotation={this.submitAnnotation}
+				/>
+
+				<SearchModal
+					work={this.data.work}
+					visible={this.state.searchModalVisible}
+					closeSearchModal={this.closeSearchModal}
 				/>
 
 			</div>

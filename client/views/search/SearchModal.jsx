@@ -8,13 +8,14 @@ SearchModal = React.createClass({
 	propTypes: {
 		closeSearchModal: React.PropTypes.func,
 		visible: React.PropTypes.bool,
+		work: React.PropTypes.object,
 	},
-
-	mixins: [ReactMeteorData],
 
 	childContextTypes: {
 		muiTheme: React.PropTypes.object.isRequired,
 	},
+
+	mixins: [ReactMeteorData],
 
 	getInitialState() {
 		return {
@@ -33,48 +34,54 @@ SearchModal = React.createClass({
 	getMeteorData() {
 		const query = {};
 		let works = [];
-		let stillMoreWorks = true;
 
 		// Parse the filters to the query
 		this.state.filters.forEach((filter) => {
 			const date = moment(`${filter.values[0]}-01-01`, 'YYYY MM DD');
 			switch (filter.key) {
-			case 'textsearch':
+			case 'textsearch': {
 				query.$text = { $search: filter.values[0] };
 				break;
+			}
 
-			case 'language':
+			case 'language': {
 				query.languages = { $in: filter.values };
 				break;
+			}
 
-			case 'corpora':
+			case 'corpora': {
 				query.corpus = { $in: filter.values };
 				break;
+			}
 
-			case 'authors':
-				const authorSlugs = filter.values.reduce(function(carry, item){
-														if(item.slug && !~carry.indexOf(item.slug)) {
-															carry.push(item.slug);
-														}
-														return carry;
-													}, []);
+			case 'authors': {
+				const authorSlugs = filter.values.reduce((carry, item) => {
+					if (item.slug && !~carry.indexOf(item.slug)) {
+						carry.push(item.slug);
+					}
+					return carry;
+				}, []);
 				query.author = { $in: authorSlugs };
 				break;
+			}
 
-			case 'dateStart':
+			case 'dateStart': {
 				query.dateBegun = { $gte: new Date(date.toISOString()) };
 				break;
+			}
 
-			case 'dateEnd':
+			case 'dateEnd': {
 				query.dateEnded = { $lte: new Date(date.toISOString()) };
 				break;
-			default:
+			}
+
+			default: {
 				// do nothing
+			}
 			}
 		});
 
-		console.log('Works query:', query, this.props.skip, this.props.limit);
-		const handle = Meteor.subscribe('works', query, this.props.skip, this.props.limit);
+		const handle = Meteor.subscribe('works', query, 0, 100);
 		if (handle.ready()) {
 			works = Works.find({}, {}).fetch();
 			/*
@@ -91,23 +98,27 @@ SearchModal = React.createClass({
 				works[i].authors = Authors.find({ _id: { $in: work.authors } }).fetch();
 			});
 
-			works.sort((a,b) => {
-				return (a.authors[0].english_name > b.authors[0].english_name) ? 1 : ((b.authors[0].english_name > a.authors[0].english_name) ? -1 : 0);
-			});
+			works.sort((a, b) => {
+				let sortVal = 1;
+				if (a.authors[0].english_name > b.authors[0].english_name) {
+					sortVal = 1;
+				} else if (b.authors[0].english_name > a.authors[0].english_name) {
+					sortVal = -1;
+				} else {
+					sortVal = 0;
+				}
 
-			if (works.length < this.props.limit) {
-				stillMoreWorks = false;
-			}
+				return sortVal;
+			});
 		}
 
 		return {
 			works,
-			stillMoreWorks,
 		};
 	},
 
 	loadMoreWorks() {
-		//console.log('SearchModal.loadMoreWorks', this.state.skip + this.state.limit);
+		// console.log('SearchModal.loadMoreWorks', this.state.skip + this.state.limit);
 		this.setState({
 			skip: this.state.skip + this.state.limit,
 		});
@@ -124,18 +135,16 @@ SearchModal = React.createClass({
 			if (filter.key === key) {
 				keyIsInFilter = true;
 
-				if(key === "authors"){
-					if (filter.values.some(function(existingValue){
-						return existingValue._id === value._id
-					})) {
-						valueIsInFilter = true;
-						filterValueToRemove = filter.values.indexOf(value);
-					}
-				}else {
-					if (filter.values.indexOf(value) >= 0) {
-						valueIsInFilter = true;
-						filterValueToRemove = filter.values.indexOf(value);
-					}
+				if (
+						key === 'authors'
+						&& filter.values.some((existingValue) =>
+							existingValue._id === value._id
+						)) {
+					valueIsInFilter = true;
+					filterValueToRemove = filter.values.indexOf(value);
+				} else if (filter.values.indexOf(value) >= 0) {
+					valueIsInFilter = true;
+					filterValueToRemove = filter.values.indexOf(value);
 				}
 
 				if (valueIsInFilter) {
@@ -279,15 +288,18 @@ SearchModal = React.createClass({
 
 
 	render() {
-		//console.log("SearchModal.filters", this.state.filters);
+		// console.log("SearchModal.filters", this.state.filters);
 		return (
-			<div className={'cltk-modal search-modal ' + (this.props.visible ? 'search-modal--visible' : '')} >
+			<div
+				className={`cltk-modal search-modal
+				${(this.props.visible ? 'search-modal--visible' : '')}`}
+			>
 				<div className="close-search">
 					<IconButton
 						iconClassName={'close-search-icon mdi mdi-close'}
 						onClick={this.props.closeSearchModal}
 						onTouchTap={this.props.closeSearchModal}
-						/>
+					/>
 				</div>
 
 				{this.props.visible ?
@@ -306,12 +318,12 @@ SearchModal = React.createClass({
 						<section className="search-results">
 							<SearchResultsList
 								works={this.data.works}
-								/>
+							/>
 
 						</section>
 
 					</div>
-					: ""
+					: ''
 				}
 
 

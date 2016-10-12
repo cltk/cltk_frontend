@@ -7,6 +7,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 HeaderReading = React.createClass({
 
 	propTypes: {
+		showSearchModal: React.PropTypes.func,
 		work: React.PropTypes.object,
 		location: React.PropTypes.array.isRequired,
 		toggleSidePanel: React.PropTypes.func.isRequired,
@@ -157,7 +158,7 @@ HeaderReading = React.createClass({
 										/>
 									</li>
 
-									<li
+									{work.genre === 'poetry' ? <li
 										className={(this.props.toggleScansion) ? 'checked meta-toggle' :
 										'meta-toggle'}
 									>
@@ -167,6 +168,7 @@ HeaderReading = React.createClass({
 											onClick={this.toggleSidePanel.bind(this, 'scansion')}
 										/>
 									</li>
+									: ''}
 
 									<li
 										className={(this.props.toggleMedia) ? 'checked meta-toggle' : 'meta-toggle'}
@@ -177,7 +179,7 @@ HeaderReading = React.createClass({
 											onClick={this.toggleSidePanel.bind(this, 'media')}
 										/>
 									</li>
-									<li
+									{/* <li
 										className={'meta-toggle'}
 									>
 										<FlatButton
@@ -186,23 +188,26 @@ HeaderReading = React.createClass({
 											onClick={this.toggleSidePanel.bind(this, 'show-more')}
 											icon={<span className="mdi mdi-dots-horizontal" />}
 										/>
-									</li>
+									</li> */}
 
 								</ul>
 
 							</div>
 
-							<div className="module search-module widget-handle left">
-								<ul className="menu icon-menu">
-									<li>
-										<FlatButton
-											style={styles.flatIconButton}
-											href="/search"
-											icon={<FontIcon className="mdi mdi-magnify" />}
-										/>
-									</li>
-								</ul>
-							</div>
+							{this.props.showSearchModal ?
+								<div className="module search-module widget-handle left">
+									<ul className="menu icon-menu">
+										<li>
+											<FlatButton
+												style={styles.flatIconButton}
+												href="#"
+												onClick={this.props.showSearchModal}
+												icon={<FontIcon className="mdi mdi-magnify" />}
+											/>
+										</li>
+									</ul>
+								</div>
+							: ''}
 
 
 						</div>{/* <!-- .module-group.right -->*/}
