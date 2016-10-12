@@ -156,7 +156,7 @@ ReadingTextNode = React.createClass({
 			},
 		};
 		const text = this.props.text;
-		let textClasses = 'text-wrap';
+		let textClasses = 'text-node';
 		const numbering = this.props.numbering;
 
 		if (this.props.showNumber) {

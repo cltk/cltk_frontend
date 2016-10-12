@@ -159,7 +159,7 @@ header .navigation-primary .reading-location {
 }
 
 
-.text-wrap {
+.text-node {
 
   width:100%;
   position:relative;
@@ -280,17 +280,16 @@ header .navigation-primary .reading-location {
 
 .text-meta-options {
   position:absolute;
-  top:30px;
+  top:0px;
   right:-130px;
   height:70px;
-  overflow:hidden;
-  opacity:0;
-  text-align:left;
+  opacity:1;
+  text-align:right;
   display:inline-block;
+	.transition(all 200ms ease-out);
 
-  .text-meta-option {
+  .text-meta-button {
     cursor:pointer;
-    margin:5px 0;
 
     &:hover {
       i {
@@ -299,33 +298,11 @@ header .navigation-primary .reading-location {
       }
     }
 
-    i, span {
-      display:inline-block;
-      vertical-align: top;
+    span.mdi {
+			color:@text-secondary !important;
 
     }
-    i {
-      background:@text-secondary;
-      color:@light;
-      border-radius:50px;
-      padding:7px;
-      margin:3px;
-      opacity:0.3;
 
-      &::before {
-        font-size:14px;
-      }
-
-      &.mdi-dots-horizontal {
-        background:transparent;
-        color:@text-secondary;
-      }
-
-    }
-    span {
-      font-size:12px;
-      padding:3px 5px;
-    }
   }
 
 
