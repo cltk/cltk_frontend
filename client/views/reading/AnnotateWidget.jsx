@@ -112,7 +112,7 @@ AnnotateWidget = React.createClass({
 						>
 							<IconButton
 								className="annotations-icon-button"
-								iconClassName="mdi mdi-alpha"
+								iconClassName="mdi mdi-beta"
 							/>
 							<span className="annotations-button-label">
 								Submit Correction

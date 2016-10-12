@@ -209,7 +209,7 @@ ReadingTextNode = React.createClass({
 						className="text-meta-button"
 						onClick={this.showRelatedPassages}
 						style={styles.checkbox}
-						iconClassName="mdi mdi-information-variant"
+						iconClassName="mdi mdi-alpha"
 						tooltip="Related Passages"
 						tooltipPosition="top-center"
 					/>
