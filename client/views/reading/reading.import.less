@@ -158,6 +158,35 @@ header .navigation-primary .reading-location {
 
 }
 
+.text-left-header {
+  position:absolute;
+  top:0px;
+  left:-60px;
+
+  .text-n {
+    font-size:18px;
+    display: none;
+    vertical-align: top;
+    margin:5px 2px;
+    color:@text-secondary;
+    font-weight:bold;
+
+  }
+
+  .text-bookmark {
+    color:@md-primary;
+    display: none;
+    vertical-align: top;
+    margin-top:12px;
+
+    &::before {
+      font-size:34px;
+
+    }
+  }
+
+}
+
 
 .text-node {
 
@@ -243,35 +272,6 @@ header .navigation-primary .reading-location {
 
 }
 
-.text-left-header {
-  position:absolute;
-  top:-30px;
-  left:-42px;
-
-  .text-n {
-    font-size:18px;
-    display: none;
-    vertical-align: top;
-    margin:5px 2px;
-    color:@text-secondary;
-    font-weight:bold;
-
-  }
-
-  .text-bookmark {
-    color:@md-primary;
-    display: none;
-    vertical-align: top;
-    margin-top:12px;
-
-    &::before {
-      font-size:34px;
-
-    }
-  }
-
-}
-
 .text-meta-options {
   position:absolute;
   top:0px;
@@ -302,6 +302,16 @@ header .navigation-primary .reading-location {
 
 
 }
+
+.reading-container.reading-container--poetry {
+	.text-node {
+		p {
+			padding:6px 0;
+		}
+	}
+
+}
+
 
 .text-related-passages, .text-entities {
   width:100%;
