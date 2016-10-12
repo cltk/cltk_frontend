@@ -253,7 +253,7 @@ ReadingLayout = React.createClass({
 	},
 
 	render() {
-		console.log(this.textLocation);
+		console.log('ReadingLayout.textLocation', this.textLocation);
 
 		let readingClassName = 'clearfix';
 		if (this.state.toggleCommentary || this.state.toggleTranslations) {
@@ -268,7 +268,7 @@ ReadingLayout = React.createClass({
 			<div className="cltk-layout reading-layout">
 				<HeaderReading
 					work={this.data.work}
-					location={this.state.location}
+					location={this.textLocation}
 					showSearchModal={this.showSearchModal}
 					toggleSidePanel={this.toggleSidePanel}
 					toggleDefinitions={this.state.toggleDefinitions}

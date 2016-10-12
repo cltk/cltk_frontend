@@ -130,12 +130,12 @@ HeaderReading = React.createClass({
 										</a>
 
 										<a
-											className="reading-location-param reading-location-param--book-line"
+											className="reading-location-param reading-location-param--number"
 											href={`/works/${work._id}/${work.slug}?textFrom=&textTo=`}
 										>
 											{location.map((textN, i) => (
 												<span key={i} >
-													{textN}
+													{textN}{((i + 1) === location.length) ? '' : '.'}
 												</span>
 											))}
 										</a>
