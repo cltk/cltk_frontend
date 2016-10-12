@@ -1,7 +1,6 @@
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import IconButton from 'material-ui/IconButton';
-import { blue700 } from 'material-ui/styles/colors';
 
 ReadingTextNode = React.createClass({
 
@@ -189,7 +188,7 @@ ReadingTextNode = React.createClass({
 					<h2>{numbering}</h2>
 					<i className="text-bookmark mdi mdi-bookmark" />
 				</div>
-				<div className="text-meta-actions">
+				<div className="text-meta-options">
 					<IconButton
 						className="text-meta-button"
 						onClick={this.toggleBookmark}
