@@ -6,13 +6,49 @@
 header .navigation-primary .reading-location {
   display:inline-block;
   vertical-align: top;
-  width:300px;
-  margin-top:6px;
+  max-width:600px;
+	overflow-x:hidden;
+	text-overflow: ellipsis;
 
+}
+
+.reading-location-param {
+	font-size:14px;
+	font-weight:100;
+	display:inline-block;
+	vertical-align: top;
+	height:60px;
+	white-space: nowrap;
+	padding:20px 5px 0;
+	color:@text-color;
+
+}
+
+.reading-location-param--author {
+	padding:0;
+
+	a {
+		height:60px;
+		display:inline-block;
+		vertical-align: top;
+		white-space: nowrap;
+		padding:20px 2px 0;
+		color:@text-color;
+		font-weight:100;
+
+		&:hover {
+			color:@md-primary-dark;
+		}
+	}
 }
 
 .meta-toggle {
   border-left:1px solid @light;
+
+	span {
+		font-size:12px !important;
+
+	}
 
   &.checked {
     background:@md-primary;
