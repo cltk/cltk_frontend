@@ -42,12 +42,6 @@ FlowRouter.route('/browse', {
 	},
 });
 
-FlowRouter.route('/search', {
-	action() {
-		mount(MasterLayout, { content: <SearchView /> });
-	},
-});
-
 FlowRouter.route('/terms', {
 	action() {
 		mount(MasterLayout, { content: <TermsPage /> });
