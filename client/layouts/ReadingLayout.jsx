@@ -36,9 +36,6 @@ ReadingLayout = React.createClass({
 		if (handle.ready()) {
 			work = Works.findOne();
 
-			console.log(this.props.params);
-			console.log(work);
-
 			// Get the work authors
 			work.authors = Authors.find({ _id: { $in: work.authors } }).fetch();
 
@@ -129,7 +126,7 @@ ReadingLayout = React.createClass({
 					}
 				}
 			} else {
-				console.log('No text found for work', work);
+				// console.log('No text found for work', work);
 			}
 		}
 
@@ -171,6 +168,24 @@ ReadingLayout = React.createClass({
 			const toggle = !this.state.toggleTranslations;
 			this.setState({
 				toggleTranslations: toggle,
+			});
+		}
+		if (metadata === 'entities') {
+			const toggle = !this.state.toggleEntities;
+			this.setState({
+				toggleEntities: toggle,
+			});
+		}
+		if (metadata === 'media') {
+			const toggle = !this.state.toggleMedia;
+			this.setState({
+				toggleMedia: toggle,
+			});
+		}
+		if (metadata === 'scansion') {
+			const toggle = !this.state.toggleScansion;
+			this.setState({
+				toggleScansion: toggle,
 			});
 		}
 	},
@@ -238,7 +253,9 @@ ReadingLayout = React.createClass({
 	},
 
 	render() {
-		let readingClassName = '';
+		console.log(this.textLocation);
+
+		let readingClassName = 'clearfix';
 		if (this.state.toggleCommentary || this.state.toggleTranslations) {
 			readingClassName += ' with-commentary-shown';
 		}
