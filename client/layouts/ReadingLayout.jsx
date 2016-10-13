@@ -353,16 +353,20 @@ ReadingLayout = React.createClass({
 				this.state.toggleCommentary
 			|| this.state.toggleTranslations
 		) {
-			readingClassName += ' with-right-panel-shown';
+			readingClassName += ' with-right-panel';
 		} else if (
 				this.state.toggleMedia
 			|| this.state.toggleEntities
 		) {
-			readingClassName += ' with-right-metadata-shown';
+			readingClassName += ' with-right-metadata';
+		}
+
+		if (this.state.toggleScansion) {
+			readingClassName += ' with-scansion';
 		}
 
 		if (this.state.toggleDefinitions) {
-			readingClassName += ' with-left-panel-shown';
+			readingClassName += ' with-left-panel';
 		}
 
 		return (
