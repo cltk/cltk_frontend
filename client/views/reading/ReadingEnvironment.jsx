@@ -1,4 +1,4 @@
-import { debounce } from 'throttle-debounce';
+import debounce from 'throttle-debounce/debounce';
 import InfiniteScroll from '../../../imports/InfiniteScroll.jsx';
 
 ReadingEnvironment = React.createClass({
@@ -7,6 +7,7 @@ ReadingEnvironment = React.createClass({
 		work: React.PropTypes.object.isRequired,
 		textNodes: React.PropTypes.array.isRequired,
 		loadMore: React.PropTypes.func.isRequired,
+		calculateTextNodeDepths: React.PropTypes.func.isRequired,
 		highlightId: React.PropTypes.string,
 	},
 
@@ -89,8 +90,8 @@ ReadingEnvironment = React.createClass({
 				</div>
 
 				<InfiniteScroll
-					endPadding={0}
-					loadMore={debounce(200, this.props.loadMore)}
+					endPadding={120}
+					loadMore={debounce(100, this.props.loadMore)}
 				>
 
 					<div className="reading-text-outer">

@@ -84,6 +84,7 @@ HeaderReading = React.createClass({
 
 		const work = this.props.work;
 		const location = this.props.location;
+		const textLocation = location.join('.');
 
 		return (
 			<div>
@@ -131,7 +132,7 @@ HeaderReading = React.createClass({
 
 										<a
 											className="reading-location-param reading-location-param--number"
-											href={`/works/${work._id}/${work.slug}?textFrom=&textTo=`}
+											href={`/works/${work._id}/${work.slug}?location=${textLocation}`}
 										>
 											{location.map((textN, i) => (
 												<span key={i} >

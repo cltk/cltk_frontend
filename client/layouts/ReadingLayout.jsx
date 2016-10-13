@@ -1,6 +1,6 @@
+import debounce from 'throttle-debounce/debounce';
 
 ReadingLayout = React.createClass({
-
 
 	propTypes: {
 		params: React.PropTypes.object.isRequired,
@@ -10,6 +10,16 @@ ReadingLayout = React.createClass({
 	mixins: [ReactMeteorData],
 
 	getInitialState() {
+		const queryParams = this.props.queryParams;
+		let location = [];
+
+		if ('location' in queryParams) {
+			location = queryParams.location.split('.');
+			location.forEach((textN, i) => {
+				location[i] = parseInt(textN, 10);
+			});
+		}
+
 		return {
 			toggleCommentary: false,
 			toggleDefinitions: false,
@@ -19,11 +29,33 @@ ReadingLayout = React.createClass({
 			toggleEntities: false,
 			toggleAnnotations: false,
 			filters: [],
-			location: [],
 			limit: 30,
 			annotationCheckList: [],
 			searchModalVisible: false,
+			location,
 		};
+	},
+
+	componentDidMount() {
+		const queryParams = this.props.queryParams;
+		let location = [];
+
+		if ('location' in queryParams) {
+			location = queryParams.location.split('.');
+			location.forEach((textN, i) => {
+				location[i] = parseInt(textN, 10);
+			});
+			this.textLocation = location;
+		}
+
+		window.addEventListener('resize', this.calculateTextNodeDepths);
+		window.addEventListener('scroll', debounce(100, this.handleScroll));
+	},
+
+	componentDidUpdate() {
+		if (this.textNodesDepths.length !== this.textNodes.length) {
+			this.calculateTextNodeDepths();
+		}
 	},
 
 	getMeteorData() {
@@ -41,7 +73,6 @@ ReadingLayout = React.createClass({
 
 			/*
 			* Should be the slug when the text sync / ingest is reworked
-			*
 			*/
 			// query = {work: work.slug};
 			query = { work: work.title };
@@ -52,34 +83,34 @@ ReadingLayout = React.createClass({
 			 */
 			if (this.state.location.length === 5) {
 				query.n_5 = { $gte: this.textLocation[4] };
-				query.n_4 = this.textLocation[3];
-				query.n_3 = this.textLocation[2];
-				query.n_2 = this.textLocation[1];
-				query.n_1 = this.textLocation[0];
+				query.n_4 = { $gte: this.textLocation[3] };
+				query.n_3 = { $gte: this.textLocation[2] };
+				query.n_2 = { $gte: this.textLocation[1] };
+				query.n_1 = { $gte: this.textLocation[0] };
 			} else if (this.state.location.length >= 4) {
 				query.n_4 = { $gte: this.textLocation[3] };
-				query.n_3 = this.textLocation[2];
-				query.n_2 = this.textLocation[1];
-				query.n_1 = this.textLocation[0];
+				query.n_3 = { $gte: this.textLocation[2] };
+				query.n_2 = { $gte: this.textLocation[1] };
+				query.n_1 = { $gte: this.textLocation[0] };
 			} else if (this.state.location.length >= 3) {
 				query.n_3 = { $gte: this.textLocation[2] };
-				query.n_2 = this.textLocation[1];
-				query.n_1 = this.textLocation[0];
+				query.n_2 = { $gte: this.textLocation[1] };
+				query.n_1 = { $gte: this.textLocation[0] };
 			} else if (this.state.location.length >= 2) {
 				query.n_2 = { $gte: this.textLocation[1] };
-				query.n_1 = this.textLocation[0];
+				query.n_1 = { $gte: this.textLocation[0] };
 			} else if (this.state.location.length >= 1) {
 				query.n_1 = { $gte: this.textLocation[0] };
 			}
 
-			console.log('ReadingLayout text Query:', query);
+			console.log('ReadingLayout textNodes Query:', query);
 
 			const handleText = Meteor.subscribe('textNodes', query, this.state.limit);
 			if (handleText.ready()) {
 				textNodes = Texts.find({}, {}).fetch();
 			}
 
-			if (textNodes.length) {
+			if (textNodes.length && !this.textLocation.length) {
 				if ('rangeN5' in work) {
 					if (this.textLocation.length === 0) {
 						this.textLocation = [1, 1, 1, 1, 1];
@@ -137,9 +168,9 @@ ReadingLayout = React.createClass({
 		};
 	},
 
-
 	textLocation: [],
 	textNodes: [],
+	textNodesDepths: [],
 	isTextRemaining: true,
 
 	loadMore() {
@@ -148,6 +179,42 @@ ReadingLayout = React.createClass({
 				location: this.textLocation,
 			});
 			console.log('Load more:', this.state);
+		}
+	},
+
+	calculateTextNodeDepths() {
+		const $textNodes = $('.text-node');
+		const textNodesDepths = [];
+
+		$textNodes.each((i, textNode) => {
+			textNodesDepths.push({
+				depth: $(textNode).offset().top,
+				location: textNode.dataset.loc,
+			});
+		});
+
+		// console.log('ReadingLayout.textNodesDepths', textNodesDepths);
+		this.textNodesDepths = textNodesDepths;
+	},
+
+	handleScroll() {
+		const scrollY = window.scrollY;
+		let activeTextNodeDepth = null;
+		this.textNodesDepths.forEach((textNodeDepth) => {
+			if (scrollY > textNodeDepth.depth) {
+				activeTextNodeDepth = textNodeDepth;
+			}
+		});
+
+		if (activeTextNodeDepth) {
+			if (
+					'location' in this.props.queryParams
+				&& activeTextNodeDepth.location !== this.props.queryParams
+			) {
+				FlowRouter.setQueryParams({ location: activeTextNodeDepth.location });
+			} else {
+				FlowRouter.setQueryParams({ location: activeTextNodeDepth.location });
+			}
 		}
 	},
 
@@ -230,6 +297,7 @@ ReadingLayout = React.createClass({
 		const work = this.data.work;
 		const textNodes = this.textNodes;
 
+		// Deduplicate text response data
 		if (this.data.textNodes.length) {
 			this.data.textNodes.forEach(textNode => {
 				if (!self.textNodes.some(existingTextNode => existingTextNode._id === textNode._id)) {
@@ -246,6 +314,7 @@ ReadingLayout = React.createClass({
 					textNodes={textNodes}
 					loadMore={this.loadMore}
 					highlightId={this.props.queryParams.id}
+					calculateTextNodeDepths={this.calculateTextNodeDepths}
 				/>
 			);
 		}
@@ -253,7 +322,7 @@ ReadingLayout = React.createClass({
 	},
 
 	render() {
-		console.log('ReadingLayout.textLocation', this.textLocation);
+		// console.log('ReadingLayout.textLocation', this.textLocation);
 
 		let readingClassName = 'clearfix';
 		if (this.state.toggleCommentary || this.state.toggleTranslations) {

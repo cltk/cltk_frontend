@@ -62,25 +62,27 @@ ReadingTextNode = React.createClass({
 		};
 	},
 
-	toggleBookmarked() {
-		this.setState({
-			bookmarked: !this.state.bookmarked,
+	getTextLocation() {
+		const text = this.props.text;
+		let location = '';
 
-		});
-	},
+		if ('n_1' in text) {
+			location += text.n_1;
+		}
+		if ('n_2' in text) {
+			location += `.${text.n_2}`;
+		}
+		if ('n_3' in text) {
+			location += `.${text.n_3}`;
+		}
+		if ('n_4' in text) {
+			location += `.${text.n_4}`;
+		}
+		if ('n_5' in text) {
+			location += `.${text.n_5}`;
+		}
 
-	toggleShowEntities() {
-		this.setState({
-			showEntities: !this.state.showEntities,
-
-		});
-	},
-
-	toggleShowRelatedPassages() {
-		this.setState({
-			showRelatedPassages: !this.state.showRelatedPassages,
-
-		});
+		return location;
 	},
 
 
@@ -113,6 +115,18 @@ ReadingTextNode = React.createClass({
 		}
 	},
 
+	handleRequestClose() {
+		this.setState({
+			annotationOpen: false,
+		});
+	},
+
+	handleLoginDialogClose() {
+		this.setState({
+			showLoginDialog: false,
+		});
+	},
+
 	toggleBookmark(event, isChecked) {
 		if (Meteor.userId()) {
 			if (isChecked) {
@@ -127,15 +141,24 @@ ReadingTextNode = React.createClass({
 		}
 	},
 
-	handleRequestClose() {
+	toggleBookmarked() {
 		this.setState({
-			annotationOpen: false,
+			bookmarked: !this.state.bookmarked,
+
 		});
 	},
 
-	handleLoginDialogClose() {
+	toggleShowEntities() {
 		this.setState({
-			showLoginDialog: false,
+			showEntities: !this.state.showEntities,
+
+		});
+	},
+
+	toggleShowRelatedPassages() {
+		this.setState({
+			showRelatedPassages: !this.state.showRelatedPassages,
+
 		});
 	},
 
@@ -182,8 +205,15 @@ ReadingTextNode = React.createClass({
 			}
 		}
 
+		const textLocation = this.getTextLocation();
+
 		return (
-			<div className={textClasses} data-id={text._id} data-num={this.props.index}>
+			<div
+				className={textClasses}
+				data-id={text._id}
+				data-num={this.props.index}
+				data-loc={textLocation}
+			>
 				<div className="text-left-header">
 					<h2>{numbering}</h2>
 					<i className="text-bookmark mdi mdi-bookmark" />
