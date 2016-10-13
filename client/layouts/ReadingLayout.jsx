@@ -110,7 +110,7 @@ ReadingLayout = React.createClass({
 				textNodes = Texts.find({}, {}).fetch();
 			}
 
-			if (textNodes.length && !this.textLocation.length) {
+			if (textNodes.length) {
 				if ('rangeN5' in work) {
 					if (this.textLocation.length === 0) {
 						this.textLocation = [1, 1, 1, 1, 1];
