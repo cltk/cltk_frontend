@@ -46,6 +46,7 @@ ReadingLayout = React.createClass({
 				location[i] = parseInt(textN, 10);
 			});
 			this.textLocation = location;
+			this.textQuery = location;
 		}
 
 		window.addEventListener('resize', this.calculateTextNodeDepths);
@@ -82,25 +83,25 @@ ReadingLayout = React.createClass({
 			 * This needs much more attention for a simpler solution in the future.
 			 */
 			if (this.state.location.length === 5) {
-				query.n_5 = { $gte: this.textLocation[4] };
-				query.n_4 = { $gte: this.textLocation[3] };
-				query.n_3 = { $gte: this.textLocation[2] };
-				query.n_2 = { $gte: this.textLocation[1] };
-				query.n_1 = { $gte: this.textLocation[0] };
+				query.n_5 = { $gte: this.textQuery[4] };
+				query.n_4 = { $gte: this.textQuery[3] };
+				query.n_3 = { $gte: this.textQuery[2] };
+				query.n_2 = { $gte: this.textQuery[1] };
+				query.n_1 = { $gte: this.textQuery[0] };
 			} else if (this.state.location.length >= 4) {
-				query.n_4 = { $gte: this.textLocation[3] };
-				query.n_3 = { $gte: this.textLocation[2] };
-				query.n_2 = { $gte: this.textLocation[1] };
-				query.n_1 = { $gte: this.textLocation[0] };
+				query.n_4 = { $gte: this.textQuery[3] };
+				query.n_3 = { $gte: this.textQuery[2] };
+				query.n_2 = { $gte: this.textQuery[1] };
+				query.n_1 = { $gte: this.textQuery[0] };
 			} else if (this.state.location.length >= 3) {
-				query.n_3 = { $gte: this.textLocation[2] };
-				query.n_2 = { $gte: this.textLocation[1] };
-				query.n_1 = { $gte: this.textLocation[0] };
+				query.n_3 = { $gte: this.textQuery[2] };
+				query.n_2 = { $gte: this.textQuery[1] };
+				query.n_1 = { $gte: this.textQuery[0] };
 			} else if (this.state.location.length >= 2) {
-				query.n_2 = { $gte: this.textLocation[1] };
-				query.n_1 = { $gte: this.textLocation[0] };
+				query.n_2 = { $gte: this.textQuery[1] };
+				query.n_1 = { $gte: this.textQuery[0] };
 			} else if (this.state.location.length >= 1) {
-				query.n_1 = { $gte: this.textLocation[0] };
+				query.n_1 = { $gte: this.textQuery[0] };
 			}
 
 			console.log('ReadingLayout textNodes Query:', query);
@@ -112,48 +113,53 @@ ReadingLayout = React.createClass({
 
 			if (textNodes.length) {
 				if ('rangeN5' in work) {
-					if (this.textLocation.length === 0) {
+					if (this.textQuery.length === 0) {
+						this.textQuery = [1, 1, 1, 1, 1];
 						this.textLocation = [1, 1, 1, 1, 1];
 					} else if (work.rangeN5.high === textNodes[textNodes.length - 1].n_5) {
-						this.textLocation[3]++;
-						this.textLocation[4] = 1;
+						this.textQuery[3]++;
+						this.textQuery[4] = 1;
 					} else {
-						this.textLocation[4] += this.state.limit;
+						this.textQuery[4] += this.state.limit;
 					}
 				} else if ('rangeN4' in work) {
-					if (this.textLocation.length === 0) {
+					if (this.textQuery.length === 0) {
+						this.textQuery = [1, 1, 1, 1];
 						this.textLocation = [1, 1, 1, 1];
 					} else if (work.rangeN4.high === textNodes[textNodes.length - 1].n_4) {
-						this.textLocation[2]++;
-						this.textLocation[3] = 1;
+						this.textQuery[2]++;
+						this.textQuery[3] = 1;
 					} else {
-						this.textLocation[3] += this.state.limit;
+						this.textQuery[3] += this.state.limit;
 					}
 				} else if ('rangeN3' in work) {
-					if (this.textLocation.length === 0) {
+					if (this.textQuery.length === 0) {
+						this.textQuery = [1, 1, 1];
 						this.textLocation = [1, 1, 1];
 					} else if (work.rangeN3.high === textNodes[textNodes.length - 1].n_3) {
-						this.textLocation[1]++;
-						this.textLocation[2] = 1;
+						this.textQuery[1]++;
+						this.textQuery[2] = 1;
 					} else {
-						this.textLocation[2] += this.state.limit;
+						this.textQuery[2] += this.state.limit;
 					}
 				} else if ('rangeN2' in work) {
-					if (this.textLocation.length === 0) {
+					if (this.textQuery.length === 0) {
+						this.textQuery = [1, 1];
 						this.textLocation = [1, 1];
 					} else if (work.rangeN2.high === textNodes[textNodes.length - 1].n_2) {
-						this.textLocation[0]++;
-						this.textLocation[1] = 1;
+						this.textQuery[0]++;
+						this.textQuery[1] = 1;
 					} else {
-						this.textLocation[1] += this.state.limit;
+						this.textQuery[1] += this.state.limit;
 					}
 				} else if ('rangeN1' in work) {
-					if (this.textLocation.length === 0) {
+					if (this.textQuery.length === 0) {
+						this.textQuery = [1];
 						this.textLocation = [1];
 					} else if (work.rangeN1.high === textNodes[textNodes.length - 1].n_1) {
 						this.isTextRemaining = false;
 					} else {
-						this.textLocation[0] += this.state.limit;
+						this.textQuery[0] += this.state.limit;
 					}
 				}
 			} else {
@@ -169,6 +175,7 @@ ReadingLayout = React.createClass({
 	},
 
 	textLocation: [],
+	textQuery: [],
 	textNodes: [],
 	textNodesDepths: [],
 	isTextRemaining: true,
@@ -200,6 +207,7 @@ ReadingLayout = React.createClass({
 	handleScroll() {
 		const scrollY = window.scrollY;
 		let activeTextNodeDepth = null;
+		let locationArray = [];
 		this.textNodesDepths.forEach((textNodeDepth) => {
 			if (scrollY > textNodeDepth.depth) {
 				activeTextNodeDepth = textNodeDepth;
@@ -207,12 +215,17 @@ ReadingLayout = React.createClass({
 		});
 
 		if (activeTextNodeDepth) {
-			if (
-					'location' in this.props.queryParams
-				&& activeTextNodeDepth.location !== this.props.queryParams
-			) {
-				FlowRouter.setQueryParams({ location: activeTextNodeDepth.location });
+			locationArray = activeTextNodeDepth.location.split('.');
+			locationArray.forEach((textN, i) => {
+				locationArray[i] = parseInt(textN, 10);
+			});
+			if ('location' in this.props.queryParams) {
+				if (activeTextNodeDepth.location !== this.props.queryParams.location) {
+					this.textLocation = locationArray;
+					FlowRouter.setQueryParams({ location: activeTextNodeDepth.location });
+				}
 			} else {
+				this.textLocation = locationArray;
 				FlowRouter.setQueryParams({ location: activeTextNodeDepth.location });
 			}
 		}
