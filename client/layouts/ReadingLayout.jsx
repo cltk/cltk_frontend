@@ -64,6 +64,7 @@ ReadingLayout = React.createClass({
 		let textNodes = [];
 		const workQuery = { _id: this.props.params.id };
 		let work = { authors: [] };
+		let attachment = null;
 
 		const handle = Meteor.subscribe('works', workQuery);
 		if (handle.ready()) {
@@ -71,6 +72,15 @@ ReadingLayout = React.createClass({
 
 			// Get the work authors
 			work.authors = Authors.find({ _id: { $in: work.authors } }).fetch();
+
+			if ('coverImage' in work) {
+				const imageSubscription = Meteor.subscribe('images');
+
+				if (imageSubscription.ready()) {
+					attachment = Images.findOne(work.coverImage);
+				}
+			}
+
 
 			/*
 			* Should be the slug when the text sync / ingest is reworked
@@ -169,6 +179,7 @@ ReadingLayout = React.createClass({
 
 		return {
 			work,
+			attachment,
 			textNodes,
 			currentUser: Meteor.user(),
 		};
@@ -338,12 +349,20 @@ ReadingLayout = React.createClass({
 		// console.log('ReadingLayout.textLocation', this.textLocation);
 
 		let readingClassName = 'clearfix';
-		if (this.state.toggleCommentary || this.state.toggleTranslations) {
-			readingClassName += ' with-commentary-shown';
+		if (
+				this.state.toggleCommentary
+			|| this.state.toggleTranslations
+		) {
+			readingClassName += ' with-right-panel-shown';
+		} else if (
+				this.state.toggleMedia
+			|| this.state.toggleEntities
+		) {
+			readingClassName += ' with-right-metadata-shown';
 		}
 
 		if (this.state.toggleDefinitions) {
-			readingClassName += ' with-right-panel-shown';
+			readingClassName += ' with-left-panel-shown';
 		}
 
 		return (

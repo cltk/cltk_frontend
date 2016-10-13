@@ -88,7 +88,6 @@ header .navigation-primary .reading-location {
 #reading {
   width:100%;
   margin:0 auto;
-  padding-top:70px;
   .transition(background 300ms ease-out);
 
   &.comment-mode-enabled {
@@ -101,7 +100,7 @@ header .navigation-primary .reading-location {
 
   }
 
-  &.with-commentary-shown {
+  &.with-right-panel-shown {
     .reading-container {
       float:left;
       width:64%;
@@ -109,7 +108,7 @@ header .navigation-primary .reading-location {
 
   }
 
-  &.with-right-panel-shown {
+  &.with-left-panel-shown {
     .reading-container {
       float:right;
       width:73%;
@@ -118,7 +117,7 @@ header .navigation-primary .reading-location {
 
   }
 
-  &.with-commentary-shown.with-definitions-shown {
+  &.with-right-panel-shown.with-left-panel-shown {
     .reading-container {
       float:none;
       margin:0 0 0 30%;
@@ -132,13 +131,27 @@ header .navigation-primary .reading-location {
 
   }
 
+	.page-head {
+		padding-top:140px;
+
+	}
+
   .work-authors, .work-title-outer {
     text-align: center;
-    padding:30px 0;
+    padding:0;
     max-width:790px;
     margin:0px auto;
 
   }
+
+	.work-authors {
+		padding:30px 0 10px;
+
+	}
+	.work-title-outer {
+		padding:10px 0 30px;
+	}
+
   .work-author {
 		display:block;
     padding:5px 0;
@@ -148,18 +161,18 @@ header .navigation-primary .reading-location {
 			padding:0;
 			font-size:22px;
 			line-height:1.3em;
-			color:@text-color;
+			color:@light;
 			font-family:@font-light;
 			font-weight:bold;
+			text-shadow:0px 2px 3px rgba(20, 20, 20, 0.8);
 
 		}
 
 		&:hover {
 			h4 {
-				color:@md-primary;
+				color:@md-primary-light;
 
 				.work-author-original-name {
-					color:@text-secondary;
 
 				}
 
@@ -168,34 +181,35 @@ header .navigation-primary .reading-location {
 
 		.work-author-original-name {
 			font-size:20px;
-			color:@text-secondary;
-			font-weight:light;
+			color:#eee;
+			font-weight:100;
 			font-style:italic;
 			padding:0 5px;
+			text-shadow:0px 2px 3px rgba(20, 20, 20, 0.8);
 
 		}
 
   }
 
   h1.work-title {
-
     font-family:@font-title;
-		font-size:52px;
+		font-size:72px;
 		line-height:1.3em;
-		color:@text-color;
-
-		.work-original-title {
-			display:block;
-			font-size:28px;
-			color:@text-secondary;
-			font-weight:light;
-			font-family:@font-light;
-			font-style:italic;
-
-		}
+		color:@light;
+		text-shadow:0px 2px 3px rgba(20, 20, 20, 0.8);
 
   }
 
+	.work-original-title {
+		display:block;
+		font-size:28px;
+		color:#eee;
+		font-weight:light;
+		font-family:@font-light;
+		font-style:italic;
+		text-shadow:0px 2px 3px rgba(20, 20, 20, 0.8);
+
+	}
 
 }
 

@@ -81,10 +81,10 @@ Schemas.Works = new SimpleSchema({
 		optional: true,
 	},
 
-	images: {
-		type: [String],
+	coverImage: {
+		type: String,
 		optional: true,
-		label: 'Image thumbnail',
+		label: 'Cover Image',
 		autoform: {
 			type: 'ufs',
 			collection: 'images',
