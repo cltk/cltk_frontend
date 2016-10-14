@@ -41,12 +41,17 @@ ReadingTextNode = React.createClass({
 	},
 
 	getMeteorData() {
-		let annotationList = [];
+		let annotations = [];
+		let relatedPassages = [];
 		let bookmarked = false;
 		const handleAnnotation = Meteor.subscribe('annotation');
+		const handleRelatedPassages = Meteor.subscribe('relatedPassages');
 		const handleBookmark = Meteor.subscribe('bookmark');
 		if (handleAnnotation.ready()) {
-			annotationList = Annotation.find({ textNodes: this.props.text._id }).fetch();
+			annotations = Annotation.find({ textNodes: this.props.text._id }).fetch();
+		}
+		if (handleRelatedPassages.ready()) {
+			relatedPassages = RelatedPassages.find({ textNodes: this.props.text._id }).fetch();
 		}
 		if (handleBookmark.ready()) {
 			const bookmarkList = Meteor.users.findOne({}, { fields: { bookmarks: 1 } });
@@ -56,7 +61,8 @@ ReadingTextNode = React.createClass({
 			}
 		}
 		return {
-			annotationList,
+			annotations,
+			relatedPassages,
 			bookmarked,
 		};
 	},
@@ -162,7 +168,7 @@ ReadingTextNode = React.createClass({
 	},
 
 	renderAnnotations() {
-		return this.data.annotationList.map((annotation, i) => (
+		return this.data.annotations.map((annotation, i) => (
 			<AnnotationItem
 				key={i}
 				annotation={annotation}
@@ -191,7 +197,7 @@ ReadingTextNode = React.createClass({
 			textClasses = `${textClasses} show-related-passages`;
 		}
 
-		if (this.data.annotationList.length !== 0) {
+		if (this.data.annotations.length !== 0) {
 			textClasses = `${textClasses} text-annotated`;
 			if (this.state.annotationOpen) {
 				textClasses = `${textClasses} has-annotation`;
@@ -216,6 +222,8 @@ ReadingTextNode = React.createClass({
 					toggleBookmark={this.toggleBookmark}
 					toggleShowAnnotations={this.toggleShowAnnotations}
 					toggleShowRelatedPassages={this.toggleShowRelatedPassages}
+					annotationsCount={this.data.annotations.length}
+					relatedPassagesCount={this.data.relatedPassages.length}
 				/>
 
 				<p

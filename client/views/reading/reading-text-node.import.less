@@ -129,8 +129,21 @@
   display:inline-block;
 	.transition(all 200ms ease-out);
 
+	.text-meta-button-outer {
+		display:inline-block;
+		vertical-align: top;
+		padding:10px;
+
+		&.text-meta-button-outer--with-count {
+			padding-right:0px;
+
+		}
+
+	}
+
   .text-meta-button {
     cursor:pointer;
+		padding:2px !important;
 
     &:hover {
 			span.mdi {
@@ -139,13 +152,25 @@
 			}
     }
 
-    span.mdi {
+    .mdi {
 			color:@text-secondary !important;
 			opacity:0.7;
 
     }
 
   }
+
+	.meta-count {
+		font-family:@font-label;
+		font-size:12px;
+		padding:8px 0 8px 5px;
+		display:inline-block;
+		vertical-align: top;
+		color:@text-secondary;
+		opacity:0.7;
+
+
+	}
 
 
 }
