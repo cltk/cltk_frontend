@@ -11,6 +11,7 @@ ReadingTextNode = React.createClass({
 		addAnnotationCheckList: React.PropTypes.func,
 		annotationCheckList: React.PropTypes.array,
 		highlight: React.PropTypes.bool,
+		toggleReadingMeta: React.PropTypes.func,
 	},
 
 	childContextTypes: {
@@ -154,13 +155,16 @@ ReadingTextNode = React.createClass({
 	},
 
 	toggleShowAnnotations() {
+		this.props.toggleReadingMeta('annotations');
+
 		this.setState({
 			showAnnotations: !this.state.showAnnotations,
-
 		});
 	},
 
 	toggleShowRelatedPassages() {
+		this.props.toggleReadingMeta('annotations');
+
 		this.setState({
 			showRelatedPassages: !this.state.showRelatedPassages,
 
@@ -180,6 +184,14 @@ ReadingTextNode = React.createClass({
 		const text = this.props.text;
 		let textClasses = 'text-node';
 		const numbering = this.props.numbering;
+
+		if (this.state.showAnnotations) {
+			textClasses += ' with-annotations';
+		}
+
+		if (this.state.showRelatedPassages) {
+			textClasses += ' with-related-passages';
+		}
 
 		if (this.props.showNumber) {
 			textClasses = `${textClasses} show-number`;
@@ -238,13 +250,6 @@ ReadingTextNode = React.createClass({
 				</p>
 
 				{text.n_1 === 5 || text.n_2 === 5 ?
-					<div className="text-meta text-related-passages">
-						<ReadingRelatedPassage />
-					</div>
-					: ''
-				}
-
-				{text.n_1 === 5 || text.n_2 === 5 ?
 					<div className="text-meta text-entities">
 						<ReadingEntity />
 					</div>
@@ -258,12 +263,21 @@ ReadingTextNode = React.createClass({
 
 				: ''}
 
-				{text.n_1 === 10 || text.n_2 === 10 ?
-					<div className="text-meta text-annotations">
-						<ReadingAnnotation />
-					</div>
+				<div className="text-meta text-annotations">
+					<i
+						className="mdi mdi-close"
+						onClick={this.toggleShowAnnotations}
+					/>
+					<ReadingAnnotation />
+				</div>
 
-				: ''}
+				<div className="text-meta text-related-passages">
+					<i
+						className="mdi mdi-close"
+						onClick={this.toggleShowRelatedPassages}
+					/>
+					<ReadingRelatedPassage />
+				</div>
 
 			</div>
 

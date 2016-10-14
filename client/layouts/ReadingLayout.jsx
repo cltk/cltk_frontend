@@ -28,6 +28,7 @@ ReadingLayout = React.createClass({
 			toggleMedia: false,
 			toggleEntities: false,
 			toggleAnnotations: false,
+			toggleRelatedPassages: false,
 			filters: [],
 			limit: 30,
 			annotationCheckList: [],
@@ -316,6 +317,18 @@ ReadingLayout = React.createClass({
 		});
 	},
 
+	toggleReadingMeta(metaType) {
+		if (metaType === 'annotations') {
+			this.setState({
+				toggleAnnotations: !this.state.toggleAnnotations,
+			});
+		} else if (metaType === 'relatedPassages') {
+			this.setState({
+				toggleRelatedPassages: !this.state.toggleRelatedPassages,
+			});
+		}
+	},
+
 	renderReadingEnvironment() {
 		const self = this;
 		const work = this.data.work;
@@ -339,6 +352,7 @@ ReadingLayout = React.createClass({
 					loadMore={this.loadMore}
 					highlightId={this.props.queryParams.id}
 					calculateTextNodeDepths={this.calculateTextNodeDepths}
+					toggleReadingMeta={this.toggleReadingMeta}
 				/>
 			);
 		}
@@ -357,12 +371,18 @@ ReadingLayout = React.createClass({
 		} else if (
 				this.state.toggleMedia
 			|| this.state.toggleEntities
+			|| this.state.toggleAnnotations
+			|| this.state.toggleRelatedPassages
 		) {
 			readingClassName += ' with-right-metadata';
 		}
 
 		if (this.state.toggleMedia) {
 			readingClassName += ' with-media';
+		}
+
+		if (this.state.toggleEntities) {
+			readingClassName += ' with-entities';
 		}
 
 		if (this.state.toggleScansion) {

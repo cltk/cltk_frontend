@@ -9,6 +9,7 @@ ReadingEnvironment = React.createClass({
 		loadMore: React.PropTypes.func.isRequired,
 		calculateTextNodeDepths: React.PropTypes.func.isRequired,
 		highlightId: React.PropTypes.string,
+		toggleReadingMeta: React.PropTypes.func,
 	},
 
 	renderText() {
@@ -47,6 +48,7 @@ ReadingEnvironment = React.createClass({
 					numbering={numbering}
 					addAnnotationCheckList={this.addAnnotationCheckList}
 					highlight={this.props.highlightId === text._id}
+					toggleReadingMeta={this.props.toggleReadingMeta}
 				/>
 			);
 		});
