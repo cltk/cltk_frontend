@@ -268,7 +268,9 @@ ReadingTextNode = React.createClass({
 						className="mdi mdi-close"
 						onClick={this.toggleShowAnnotations}
 					/>
-					<ReadingAnnotation />
+					<AnnotationItem
+						isOwner={false}
+					/>
 				</div>
 
 				<div className="text-meta text-related-passages">

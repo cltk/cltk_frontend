@@ -9,8 +9,19 @@ import Toggle from 'material-ui/Toggle';
 AnnotationItem = React.createClass({
 
 	propTypes: {
-		annotation: React.PropTypes.object.isRequired,
 		isOwner: React.PropTypes.bool.isRequired,
+		annotation: React.PropTypes.object,
+	},
+
+	getDefaultProps() {
+		return {
+			annotation: {
+				author: 'Archimedes of Syracuse',
+				date: '14 Oct 2016',
+				thumbnail: '/images/archimedes.jpg',
+				content: 'Quid faciat laetas segetes quo sidere terram vertere Mycenas ulmisque adiungere vites conveniat quae curum boum qui cultus habendo',
+			},
+		};
 	},
 
 	getInitialState() {
@@ -65,6 +76,8 @@ AnnotationItem = React.createClass({
 	},
 
 	render() {
+		const annotation = this.props.annotation;
+
 		const style = {
 			annotationCard: {
 				width: 250,
@@ -84,6 +97,7 @@ AnnotationItem = React.createClass({
 			},
 
 		};
+
 
 		if (this.props.isOwner && this.state.editing) {
 			// render annotation edit UI
@@ -125,30 +139,40 @@ AnnotationItem = React.createClass({
 				</Card>
 			);
 		}
+
 		// render annotation view UI
 		return (
-			<Card
-				style={style.annotationCard}
-			>
-				<CardText>
+			<div className="annotation-item">
+				<div className="annotation-header">
+					<div className="annotation-profile-image">
+						<img alt={annotation.author} src={annotation.thumbnail} />
+					</div>
+					<h4 className="annotation-author">
+						{annotation.author}
+					</h4>
+					<span className="annotation-date">
+						{annotation.date}
+					</span>
+					{this.props.isOwner ?
+						<div className="annotation-item-actions">
+							<FlatButton
+								label="Edit"
+								primary
+								onClick={this.handleEdit}
+							/>
+							<FlatButton
+								label="Delete"
+								onClick={this.handleDelete}
+							/>
+						</div>
+						:
+						null
+					}
+				</div>
+				<p>
 					{this.props.annotation.content}
-				</CardText>
-				{this.props.isOwner ?
-					<CardActions>
-						<FlatButton
-							label="Edit"
-							primary
-							onClick={this.handleEdit}
-						/>
-						<FlatButton
-							label="Delete"
-							onClick={this.handleDelete}
-						/>
-					</CardActions>
-					:
-					null
-				}
-			</Card>
+				</p>
+			</div>
 		);
 	},
 });
