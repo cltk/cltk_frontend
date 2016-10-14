@@ -1,7 +1,5 @@
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import IconButton from 'material-ui/IconButton';
-import FlatButton from 'material-ui/FlatButton';
 
 ReadingTextNode = React.createClass({
 
@@ -149,9 +147,9 @@ ReadingTextNode = React.createClass({
 		});
 	},
 
-	toggleShowEntities() {
+	toggleShowAnnotations() {
 		this.setState({
-			showEntities: !this.state.showEntities,
+			showAnnotations: !this.state.showAnnotations,
 
 		});
 	},
@@ -216,8 +214,8 @@ ReadingTextNode = React.createClass({
 
 				<TextMetaOptions
 					toggleBookmark={this.toggleBookmark}
-					showAnnotations={this.showAnnotations}
-					showRelatedPassages={this.showRelatedPassages}
+					toggleShowAnnotations={this.toggleShowAnnotations}
+					toggleShowRelatedPassages={this.toggleShowRelatedPassages}
 				/>
 
 				<p
@@ -254,7 +252,7 @@ ReadingTextNode = React.createClass({
 
 				{text.n_1 === 10 || text.n_2 === 10 ?
 					<div className="text-meta text-annotations">
-						<ReadingMedia />
+						<ReadingAnnotation />
 					</div>
 
 				: ''}

@@ -1,3 +1,4 @@
+import FlatButton from 'material-ui/FlatButton';
 
 ReadingMedia = React.createClass({
 

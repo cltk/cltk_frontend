@@ -5,7 +5,16 @@ ReadingEntity = React.createClass({
 		entity: React.PropTypes.object,
 	},
 
+	getDefaultProps() {
+		return {
+			entity: {
+				slug: 'demo-entity',
+			},
+		};
+	},
+
 	render() {
+		const entity = this.props.entity;
 		return (
 			<div className="entity-teaser">
 				<a

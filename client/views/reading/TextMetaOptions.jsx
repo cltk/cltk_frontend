@@ -1,11 +1,11 @@
-
+import IconButton from 'material-ui/IconButton';
 
 TextMetaOptions = React.createClass({
 
 	propTypes: {
 		toggleBookmark: React.PropTypes.func.isRequired,
-		showAnnotations: React.PropTypes.func.isRequired,
-		showRelatedPassages: React.PropTypes.func.isRequired,
+		toggleShowAnnotations: React.PropTypes.func.isRequired,
+		toggleShowRelatedPassages: React.PropTypes.func.isRequired,
 	},
 
 	render() {
@@ -27,7 +27,7 @@ TextMetaOptions = React.createClass({
 				/>
 				<IconButton
 					className="text-meta-button"
-					onClick={this.showAnnotations}
+					onClick={this.props.toggleShowAnnotations}
 					style={styles.checkbox}
 					iconClassName="mdi mdi-comment-text-outline"
 					tooltip="Annoations"
@@ -35,7 +35,7 @@ TextMetaOptions = React.createClass({
 				/>
 				<IconButton
 					className="text-meta-button"
-					onClick={this.showRelatedPassages}
+					onClick={this.props.toggleShowRelatedPassages}
 					style={styles.checkbox}
 					iconClassName="mdi mdi-alpha"
 					tooltip="Related Passages"
