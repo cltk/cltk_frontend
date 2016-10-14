@@ -3,17 +3,11 @@ this.Works = new Meteor.Collection('works');
 Schemas.Works = new SimpleSchema({
 	english_title: {
 		type: String,
-		max: 60,
 		optional: true,
 	},
 	original_title: {
 		type: String,
-		max: 60,
 		optional: true,
-	},
-	title: {
-		type: String,
-		max: 60,
 	},
 
 	slug: {
@@ -82,11 +76,15 @@ Schemas.Works = new SimpleSchema({
 		type: String,
 		optional: true,
 	},
-
-	images: {
-		type: [String],
+	genre: {
+		type: String,
 		optional: true,
-		label: 'Image thumbnail',
+	},
+
+	coverImage: {
+		type: String,
+		optional: true,
+		label: 'Cover Image',
 		autoform: {
 			type: 'ufs',
 			collection: 'images',
@@ -208,4 +206,4 @@ Schemas.Works = new SimpleSchema({
 });
 
 Works.attachSchema(Schemas.Works);
-Works.friendlySlugs('latin_title');
+Works.friendlySlugs('original_title');

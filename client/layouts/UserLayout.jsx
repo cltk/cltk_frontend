@@ -1,7 +1,7 @@
 UserLayout = React.createClass({
 	render() {
 		return (
-			<div className="cltk-layout">
+			<div className="cltk-layout user-layout">
 				<Header />
 				<div className="container" style={{ paddingTop: 70 }}>
 					<div className="row">

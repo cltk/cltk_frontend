@@ -159,6 +159,11 @@
 
 	}
 
+	.no-results {
+		color:@light;
+		font-size:16px;
+		padding:25px 5px;
+	}
 
 	.search-tool {
 		height: auto !important;
@@ -201,7 +206,7 @@
 	}
 
 	.dropdown-menu {
-		background:rgba(180,180,180,0.98);
+		background:rgba(150,150,150,0.92);
 		border-radius:0px;
 		padding:15px;
 		top:40px;
@@ -251,7 +256,16 @@
 
 }
 
+.search-dropdown-date {
+	.dropdown-menu {
+		width:420px;
+	}
+
+}
+
 .search-tool--date.toolbar {
+
+
 	.irs-grid-pol {
 		background:@light;
 	}
@@ -265,7 +279,18 @@
 	}
 	.irs-min, .irs-max {
 		color:@light;
+		background:#666;
 	}
+
+	.irs-from, .irs-to, .irs-single {
+		background:@md-primary-dark;
+		font-weight:bold;
+		font-family:@font-label;
+	}
+	.irs-from:after, .irs-to:after, .irs-single:after {
+		border-top-color:@md-primary-dark;
+	}
+
 }
 
 

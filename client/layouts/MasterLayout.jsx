@@ -6,7 +6,7 @@ MasterLayout = React.createClass({
 	getInitialState() {
 		return {
 			searchModalVisible: false,
-		}
+		};
 	},
 
 	componentDidMount() {
@@ -15,28 +15,28 @@ MasterLayout = React.createClass({
 				$('html, body').animate({ scrollTop: $(location.hash).offset().top - 100 }, 300);
 			}, 1000);
 		}
-
 	},
 
 	showSearchModal() {
 		this.setState({
 			searchModalVisible: true,
 		});
-
 	},
 
 	closeSearchModal() {
 		this.setState({
 			searchModalVisible: false,
 		});
-
 	},
 
 
 	render() {
 		return (
 			<div className="cltk-layout master-layout">
-				<div className={'master-content ' + (this.state.searchModalVisible ? 'master-content--scaled' : '')}>
+				<div
+					className={`master-content
+						${(this.state.searchModalVisible ? 'master-content--scaled' : '')}`}
+				>
 					<Header
 						showSearchModal={this.showSearchModal}
 					/>
@@ -48,7 +48,7 @@ MasterLayout = React.createClass({
 				<SearchModal
 					visible={this.state.searchModalVisible}
 					closeSearchModal={this.closeSearchModal}
-					/>
+				/>
 			</div>
 		);
 	},
