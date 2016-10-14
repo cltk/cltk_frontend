@@ -1,4 +1,4 @@
-import debounce from 'throttle-debounce/debounce';
+// import debounce from 'throttle-debounce/debounce';
 
 ReadingLayout = React.createClass({
 
@@ -50,7 +50,7 @@ ReadingLayout = React.createClass({
 		}
 
 		window.addEventListener('resize', this.calculateTextNodeDepths);
-		window.addEventListener('scroll', debounce(100, this.handleScroll));
+		// window.addEventListener('scroll', debounce(100, this.handleScroll));
 	},
 
 	componentDidUpdate() {
@@ -359,6 +359,10 @@ ReadingLayout = React.createClass({
 			|| this.state.toggleEntities
 		) {
 			readingClassName += ' with-right-metadata';
+		}
+
+		if (this.state.toggleMedia) {
+			readingClassName += ' with-media';
 		}
 
 		if (this.state.toggleScansion) {

@@ -1,3 +1,51 @@
+#annotate-widget {
+  position:fixed;
+  bottom:20px;
+  right:20px;
+
+  button {
+    background:@md-primary;
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    outline:none;
+    border:none;
+
+    &:hover, &:focus {
+      outline:none;
+      background:@md-primary;
+    }
+
+    &.comment-mode-enabled {
+      background:@light;
+      i.mdi-close {
+        display:block;
+      }
+      i.mdi-pencil {
+        display:none;
+      }
+
+    }
+
+    i.mdi-pencil {
+      color:@light;
+      display:block;
+      padding:10px;
+    }
+
+    i.mdi-close {
+      color:@dark;
+      padding:10px;
+      display:none;
+    }
+
+  }
+
+
+
+}
+
+
 .annotations-toggles {
   position:fixed;
   bottom:35px;
