@@ -256,7 +256,7 @@ ReadingTextNode = React.createClass({
 					: ''
 				}
 
-				{text.n_1 === 10 || text.n_2 === 10 ?
+				{text.n_1 === 3 || text.n_2 === 3 ?
 					<div className="text-meta text-media">
 						<ReadingMedia />
 					</div>

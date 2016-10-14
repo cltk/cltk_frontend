@@ -26,7 +26,7 @@ ReadingLayout = React.createClass({
 			toggleTranslations: false,
 			toggleScansion: false,
 			toggleMedia: false,
-			toggleEntities: false,
+			toggleEntities: true,
 			toggleAnnotations: false,
 			toggleRelatedPassages: false,
 			filters: [],

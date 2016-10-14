@@ -61,7 +61,7 @@ ReadingEnvironment = React.createClass({
 		return (
 			<div className={`reading-container reading-container--${genre}`}>
 
-				<section className="page-head fullscreen image-bg bg-dark">
+				<section className="page-head fullscreen image-bg ">
 
 					<div className="background-image-holder less-blur blur">
 						<img className="background-image" alt="background" src="/images/temple.jpg" />

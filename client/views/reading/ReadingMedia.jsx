@@ -19,7 +19,7 @@ ReadingMedia = React.createClass({
 				<div className="media-description">
 					<span className="media-caption">
 						"Folio 45V". <em>The Vergilius Vaticanus
-						</em>. The Vatican Library, Rome, Italy. 400 AD.
+						</em>. Vatican, Biblioteca Apostolica, Cod. Vat. lat. 3225). Rome, Italy. Ca 400 AD.
 					</span>
 
 				</div>
