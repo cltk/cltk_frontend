@@ -1,4 +1,4 @@
-// import debounce from 'throttle-debounce/debounce';
+import debounce from 'throttle-debounce/debounce';
 
 ReadingLayout = React.createClass({
 
