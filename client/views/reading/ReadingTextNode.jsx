@@ -1,6 +1,7 @@
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import IconButton from 'material-ui/IconButton';
+import FlatButton from 'material-ui/FlatButton';
 
 ReadingTextNode = React.createClass({
 
@@ -172,12 +173,6 @@ ReadingTextNode = React.createClass({
 	},
 
 	render() {
-		const styles = {
-			checkbox: {
-				display: 'inline-block',
-				width: 'auto',
-			},
-		};
 		const text = this.props.text;
 		let textClasses = 'text-node';
 		const numbering = this.props.numbering;
@@ -207,8 +202,6 @@ ReadingTextNode = React.createClass({
 
 		const textLocation = this.getTextLocation();
 
-		const entity = { slug: 'test-entity' };
-
 		return (
 			<div
 				className={textClasses}
@@ -220,32 +213,13 @@ ReadingTextNode = React.createClass({
 					<h2>{numbering}</h2>
 					<i className="text-bookmark mdi mdi-bookmark" />
 				</div>
-				<div className="text-meta-options">
-					<IconButton
-						className="text-meta-button"
-						onClick={this.toggleBookmark}
-						style={styles.checkbox}
-						iconClassName="mdi mdi-bookmark"
-						tooltip="Bookmark"
-						tooltipPosition="top-center"
-					/>
-					<IconButton
-						className="text-meta-button"
-						onClick={this.showAnnotations}
-						style={styles.checkbox}
-						iconClassName="mdi mdi-comment-text-outline"
-						tooltip="Annoations"
-						tooltipPosition="top-center"
-					/>
-					<IconButton
-						className="text-meta-button"
-						onClick={this.showRelatedPassages}
-						style={styles.checkbox}
-						iconClassName="mdi mdi-alpha"
-						tooltip="Related Passages"
-						tooltipPosition="top-center"
-					/>
-				</div>
+
+				<TextMetaOptions
+					toggleBookmark={this.toggleBookmark}
+					showAnnotations={this.showAnnotations}
+					showRelatedPassages={this.showRelatedPassages}
+				/>
+
 				<p
 					className="text-html"
 					onClick={this.handleClick}
@@ -259,87 +233,28 @@ ReadingTextNode = React.createClass({
 
 				{text.n_1 === 5 || text.n_2 === 5 ?
 					<div className="text-meta text-related-passages">
-						<div className="related-passage">
-							<span className="related-passage-edition">1920, A. S. F. Gow</span>
-							<a href="#passage" className="related-passage-ref paper-link">
-								<h4 >Theocritus, Idylls 17.2-3</h4>
-							</a>
-							<div className="related-passage-lemma">
-								<p>ἄλλοκα δ’ αὖ ποτὶ τὸν ῥιπτεῖ νόον· οἳ δ’ ὑπ’ ἔρωτος</p>
-								<p>δηθὰ κυλοιδιόωντες ἐτώσια μοχθίζοντι.</p>
-
-							</div>
-
-						</div>
-
+						<ReadingRelatedPassage />
 					</div>
 					: ''
 				}
 
 				{text.n_1 === 5 || text.n_2 === 5 ?
 					<div className="text-meta text-entities">
-						<div className="entity-teaser">
-							<a
-								href={`/entities/${entity.slug}`}
-								className="entity-thumbnail-image image-wrap paper-shadow"
-							>
-								<img
-									alt="thumbnail"
-									src="/images/entities/herodotus_thumbnail.jpg"
-								/>
-							</a>
-							<div className="entity-description">
-								<a
-									href={`/entities/${entity.slug}`}
-									className="entity-name"
-								>
-									<h4 >Herodotus</h4>
-								</a>
-								<span className="entity-bio">
-									Herodotus was a Greek historian who was born in Halicarnassus
-									Caria and lived in the 5th century BC, a contemporary of Socrates ...
-								</span>
-
-								<div className="entity-meta">
-									<a
-										href={`/entities/${entity.slug}#references`}
-										className="entity-meta-link entity-additional-refernces entity-action "
-									>
-										<span>76 other references</span>
-									</a>
-									<a
-										href={`/entities/${entity.slug}#associated-media`}
-										className="entity-meta-link entity-media entity-action"
-									>
-										<span>8 associated media</span>
-									</a>
-
-								</div>
-							</div>
-
-						</div>
+						<ReadingEntity />
 					</div>
 					: ''
 				}
 
 				{text.n_1 === 10 || text.n_2 === 10 ?
-					<div className="text-media">
-						<div className="embedded-media">
-							<a
-								href="#thumbnail"
-								className="media-thumbnail-image image-wrap paper-shadow"
-							>
-								<img alt="thumbnail" src="/images/entity_aeneas-small.jpg" />
-							</a>
-							<div className="media-description">
-								<span className="media-caption">
-									"Aeneas and the Laurentinian Sow"
-								</span>
+					<div className="text-meta text-media">
+						<ReadingMedia />
+					</div>
 
-							</div>
+				: ''}
 
-						</div>
-
+				{text.n_1 === 10 || text.n_2 === 10 ?
+					<div className="text-meta text-annotations">
+						<ReadingMedia />
 					</div>
 
 				: ''}
