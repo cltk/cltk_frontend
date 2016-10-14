@@ -51,7 +51,7 @@ ReadingLayout = React.createClass({
 		}
 
 		window.addEventListener('resize', this.calculateTextNodeDepths);
-		// window.addEventListener('scroll', debounce(100, this.handleScroll));
+		window.addEventListener('scroll', debounce(100, this.handleScroll));
 	},
 
 	componentDidUpdate() {
