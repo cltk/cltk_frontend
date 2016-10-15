@@ -197,7 +197,7 @@ HeaderReading = React.createClass({
 											/>
 										</li>
 
-										{work.genre === 'poetry' ? <li
+										{work.form === 'poetry' ? <li
 											className={(this.props.toggleScansion) ? 'checked meta-toggle' :
 											'meta-toggle'}
 										>

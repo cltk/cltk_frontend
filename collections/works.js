@@ -76,7 +76,7 @@ Schemas.Works = new SimpleSchema({
 		type: String,
 		optional: true,
 	},
-	genre: {
+	form: {
 		type: String,
 		optional: true,
 	},
