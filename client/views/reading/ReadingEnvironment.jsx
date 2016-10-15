@@ -56,10 +56,10 @@ ReadingEnvironment = React.createClass({
 
 	render() {
 		const work = this.props.work;
-		const genre = work.genre || 'prose';
+		const form = work.form || 'prose';
 
 		return (
-			<div className={`reading-container reading-container--${genre}`}>
+			<div className={`reading-container reading-container--${form}`}>
 
 				<section className="page-head fullscreen image-bg ">
 
