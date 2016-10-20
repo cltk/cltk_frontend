@@ -53,3 +53,7 @@ Template.registerHelper('isParticiple', function(pos) {
 Template.registerHelper('isOtherPOS', function(pos) {
   return ["noun", "pronoun", "adjective", "verb", "participle"].indexOf(pos) < 0;
 });
+
+Template.registerHelper('niceName', function(userId) {
+  return Meteor.users.findOne(userId).profile.firstName;
+});
