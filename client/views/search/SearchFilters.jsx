@@ -18,10 +18,9 @@ SearchFilters = React.createClass({
 	},
 
 	getMeteorData() {
-
 		return {
 			authors: [],
-		}
+		};
 	},
 
 	render() {
@@ -44,7 +43,7 @@ SearchFilters = React.createClass({
 										label={val.title || val.name || val}
 									/>
 								);
-							}else if (['authors'].indexOf(filter.key) >= 0) {
+							} else if (['authors'].indexOf(filter.key) >= 0) {
 								return (
 									<RaisedButton
 										key={j}

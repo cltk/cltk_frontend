@@ -10,20 +10,23 @@ WorksList = React.createClass({
 	getMeteorData() {
 		const query = {};
 		let works = [];
-		//const handle = Meteor.subscribe('works', query, 0, 9);
-		//if (handle.ready()) {
-			works = Works.find(query,
+		// const handle = Meteor.subscribe('works', query, 0, 9);
+		// if (handle.ready()) {
+		works = Works.find(query,
 				{ sort: { english_title: 1 } }).fetch();
 
-			works.forEach((work, i) => {
-				works[i].authors = Authors.find({ _id: { $in: work.authors } }).fetch();
-			});
+		works.forEach((work, i) => {
+			works[i].authors = Authors.find({ _id: { $in: work.authors } }).fetch();
+		});
 
-			works.sort((a,b) => {
-				return (a.authors[0].english_name > b.authors[0].english_name) ? 1 : ((b.authors[0].english_name > a.authors[0].english_name) ? -1 : 0);
-			});
-		//}
-
+		works.sort((a, b) => {
+			if (a.authors[0].english_name > b.authors[0].english_name) {
+				return 1;
+			} else if (b.authors[0].english_name > a.authors[0].english_name) {
+				return -1;
+			}
+			return 0;
+		});
 		return {
 			works,
 		};
@@ -41,7 +44,7 @@ WorksList = React.createClass({
 	render() {
 		const masonryOptions = {
 			// columnWidth : "400px",
-			isFitWidth : true,
+			isFitWidth: true,
 			transitionDuration: 300,
 		};
 

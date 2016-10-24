@@ -18,10 +18,10 @@ if (Meteor.isServer) {
 	});
 
 	Meteor.publish('works', (query, skip, limit) => {
-		if(!skip){
+		if (!skip) {
 			skip = 0;
 		}
-		if(!limit){
+		if (!limit) {
 			limit = 0;
 		}
 

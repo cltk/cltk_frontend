@@ -81,9 +81,9 @@ iron:middleware-stack@1.1.0
 iron:router@1.0.12
 iron:url@1.0.11
 jabbslad:basic-auth@0.2.2
-jalik:ufs@0.6.4
-jalik:ufs-gridfs@0.1.1
-jalik:ufs-local@0.2.5
+jalik:ufs@0.7.1
+jalik:ufs-gridfs@0.1.4
+jalik:ufs-local@0.2.8
 jparker:crypto-core@0.1.0
 jparker:crypto-md5@0.1.1
 jparker:gravatar@0.5.1

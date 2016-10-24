@@ -19,7 +19,8 @@ AnnotationItem = React.createClass({
 				author: 'Archimedes of Syracuse',
 				date: '14 Oct 2016',
 				thumbnail: '/images/archimedes.jpg',
-				content: 'Quid faciat laetas segetes quo sidere terram vertere Mycenas ulmisque adiungere vites conveniat quae curum boum qui cultus habendo',
+				content: 'Quid faciat laetas segetes quo sidere terram vertere Mycenas ' +
+				'ulmisque adiungere vites conveniat quae curum boum qui cultus habendo',
 			},
 		};
 	},

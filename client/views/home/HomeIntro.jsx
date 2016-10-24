@@ -5,8 +5,8 @@ HomeIntro = React.createClass({
 		showSearchModal: React.PropTypes.func.isRequired,
 	},
 
-	scrollDown(){
-		$('html, body').animate({ scrollTop: $("#get-started").offset().top - 100 }, 300);
+	scrollDown() {
+		$('html, body').animate({ scrollTop: $('#get-started').offset().top - 100 }, 300);
 	},
 
 	render() {
@@ -31,10 +31,13 @@ HomeIntro = React.createClass({
 								readOnly
 								onClick={this.props.showSearchModal}
 								onTouchTap={this.props.showSearchModal}
-								/>
+       />
 
 							<h6 className="uppercase mb16">
-								Read and research works in Chinese, Coptic, Greek, Hebrew, Latin, Pali, Punjabi, Sanskrit, <br />Telugu, and Tibetan and contribute annotations to the community.						
+								Read and research works in Chinese, Coptic,
+								Greek, Hebrew, Latin, Pali, Punjabi, Sanskrit,
+								<br />
+								Telugu, and Tibetan and contribute annotations to the community.
 							</h6>
 
 							<a

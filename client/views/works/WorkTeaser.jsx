@@ -42,7 +42,7 @@ WorkTeaser = React.createClass({
 							<span className="card-meta card-meta-left-language">
 								{Utils.capitalize(work.workLanguage)}
 							</span>
-						: ""
+						: ''
 						}
 						<span className="card-meta card-meta-left-date">
 							{work.date}
