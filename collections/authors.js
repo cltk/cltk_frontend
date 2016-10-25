@@ -9,10 +9,6 @@ Schemas.Authors = new SimpleSchema({
 		type: String,
 		optional: true,
 	},
-	title: {
-		type: String,
-		optional: true,
-	},
 
 	slug: {
 		type: String,
