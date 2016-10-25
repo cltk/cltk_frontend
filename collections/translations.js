@@ -25,7 +25,7 @@ Schemas.Translations = new SimpleSchema({
 		optional: true,
 		min: 0,
 	},
-	language: {
+	translationLanguage: {
 		type: String,
 		max: 60,
 	},

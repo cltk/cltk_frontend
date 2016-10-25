@@ -24,7 +24,7 @@ Schemas.Authors = new SimpleSchema({
 		},
 	},
 
-	languages: {
+	authorLanguages: {
 		type: [String],
 		max: 60,
 	},

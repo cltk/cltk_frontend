@@ -25,7 +25,7 @@ Schemas.Texts = new SimpleSchema({
 		optional: true,
 		min: 0,
 	},
-	language: {
+	textLanguage: {
 		type: String,
 		max: 60,
 	},

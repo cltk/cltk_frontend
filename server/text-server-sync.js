@@ -44,14 +44,14 @@ function syncLanguages(languages) {
 
 function syncCorpora(corpora, language) {
 	corpora.forEach(corpus => {
-		const existing = Corpora.findOne({ title: corpus, language: language.title });
+		const existing = Corpora.findOne({ title: corpus, corpusLanguage: language.title });
 
 		// If corpus is not already in the database, insert it
 		if (!existing) {
 			try {
 				Corpora.insert({
 					title: corpus,
-					language: language.title,
+					corpusLanguage: language.title,
 				});
 			} catch (err) {
 				console.log('Error insert corpora');
@@ -71,7 +71,7 @@ function syncAuthors(authors, corpus) {
 			try {
 				Authors.insert({
 					title: author,
-					language: corpus.language,
+					authorLanguage: corpus.language,
 					corpus: corpus.title,
 				});
 			} catch (err) {
@@ -93,7 +93,7 @@ function syncWorks(works, author) {
 				Works.insert({
 					title: work,
 					author: author.title,
-					language: author.language,
+					workLanguage: author.language,
 					corpus: author.corpus,
 				});
 			} catch (err) {
@@ -127,7 +127,7 @@ function syncTextNodes(textNodes, metaStructure, work) {
 				const existing = Texts.findOne({
 					n_1: parseInt(n1Key, 10),
 					author: work.author,
-					language: work.language,
+					textLanguage: work.language,
 					corpus: work.corpus,
 					work: work.title,
 				});
@@ -138,7 +138,7 @@ function syncTextNodes(textNodes, metaStructure, work) {
 						Texts.insert({
 							n_1: parseInt(n1Key, 10),
 							author: work.author,
-							language: work.language,
+							textLanguage: work.language,
 							corpus: work.corpus,
 							work: work.title,
 							text: textNodes[n1Key],
@@ -167,7 +167,7 @@ function syncTextNodes(textNodes, metaStructure, work) {
 						n_1: parseInt(n1Key, 10),
 						n_2: parseInt(n2Key, 10),
 						author: work.author,
-						language: work.language,
+						textLanguage: work.language,
 						corpus: work.corpus,
 						work: work.title,
 					});
@@ -179,7 +179,7 @@ function syncTextNodes(textNodes, metaStructure, work) {
 								n_1: parseInt(n1Key, 10),
 								n_2: parseInt(n2Key, 10),
 								author: work.author,
-								language: work.language,
+								textLanguage: work.language,
 								corpus: work.corpus,
 								work: work.title,
 								text: textNodes[n1Key][n2Key],
@@ -210,7 +210,7 @@ function syncTextNodes(textNodes, metaStructure, work) {
 							n_2: parseInt(n2Key, 10),
 							n_3: parseInt(n3Key, 10),
 							author: work.author,
-							language: work.language,
+							textLanguage: work.language,
 							corpus: work.corpus,
 							work: work.title,
 						});
@@ -223,7 +223,7 @@ function syncTextNodes(textNodes, metaStructure, work) {
 									n_2: parseInt(n2Key, 10),
 									n_3: parseInt(n3Key, 10),
 									author: work.author,
-									language: work.language,
+									textLanguage: work.language,
 									corpus: work.corpus,
 									work: work.title,
 									text: textNodes[n1Key][n2Key][n3Key],
@@ -265,7 +265,7 @@ function syncTranslations(translations, metaStructure, work) {
 					const existing = Translations.findOne({
 						n_1: parseInt(n1Key, 10),
 						author: work.author,
-						language: work.language,
+						translationLanguage: work.language,
 						corpus: work.corpus,
 						work: work.title,
 						translator: translation.translator,
@@ -277,7 +277,7 @@ function syncTranslations(translations, metaStructure, work) {
 							Translations.insert({
 								n_1: parseInt(n1Key, 10),
 								author: work.author,
-								language: work.language,
+								translationLanguage: work.language,
 								corpus: work.corpus,
 								work: work.title,
 								translator: translation.translator,
@@ -307,7 +307,7 @@ function syncTranslations(translations, metaStructure, work) {
 							n_1: parseInt(n1Key, 10),
 							n_2: parseInt(n2Key, 10),
 							author: work.author,
-							language: work.language,
+							translationLanguage: work.language,
 							corpus: work.corpus,
 							work: work.title,
 							translator: translation.translator,
@@ -321,7 +321,7 @@ function syncTranslations(translations, metaStructure, work) {
 									n_1: parseInt(n1Key, 10),
 									n_2: parseInt(n2Key, 10),
 									author: work.author,
-									language: work.language,
+									translationLanguage: work.language,
 									corpus: work.corpus,
 									work: work.title,
 									translator: translation.translator,
@@ -354,7 +354,7 @@ function syncTranslations(translations, metaStructure, work) {
 								n_2: parseInt(n2Key, 10),
 								n_3: parseInt(n3Key, 10),
 								author: work.author,
-								language: work.language,
+								translationLanguage: work.language,
 								corpus: work.corpus,
 								work: work.title,
 								translator: translation.translator,
@@ -368,7 +368,7 @@ function syncTranslations(translations, metaStructure, work) {
 										n_2: parseInt(n2Key, 10),
 										n_3: parseInt(n3Key, 10),
 										author: work.author,
-										language: work.language,
+										translationLanguage: work.language,
 										corpus: work.corpus,
 										work: work.title,
 										translator: translation.translator,
