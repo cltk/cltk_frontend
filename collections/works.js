@@ -58,6 +58,12 @@ Schemas.Works = new SimpleSchema({
 			},
 		},
 	},
+
+	edition: {
+		type: String,
+		optiona: true,
+	},
+
 	editors: {
 		type: [String],
 		regEx: SimpleSchema.RegEx.Id,
