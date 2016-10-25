@@ -1,23 +1,24 @@
 {
-    "environment": "dev",
-
-    "public": {
-        "ga": {
-            "id": "UA-XXXXXXXX-1"
-        },
-        "mixpanel": {
-            "token": "xxxxxxxxxxxxxxxxxxxxxxxxxxx",
-            "identifyUsers": true
-        }
-    },
-    "serviceConfigurations": {
-        "facebook": {
-            "appId": "",
-            "secret": ""
-        },
-        "googe": {
-          "clientId" : "xxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com",
-          "secret" : "xxxxxxxxxxxxxxxxxxxxxxxxxxx",
-          "loginStyle" : "popup"
-        }
-    }
+	"environment": "dev",
+	"public": {
+		"ga": {
+			"id": "UA-XXXXXXXX-1"
+		}
+	},
+	"serviceConfigurations": {
+		"facebook": {
+			"appId": "",
+			"secret": ""
+		},
+		"google": {
+			"clientId" : ".apps.googleusercontent.com",
+			"secret" : "",
+			"loginStyle" : "popup"
+		},
+		"twitter": {
+			"consumerKey": "",
+			"secret": "",
+			"loginStyle" : "popup"
+		}
+	}
+}
