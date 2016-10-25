@@ -123,8 +123,8 @@ HeaderReading = React.createClass({
 											className="reading-location-param reading-location-param--work"
 											href={`/works/${work._id}/${work.slug}`}
 										>
-										{'english_title' in work ?
-											<span>{Utils.trunc(work.english_title, 100)},</span>
+											{'english_title' in work ?
+												<span>{Utils.trunc(work.english_title, 100)},</span>
 										:
 											''
 										}

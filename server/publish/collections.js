@@ -1,7 +1,7 @@
 /*
 * Replace these in the future as they will publish our entire collections.
 */
-
+/*eslint new-cap: "off"*/
 if (Meteor.isServer) {
 	Meteor.publish('attachments', () => Attachments.find());
 
@@ -18,16 +18,9 @@ if (Meteor.isServer) {
 	});
 
 	Meteor.publish('works', (query, skip, limit) => {
-		if(!skip){
-			skip = 0;
-		}
-		if(!limit){
-			limit = 0;
-		}
-
 		check(query, Object);
-		check(skip, Number);
-		check(limit, Number);
+		check(skip, Match.Optional(Number));
+		check(limit, Match.Optional(Number));
 
 		return Works.find(query, { limit, sort: { english_title: 1 } });
 	});

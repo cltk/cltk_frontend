@@ -16,10 +16,9 @@ SearchResultsList = React.createClass({
 	},
 
 	render() {
-
 		const masonryOptions = {
 			// columnWidth : "400px",
-			isFitWidth : true,
+			isFitWidth: true,
 			transitionDuration: 300,
 		};
 

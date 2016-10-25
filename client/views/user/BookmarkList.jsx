@@ -36,12 +36,12 @@ BookmarkList = React.createClass({
 			<ul className="collection with-header" style={styles.list}>
 				<li className="collection-header"> <h3>Bookmarks</h3></li>
 				<div style={styles.innerList}>
-				{this.data.bookmarkedText.map((text, i) => (
-					<li key={i} className="collection-item" style={styles.listItem}>
-						<a href={`/works/${text.author}/${text.work}?id=${text._id}`}>
-							{text.html}
-						</a>
-					</li>
+					{this.data.bookmarkedText.map((text, i) => (
+						<li key={i} className="collection-item" style={styles.listItem}>
+							<a href={`/works/${text.author}/${text.work}?id=${text._id}`}>
+								{text.html}
+							</a>
+						</li>
 				))}
 				</div>
 			</ul>

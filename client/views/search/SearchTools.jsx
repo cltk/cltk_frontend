@@ -39,7 +39,7 @@ SearchTools = React.createClass({
 			if (err) {
 				console.log(err);
 			} else {
-				//console.log('searchTools response', res);
+				// console.log('searchTools response', res);
 				this.setState({
 					languages: res.languages,
 					corpora: res.corpora,
@@ -50,7 +50,6 @@ SearchTools = React.createClass({
 		});
 
 		this.refs.textsearch.getInputNode().focus();
-
 	},
 
 	toggleSearchDropdown(dropdown) {
@@ -92,7 +91,7 @@ SearchTools = React.createClass({
 						className="text-search-field"
 						hintText="Search"
 						floatingLabelText="Search"
-						floatingLabelFixed={true}
+						floatingLabelFixed
 						ref="textsearch"
 						onChange={debounce(500, this.handleChangeTextsearch)}
 					/>

@@ -5,7 +5,6 @@ Meteor.methods({
 		let corpora = [];
 		let author = {};
 		const authors = [];
-		let authorsRaw = [];
 
 		languages = _.uniq(Works.find({ language: { $exists: true } }, {
 			sort: { language: 1 }, fields: { language: true },
@@ -20,9 +19,8 @@ Meteor.methods({
 		worksAuthorsRaw.forEach((authorsRaw) => {
 			authorsRaw.forEach((authorRaw) => {
 				author = Authors.findOne({ _id: authorRaw });
-				if (author && !(authors.some(function(existingAuthor){
-					return existingAuthor._id === author._id
-				}))) {
+				if (author && !(authors.some((existingAuthor) => existingAuthor._id === author._id
+				))) {
 					authors.push(author);
 				}
 			});
