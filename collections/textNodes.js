@@ -41,6 +41,10 @@ Schemas.Texts = new SimpleSchema({
 		type: String,
 		max: 60,
 	},
+	edition: {
+		type: String,
+		max: 60,
+	},
 
 	text: {
 		type: String,
