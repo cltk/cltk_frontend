@@ -63,7 +63,9 @@ ReadingLayout = React.createClass({
 	getMeteorData() {
 		let query = {};
 		let textNodes = [];
-		const workQuery = { _id: this.props.params.id };
+		const workQuery = {
+			_id: new Meteor.Collection.ObjectID(this.props.params.id),
+		};
 		let work = { authors: [] };
 		let attachment = null;
 
@@ -86,8 +88,9 @@ ReadingLayout = React.createClass({
 			/*
 			* Should be the slug when the text sync / ingest is reworked
 			*/
-			// query = {work: work.slug};
-			query = { work: work.title };
+			query = {
+				work: work._id,
+			};
 
 
 			/*

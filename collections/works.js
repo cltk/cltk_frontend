@@ -61,7 +61,7 @@ Schemas.Works = new SimpleSchema({
 
 	edition: {
 		type: String,
-		optiona: true,
+		optional: true,
 	},
 
 	editors: {
