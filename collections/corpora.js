@@ -15,8 +15,8 @@ Schemas.Corpora = new SimpleSchema({
 		},
 	},
 
-	corpusLanguage: {
-		type: String,
+	corpusLanguages: {
+		type: [String],
 		max: 60,
 	},
 
