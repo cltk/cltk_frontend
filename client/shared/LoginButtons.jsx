@@ -113,7 +113,7 @@ LoginButtons = React.createClass({
 					className="account-button account-button-login"
 				/>
 				<FlatButton
-					label="Join the Community"
+					label="Sign Up"
 					onClick={this.props.showSignupModal}
 					style={styles.flatButton}
 					className="account-button account-button-login"

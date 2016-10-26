@@ -61,6 +61,9 @@ Profile = React.createClass({
 	render() {
 		console.log(this.data.user);
 		const currentUser = this.data.user;
+		if (currentUser && !('profile' in currentUser)) {
+			currentUser.profile = {};
+		}
 		const styles = {
 			textFieldStyle: {
 				boxShadow: 'none',
