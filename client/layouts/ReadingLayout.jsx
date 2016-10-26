@@ -400,52 +400,62 @@ ReadingLayout = React.createClass({
 
 		return (
 			<div className="cltk-layout reading-layout">
-				<HeaderReading
-					work={this.data.work}
-					location={this.textLocation}
-					showSearchModal={this.showSearchModal}
-					toggleSidePanel={this.toggleSidePanel}
-					toggleDefinitions={this.state.toggleDefinitions}
-					toggleCommentary={this.state.toggleCommentary}
-					toggleTranslations={this.state.toggleTranslations}
-					toggleScansion={this.state.toggleScansion}
-					toggleMedia={this.state.toggleMedia}
-					toggleEntities={this.state.toggleEntities}
-					toggleAnnotations={this.state.toggleAnnotations}
-				/>
+				{this.data.work ?
+					<div>
+						<HeaderReading
+							work={this.data.work}
+							location={this.textLocation}
+							showSearchModal={this.showSearchModal}
+							toggleSidePanel={this.toggleSidePanel}
+							toggleDefinitions={this.state.toggleDefinitions}
+							toggleCommentary={this.state.toggleCommentary}
+							toggleTranslations={this.state.toggleTranslations}
+							toggleScansion={this.state.toggleScansion}
+							toggleMedia={this.state.toggleMedia}
+							toggleEntities={this.state.toggleEntities}
+							toggleAnnotations={this.state.toggleAnnotations}
+						/>
 
-				<main>
-					<div id="reading" className={readingClassName}>
-						{this.renderReadingEnvironment()}
+						<main>
+							<div id="reading" className={readingClassName}>
+								{this.renderReadingEnvironment()}
+							</div>
+						</main>
+
+						{/* <AnnotateWidget />*/}
+
+						<DefinitionsPanel
+							toggleDefinitions={this.state.toggleDefinitions}
+							textNodes={this.data.textNodes}
+						/>
+
+						<CommentaryPanel
+							toggleCommentary={this.state.toggleCommentary}
+							toggleTranslations={this.state.toggleTranslations}
+							work={(this.data.work && 'title' in this.data.work) ? this.data.work.title : ''}
+							textNodes={this.data.textNodes}
+						/>
+
+						<AnnotateWidget
+							annotationCheckList={this.state.annotationCheckList}
+							work={this.data.work || {}}
+							submitAnnotation={this.submitAnnotation}
+						/>
+
+						<SearchModal
+							work={this.data.work}
+							visible={this.state.searchModalVisible}
+							closeSearchModal={this.closeSearchModal}
+						/>
 					</div>
-				</main>
-
-				{/* <AnnotateWidget />*/}
-
-				<DefinitionsPanel
-					toggleDefinitions={this.state.toggleDefinitions}
-					textNodes={this.data.textNodes}
-				/>
-
-				<CommentaryPanel
-					toggleCommentary={this.state.toggleCommentary}
-					toggleTranslations={this.state.toggleTranslations}
-					work={(this.data.work && 'title' in this.data.work) ? this.data.work.title : ''}
-					textNodes={this.data.textNodes}
-				/>
-
-				<AnnotateWidget
-					annotationCheckList={this.state.annotationCheckList}
-					work={this.data.work || {}}
-					submitAnnotation={this.submitAnnotation}
-				/>
-
-				<SearchModal
-					work={this.data.work}
-					visible={this.state.searchModalVisible}
-					closeSearchModal={this.closeSearchModal}
-				/>
-
+				:
+					<div className="reading-loading">
+						<div className="well-spinner-double">
+							<div className="double-bounce1" />
+							<div className="double-bounce2" />
+						</div>
+					</div>
+				}
 			</div>
 		);
 	},

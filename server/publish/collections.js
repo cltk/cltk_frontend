@@ -27,7 +27,7 @@ if (Meteor.isServer) {
 
 	Meteor.publish('workSingle', (query) => {
 		check(query, Object);
-		return Works.findOne(query, { sort: { english_title: 1 } });
+		return Works.find(query, { limit: 1 });
 	});
 
 	Meteor.publish('definitions', definitionIds => {
