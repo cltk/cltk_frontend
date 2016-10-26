@@ -92,6 +92,18 @@ header {
 		}
 	}
 
+	a, .account-button {
+		display:inline-block;
+		vertical-align: top;
+		color:@dark;
+		text-transform:uppercase;
+		margin:0 10px;
+		span {
+			font-family:@font-label;
+			font-size:14px;
+		}
+	}
+
 
 }
 .dropdown-menu {
@@ -222,6 +234,13 @@ header {
   		background:@md-primary;
   	  color:@light;
     }
+
+		a, .account-button {
+			color:@light;
+			span {
+				color:@light;
+			}
+		}
 
   }
 }

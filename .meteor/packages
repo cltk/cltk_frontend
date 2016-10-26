@@ -7,6 +7,9 @@
 less
 accounts-base
 accounts-password
+accounts-facebook
+accounts-google
+accounts-twitter
 aldeed:collection2
 dburles:collection-helpers
 matb33:collection-hooks
@@ -70,7 +73,7 @@ react
 ecmascript
 archimedigital:core
 jabbslad:basic-auth
-deanius:promise
+# deanius:promise
 kadira:flow-router
 kadira:react-layout
 kadira:blaze-layout
@@ -81,7 +84,7 @@ simple:rest
 dburles:google-maps
 natestrauser:jquery-scrollto
 todda00:friendly-slugs
-#mquandalle:promisify-core
+# mquandalle:promisify-core
 materialize:materialize@0.97.0
 gwendall:blaze-to-react
 jalik:ufs@0.7.1

@@ -19,6 +19,8 @@ Header = React.createClass({
 	getInitialState() {
 		return {
 			leftMenuOpen: false,
+			modalLoginLowered: false,
+			modalSignupLowered: false,
 		};
 	},
 
@@ -35,6 +37,26 @@ Header = React.createClass({
 	closeLeftMenu() {
 		this.setState({
 			leftMenuOpen: false,
+		});
+	},
+	showLoginModal() {
+		this.setState({
+			modalLoginLowered: true,
+		});
+	},
+	showSignupModal() {
+		this.setState({
+			modalSignupLowered: true,
+		});
+	},
+	closeLoginModal() {
+		this.setState({
+			modalLoginLowered: false,
+		});
+	},
+	closeSignupModal() {
+		this.setState({
+			modalSignupLowered: false,
 		});
 	},
 
@@ -89,7 +111,10 @@ Header = React.createClass({
 
 									<ul className="nav navbar-nav navbar-right">
 										<li>
-											<LoginButtons />
+											<LoginButtons
+												showLoginModal={this.showLoginModal}
+												showSignupModal={this.showSignupModal}
+											/>
 										</li>
 										<li>
 											<FlatButton
@@ -153,6 +178,20 @@ Header = React.createClass({
 						</div>{/* <!-- .container.close-navbar -->*/}
 					</div>{/* <!-- .navigation-primary-->*/}
 				</header>
+				{this.state.modalLoginLowered ?
+					<ModalLogin
+						lowered={this.state.modalLoginLowered}
+						closeModal={this.closeLoginModal}
+					/>
+					: ''
+				}
+				{this.state.modalSignupLowered ?
+					<ModalSignup
+						lowered={this.state.modalSignupLowered}
+						closeModal={this.closeSignupModal}
+					/>
+					: ''
+				}
 			</div>
 		);
 	},

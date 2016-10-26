@@ -9,6 +9,11 @@ import Divider from 'material-ui/Divider';
 
 LoginButtons = React.createClass({
 
+	propTypes: {
+		showLoginModal: React.PropTypes.func,
+		showSignupModal: React.PropTypes.func,
+	},
+
 	mixins: [ReactMeteorData],
 
 	getInitialState() {
@@ -100,11 +105,20 @@ LoginButtons = React.createClass({
 		}
 		// render sign in button
 		return (
-			<FlatButton
-				label="Sign In"
-				style={styles.flatButton}
-				href="/sign-in"
-			/>
+			<div>
+				<FlatButton
+					label="Login"
+					onClick={this.props.showLoginModal}
+					style={styles.flatButton}
+					className="account-button account-button-login"
+				/>
+				<FlatButton
+					label="Join the Community"
+					onClick={this.props.showSignupModal}
+					style={styles.flatButton}
+					className="account-button account-button-login"
+				/>
+			</div>
 		);
 	},
 });
