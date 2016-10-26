@@ -210,12 +210,20 @@
 		border-radius:0px;
 		padding:15px;
 		top:40px;
+		max-height:300px;
+		overflow-y:scroll;
 
 		li {
 			display:inline-block;
 			vertical-align: top;
-			margin:5px 0.8%;
-			width:16%;
+			margin:5px 0.5%;
+			width:15.5%;
+			white-space: nowrap;
+			overflow:hidden;
+
+			span {
+				text-overflow: ellipsis;
+			}
 		}
 
 	}
