@@ -44,8 +44,8 @@ SearchModal = React.createClass({
 				break;
 			}
 
-			case 'language': {
-				query.languages = { $in: filter.values };
+			case 'languages': {
+				query.workLanguage = { $in: filter.values };
 				break;
 			}
 
@@ -55,13 +55,13 @@ SearchModal = React.createClass({
 			}
 
 			case 'authors': {
-				const authorSlugs = filter.values.reduce((carry, item) => {
-					if (item.slug && !~carry.indexOf(item.slug)) {
-						carry.push(item.slug);
-					}
-					return carry;
-				}, []);
-				query.author = { $in: authorSlugs };
+				const values = [];
+
+				filter.values.forEach((value) => {
+					values.push(value._id);
+				});
+
+				query.authors = { $in: values };
 				break;
 			}
 
@@ -81,18 +81,10 @@ SearchModal = React.createClass({
 			}
 		});
 
+		console.log('SearchModal query', query);
 		const handle = Meteor.subscribe('works', query, 0, 100);
 		if (handle.ready()) {
-			works = Works.find({}, {}).fetch();
-			/*
-			objects.forEach((object, i) => {
-				const imageSubscription = Meteor.subscribe('objectImages', object.slug);
-				if (imageSubscription.ready()) {
-					objects[i].images = Images.find({}).fetch();
-					objects[i].thumbnails = Thumbnails.find({}).fetch();
-				}
-			});
-			*/
+			works = Works.find(query, {}).fetch();
 
 			works.forEach((work, i) => {
 				works[i].authors = Authors.find({ _id: { $in: work.authors } }).fetch();
