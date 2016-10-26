@@ -6,9 +6,9 @@ Meteor.methods({
 		let author = {};
 		const authors = [];
 
-		languages = _.uniq(Works.find({ language: { $exists: true } }, {
-			sort: { language: 1 }, fields: { language: true },
-		}).fetch().map((x) => x.language), true);
+		languages = _.uniq(Works.find({ workLanguage: { $exists: true } }, {
+			sort: { workLanguage: 1 }, fields: { workLanguage: true },
+		}).fetch().map((x) => x.workLanguage), true);
 		corpora = _.uniq(Works.find({ corpus: { $exists: true } }, {
 			sort: { corpus: 1 }, fields: { corpus: true },
 		}).fetch().map((x) => x.corpus), true);
@@ -19,7 +19,8 @@ Meteor.methods({
 		worksAuthorsRaw.forEach((authorsRaw) => {
 			authorsRaw.forEach((authorRaw) => {
 				author = Authors.findOne({ _id: authorRaw });
-				if (author && !(authors.some((existingAuthor) => existingAuthor._id === author._id
+				if (author && !(authors.some((existingAuthor) =>
+					existingAuthor._id._str === author._id._str
 				))) {
 					authors.push(author);
 				}

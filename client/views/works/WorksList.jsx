@@ -3,6 +3,7 @@ import Masonry from 'react-masonry-component/lib';
 WorksList = React.createClass({
 
 	propTypes: {
+		limit: React.PropTypes.number,
 	},
 
 	mixins: [ReactMeteorData],
@@ -10,14 +11,25 @@ WorksList = React.createClass({
 	getMeteorData() {
 		const query = {};
 		let works = [];
-		// const handle = Meteor.subscribe('works', query, 0, 9);
-		// if (handle.ready()) {
-		works = Works.find(query,
-				{ sort: { english_title: 1 } }).fetch();
+		const limit = this.props.limit || null;
+		const handle = Meteor.subscribe('works', query);
+		if (handle.ready()) {
+			works = Works.find(query,
+				{
+					sort: {
+						english_tile: 1,
+					},
+				}
+			).fetch();
 
-		works.forEach((work, i) => {
-			works[i].authors = Authors.find({ _id: { $in: work.authors } }).fetch();
-		});
+			works.forEach((work, i) => {
+				works[i].authors = Authors.find({
+					_id: {
+						$in: work.authors,
+					},
+				}).fetch();
+			});
+		}
 
 		works.sort((a, b) => {
 			if (a.authors[0].english_name > b.authors[0].english_name) {
@@ -27,6 +39,9 @@ WorksList = React.createClass({
 			}
 			return 0;
 		});
+
+		works = works.splice(0, limit);
+
 		return {
 			works,
 		};
@@ -43,7 +58,6 @@ WorksList = React.createClass({
 
 	render() {
 		const masonryOptions = {
-			// columnWidth : "400px",
 			isFitWidth: true,
 			transitionDuration: 300,
 		};

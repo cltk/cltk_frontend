@@ -14,7 +14,9 @@ HomeGetStarted = React.createClass({
 						</h4>
 					</div>
 				</div>
-				<WorksList />
+				<WorksList
+					limit={21}
+				/>
 				<div className="container text-center">
 					<div className="row">
 						<a

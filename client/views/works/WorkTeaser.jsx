@@ -44,9 +44,13 @@ WorkTeaser = React.createClass({
 							</span>
 						: ''
 						}
-						<span className="card-meta card-meta-left-date">
-							{work.date}
-						</span>
+						{work.date ?
+							<span className="card-meta card-meta-left-date">
+								{work.date}
+							</span>
+						:
+							''
+						}
 					</div>
 				</div>
 

@@ -149,16 +149,19 @@ SearchTools = React.createClass({
 											});
 										}
 									});
-									return (
-										<SearchTermButton
-											key={i}
-											toggleSearchTerm={self.toggleSearchTerm}
-											label={language}
-											searchTermKey="languages"
-											value={language}
-											active={active}
-										/>
-									);
+									if (language) {
+										return (
+											<SearchTermButton
+												key={i}
+												toggleSearchTerm={self.toggleSearchTerm}
+												label={language}
+												searchTermKey="languages"
+												value={language}
+												active={active}
+											/>
+										);
+									}
+									return '';
 								})}
 								{self.state.languages.length === 0 ?
 									<span className="no-results">No languages found in archive.</span>

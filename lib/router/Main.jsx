@@ -11,12 +11,9 @@ FlowRouter.subscriptions = function subscriptions() {
 	this.register('authors', Meteor.subscribe('authors'));
 };
 
-
 /*
 * Routes for application
 */
-
-
 FlowRouter.route('/works/:id/:work', {
 	action(params, queryParams) {
 		mount(ReadingLayout, { params, queryParams });

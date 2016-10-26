@@ -1,7 +1,7 @@
 /*
 * Replace these in the future as they will publish our entire collections.
 */
-/*eslint new-cap: "off"*/
+/* eslint new-cap: "off" */
 if (Meteor.isServer) {
 	Meteor.publish('attachments', () => Attachments.find());
 
@@ -23,6 +23,11 @@ if (Meteor.isServer) {
 		check(limit, Match.Optional(Number));
 
 		return Works.find(query, { limit, sort: { english_title: 1 } });
+	});
+
+	Meteor.publish('workSingle', (query) => {
+		check(query, Object);
+		return Works.findOne(query, { sort: { english_title: 1 } });
 	});
 
 	Meteor.publish('definitions', definitionIds => {
