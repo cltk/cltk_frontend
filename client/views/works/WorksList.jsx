@@ -40,7 +40,9 @@ WorksList = React.createClass({
 			return 0;
 		});
 
-		works = works.splice(0, limit);
+		if (limit) {
+			works = works.splice(0, limit);
+		}
 
 		return {
 			works,
@@ -64,12 +66,21 @@ WorksList = React.createClass({
 
 		return (
 			<div className="works-list">
-				<Masonry
-					options={masonryOptions}
-					className="works-container works-container--grid row"
-				>
-					{this.renderWorks()}
-				</Masonry>
+				{this.data.works.length ?
+					<Masonry
+						options={masonryOptions}
+						className="works-container works-container--grid row"
+					>
+						{this.renderWorks()}
+					</Masonry>
+					:
+					<div className="reading-loading">
+						<div className="well-spinner-double">
+							<div className="double-bounce1" />
+							<div className="double-bounce2" />
+						</div>
+					</div>
+				}
 			</div>
 		);
 	},

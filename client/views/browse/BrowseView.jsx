@@ -5,25 +5,6 @@ BrowseView = React.createClass({
 	propTypes: {
 	},
 
-	mixins: [ReactMeteorData],
-
-	getMeteorData() {
-		const query = {};
-
-		return {
-			works: Works.find(query, { sort: { author: 1, title: 1 } }).fetch(),
-			currentUser: Meteor.user(),
-		};
-	},
-
-	renderWorks() {
-		return this.data.works.map((work) => (
-			<WorkTeaser
-				key={work._id}
-				work={work}
-			/>
-		));
-	},
 
 	render() {
 		return (
