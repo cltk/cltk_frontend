@@ -1,24 +1,40 @@
 
 .text-left-header {
   position:absolute;
-  top:0px;
-  left:-60px;
+  top:10px;
+  left:-100px;
+	text-align:right;
+	width:90px;
+
+	.section-numbering {
+    font-size:26px;
+    display:inline-block;
+    vertical-align: top;
+		margin:0px 8px 0 0;
+		line-height:1.1em;
+
+	}
 
   .text-n {
-    font-size:18px;
-    display: none;
+    font-size:12px;
+    display:inline-block;
     vertical-align: top;
     margin:5px 2px;
     color:@text-secondary;
     font-weight:bold;
+		opacity:0;
+		.transition(all 300ms ease-out);
 
   }
 
   .text-bookmark {
     color:@md-primary;
-    display: none;
+		display:inline-block;
+		display:none;
     vertical-align: top;
-    margin-top:12px;
+    margin:0 10px;
+		opacity:1;
+		font-family:@font-title;
 
     &::before {
       font-size:34px;
@@ -44,12 +60,18 @@
       opacity:1;
     }
 
+		.text-left-header {
+			.text-n {
+				opacity:1;
+			}
+		}
+
   }
 
   &.show-number, &.text-bookmarked {
     .text-left-header {
       .text-n {
-        display:inline-block;
+				opacity:1;
       }
     }
   }

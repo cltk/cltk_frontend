@@ -71,24 +71,33 @@ ReadingTextNode = React.createClass({
 	getTextLocation() {
 		const text = this.props.text;
 		let location = '';
+		let textN = '';
 
 		if ('n_1' in text) {
 			location += text.n_1;
+			textN = text.n_1;
 		}
 		if ('n_2' in text) {
 			location += `.${text.n_2}`;
+			textN = text.n_2;
 		}
 		if ('n_3' in text) {
 			location += `.${text.n_3}`;
+			textN = text.n_3;
 		}
 		if ('n_4' in text) {
 			location += `.${text.n_4}`;
+			textN = text.n_4;
 		}
 		if ('n_5' in text) {
 			location += `.${text.n_5}`;
+			textN = text.n_5;
 		}
 
-		return location;
+		return {
+			location,
+			textN,
+		};
 	},
 
 
@@ -184,6 +193,7 @@ ReadingTextNode = React.createClass({
 		const text = this.props.text;
 		let textClasses = 'text-node';
 		const numbering = this.props.numbering;
+		const textLocation = this.getTextLocation();
 
 		if (this.state.showAnnotations) {
 			textClasses += ' with-annotations';
@@ -216,17 +226,21 @@ ReadingTextNode = React.createClass({
 			}
 		}
 
-		const textLocation = this.getTextLocation();
+		if ((parseInt(textLocation.textN) % 5) === 0) {
+			textClasses = `${textClasses} show-number`;
+		}
+
 
 		return (
 			<div
 				className={textClasses}
 				data-id={text._id}
 				data-num={this.props.index}
-				data-loc={textLocation}
+				data-loc={textLocation.location}
 			>
 				<div className="text-left-header">
-					<h2>{numbering}</h2>
+					<h2 className="section-numbering">{numbering}</h2>
+					<span className="text-n">{textLocation.textN}</span>
 					<i className="text-bookmark mdi mdi-bookmark" />
 				</div>
 
@@ -246,7 +260,11 @@ ReadingTextNode = React.createClass({
 						return ref;
 					}}
 				>
-					<span dangerouslySetInnerHTML={{ __html: text.html }} />
+					{text.html && text.html.length ?
+						<span dangerouslySetInnerHTML={{ __html: text.html }} />
+					:
+						<span>[ . . . ]</span>
+					}
 				</p>
 
 				{text.n_1 === 5 || text.n_2 === 5 ?
