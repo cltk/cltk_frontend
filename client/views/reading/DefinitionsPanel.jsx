@@ -11,6 +11,10 @@ DefinitionsPanel = React.createClass({
 		textNodes: React.PropTypes.array,
 	},
 
+	childContextTypes: {
+		muiTheme: React.PropTypes.object.isRequired,
+	},
+
 	mixins: [ReactMeteorData],
 
 	getDefaultProps() {
@@ -227,6 +231,3 @@ DefinitionsPanel = React.createClass({
 	},
 
 });
-DefinitionsPanel.childContextTypes = {
-	muiTheme: React.PropTypes.object.isRequired,
-};

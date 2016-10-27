@@ -1,5 +1,8 @@
-import debounce from 'throttle-debounce/debounce';
-import InfiniteScroll from '../../../imports/InfiniteScroll.jsx';
+
+import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+import FlatButton from 'material-ui/FlatButton';
 
 ReadingEnvironment = React.createClass({
 
@@ -10,6 +13,16 @@ ReadingEnvironment = React.createClass({
 		calculateTextNodeDepths: React.PropTypes.func.isRequired,
 		highlightId: React.PropTypes.string,
 		toggleReadingMeta: React.PropTypes.func,
+		isTextRemaining: React.PropTypes.bool,
+		isTextBefore: React.PropTypes.bool,
+	},
+
+	childContextTypes: {
+		muiTheme: React.PropTypes.object.isRequired,
+	},
+
+	getChildContext() {
+		return { muiTheme: getMuiTheme(baseTheme) };
 	},
 
 	renderText() {
@@ -109,25 +122,28 @@ ReadingEnvironment = React.createClass({
 
 				</section>
 
-				<div className="reading-load-more reading-load-more--before">
-					<span
-						className="load-more"
-						onClick={this.props.loadMore.bind(null, 'previous')}
-					>
-						Previous
-					</span>
-				</div>
+				{this.props.isTextBefore ?
+					<div className="reading-load-more reading-load-more--before">
+						<FlatButton
+							className="load-more"
+							onClick={this.props.loadMore.bind(null, 'previous')}
+							label="Previous"
+						/>
+					</div>
+				: '' }
 				<div className="reading-text-outer">
 					{this.renderText()}
 				</div>
-				<div className="reading-load-more reading-load-more--after">
-					<span
-						className="load-more"
-						onClick={this.props.loadMore.bind(null, 'next')}
-					>
-						Next
-					</span>
-				</div>
+				{this.props.isTextRemaining ?
+					<div className="reading-load-more reading-load-more--after">
+						<FlatButton
+							className="load-more"
+							onClick={this.props.loadMore.bind(null, 'next')}
+							label="Next"
+						/>
+					</div>
+				: '' }
+
 
 			</div>
 
