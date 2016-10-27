@@ -15,14 +15,34 @@ ReadingEnvironment = React.createClass({
 		toggleReadingMeta: React.PropTypes.func,
 		isTextRemaining: React.PropTypes.bool,
 		isTextBefore: React.PropTypes.bool,
+		isLoading: React.PropTypes.bool,
 	},
 
 	childContextTypes: {
 		muiTheme: React.PropTypes.object.isRequired,
 	},
 
+	getInitialState() {
+		return {
+			isLoading: false,
+		};
+	},
+
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
+	},
+
+	componentDidUpdate(prevProps) {
+		if (this.props.textNodes.length !== prevProps.textNodes.length) {
+			this.isLoading = false;
+		}
+	},
+
+	isLoading: false,
+
+	loadMore(direction) {
+		this.isLoading = true;
+		this.props.loadMore(direction);
 	},
 
 	renderText() {
@@ -126,7 +146,7 @@ ReadingEnvironment = React.createClass({
 					<div className="reading-load-more reading-load-more--before">
 						<FlatButton
 							className="load-more"
-							onClick={this.props.loadMore.bind(null, 'previous')}
+							onClick={this.loadMore.bind(null, 'previous')}
 							label="Previous"
 						/>
 					</div>
@@ -137,9 +157,9 @@ ReadingEnvironment = React.createClass({
 				{this.props.isTextRemaining ?
 					<div className="reading-load-more reading-load-more--after">
 						<FlatButton
-							className="load-more"
-							onClick={this.props.loadMore.bind(null, 'next')}
-							label="Next"
+							className={`load-more ${this.isLoading ? 'load-more--loading' : ''}`}
+							onClick={this.loadMore.bind(null, 'next')}
+							label={this.isLoading ? 'Loading . . .' : 'Next'}
 						/>
 					</div>
 				: '' }
