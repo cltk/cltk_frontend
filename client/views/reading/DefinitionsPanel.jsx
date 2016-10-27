@@ -42,6 +42,7 @@ DefinitionsPanel = React.createClass({
 			textIds.push(textNode._id);
 			return true;
 		});
+
 		const handleWordforms = Meteor.subscribe('wordForms', textIds);
 		if (handleWordforms.ready()) {
 			wordForms = Wordforms.find({ word: { $regex: this.state.searchText } }).fetch();

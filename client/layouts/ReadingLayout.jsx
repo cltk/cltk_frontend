@@ -197,12 +197,23 @@ ReadingLayout = React.createClass({
 	textNodesDepths: [],
 	isTextRemaining: true,
 
-	loadMore() {
-		if (this.isTextRemaining) {
-			this.setState({
-				location: this.textLocation,
-			});
-			console.log('Load more:', this.state);
+	loadMore(direction) {
+		if (direction === 'next') {
+			if (this.isTextRemaining) {
+				this.setState({
+					location: this.textLocation,
+				});
+				console.log('Load more:', this.state);
+			}
+
+		} else if (direction === 'previous') {
+			if (this.isTextBefore) {
+				this.setState({
+					location: this.textLocation,
+				});
+				console.log('Load more:', this.state);
+			}
+
 		}
 	},
 

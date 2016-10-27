@@ -109,19 +109,24 @@ ReadingEnvironment = React.createClass({
 
 				</section>
 
-				<InfiniteScroll
-					endPadding={120}
-					loadMore={debounce(100, this.props.loadMore)}
-				>
-
-					<div className="reading-text-outer">
-						{this.renderText()}
-					</div>
-
-				</InfiniteScroll>
-
-				<div className="reading-loading-area">
-					<LoadingWell />
+				<div className="reading-load-more reading-load-more--before">
+					<span
+						className="load-more"
+						onClick={this.props.loadMore.bind(null, 'previous')}
+					>
+						Previous
+					</span>
+				</div>
+				<div className="reading-text-outer">
+					{this.renderText()}
+				</div>
+				<div className="reading-load-more reading-load-more--after">
+					<span
+						className="load-more"
+						onClick={this.props.loadMore.bind(null, 'next')}
+					>
+						Next
+					</span>
 				</div>
 
 			</div>
