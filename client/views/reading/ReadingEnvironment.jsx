@@ -1,5 +1,8 @@
-import debounce from 'throttle-debounce/debounce';
-import InfiniteScroll from '../../../imports/InfiniteScroll.jsx';
+
+import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+import FlatButton from 'material-ui/FlatButton';
 
 ReadingEnvironment = React.createClass({
 
@@ -10,6 +13,36 @@ ReadingEnvironment = React.createClass({
 		calculateTextNodeDepths: React.PropTypes.func.isRequired,
 		highlightId: React.PropTypes.string,
 		toggleReadingMeta: React.PropTypes.func,
+		isTextRemaining: React.PropTypes.bool,
+		isTextBefore: React.PropTypes.bool,
+		isLoading: React.PropTypes.bool,
+	},
+
+	childContextTypes: {
+		muiTheme: React.PropTypes.object.isRequired,
+	},
+
+	getInitialState() {
+		return {
+			isLoading: false,
+		};
+	},
+
+	getChildContext() {
+		return { muiTheme: getMuiTheme(baseTheme) };
+	},
+
+	componentDidUpdate(prevProps) {
+		if (this.props.textNodes.length !== prevProps.textNodes.length) {
+			this.isLoading = false;
+		}
+	},
+
+	isLoading: false,
+
+	loadMore(direction) {
+		this.isLoading = true;
+		this.props.loadMore(direction);
 	},
 
 	renderText() {
@@ -109,20 +142,28 @@ ReadingEnvironment = React.createClass({
 
 				</section>
 
-				<InfiniteScroll
-					endPadding={120}
-					loadMore={debounce(100, this.props.loadMore)}
-				>
-
-					<div className="reading-text-outer">
-						{this.renderText()}
+				{this.props.isTextBefore ?
+					<div className="reading-load-more reading-load-more--before">
+						<FlatButton
+							className="load-more"
+							onClick={this.loadMore.bind(null, 'previous')}
+							label="Previous"
+						/>
 					</div>
-
-				</InfiniteScroll>
-
-				<div className="reading-loading-area">
-					<LoadingWell />
+				: '' }
+				<div className="reading-text-outer">
+					{this.renderText()}
 				</div>
+				{this.props.isTextRemaining ?
+					<div className="reading-load-more reading-load-more--after">
+						<FlatButton
+							className={`load-more ${this.isLoading ? 'load-more--loading' : ''}`}
+							onClick={this.loadMore.bind(null, 'next')}
+							label={this.isLoading ? 'Loading . . .' : 'Next'}
+						/>
+					</div>
+				: '' }
+
 
 			</div>
 

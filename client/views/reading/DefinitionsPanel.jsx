@@ -11,6 +11,10 @@ DefinitionsPanel = React.createClass({
 		textNodes: React.PropTypes.array,
 	},
 
+	childContextTypes: {
+		muiTheme: React.PropTypes.object.isRequired,
+	},
+
 	mixins: [ReactMeteorData],
 
 	getDefaultProps() {
@@ -42,6 +46,7 @@ DefinitionsPanel = React.createClass({
 			textIds.push(textNode._id);
 			return true;
 		});
+
 		const handleWordforms = Meteor.subscribe('wordForms', textIds);
 		if (handleWordforms.ready()) {
 			wordForms = Wordforms.find({ word: { $regex: this.state.searchText } }).fetch();
@@ -226,6 +231,3 @@ DefinitionsPanel = React.createClass({
 	},
 
 });
-DefinitionsPanel.childContextTypes = {
-	muiTheme: React.PropTypes.object.isRequired,
-};

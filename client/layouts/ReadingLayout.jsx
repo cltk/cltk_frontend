@@ -51,13 +51,15 @@ ReadingLayout = React.createClass({
 		}
 
 		window.addEventListener('resize', this.calculateTextNodeDepths);
-		window.addEventListener('scroll', debounce(100, this.handleScroll));
+		// window.addEventListener('scroll', debounce(100, this.handleScroll));
 	},
 
 	componentDidUpdate() {
 		if (this.textNodesDepths.length !== this.textNodes.length) {
 			this.calculateTextNodeDepths();
 		}
+		this.checkIfTextBefore();
+		this.checkIfTextRemaining();
 	},
 
 	getMeteorData() {
@@ -169,8 +171,6 @@ ReadingLayout = React.createClass({
 						if (this.textQuery.length === 0) {
 							this.textQuery = [1];
 							this.textLocation = [1];
-						} else if (work.rangeN1.high === textNodes[textNodes.length - 1].n_1) {
-							this.isTextRemaining = false;
 						} else {
 							this.textQuery[0] += this.state.limit;
 						}
@@ -196,15 +196,97 @@ ReadingLayout = React.createClass({
 	textNodes: [],
 	textNodesDepths: [],
 	isTextRemaining: true,
+	isTextBefore: false,
 
-	loadMore() {
-		if (this.isTextRemaining) {
-			this.setState({
-				location: this.textLocation,
-			});
-			console.log('Load more:', this.state);
+	loadMore(direction) {
+		if (direction === 'next') {
+			if (this.isTextRemaining) {
+				this.setState({
+					location: this.textLocation,
+				});
+				console.log('Load more:', this.state);
+			}
+		} else if (direction === 'previous') {
+			const textLocation = this.textLocation;
+			if (this.isTextBefore) {
+				textLocation[textLocation.length - 1] = textLocation[textLocation.length - 1] - 30;
+				if (textLocation[textLocation.length - 1] < 1) {
+					textLocation[textLocation.length - 1] = 1;
+				}
+
+				this.setState({
+					location: textLocation,
+				});
+				console.log('Load more:', this.state);
+			}
 		}
 	},
+
+	checkIfTextBefore() {
+		if (this.textLocation.length && this.textLocation[this.textLocation.length - 1] !== 1) {
+			this.isTextBefore = true;
+		}
+	},
+
+	checkIfTextRemaining() {
+		const work = this.data.work;
+		const textNodes = this.textNodes;
+
+		if ('_id' in work && textNodes.length) {
+			if ('rangeN5' in work) {
+				if (
+					work.rangeN5.high === textNodes[textNodes.length - 1].n_5
+				&& work.rangeN4.high === textNodes[textNodes.length - 1].n_4
+				&& work.rangeN3.high === textNodes[textNodes.length - 1].n_3
+				&& work.rangeN2.high === textNodes[textNodes.length - 1].n_2
+				&& work.rangeN1.high === textNodes[textNodes.length - 1].n_1
+				) {
+					isTextRemaining = false;
+				} else {
+					isTextRemaining = true;
+				}
+			} else if ('rangeN4' in work) {
+				if (
+					work.rangeN4.high === textNodes[textNodes.length - 1].n_4
+				&& work.rangeN3.high === textNodes[textNodes.length - 1].n_3
+				&& work.rangeN2.high === textNodes[textNodes.length - 1].n_2
+				&& work.rangeN1.high === textNodes[textNodes.length - 1].n_1
+				) {
+					isTextRemaining = false;
+				} else {
+					isTextRemaining = true;
+				}
+			} else if ('rangeN3' in work) {
+				if (
+					work.rangeN3.high === textNodes[textNodes.length - 1].n_3
+				&& work.rangeN2.high === textNodes[textNodes.length - 1].n_2
+				&& work.rangeN1.high === textNodes[textNodes.length - 1].n_1
+				) {
+					isTextRemaining = false;
+				} else {
+					isTextRemaining = true;
+				}
+			} else if ('rangeN2' in work) {
+				if (
+					work.rangeN2.high === textNodes[textNodes.length - 1].n_2
+				&& work.rangeN1.high === textNodes[textNodes.length - 1].n_1
+				) {
+					isTextRemaining = false;
+				} else {
+					isTextRemaining = true;
+				}
+			} else {
+				if (
+					work.rangeN1.high === textNodes[textNodes.length - 1].n_1
+				) {
+					isTextRemaining = false;
+				} else {
+					isTextRemaining = true;
+				}
+			}
+		}
+	},
+
 
 	calculateTextNodeDepths() {
 		const $textNodes = $('.text-node');
@@ -358,6 +440,8 @@ ReadingLayout = React.createClass({
 					highlightId={this.props.queryParams.id}
 					calculateTextNodeDepths={this.calculateTextNodeDepths}
 					toggleReadingMeta={this.toggleReadingMeta}
+					isTextBefore={this.isTextBefore}
+					isTextRemaining={this.isTextRemaining}
 				/>
 			);
 		}
@@ -417,7 +501,7 @@ ReadingLayout = React.createClass({
 						/>
 
 						<main>
-							<div id="reading" className={readingClassName}>
+							<div id="reading-environment" className={readingClassName}>
 								{this.renderReadingEnvironment()}
 							</div>
 						</main>
