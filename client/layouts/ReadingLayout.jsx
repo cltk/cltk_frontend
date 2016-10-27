@@ -206,11 +206,16 @@ ReadingLayout = React.createClass({
 				});
 				console.log('Load more:', this.state);
 			}
-
 		} else if (direction === 'previous') {
+			const textLocation = this.textLocation;
 			if (this.isTextBefore) {
+				textLocation[textLocation.length - 1] = textLocation[textLocation.length - 1] - 30;
+				if (textLocation[textLocation.length - 1] < 1) {
+					textLocation[textLocation.length - 1] = 1;
+				}
+
 				this.setState({
-					location: this.textLocation,
+					location: textLocation,
 				});
 				console.log('Load more:', this.state);
 			}
