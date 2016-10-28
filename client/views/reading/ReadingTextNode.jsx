@@ -194,6 +194,9 @@ ReadingTextNode = React.createClass({
 		let textClasses = 'text-node';
 		const numbering = this.props.numbering;
 		const textLocation = this.getTextLocation();
+		const mediaItems = text.mediaItems || [];
+		const relatedPassages = text.relatedPassages || [];
+		const entities = text.entities || [];
 
 		if (this.state.showAnnotations) {
 			textClasses += ' with-annotations';
@@ -229,7 +232,6 @@ ReadingTextNode = React.createClass({
 		if ((parseInt(textLocation.textN) % 5) === 0) {
 			textClasses = `${textClasses} show-number`;
 		}
-
 
 		return (
 			<div
@@ -267,28 +269,33 @@ ReadingTextNode = React.createClass({
 					}
 				</p>
 
-				{text.n_1 === 5 || text.n_2 === 5 ?
-					<div className="text-meta text-entities">
-						<ReadingEntity />
-					</div>
-					: ''
-				}
+				<div className="text-meta text-entities">
+				{entities.map((entity) =>
+					<ReadingEntity
+						entity={entity}
+					/>
+				)}
+				</div>
 
-				{text.n_1 === 3 || text.n_2 === 3 ?
-					<div className="text-meta text-media">
-						<ReadingMedia />
-					</div>
-
-				: ''}
+				<div className="text-meta text-media">
+					{mediaItems.map((mediaId) => (
+						<ReadingMedia
+							mediaId={mediaId}
+						/>
+					))}
+				</div>
 
 				<div className="text-meta text-annotations">
 					<i
 						className="mdi mdi-close"
 						onClick={this.toggleShowAnnotations}
 					/>
-					<AnnotationItem
-						isOwner={false}
-					/>
+					{this.data.annotations.map((annotation) => (
+						<AnnotationItem
+							annotation={annotation}
+							isOwner={false}
+						/>
+					))}
 				</div>
 
 				<div className="text-meta text-related-passages">
@@ -296,7 +303,11 @@ ReadingTextNode = React.createClass({
 						className="mdi mdi-close"
 						onClick={this.toggleShowRelatedPassages}
 					/>
-					<ReadingRelatedPassage />
+					{relatedPassages.map((relatedPassage) => (
+						<ReadingRelatedPassage
+							relatedPassage={relatedPassage}
+						/>
+					))}
 				</div>
 
 			</div>
