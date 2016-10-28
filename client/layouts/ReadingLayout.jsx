@@ -217,7 +217,7 @@ ReadingLayout = React.createClass({
 				if (textLocation[textLocation.length - 1] === 1) {
 					this.isTextBefore = false;
 				}
-					
+
 				this.setState({
 					location: textLocation,
 				});
@@ -527,7 +527,7 @@ ReadingLayout = React.createClass({
 			}
 		}
 
-		console.log("renderReadingEnvironment textNodes.length", textNodes.length);
+		// console.log("renderReadingEnvironment textNodes.length", textNodes.length);
 
 		// If data is loaded
 		if (work && textNodes) {
