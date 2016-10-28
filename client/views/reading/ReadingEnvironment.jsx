@@ -44,9 +44,9 @@ ReadingEnvironment = React.createClass({
 
 	renderText() {
 		const textNodes = this.props.textNodes;
-		console.log("readingEnvironment.renderText", textNodes.length);
 
 		if (textNodes.length !== this.textNodesLength) {
+			// If this isn't working, it's something wrong somewhere else
 			this.isLoading = false;
 			this.textNodesLength = textNodes.length;
 		}
@@ -148,9 +148,9 @@ ReadingEnvironment = React.createClass({
 				{this.props.isTextBefore ?
 					<div className="reading-load-more reading-load-more--before">
 						<FlatButton
-							className="load-more"
+							className={`load-more ${this.isLoading ? 'load-more--loading' : ''}`}
 							onClick={this.loadMore.bind(null, 'previous')}
-							label="Previous"
+							label={this.isLoading ? 'Loading . . .' : 'Previous'}
 						/>
 					</div>
 				: '' }
