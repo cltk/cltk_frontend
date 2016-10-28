@@ -36,7 +36,7 @@ if (Meteor.isServer) {
 	});
 
 	Meteor.publish('wordForms', textIds => {
-		check(textIds, [Object]);
+		//check(textIds, [Object]);
 		return Wordforms.find({ texts: { $in: textIds } });
 	});
 

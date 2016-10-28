@@ -81,7 +81,7 @@ SearchModal = React.createClass({
 			}
 		});
 
-		console.log('SearchModal query', query);
+		// console.log('SearchModal query', query);
 		const handle = Meteor.subscribe('works', query, 0, 100);
 		if (handle.ready()) {
 			works = Works.find(query, {}).fetch();

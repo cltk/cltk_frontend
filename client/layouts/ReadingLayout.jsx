@@ -176,10 +176,10 @@ ReadingLayout = React.createClass({
 						}
 					}
 				} else {
-					console.log('No text found for work', work);
+					// console.log('No text found for work', work);
 				}
 			} else {
-				console.log('No work found for id', this.props.params.id);
+				// console.log('No work found for id', this.props.params.id);
 			}
 		}
 
@@ -199,21 +199,24 @@ ReadingLayout = React.createClass({
 	isTextBefore: false,
 
 	loadMore(direction) {
+		const textLocation = this.textLocation;
 		if (direction === 'next') {
 			if (this.isTextRemaining) {
+				textLocation[textLocation.length - 1] = textLocation[textLocation.length - 1] + 30;
+				if (textLocation[textLocation.length - 1] < 1) {
+					textLocation[textLocation.length - 1] = 1;
+				}
+				this.textQuery = textLocation;
 				this.setState({
 					location: this.textLocation,
 				});
 			}
 		} else if (direction === 'previous') {
-			const textLocation = this.textLocation;
 			if (this.isTextBefore) {
 				textLocation[textLocation.length - 1] = textLocation[textLocation.length - 1] - 60;
 				if (textLocation[textLocation.length - 1] < 1) {
 					textLocation[textLocation.length - 1] = 1;
 				}
-				// this.textQuery = this.textLocation;
-				console.log(textLocation);
 				if (textLocation[textLocation.length - 1] === 1) {
 					this.isTextBefore = false;
 				}
@@ -226,9 +229,43 @@ ReadingLayout = React.createClass({
 	},
 
 	checkIfTextBefore() {
-		if (this.textLocation.length && this.textLocation[this.textLocation.length - 1] !== 1) {
-			this.isTextBefore = true;
+		let isTextBefore = false;
+		if (this.textNodes.length) {
+			isTextBefore = true;
+
+			if ('n_5' in this.textNodes[0]) {
+				this.textNodes.forEach(function(textNode){
+					if (textNode.n_5 === 1) {
+						this.isTextBefore = false;
+					}
+				})
+			} else if ('n_4' in this.textNodes[0]) {
+				this.textNodes.forEach(function(textNode){
+					if (textNode.n_4 === 1) {
+						this.isTextBefore = false;
+					}
+				})
+			} else if ('n_3' in this.textNodes[0]) {
+				this.textNodes.forEach(function(textNode){
+					if (textNode.n_3 === 1) {
+						this.isTextBefore = false;
+					}
+				})
+			} else if ('n_2' in this.textNodes[0]) {
+				this.textNodes.forEach(function(textNode){
+					if (textNode.n_2 === 1) {
+						this.isTextBefore = false;
+					}
+				})
+			} else if ('n_1' in this.textNodes[0]) {
+				this.textNodes.forEach(function(textNode){
+					if (textNode.n_1 === 1) {
+						this.isTextBefore = false;
+					}
+				})
+			}
 		}
+
 	},
 
 	checkIfTextRemaining() {
