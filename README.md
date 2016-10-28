@@ -4,7 +4,7 @@ The Classics Archive application is currently under active development and is no
 
 # About  
 
-The goal of this application is to provide a modern reading environment for documents included in the CLTK corpora. Dev builds will be put up at http://api.cltk.org for the early stages of development.  Currently all demo data in the application is static, but in the future, text data will be consumed by the API under development at this repository: https://github.com/cltk/cltk_api
+The goal of this application is to provide a modern reading environment for documents included in the CLTK corpora. Dev builds will be put up at http://api.cltk.org for the early stages of development.  Text data is consumed by the API under development at this repository: https://github.com/cltk/cltk_api
 
 
 # Development
@@ -13,11 +13,32 @@ The CLTK frontend reading environment is built with Meteor and React.
 
 To get started developing:
 
-1.  [Install Meteor](https://www.meteor.com/install)
-2.  Clone this repo
-3.  In the application root directory run "npm install" and then "meteor" to start the application
+#### Install meteor
+Here's the instructions: https://www.meteor.com/install
+
+#### Cloning the repo
+
+```bash
+git clone https://github.com/cltk/cltk_frontend.git
+cd cltk_frontend
+git submodule update --init --recursive
+```
+#### Running the app
+
+```bash
+meteor npm install
+meteor
+```
+#### Note:
+If there is no text data in your database, the application will try to sync document data from the CLTK API (as defined in /server/text-server-sync.js). Please allow a few moments for the process to take place and watch your console for sync information.
 
 For managing lists of outstanding development items, we're using ZenHub: https://www.zenhub.io/.  If you're interested in contributing, please consider installing the ZenHub plugin for your browser.
+
+
+# Contributing
+
+1. Run `meteor npm run lint` and make sure there are no errors.
+2. Make your PR against the `develop` branch.
 
 
 # Project Goals and Status

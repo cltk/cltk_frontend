@@ -1,28 +1,32 @@
+// package metadata file for Meteor.js
+
+/* jshint strict:false */
+/* global Package:true */
+
 Package.describe({
-  name: 'yogiben:bootstrap',
-  summary: "Bootstrap 3 with easy-access variables.",
-  version: "0.3.1",
-  git: "https://github.com/yogiben/meteor-bootstrap",
+  name: 'twbs:bootstrap',  // http://atmospherejs.com/twbs/bootstrap
+  summary: 'The most popular front-end framework for developing responsive, mobile first projects on the web.',
+  version: '3.3.6',
+  git: 'https://github.com/twbs/bootstrap.git'
 });
 
-
-Package.on_use(function (api) {
-  api.versionsFrom("METEOR@1.0.3");
+Package.onUse(function (api) {
+  api.versionsFrom('METEOR@1.0');
   api.use('jquery', 'client');
-  api.use('less@2.5.1', 'client');
-
-  // javascript
-  api.add_files('lib/js/transition.js', 'client');
-  api.add_files('lib/js/alert.js', 'client');
-  api.add_files('lib/js/button.js', 'client');
-  api.add_files('lib/js/carousel.js', 'client');
-  api.add_files('lib/js/collapse.js', 'client');
-  api.add_files('lib/js/dropdown.js', 'client');
-  api.add_files('lib/js/modal.js', 'client');
-  api.add_files('lib/js/tooltip.js', 'client');
-  api.add_files('lib/js/popover.js', 'client');
-  api.add_files('lib/js/scrollspy.js', 'client');
-  api.add_files('lib/js/tab.js', 'client');
-  api.add_files('lib/js/affix.js', 'client');
-
+  var assets = [
+    'dist/fonts/glyphicons-halflings-regular.eot',
+    'dist/fonts/glyphicons-halflings-regular.svg',
+    'dist/fonts/glyphicons-halflings-regular.ttf',
+    'dist/fonts/glyphicons-halflings-regular.woff',
+    'dist/fonts/glyphicons-halflings-regular.woff2'
+  ];
+  if (api.addAssets) {
+    api.addAssets(assets, 'client');
+  } else {
+    api.addFiles(assets, 'client', { isAsset: true });
+  }
+  api.addFiles([
+    'dist/css/bootstrap.css',
+    'dist/js/bootstrap.js'
+  ], 'client');
 });

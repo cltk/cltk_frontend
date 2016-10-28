@@ -1,48 +1,87 @@
-// List of works 
+import Masonry from 'react-masonry-component/lib';
+
 WorksList = React.createClass({
 
-  // This mixin makes the getMeteorData method work
-  mixins: [ReactMeteorData],
+	propTypes: {
+		limit: React.PropTypes.number,
+	},
 
-  propTypes: {
-  },
+	mixins: [ReactMeteorData],
 
-  // Loads items from the Works collection and puts them on this.data.works
-  getMeteorData() {
-    let query = {};
+	getMeteorData() {
+		const query = {};
+		let works = [];
+		const limit = this.props.limit || null;
+		const handle = Meteor.subscribe('works', query);
+		if (handle.ready()) {
+			works = Works.find(query,
+				{
+					sort: {
+						english_tile: 1,
+					},
+				}
+			).fetch();
 
-    return {
-      works: Works.find(query, {sort: {author: 1, title: 1}}).fetch(),
-      currentUser: Meteor.user()
-    };
-  },
+			works.forEach((work, i) => {
+				works[i].authors = Authors.find({
+					_id: {
+						$in: work.authors,
+					},
+				}).fetch();
+			});
+		}
 
-  renderWorks() {
+		works.sort((a, b) => {
+			if (a.authors[0].english_name > b.authors[0].english_name) {
+				return 1;
+			} else if (b.authors[0].english_name > a.authors[0].english_name) {
+				return -1;
+			}
+			return 0;
+		});
 
-    console.log("Works:", this.data.works);
-    return this.data.works.map((work) => {
-      return <WorkTeaser
-              key={work._id}
-              work={work} />;
+		if (limit) {
+			works = works.splice(0, limit);
+		}
 
-    });
+		return {
+			works,
+		};
+	},
 
-  },
+	renderWorks() {
+		return this.data.works.map((work) => (
+			<WorkTeaser
+				key={work._id}
+				work={work}
+			/>
+		));
+	},
 
-  render() {
+	render() {
+		const masonryOptions = {
+			isFitWidth: true,
+			transitionDuration: 300,
+		};
 
-     return (
-       <div className="works-wrap">
-         {this.data.works.map((work) => {
-            return <WorkTeaser
-              key={work._id}
-              work={work} />;
-          })}
-       </div>
-
-
-      );
-    }
-
-
+		return (
+			<div className="works-list">
+				{this.data.works.length ?
+					<Masonry
+						options={masonryOptions}
+						className="works-container works-container--grid row"
+					>
+						{this.renderWorks()}
+					</Masonry>
+					:
+					<div className="reading-loading">
+						<div className="well-spinner-double">
+							<div className="double-bounce1" />
+							<div className="double-bounce2" />
+						</div>
+					</div>
+				}
+			</div>
+		);
+	},
 });

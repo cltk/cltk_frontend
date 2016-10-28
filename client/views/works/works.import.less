@@ -1,7 +1,11 @@
+.page.page-browse {
+	background:#f6f6f6;
 
-.works-wrap {
-  width:95%;
-  margin:0 auto;
+}
+
+.works-list {
+  width:98%;
+  margin:0 auto 100px;
   text-align:center;
 
 }
@@ -9,74 +13,179 @@
 .work-teaser {
   display:inline-block;
   vertical-align: top;
-  width:30%;
-  margin:15px 1%;
+	//height:320px;
+	width:400px;
+  margin:10px 2% 10px 3px;
   background:#fff;
+	text-align:left;
+	padding:20px 25px;
+	position:relative;
 
-  md-card-content {
-    text-align:left;
-    padding:30px 30px 10px;
-    display:block;
+	.card-meta-left {
+		position:absolute;
+		top:10px;
+		right:0;
+		width:120px;
+
+		.card-meta-items {
+			position:absolute;
+			top:79px;
+			right:0;
+			text-align:right;
+		}
+
+		.card-meta {
+			display:inline-block;
+			float:right;
+			clear:both;
+			text-align:right;
+			padding:4px 17px;
+			background:@md-primary-dark;
+			max-width:100%;
+			margin:2px 0;
+
+			text-transform: uppercase;
+			font-family:@font-label;
+			font-weight:bold;
+			font-size:11px;
+			color:@light;
+			line-height:1.3em;
+
+		}
+
+		.icon-favorite-button {
+			display:inline-block !important;
+			position:absolute !important;
+			top:0;
+			right:5px;
+			text-align:right;
+
+			&:hover {
+				.mdi {
+					color:@md-primary-dark !important;
+
+				}
+			}
+
+			.mdi {
+				color:#ddd !important;
+
+			}
+
+		}
+
+
+	}
+
+
+  .work-teaser-title {
+		display:block;
+    margin:0;
+    padding:30px 90px 30px 0;
+		line-height:1.3em;
+
+		&:hover {
+
+			h3 {
+				color:@md-primary;
+
+				.work-teaser-original-title {
+					color:@text-secondary;
+
+				}
+			}
+
+		}
+
+		h3 {
+	    font-family:@font-title;
+			font-size:32px;
+			line-height:1.3em;
+			color:@text-color;
+			line-height:1.1em;
+
+			.work-teaser-original-title {
+				display:block;
+				font-size:18px;
+				color:@text-secondary;
+				font-weight:light;
+				font-family:@font-light;
+				font-style:italic;
+				line-height:1.3em;
+				display:block;
+				padding:10px 0;
+
+			}
+
+
+		}
+  }
+
+  .work-teaser-authors {
+    padding:0px 90px 0px 0;
+    margin:0;
+    font-size:18px;
+    color:@text-secondary;
 
   }
 
-  h2.card-title {
-    margin:0;
+	.work-teaser-author {
+		display:block;
     padding:5px 0;
-    font-family:@font-title;
-  }
 
-  h3.work-author {
-    margin:0;
-    padding:0;
-    text-transform:uppercase;
-    font-size:18px;
-    color:@text-secondary;
+		&:hover {
+			h4 {
+				color:@md-primary;
 
-  }
+				.work-teaser-author-original-name {
+					color:@text-secondary;
 
-  .work-editor {
-    padding:10px 0;
-    margin:0 2px;
-    font-size:18px;
-    color:@text-secondary;
+				}
 
-  }
+			}
+		}
 
-  md-card-actions {
-    padding:5px 7px;
-    display:block;
-    text-align:left;
+		h4 {
+			margin:0;
+			padding:0;
+			font-size:16px;
+			line-height:1.3em;
+			color:@text-color;
+			font-family:@font-light;
+			font-weight:bold;
 
-    .md-button {
-      display:inline-block;
-      vertical-align: top;
-      padding:7px 10px;
-      font-size:14px;
-      float:left;
+		}
 
-      i {
-        font-size:14px;
-        padding:2px;
-      }
+		.work-teaser-author-original-name {
+			font-size:14px;
+			color:@text-secondary;
+			font-weight:light;
+			font-style:italic;
+			padding:0 5px;
 
-      &.export-action {
-        float:right;
-      }
+		}
 
-    }
+	}
 
-  }
+	.card-meta-bottom {
+		//position:absolute;
+		//left:0;
+		//bottom:0;
+		width:100%;
+		padding:10px 0px;
 
-}
+		.card-meta {
+			display:inline-block;
+			vertical-align: top;
+			padding:5px 15px 5px 0;
+			color:@text-color;
+			//text-transform:uppercase;
+			font-family:@font-light;
+			font-size:14px;
 
-.page-head {
-  height:400px;
+		}
 
-}
+	}
 
-.work-details {
-  .work-editor {
-    margin:0;
-  }
+
 }

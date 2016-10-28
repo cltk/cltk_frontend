@@ -7,6 +7,9 @@
 less
 accounts-base
 accounts-password
+accounts-facebook
+accounts-google
+accounts-twitter
 aldeed:collection2
 dburles:collection-helpers
 matb33:collection-hooks
@@ -22,9 +25,9 @@ cfs:graphicsmagick
 yogiben:helpers
 # manuelschoebel:ms-seo
 # spiderable
-accounts-facebook
-accounts-google
-accounts-twitter
+# accounts-facebook
+# accounts-google
+# accounts-twitter
 accounts-ui
 jparker:gravatar
 service-configuration
@@ -37,8 +40,8 @@ twbs:bootstrap
 reywood:publish-composite
 natestrauser:animate-css
 meteorhacks:subs-manager
-yogiben:admin
 timmyg:wow
+yogiben:admin
 tsega:skrollr
 utilities:avatar
 meteor-base
@@ -57,12 +60,11 @@ yogiben:autoform-modals
 yogiben:autoform-file
 yogiben:autoform-map
 check
-#iron:router
+iron:router
 #multiply:iron-router-progress
 useraccounts:core
-useraccounts:bootstrap
-useraccounts:iron-routing
-percolate:momentum-iron-router
+useraccounts:materialize
+useraccounts:flow-routing
 percolate:momentum
 
 # Packages added for project
@@ -71,11 +73,23 @@ react
 ecmascript
 archimedigital:core
 jabbslad:basic-auth
-deanius:promise
+# deanius:promise
 kadira:flow-router
 kadira:react-layout
+kadira:blaze-layout
 user-thumbs
 standard-minifier-css
 standard-minifier-js
 simple:rest
 dburles:google-maps
+natestrauser:jquery-scrollto
+todda00:friendly-slugs
+# mquandalle:promisify-core
+materialize:materialize@0.97.0
+gwendall:blaze-to-react
+jalik:ufs@0.7.1
+jalik:ufs-local@0.2.8
+jalik:ufs-gridfs@0.1.4
+buishi:autoform-ufs
+mpowaga:autoform-summernote
+mfactory:admin-lte

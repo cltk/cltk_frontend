@@ -1,0 +1,42 @@
+#reading-environment.with-scansion {
+	.text-node p {
+		color:@text-secondary;
+	}
+	.syllable-long {
+		color:@text-color;
+		&:before {
+			opacity:1;
+		}
+	}
+	.syllable-short {
+		color:@text-secondary;
+		position:relative;
+		&:before {
+			opacity:1;
+		}
+	}
+}
+.syllable-long {
+	position:relative;
+	&:before {
+		opacity:0;
+		position:absolute;
+		left:50%;
+		margin-left:-5px;
+		top:-5px;
+		content:"\00af";
+		.transition(opacity 200ms linear 0ms);
+	}
+}
+.syllable-short {
+	position:relative;
+	&:before {
+		opacity:0;
+		position:absolute;
+		left:50%;
+		margin-left:-5px;
+		top:-10px;
+		content:"\02C7";
+		.transition(opacity 200ms linear 0ms);
+	}
+}
