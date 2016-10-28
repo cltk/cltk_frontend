@@ -204,20 +204,23 @@ ReadingLayout = React.createClass({
 				this.setState({
 					location: this.textLocation,
 				});
-				console.log('Load more:', this.state);
 			}
 		} else if (direction === 'previous') {
 			const textLocation = this.textLocation;
 			if (this.isTextBefore) {
-				textLocation[textLocation.length - 1] = textLocation[textLocation.length - 1] - 30;
+				textLocation[textLocation.length - 1] = textLocation[textLocation.length - 1] - 60;
 				if (textLocation[textLocation.length - 1] < 1) {
 					textLocation[textLocation.length - 1] = 1;
+				}
+				// this.textQuery = this.textLocation;
+				console.log(textLocation);
+				if (textLocation[textLocation.length - 1] === 1) {
+					this.isTextBefore = false;
 				}
 
 				this.setState({
 					location: textLocation,
 				});
-				console.log('Load more:', this.state);
 			}
 		}
 	},
@@ -424,11 +427,107 @@ ReadingLayout = React.createClass({
 		// Deduplicate text response data
 		if (this.data.textNodes.length) {
 			this.data.textNodes.forEach(textNode => {
-				if (!self.textNodes.some(existingTextNode => existingTextNode._id === textNode._id)) {
-					self.textNodes.push(textNode);
+				if (
+					!self.textNodes.some(existingTextNode =>
+						existingTextNode._id === textNode._id
+					)
+				) {
+					let isInTextNodes = false;
+
+					if ('n_5' in textNode) {
+						textNodes.forEach((existingTextNode) => {
+							if (
+								existingTextNode.n_5 === textNode.n_5
+							&& existingTextNode.n_4 === textNode.n_4
+							&& existingTextNode.n_3 === textNode.n_3
+							&& existingTextNode.n_2 === textNode.n_2
+							&& existingTextNode.n_1 === textNode.n_1
+							) {
+								isInTextNodes = true;
+							}
+						});
+					} else if ('n_4' in textNode) {
+						textNodes.forEach((existingTextNode) => {
+							if (
+								existingTextNode.n_4 === textNode.n_4
+							&& existingTextNode.n_3 === textNode.n_3
+							&& existingTextNode.n_2 === textNode.n_2
+							&& existingTextNode.n_1 === textNode.n_1
+							) {
+								isInTextNodes = true;
+							}
+						});
+					} else if ('n_3' in textNode) {
+						textNodes.forEach((existingTextNode) => {
+							if (
+								existingTextNode.n_3 === textNode.n_3
+							&& existingTextNode.n_2 === textNode.n_2
+							&& existingTextNode.n_1 === textNode.n_1
+							) {
+								isInTextNodes = true;
+							}
+						});
+					} else if ('n_2' in textNode) {
+						textNodes.forEach((existingTextNode) => {
+							if (
+								existingTextNode.n_2 === textNode.n_2
+							&& existingTextNode.n_1 === textNode.n_1
+							) {
+								isInTextNodes = true;
+							}
+						});
+					} else {
+						textNodes.forEach((existingTextNode) => {
+							if (
+								existingTextNode.n_1 === textNode.n_1
+							) {
+								isInTextNodes = true;
+							}
+						});
+					}
+
+					if (!isInTextNodes) {
+						self.textNodes.push(textNode);
+					}
 				}
 			});
+
+			if (this.textNodes.length) {
+				if ('n_5' in this.textNodes[0]) {
+					this.textNodes.sort((a, b) => {
+						if (a.n_5 < b.n_5) return -1;
+						if (a.n_5 > b.n_5) return 1;
+						return 0;
+					});
+				} else if ('n_4' in this.textNodes[0]) {
+					this.textNodes.sort((a, b) => {
+						if (a.n_4 < b.n_4) return -1;
+						if (a.n_4 > b.n_4) return 1;
+						return 0;
+					});
+				} else if ('n_3' in this.textNodes[0]) {
+					this.textNodes.sort((a, b) => {
+						if (a.n_3 < b.n_3) return -1;
+						if (a.n_3 > b.n_3) return 1;
+						return 0;
+					});
+				} else if ('n_2' in this.textNodes[0]) {
+					this.textNodes.sort((a, b) => {
+						if (a.n_2 < b.n_2) return -1;
+						if (a.n_2 > b.n_2) return 1;
+						return 0;
+					});
+				} else if ('n_1' in this.textNodes[0]) {
+					this.textNodes.sort((a, b) => {
+						if (a.n_1 < b.n_1) return -1;
+						if (a.n_1 > b.n_1) return 1;
+						return 0;
+					});
+				}
+			}
 		}
+
+		// console.log("renderReadingEnvironment textNodes.length", textNodes.length);
 
 		// If data is loaded
 		if (work && textNodes) {

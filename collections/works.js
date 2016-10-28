@@ -179,6 +179,15 @@ Schemas.Works = new SimpleSchema({
 		optional: true,
 	},
 
+	tags: {
+		type: [String],
+		optional: true,
+	},
+
+	featureOnHomepage: {
+		type: Boolean,
+		optional: true,
+	},
 
 	createdAt: {
 		type: Date,

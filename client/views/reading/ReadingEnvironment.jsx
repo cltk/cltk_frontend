@@ -32,21 +32,24 @@ ReadingEnvironment = React.createClass({
 		return { muiTheme: getMuiTheme(baseTheme) };
 	},
 
-	componentDidUpdate(prevProps) {
-		if (this.props.textNodes.length !== prevProps.textNodes.length) {
-			this.isLoading = false;
-		}
-	},
-
+	textNodesLength: 0,
 	isLoading: false,
 
 	loadMore(direction) {
-		this.isLoading = true;
-		this.props.loadMore(direction);
+		if (!this.isLoading) {
+			this.isLoading = true;
+			this.props.loadMore(direction);
+		}
 	},
 
 	renderText() {
 		const textNodes = this.props.textNodes;
+
+		if (textNodes.length !== this.textNodesLength) {
+			// If this isn't working, it's something wrong somewhere else
+			this.isLoading = false;
+			this.textNodesLength = textNodes.length;
+		}
 
 		return textNodes.map((text, index) => {
 			let showNumber = false;
@@ -145,9 +148,9 @@ ReadingEnvironment = React.createClass({
 				{this.props.isTextBefore ?
 					<div className="reading-load-more reading-load-more--before">
 						<FlatButton
-							className="load-more"
+							className={`load-more ${this.isLoading ? 'load-more--loading' : ''}`}
 							onClick={this.loadMore.bind(null, 'previous')}
-							label="Previous"
+							label={this.isLoading ? 'Loading . . .' : 'Previous'}
 						/>
 					</div>
 				: '' }

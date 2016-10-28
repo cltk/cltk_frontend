@@ -71,24 +71,33 @@ ReadingTextNode = React.createClass({
 	getTextLocation() {
 		const text = this.props.text;
 		let location = '';
+		let textN = '';
 
 		if ('n_1' in text) {
 			location += text.n_1;
+			textN = text.n_1;
 		}
 		if ('n_2' in text) {
 			location += `.${text.n_2}`;
+			textN = text.n_2;
 		}
 		if ('n_3' in text) {
 			location += `.${text.n_3}`;
+			textN = text.n_3;
 		}
 		if ('n_4' in text) {
 			location += `.${text.n_4}`;
+			textN = text.n_4;
 		}
 		if ('n_5' in text) {
 			location += `.${text.n_5}`;
+			textN = text.n_5;
 		}
 
-		return location;
+		return {
+			location,
+			textN,
+		};
 	},
 
 
@@ -184,6 +193,10 @@ ReadingTextNode = React.createClass({
 		const text = this.props.text;
 		let textClasses = 'text-node';
 		const numbering = this.props.numbering;
+		const textLocation = this.getTextLocation();
+		const mediaItems = text.mediaItems || [];
+		const relatedPassages = text.relatedPassages || [];
+		const entities = text.entities || [];
 
 		if (this.state.showAnnotations) {
 			textClasses += ' with-annotations';
@@ -216,17 +229,20 @@ ReadingTextNode = React.createClass({
 			}
 		}
 
-		const textLocation = this.getTextLocation();
+		if ((parseInt(textLocation.textN) % 5) === 0) {
+			textClasses = `${textClasses} show-number`;
+		}
 
 		return (
 			<div
 				className={textClasses}
 				data-id={text._id}
 				data-num={this.props.index}
-				data-loc={textLocation}
+				data-loc={textLocation.location}
 			>
 				<div className="text-left-header">
-					<h2>{numbering}</h2>
+					<h2 className="section-numbering">{numbering}</h2>
+					<span className="text-n">{textLocation.textN}</span>
 					<i className="text-bookmark mdi mdi-bookmark" />
 				</div>
 
@@ -246,31 +262,40 @@ ReadingTextNode = React.createClass({
 						return ref;
 					}}
 				>
-					<span dangerouslySetInnerHTML={{ __html: text.html }} />
+					{text.html && text.html.length ?
+						<span dangerouslySetInnerHTML={{ __html: text.html }} />
+					:
+						<span>[ . . . ]</span>
+					}
 				</p>
 
-				{text.n_1 === 5 || text.n_2 === 5 ?
-					<div className="text-meta text-entities">
-						<ReadingEntity />
-					</div>
-					: ''
-				}
+				<div className="text-meta text-entities">
+				{entities.map((entity) =>
+					<ReadingEntity
+						entity={entity}
+					/>
+				)}
+				</div>
 
-				{text.n_1 === 3 || text.n_2 === 3 ?
-					<div className="text-meta text-media">
-						<ReadingMedia />
-					</div>
-
-				: ''}
+				<div className="text-meta text-media">
+					{mediaItems.map((mediaId) => (
+						<ReadingMedia
+							mediaId={mediaId}
+						/>
+					))}
+				</div>
 
 				<div className="text-meta text-annotations">
 					<i
 						className="mdi mdi-close"
 						onClick={this.toggleShowAnnotations}
 					/>
-					<AnnotationItem
-						isOwner={false}
-					/>
+					{this.data.annotations.map((annotation) => (
+						<AnnotationItem
+							annotation={annotation}
+							isOwner={false}
+						/>
+					))}
 				</div>
 
 				<div className="text-meta text-related-passages">
@@ -278,7 +303,11 @@ ReadingTextNode = React.createClass({
 						className="mdi mdi-close"
 						onClick={this.toggleShowRelatedPassages}
 					/>
-					<ReadingRelatedPassage />
+					{relatedPassages.map((relatedPassage) => (
+						<ReadingRelatedPassage
+							relatedPassage={relatedPassage}
+						/>
+					))}
 				</div>
 
 			</div>

@@ -44,6 +44,13 @@ Schemas.Texts = new SimpleSchema({
 	edition: {
 		type: String,
 		max: 60,
+		optional: true,
+	},
+
+	speakerName: {
+		type: String,
+		max: 60,
+		optional: true,
 	},
 
 	text: {
@@ -77,6 +84,62 @@ Schemas.Texts = new SimpleSchema({
 		},
 	},
 
+	mediaItems: {
+		type: [String],
+		optional: true,
+		autoform: {
+			afFieldInput: {
+				type: 'fileUpload',
+				collection: 'Attachments',
+			},
+		},
+	},
+
+	annotations: {
+		type: [String],
+		regEx: SimpleSchema.RegEx.Id,
+		optional: true,
+	},
+
+	relatedPassages: {
+		type: [Object],
+		optional: true,
+	},
+
+	'relatedPassages.$.workId': {
+		type: String,
+		optional: true,
+	},
+
+	'relatedPassages.$.englishTitle': {
+		type: String,
+		optional: true,
+	},
+
+	'relatedPassages.$.edition': {
+		type: String,
+		optional: true,
+	},
+
+	'relatedPassages.$.location': {
+		type: String,
+		optional: true,
+	},
+
+	'relatedPassages.$.textNodes': {
+		type: [Object],
+		optional: true,
+	},
+
+	'relatedPassages.$.textNodes.$.text': {
+		type: [Object],
+		optional: true,
+	},
+
+	'relatedPassages.$.textNodes.$.n': {
+		type: [Object],
+		optional: true,
+	},
 
 	createdAt: {
 		type: Date,
