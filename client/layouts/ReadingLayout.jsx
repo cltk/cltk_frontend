@@ -424,8 +424,68 @@ ReadingLayout = React.createClass({
 		// Deduplicate text response data
 		if (this.data.textNodes.length) {
 			this.data.textNodes.forEach(textNode => {
-				if (!self.textNodes.some(existingTextNode => existingTextNode._id === textNode._id)) {
-					self.textNodes.push(textNode);
+				if (
+					!self.textNodes.some(existingTextNode =>
+						existingTextNode._id === textNode._id
+					)
+				) {
+					let isInTextNodes = false;
+
+					if ('n_5' in textNode) {
+						textNodes.forEach((existingTextNode) => {
+							if (
+								existingTextNode.n_5 === textNode.n_5
+							&& existingTextNode.n_4 === textNode.n_4
+							&& existingTextNode.n_3 === textNode.n_3
+							&& existingTextNode.n_2 === textNode.n_2
+							&& existingTextNode.n_1 === textNode.n_1
+							) {
+								isInTextNodes = true;
+							}
+						});
+					} else if ('n_4' in textNode) {
+						textNodes.forEach((existingTextNode) => {
+							if (
+								existingTextNode.n_4 === textNode.n_4
+							&& existingTextNode.n_3 === textNode.n_3
+							&& existingTextNode.n_2 === textNode.n_2
+							&& existingTextNode.n_1 === textNode.n_1
+							) {
+								isInTextNodes = true;
+							}
+						});
+					} else if ('n_3' in textNode) {
+						textNodes.forEach((existingTextNode) => {
+							if (
+								existingTextNode.n_3 === textNode.n_3
+							&& existingTextNode.n_2 === textNode.n_2
+							&& existingTextNode.n_1 === textNode.n_1
+							) {
+								isInTextNodes = true;
+							}
+						});
+					} else if ('n_2' in textNode) {
+						textNodes.forEach((existingTextNode) => {
+							if (
+								existingTextNode.n_2 === textNode.n_2
+							&& existingTextNode.n_1 === textNode.n_1
+							) {
+								isInTextNodes = true;
+							}
+						});
+					} else {
+						textNodes.forEach((existingTextNode) => {
+							if (
+								existingTextNode.n_1 === textNode.n_1
+							) {
+								isInTextNodes = true;
+							}
+						});
+					}
+
+					if (!isInTextNodes) {
+						self.textNodes.push(textNode);
+					}
 				}
 			});
 		}

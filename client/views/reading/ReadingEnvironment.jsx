@@ -41,8 +41,10 @@ ReadingEnvironment = React.createClass({
 	isLoading: false,
 
 	loadMore(direction) {
-		this.isLoading = true;
-		this.props.loadMore(direction);
+		if (!this.isLoading) {
+			this.isLoading = true;
+			this.props.loadMore(direction);
+		}
 	},
 
 	renderText() {
