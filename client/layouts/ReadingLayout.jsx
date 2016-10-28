@@ -489,6 +489,8 @@ ReadingLayout = React.createClass({
 				}
 			});
 		}
+		
+		console.log("renderReadingEnvironment textNodes.length", textNodes.length);
 
 		// If data is loaded
 		if (work && textNodes) {

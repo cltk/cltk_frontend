@@ -32,12 +32,7 @@ ReadingEnvironment = React.createClass({
 		return { muiTheme: getMuiTheme(baseTheme) };
 	},
 
-	componentDidUpdate(prevProps) {
-		if (this.props.textNodes.length !== prevProps.textNodes.length) {
-			this.isLoading = false;
-		}
-	},
-
+	textNodesLength: 0,
 	isLoading: false,
 
 	loadMore(direction) {
@@ -49,6 +44,12 @@ ReadingEnvironment = React.createClass({
 
 	renderText() {
 		const textNodes = this.props.textNodes;
+		console.log("readingEnvironment.renderText", textNodes.length);
+
+		if (textNodes.length !== this.textNodesLength) {
+			this.isLoading = false;
+			this.textNodesLength = textNodes.length;
+		}
 
 		return textNodes.map((text, index) => {
 			let showNumber = false;
