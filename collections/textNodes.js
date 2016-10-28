@@ -44,6 +44,13 @@ Schemas.Texts = new SimpleSchema({
 	edition: {
 		type: String,
 		max: 60,
+		optional: true,
+	},
+
+	speakerName: {
+		type: String,
+		max: 60,
+		optional: true,
 	},
 
 	text: {
