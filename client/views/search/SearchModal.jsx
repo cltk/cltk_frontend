@@ -22,7 +22,7 @@ SearchModal = React.createClass({
 			layout: 'grid',
 			filters: [],
 			skip: 0,
-			limit: 12,
+			limit: 21,
 		};
 	},
 
@@ -35,6 +35,7 @@ SearchModal = React.createClass({
 		const query = {};
 		let works = [];
 
+		/*
 		// Parse the filters to the query
 		this.state.filters.forEach((filter) => {
 			const date = moment(`${filter.values[0]}-01-01`, 'YYYY MM DD');
@@ -82,7 +83,7 @@ SearchModal = React.createClass({
 		});
 
 		// console.log('SearchModal query', query);
-		const handle = Meteor.subscribe('works', query, 0, 100);
+		const handle = Meteor.subscribe('searchWorks', query, this.state.skip, this.state.limit);
 		if (handle.ready()) {
 			works = Works.find(query, {}).fetch();
 
@@ -103,11 +104,14 @@ SearchModal = React.createClass({
 				return sortVal;
 			});
 		}
+		*/
 
 		return {
 			works,
 		};
 	},
+
+	works: [],
 
 	loadMoreWorks() {
 		// console.log('SearchModal.loadMoreWorks', this.state.skip + this.state.limit);
@@ -308,8 +312,10 @@ SearchModal = React.createClass({
 						/>
 
 						<section className="search-results">
+
 							<SearchResultsList
-								works={this.data.works}
+								works={this.works}
+								loadMore={this.loadMoreWorks}
 							/>
 
 						</section>

@@ -4,6 +4,12 @@ SearchResultsList = React.createClass({
 
 	propTypes: {
 		works: React.PropTypes.array.isRequired,
+		loadMore: React.PropTypes.func.isRequired,
+		hasMoreWorks: React.PropTypes.bool,
+	},
+
+	loadMore() {
+
 	},
 
 	renderWorks() {
@@ -15,6 +21,7 @@ SearchResultsList = React.createClass({
 		));
 	},
 
+
 	render() {
 		const masonryOptions = {
 			// columnWidth : "400px",
@@ -22,16 +29,37 @@ SearchResultsList = React.createClass({
 			transitionDuration: 300,
 		};
 
+		const works = this.props.works;
+
 
 		return (
 			<div className="works-list search-results-list">
-				<Masonry
-					options={masonryOptions}
-					className="works-container works-container--grid row"
-				>
+				{works.length ?
+					<Masonry
+						options={masonryOptions}
+						className="works-container works-container--grid row"
+					>
 
-					{this.renderWorks()}
-				</Masonry>
+						{this.renderWorks()}
+					</Masonry>
+				:
+					<div className="works-container works-container--no-results">
+						<p className="no-results">
+							No results found for your query.
+						</p>
+					</div>
+				}
+
+				{this.props.hasMoreWorks ?
+					<a
+						className="waves-effect waves-light btn-large"
+						aria-label="View more"
+						onClick={this.loadMore}
+					>
+						Load more
+					</a>
+				: '' }
+
 			</div>
 		);
 	},
