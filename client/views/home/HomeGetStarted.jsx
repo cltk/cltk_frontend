@@ -15,7 +15,7 @@ HomeGetStarted = React.createClass({
 					</div>
 				</div>
 				<WorksList
-					limit={21}
+					limit={15}
 				/>
 				<div className="container text-center">
 					<div className="row">
