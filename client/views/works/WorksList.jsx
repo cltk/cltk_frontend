@@ -4,6 +4,7 @@ WorksList = React.createClass({
 
 	propTypes: {
 		limit: React.PropTypes.number,
+		skip: React.PropTypes.number,
 	},
 
 	mixins: [ReactMeteorData],
@@ -11,8 +12,9 @@ WorksList = React.createClass({
 	getMeteorData() {
 		const query = {};
 		let works = [];
-		const limit = this.props.limit || null;
-		const handle = Meteor.subscribe('works', query);
+		const limit = this.props.limit || 15;
+		const skip = this.props.skip || 0;
+		const handle = Meteor.subscribe('works', query, skip, limit);
 		if (handle.ready()) {
 			works = Works.find(query,
 				{

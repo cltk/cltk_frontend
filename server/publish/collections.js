@@ -22,7 +22,21 @@ if (Meteor.isServer) {
 		check(skip, Match.Optional(Number));
 		check(limit, Match.Optional(Number));
 
-		return Works.find(query, { limit, sort: { english_title: 1 } });
+		return Works.find(query, { skip, limit, sort: { english_title: 1 } });
+	});
+
+	Meteor.publish('searchWorks', (query, skip, limit) => {
+		check(query, Object);
+		check(skip, Match.Optional(Number));
+		check(limit, Match.Optional(Number));
+
+		console.log(query, skip, limit);
+
+		return Works.find(query, { skip, limit, sort: { english_title: 1 } });
+	});
+
+	Meteor.publish('worksCount', () => {
+		Counts.publish(this, 'works', Works.find());
 	});
 
 	Meteor.publish('workSingle', (query) => {

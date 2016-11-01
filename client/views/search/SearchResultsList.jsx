@@ -8,8 +8,15 @@ SearchResultsList = React.createClass({
 		hasMoreWorks: React.PropTypes.bool,
 	},
 
-	loadMore() {
+	componentDidUpdate(prevProps) {
+	},
 
+	isLoading: false,
+	worksCount: 0,
+
+	loadMore() {
+		this.isLoading = true;
+		this.props.loadMore();
 	},
 
 	renderWorks() {
@@ -31,6 +38,11 @@ SearchResultsList = React.createClass({
 
 		const works = this.props.works;
 
+		if (this.worksLength !== works.length) {
+			this.isLoading = false;
+		}
+
+		this.worksLength = works.length;
 
 		return (
 			<div className="works-list search-results-list">
@@ -51,13 +63,19 @@ SearchResultsList = React.createClass({
 				}
 
 				{this.props.hasMoreWorks ?
-					<a
-						className="waves-effect waves-light btn-large"
-						aria-label="View more"
-						onClick={this.loadMore}
-					>
-						Load more
-					</a>
+					<div>
+					{this.isLoading ?
+						<LoadingWell />
+					:
+						<a
+							className="waves-effect waves-light btn-large"
+							aria-label="View more"
+							onClick={this.loadMore}
+						>
+							Load more
+						</a>
+					}
+					</div>
 				: '' }
 
 			</div>

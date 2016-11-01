@@ -44,7 +44,10 @@ HomeLayout = React.createClass({
 					<HomeIntro
 						showSearchModal={this.showSearchModal}
 					/>
-					<HomeGetStarted />
+					{/*!(this.state.searchModalVisible) ?
+						<HomeGetStarted />
+						()
+					: ''*/}
 					<HomeFeatures />
 					<HomeBuild />
 					<Footer />
