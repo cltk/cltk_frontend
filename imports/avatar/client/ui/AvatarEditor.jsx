@@ -40,7 +40,7 @@ class AvatarEditor extends React.Component {
 				<img alt="avatar" src={this.state.avatarUrl} />
 
 				<div
-					className="upload-profile-picture"
+					className="upload-profile-picture-overlay"
 					onClick={this.handleSelectFile}
 					onDragStart={this.preventDefault}
 					onDragEnter={this.preventDefault}

@@ -16,13 +16,59 @@ WorkTeaser = React.createClass({
 		work: React.PropTypes.object.isRequired,
 	},
 
+	mixins: [ReactMeteorData],
+
+	getInitialState() {
+		return {
+			isInShelf: false,
+		};
+	},
+
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
+	},
+
+	getMeteorData() {
+		let isInShelf = false;
+
+
+		const worksShelfList = Meteor.users.findOne({}, { fields: { worksShelf: 1 } });
+		if (worksShelfList && 'worksShelf' in worksShelfList) {
+			// Check if current textNode exist in bookmarked textNodes
+			isInShelf = ~worksShelfList.worksShelf.indexOf(this.props.work._id._str);
+		}
+
+		return {
+			isInShelf,
+		};
+	},
+
+	toggleShelf(isChecked) {
+		if (Meteor.userId()) {
+			if (!isChecked) {
+				Meteor.call('shelf.insert', this.props.work._id._str);
+			} else {
+				Meteor.call('shelf.remove', this.props.work._id._str);
+			}
+			this.setState({
+				isInShelf: true,
+			});
+		} else {
+			this.setState({
+				showLoginDialog: true,
+			});
+		}
 	},
 
 	render() {
 		const work = this.props.work;
 		const workUrl = `/works/${work._id._str}/${work.slug}`;
+
+		let isInShelf = this.data.isInShelf;
+
+		if (this.state.isInShelf) {
+			isInShelf = this.state.isInShelf;
+		}
 
 		return (
 			<Card
@@ -33,8 +79,9 @@ WorkTeaser = React.createClass({
 					<IconButton
 						tooltip="Add to Your Library"
 						tooltipPosition="top-center"
-						className="icon-favorite-button"
+						className={`icon-favorite-button ${isInShelf ? 'in-user-shelf' : ''}`}
 						iconClassName="mdi mdi-book-open-variant"
+						onClick={this.toggleShelf.bind(this, isInShelf)}
 					/>
 
 					<div className="card-meta-items">

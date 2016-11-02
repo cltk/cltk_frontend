@@ -145,9 +145,9 @@ ReadingTextNode = React.createClass({
 	toggleBookmark(event, isChecked) {
 		if (Meteor.userId()) {
 			if (isChecked) {
-				Meteor.call('bookmark.insert', this.props.text._id);
+				Meteor.call('bookmark.insert', this.props.text._id._str);
 			} else {
-				Meteor.call('bookmark.remove', this.props.text._id);
+				Meteor.call('bookmark.remove', this.props.text._id._str);
 			}
 		} else {
 			this.setState({

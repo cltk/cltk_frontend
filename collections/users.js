@@ -86,7 +86,7 @@ Schemas.User = new SimpleSchema({
 		type: [String],
 		optional: true,
 	},
-	bookshelf: {
+	worksShelf: {
 		type: [String],
 		optional: true,
 	},

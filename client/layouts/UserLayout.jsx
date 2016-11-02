@@ -44,25 +44,30 @@ UserLayout = React.createClass({
 
 							</section>
 							<div className="content primary ">
-								<div className="user-profile-tabs">
-									<Tabs>
+								<div className="user-profile-tabs-wrap">
+									<Tabs
+										className="user-profile-tabs"
+									>
 										<Tab
 											label="Your Shelf"
+											className="user-profile-tab"
 										>
 											<BookshelfList />
 										</Tab>
 										<Tab
 											label="Bookmarks and Annotations"
+											className="user-profile-tab"
 										>
-											<div>
+											<div
+												className="tab-content annotations-tab-content"
+											>
 												<BookmarkList />
-											</div>
-											<div>
 												<NotesList />
 											</div>
 										</Tab>
 										<Tab
 											label="Profile"
+											className="user-profile-tab"
 										>
 											<Profile />
 										</Tab>

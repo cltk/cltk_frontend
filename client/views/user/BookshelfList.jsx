@@ -1,3 +1,5 @@
+import Masonry from 'react-masonry-component/lib';
+
 BookshelfList = React.createClass({
 
 	mixins: [ReactMeteorData],
@@ -6,12 +8,15 @@ BookshelfList = React.createClass({
 		const query = {};
 		let works = [];
 
-		const user = Meteor.user();
+		const shelfList = Meteor.users.findOne({ _id: Meteor.userId() }, { fields: { worksShelf: 1 } });
 
-		if (user && 'bookshelf' in user) {
+		if (shelfList && 'worksShelf' in shelfList) {
 			query._id = {
-				$in: user.bookshelf,
+				$in: [],
 			};
+			shelfList.worksShelf.forEach((workId) => {
+				query._id.$in.push(new Meteor.Collection.ObjectID(workId));
+			});
 
 			const handle = Meteor.subscribe('works', query, 0, 100);
 			if (handle.ready()) {
@@ -48,26 +53,32 @@ BookshelfList = React.createClass({
 	},
 
 	render() {
+		const masonryOptions = {
+			isFitWidth: true,
+			transitionDuration: 300,
+		};
+
 		return (
-			<div className="container container-bookshelf">
-				<div className="works-list works-list--bookshelf">
-					{this.data.works.length ?
-						<div>
-							{this.data.works.map((work, i) => (
-								<WorkTeaser
-									key={i}
-									work={work}
-								/>
-							))}
-						</div>
-					:
-						<div>
-							<p className="no-results no-results--bookshelf">
-								You do have have any works saved on your bookshelf yet. <a href="/browse">Add one by browsing the corpora.</a>
-							</p>
-						</div>
-					}
-				</div>
+			<div className="works-list works-list--bookshelf">
+				{this.data.works.length ?
+					<Masonry
+						options={masonryOptions}
+						className="works-container works-container--grid row"
+					>
+						{this.data.works.map((work, i) => (
+							<WorkTeaser
+								key={i}
+								work={work}
+							/>
+						))}
+					</Masonry>
+				:
+					<div>
+						<p className="no-results no-results--bookshelf">
+							You do not have any works saved on your bookshelf yet. <a href="/browse">Add one by browsing the corpora.</a>
+						</p>
+					</div>
+				}
 			</div>
 		);
 	},
