@@ -123,14 +123,12 @@ LeftMenu = React.createClass({
 							<MenuItem
 								href="/profile"
 								primaryText="Profile"
-								target="_blank"
 								rel="noopener noreferrer"
 								onClick={this.props.closeLeftMenu}
 							/>
 							<MenuItem
 								href="/sign-out"
 								primaryText="Sign out"
-								target="_blank"
 								rel="noopener noreferrer"
 								onClick={this.props.closeLeftMenu}
 							/>
@@ -139,7 +137,6 @@ LeftMenu = React.createClass({
 						<MenuItem
 							href="/sign-in"
 							primaryText="Sign in"
-							target="_blank"
 							rel="noopener noreferrer"
 							onClick={this.props.closeLeftMenu}
 						/>
