@@ -72,10 +72,15 @@ AvatarEditor.defaultProps = {
 
 export default createContainer((props) => {
 	const myAvatarHandle = Meteor.subscribe('users.myAvatar');
+	let avatar = null;
+
+	if (Meteor.user()) {
+		avatar = Meteor.user().avatar;
+	}
 
 	return {
 		defaultAvatarUrl: props.defaultAvatarUrl,
-		avatar: Meteor.user().avatar,
+		avatar,
 		avatarLoading: !myAvatarHandle.ready(),
 	};
 }, AvatarEditor);
