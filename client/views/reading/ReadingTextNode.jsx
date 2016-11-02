@@ -12,6 +12,10 @@ ReadingTextNode = React.createClass({
 		annotationCheckList: React.PropTypes.array,
 		highlight: React.PropTypes.bool,
 		toggleReadingMeta: React.PropTypes.func,
+		showLoginModal: React.PropTypes.func,
+		showSignupModal: React.PropTypes.func,
+		closeLoginModal: React.PropTypes.func,
+		closeSignupModal: React.PropTypes.func,
 	},
 
 	childContextTypes: {
@@ -25,7 +29,6 @@ ReadingTextNode = React.createClass({
 			bookmarked: false,
 			showRelatedPassages: false,
 			showAnnotations: false,
-			showLoginDialog: false,
 			annotationOpen: this.props.highlight,
 			anchorEl: this.anchorEl,
 		};
@@ -47,20 +50,29 @@ ReadingTextNode = React.createClass({
 		let bookmarked = false;
 		const handleAnnotation = Meteor.subscribe('annotation');
 		const handleRelatedPassages = Meteor.subscribe('relatedPassages');
-		const handleBookmark = Meteor.subscribe('bookmark');
 		if (handleAnnotation.ready()) {
 			annotations = Annotation.find({ textNodes: this.props.text._id }).fetch();
 		}
 		if (handleRelatedPassages.ready()) {
 			relatedPassages = RelatedPassages.find({ textNodes: this.props.text._id }).fetch();
 		}
+
+		const handleBookmark = Meteor.subscribe('bookmark');
 		if (handleBookmark.ready()) {
-			const bookmarkList = Meteor.users.findOne({}, { fields: { bookmarks: 1 } });
-			if (bookmarkList && bookmarkList.bookmarks) {
+			const bookmarksList = Meteor.users.findOne({
+				_id: Meteor.userId(),
+			}, {
+				fields: {
+					bookmarks: 1,
+				},
+			});
+
+			if (bookmarksList && 'bookmarks' in bookmarksList) {
 				// Check if current textNode exist in bookmarked textNodes
-				bookmarked = bookmarkList.bookmarks.indexOf(this.props.text._id) !== -1;
+				bookmarked = ~bookmarksList.bookmarks.indexOf(this.props.text._id._str);
 			}
 		}
+
 		return {
 			annotations,
 			relatedPassages,
@@ -118,15 +130,13 @@ ReadingTextNode = React.createClass({
 		});
 	},
 
-	addAnnotationCheckList(event, isChecked) {
+	addAnnotationCheckList() {
 		if (Meteor.userId()) {
 			if (typeof this.props.addAnnotationCheckList === 'function') {
-				this.props.addAnnotationCheckList(this.props.text._id, isChecked);
+				this.props.addAnnotationCheckList(this.props.text._id);
 			}
 		} else {
-			this.setState({
-				showLoginDialog: true,
-			});
+			this.props.showLoginModal();
 		}
 	},
 
@@ -136,23 +146,25 @@ ReadingTextNode = React.createClass({
 		});
 	},
 
-	handleLoginDialogClose() {
-		this.setState({
-			showLoginDialog: false,
-		});
-	},
-
-	toggleBookmark(event, isChecked) {
+	toggleBookmark() {
 		if (Meteor.userId()) {
-			if (isChecked) {
-				Meteor.call('bookmark.insert', this.props.text._id);
+			let bookmarked = this.data.bookmarked;
+			if (this.state.bookmarked) {
+				bookmarked = this.state.bookmarked;
+			}
+			if (!bookmarked) {
+				Meteor.call('bookmark.insert', this.props.text._id._str);
+				this.setState({
+					bookmarked: true,
+				});
 			} else {
-				Meteor.call('bookmark.remove', this.props.text._id);
+				Meteor.call('bookmark.remove', this.props.text._id._str);
+				this.setState({
+					bookmarked: false,
+				});
 			}
 		} else {
-			this.setState({
-				showLoginDialog: true,
-			});
+			this.props.showLoginModal();
 		}
 	},
 
@@ -197,6 +209,13 @@ ReadingTextNode = React.createClass({
 		const mediaItems = text.mediaItems || [];
 		const relatedPassages = text.relatedPassages || [];
 		const entities = text.entities || [];
+		let bookmarked = this.data.bookmarked;
+
+		if (this.state.bookmarked) {
+			bookmarked = this.state.bookmarked;
+		}
+
+		console.log("readingtextnode", bookmarked);
 
 		if (this.state.showAnnotations) {
 			textClasses += ' with-annotations';
@@ -210,7 +229,7 @@ ReadingTextNode = React.createClass({
 			textClasses = `${textClasses} show-number`;
 		}
 
-		if (this.state.bookmarked) {
+		if (bookmarked) {
 			textClasses = `${textClasses} text-bookmarked`;
 		}
 
@@ -229,7 +248,7 @@ ReadingTextNode = React.createClass({
 			}
 		}
 
-		if ((parseInt(textLocation.textN) % 5) === 0) {
+		if ((parseInt(textLocation.textN, 10) % 5) === 0) {
 			textClasses = `${textClasses} show-number`;
 		}
 

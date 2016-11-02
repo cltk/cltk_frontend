@@ -83,4 +83,11 @@ if (Meteor.isServer) {
 		}
 		return this.ready();
 	});
+
+	Meteor.publish('worksShelf', function publishBookmark() {
+		if (this.userId) {
+			return Meteor.users.find({ _id: this.userId }, { fields: { worksShelf: 1 } });
+		}
+		return this.ready();
+	});
 }

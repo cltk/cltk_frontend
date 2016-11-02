@@ -40,7 +40,7 @@ class AvatarEditor extends React.Component {
 				<img alt="avatar" src={this.state.avatarUrl} />
 
 				<div
-					className="upload-profile-picture"
+					className="upload-profile-picture-overlay"
 					onClick={this.handleSelectFile}
 					onDragStart={this.preventDefault}
 					onDragEnter={this.preventDefault}
@@ -72,10 +72,15 @@ AvatarEditor.defaultProps = {
 
 export default createContainer((props) => {
 	const myAvatarHandle = Meteor.subscribe('users.myAvatar');
+	let avatar = null;
+
+	if (Meteor.user()) {
+		avatar = Meteor.user().avatar;
+	}
 
 	return {
 		defaultAvatarUrl: props.defaultAvatarUrl,
-		avatar: Meteor.user().avatar,
+		avatar,
 		avatarLoading: !myAvatarHandle.ready(),
 	};
 }, AvatarEditor);
