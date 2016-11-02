@@ -105,10 +105,7 @@ SearchModal = React.createClass({
 			});
 		}
 
-		const worksCountHandle = Meteor.subscribe('worksCount');
-		if (worksCountHandle.ready()) {
-			worksCount = Counts.get('works');
-		}
+		worksCount = Counts.get('worksCount');
 
 		return {
 			works,
@@ -320,8 +317,6 @@ SearchModal = React.createClass({
 		} else if (this.data.works.length < this.state.limit) {
 			hasMoreWorks = false;
 		}
-
-		console.log("searchmodal data", this.data);
 
 		return (
 			<div

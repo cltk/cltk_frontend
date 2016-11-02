@@ -5,6 +5,9 @@
 if (Meteor.isServer) {
 	Meteor.publish('attachments', () => Attachments.find());
 
+	Meteor.publish('authorsCount', function getAuthorCounts() {
+		Counts.publish(this, 'authorsCount', Authors.find());
+	});
 	Meteor.publish('authors', () => Authors.find());
 
 	Meteor.publish('corpora', () => Corpora.find());
@@ -30,13 +33,11 @@ if (Meteor.isServer) {
 		check(skip, Match.Optional(Number));
 		check(limit, Match.Optional(Number));
 
-		console.log(query, skip, limit);
-
 		return Works.find(query, { skip, limit, sort: { english_title: 1 } });
 	});
 
-	Meteor.publish('worksCount', () => {
-		Counts.publish(this, 'works', Works.find());
+	Meteor.publish('worksCount', function getWorksCount() {
+		Counts.publish(this, 'worksCount', Works.find());
 	});
 
 	Meteor.publish('workSingle', (query) => {
