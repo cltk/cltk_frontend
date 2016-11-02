@@ -8,7 +8,13 @@ BookshelfList = React.createClass({
 		const query = {};
 		let works = [];
 
-		const shelfList = Meteor.users.findOne({ _id: Meteor.userId() }, { fields: { worksShelf: 1 } });
+		const shelfList = Meteor.users.findOne({
+			_id: Meteor.userId(),
+		}, {
+			fields: {
+				worksShelf: 1,
+			},
+		});
 
 		if (shelfList && 'worksShelf' in shelfList) {
 			query._id = {

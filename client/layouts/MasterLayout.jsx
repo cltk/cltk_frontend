@@ -29,7 +29,6 @@ MasterLayout = React.createClass({
 		});
 	},
 
-
 	render() {
 		return (
 			<div className="cltk-layout master-layout">

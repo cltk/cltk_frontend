@@ -31,11 +31,20 @@ WorkTeaser = React.createClass({
 	getMeteorData() {
 		let isInShelf = false;
 
+		const worksShelfList = Meteor.users.findOne({
+			_id: Meteor.userId(),
+		}, {
+			fields: {
+				worksShelf: 1,
+			},
+		});
 
-		const worksShelfList = Meteor.users.findOne({}, { fields: { worksShelf: 1 } });
-		if (worksShelfList && 'worksShelf' in worksShelfList) {
-			// Check if current textNode exist in bookmarked textNodes
-			isInShelf = ~worksShelfList.worksShelf.indexOf(this.props.work._id._str);
+		const handle = Meteor.subscribe('worksShelf');
+		if (handle.ready()) {
+			if (worksShelfList && 'worksShelf' in worksShelfList) {
+				// Check if current textNode exist in bookmarked textNodes
+				isInShelf = ~worksShelfList.worksShelf.indexOf(this.props.work._id._str);
+			}
 		}
 
 		return {

@@ -1,4 +1,5 @@
-import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'; import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import AvatarEditor from '/imports/avatar/client/ui/AvatarEditor.jsx';
 
