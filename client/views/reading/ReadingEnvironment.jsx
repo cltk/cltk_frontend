@@ -16,6 +16,10 @@ ReadingEnvironment = React.createClass({
 		isTextRemaining: React.PropTypes.bool,
 		isTextBefore: React.PropTypes.bool,
 		isLoading: React.PropTypes.bool,
+		showLoginModal: React.PropTypes.func,
+		showSignupModal: React.PropTypes.func,
+		closeLoginModal: React.PropTypes.func,
+		closeSignupModal: React.PropTypes.func,
 	},
 
 	childContextTypes: {
@@ -85,6 +89,10 @@ ReadingEnvironment = React.createClass({
 					addAnnotationCheckList={this.addAnnotationCheckList}
 					highlight={this.props.highlightId === text._id}
 					toggleReadingMeta={this.props.toggleReadingMeta}
+					showLoginModal={this.props.showLoginModal}
+					showSignupModal={this.props.showSignupModal}
+					closeLoginModal={this.props.closeLoginModal}
+					closeSignupModal={this.props.closeSignupModal}
 				/>
 			);
 		});

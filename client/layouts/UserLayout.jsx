@@ -1,4 +1,19 @@
+import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { Tabs, Tab } from 'material-ui/Tabs';
+import AvatarEditor from '/imports/avatar/client/ui/AvatarEditor.jsx';
+
+
 UserLayout = React.createClass({
+
+	childContextTypes: {
+		muiTheme: React.PropTypes.object.isRequired,
+	},
+
+	getChildContext() {
+		return { muiTheme: getMuiTheme(baseTheme) };
+	},
+
 	render() {
 		return (
 			<div className="cltk-layout user-layout">
@@ -18,26 +33,46 @@ UserLayout = React.createClass({
 								<div className="container v-align-transform">
 									<div className="row">
 										<div className="col-sm-10 col-sm-offset-1 text-center">
-											{/* <h1 className="mb40 mb-xs-16 large">
-												Browse
-											</h1>*/}
+											<div className="user-profile-section">
+												<AvatarEditor
+													defaultAvatarUrl="/images/default_user.jpg"
+												/>
+											</div>
 										</div>
 									</div>
 
 								</div>
 
 							</section>
-							<div className="content primary row">
-								<div className="col-md-8">
-									<Profile />
-								</div>
-								<div className="col-md-4">
-									<div>
-										<BookmarkList />
-									</div>
-									<div>
-										<NotesList />
-									</div>
+							<div className="content primary ">
+								<div className="user-profile-tabs-wrap">
+									<Tabs
+										className="user-profile-tabs"
+									>
+										<Tab
+											label="Your Shelf"
+											className="user-profile-tab"
+										>
+											<BookshelfList />
+										</Tab>
+										<Tab
+											label="Bookmarks and Annotations"
+											className="user-profile-tab"
+										>
+											<div
+												className="tab-content annotations-tab-content"
+											>
+												<BookmarkList />
+												<NotesList />
+											</div>
+										</Tab>
+										<Tab
+											label="Profile"
+											className="user-profile-tab"
+										>
+											<Profile />
+										</Tab>
+									</Tabs>
 								</div>
 							</div>
 						</div>

@@ -5,6 +5,9 @@
 if (Meteor.isServer) {
 	Meteor.publish('attachments', () => Attachments.find());
 
+	Meteor.publish('authorsCount', function getAuthorCounts() {
+		Counts.publish(this, 'authorsCount', Authors.find());
+	});
 	Meteor.publish('authors', () => Authors.find());
 
 	Meteor.publish('corpora', () => Corpora.find());
@@ -22,7 +25,19 @@ if (Meteor.isServer) {
 		check(skip, Match.Optional(Number));
 		check(limit, Match.Optional(Number));
 
-		return Works.find(query, { limit, sort: { english_title: 1 } });
+		return Works.find(query, { skip, limit, sort: { english_title: 1 } });
+	});
+
+	Meteor.publish('searchWorks', (query, skip, limit) => {
+		check(query, Object);
+		check(skip, Match.Optional(Number));
+		check(limit, Match.Optional(Number));
+
+		return Works.find(query, { skip, limit, sort: { english_title: 1 } });
+	});
+
+	Meteor.publish('worksCount', function getWorksCount() {
+		Counts.publish(this, 'worksCount', Works.find());
 	});
 
 	Meteor.publish('workSingle', (query) => {
@@ -65,6 +80,13 @@ if (Meteor.isServer) {
 	Meteor.publish('bookmark', function publishBookmark() {
 		if (this.userId) {
 			return Meteor.users.find({ _id: this.userId }, { fields: { bookmarks: 1 } });
+		}
+		return this.ready();
+	});
+
+	Meteor.publish('worksShelf', function publishBookmark() {
+		if (this.userId) {
+			return Meteor.users.find({ _id: this.userId }, { fields: { worksShelf: 1 } });
 		}
 		return this.ready();
 	});

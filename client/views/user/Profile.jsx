@@ -3,7 +3,6 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import { debounce } from 'throttle-debounce';
-import AvatarEditor from '/imports/avatar/client/ui/AvatarEditor.jsx';
 
 Profile = React.createClass({
 
@@ -80,11 +79,6 @@ Profile = React.createClass({
 		return (
 			(currentUser ?
 				<section className="page-content">
-					<div className="user-profile-section">
-						<AvatarEditor
-							defaultAvatarUrl="/images/default_user.jpg"
-						/>
-					</div>
 					<div className="user-profile-textfields">
 
 						<TextField

@@ -22,7 +22,7 @@ SearchModal = React.createClass({
 			layout: 'grid',
 			filters: [],
 			skip: 0,
-			limit: 12,
+			limit: 15,
 		};
 	},
 
@@ -34,6 +34,7 @@ SearchModal = React.createClass({
 	getMeteorData() {
 		const query = {};
 		let works = [];
+		let worksCount = null;
 
 		// Parse the filters to the query
 		this.state.filters.forEach((filter) => {
@@ -82,9 +83,9 @@ SearchModal = React.createClass({
 		});
 
 		// console.log('SearchModal query', query);
-		const handle = Meteor.subscribe('works', query, 0, 100);
+		const handle = Meteor.subscribe('searchWorks', query, this.state.skip, this.state.limit);
 		if (handle.ready()) {
-			works = Works.find(query, {}).fetch();
+			works = Works.find({}, {}).fetch();
 
 			works.forEach((work, i) => {
 				works[i].authors = Authors.find({ _id: { $in: work.authors } }).fetch();
@@ -104,10 +105,15 @@ SearchModal = React.createClass({
 			});
 		}
 
+		worksCount = Counts.get('worksCount');
+
 		return {
 			works,
+			worksCount,
 		};
 	},
+
+	works: [],
 
 	loadMoreWorks() {
 		// console.log('SearchModal.loadMoreWorks', this.state.skip + this.state.limit);
@@ -205,6 +211,7 @@ SearchModal = React.createClass({
 
 		this.setState({
 			filters,
+			skip: 0,
 		});
 	},
 
@@ -269,6 +276,7 @@ SearchModal = React.createClass({
 
 		this.setState({
 			filters,
+			skip: 0,
 		});
 	},
 
@@ -278,9 +286,38 @@ SearchModal = React.createClass({
 		});
 	},
 
+	closeSearchModal() {
+		this.setState({
+			filters: [],
+		});
+		this.props.closeSearchModal();
+	},
 
 	render() {
 		// console.log("SearchModal.filters", this.state.filters);
+
+		let hasMoreWorks = true;
+
+		if (this.works.length === 0 || this.state.skip === 0) {
+			this.works = this.data.works;
+		} else {
+			this.data.works.forEach((workResult) => {
+				if (!this.works.some((existingWork) =>
+					workResult._id._str === existingWork._id._str
+				)) {
+					this.works.push(workResult);
+				}
+			});
+		}
+
+		const works = this.works;
+
+		if (this.data.worksCount && this.data.worksCount <= this.works.length) {
+			hasMoreWorks = false;
+		} else if (this.data.works.length < this.state.limit) {
+			hasMoreWorks = false;
+		}
+
 		return (
 			<div
 				className={`cltk-modal search-modal
@@ -289,8 +326,8 @@ SearchModal = React.createClass({
 				<div className="close-search">
 					<IconButton
 						iconClassName={'close-search-icon mdi mdi-close'}
-						onClick={this.props.closeSearchModal}
-						onTouchTap={this.props.closeSearchModal}
+						onClick={this.closeSearchModal}
+						onTouchTap={this.closeSearchModal}
 					/>
 				</div>
 
@@ -308,8 +345,11 @@ SearchModal = React.createClass({
 						/>
 
 						<section className="search-results">
+
 							<SearchResultsList
-								works={this.data.works}
+								works={works}
+								hasMoreWorks={hasMoreWorks}
+								loadMore={this.loadMoreWorks}
 							/>
 
 						</section>

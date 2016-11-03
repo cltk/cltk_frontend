@@ -33,6 +33,8 @@ ReadingLayout = React.createClass({
 			limit: 30,
 			annotationCheckList: [],
 			searchModalVisible: false,
+			modalLoginLowered: false,
+			modalSignupLowered: false,
 			location,
 		};
 	},
@@ -51,7 +53,7 @@ ReadingLayout = React.createClass({
 		}
 
 		window.addEventListener('resize', this.calculateTextNodeDepths);
-		// window.addEventListener('scroll', debounce(100, this.handleScroll));
+		window.addEventListener('scroll', debounce(100, this.handleScroll));
 	},
 
 	componentDidUpdate() {
@@ -187,7 +189,6 @@ ReadingLayout = React.createClass({
 			work,
 			attachment,
 			textNodes,
-			currentUser: Meteor.user(),
 		};
 	},
 
@@ -234,45 +235,44 @@ ReadingLayout = React.createClass({
 			isTextBefore = true;
 
 			if ('n_5' in this.textNodes[0]) {
-				this.textNodes.forEach(function(textNode){
+				this.textNodes.forEach((textNode) => {
 					if (textNode.n_5 === 1) {
 						this.isTextBefore = false;
 					}
 				})
 			} else if ('n_4' in this.textNodes[0]) {
-				this.textNodes.forEach(function(textNode){
+				this.textNodes.forEach((textNode) => {
 					if (textNode.n_4 === 1) {
 						this.isTextBefore = false;
 					}
 				})
 			} else if ('n_3' in this.textNodes[0]) {
-				this.textNodes.forEach(function(textNode){
+				this.textNodes.forEach((textNode) => {
 					if (textNode.n_3 === 1) {
 						this.isTextBefore = false;
 					}
 				})
 			} else if ('n_2' in this.textNodes[0]) {
-				this.textNodes.forEach(function(textNode){
+				this.textNodes.forEach((textNode) => {
 					if (textNode.n_2 === 1) {
 						this.isTextBefore = false;
 					}
 				})
 			} else if ('n_1' in this.textNodes[0]) {
-				this.textNodes.forEach(function(textNode){
+				this.textNodes.forEach((textNode) => {
 					if (textNode.n_1 === 1) {
 						this.isTextBefore = false;
 					}
 				})
 			}
 		}
-
 	},
 
 	checkIfTextRemaining() {
 		const work = this.data.work;
 		const textNodes = this.textNodes;
 
-		if ('_id' in work && textNodes.length) {
+		if (work && '_id' in work && textNodes.length) {
 			if ('rangeN5' in work) {
 				if (
 					work.rangeN5.high === textNodes[textNodes.length - 1].n_5
@@ -444,6 +444,27 @@ ReadingLayout = React.createClass({
 		});
 	},
 
+	showLoginModal() {
+		this.setState({
+			modalLoginLowered: true,
+		});
+	},
+	showSignupModal() {
+		this.setState({
+			modalSignupLowered: true,
+		});
+	},
+	closeLoginModal() {
+		this.setState({
+			modalLoginLowered: false,
+		});
+	},
+	closeSignupModal() {
+		this.setState({
+			modalSignupLowered: false,
+		});
+	},
+
 	toggleReadingMeta(metaType) {
 		if (metaType === 'annotations') {
 			this.setState({
@@ -578,6 +599,10 @@ ReadingLayout = React.createClass({
 					toggleReadingMeta={this.toggleReadingMeta}
 					isTextBefore={this.isTextBefore}
 					isTextRemaining={this.isTextRemaining}
+					showLoginModal={this.showLoginModal}
+					showSignupModal={this.showSignupModal}
+					closeLoginModal={this.closeLoginModal}
+					closeSignupModal={this.closeSignupModal}
 				/>
 			);
 		}
@@ -675,6 +700,20 @@ ReadingLayout = React.createClass({
 							<div className="double-bounce2" />
 						</div>
 					</div>
+				}
+				{this.state.modalLoginLowered ?
+					<ModalLogin
+						lowered={this.state.modalLoginLowered}
+						closeModal={this.closeLoginModal}
+					/>
+					: ''
+				}
+				{this.state.modalSignupLowered ?
+					<ModalSignup
+						lowered={this.state.modalSignupLowered}
+						closeModal={this.closeSignupModal}
+					/>
+					: ''
 				}
 			</div>
 		);
