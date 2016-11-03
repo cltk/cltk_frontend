@@ -42,8 +42,11 @@ LeftMenu = React.createClass({
 		let userIsAdmin = false;
 
 		if (userIsLoggedIn) {
-			if (this.data.currentUser.emails.length) {
+			if ('emails' in this.data.currentUser && this.data.currentUser.emails.length) {
 				username = this.data.currentUser.emails[0].address;
+			}
+			if ('facebook' in this.data.currentUser) {
+				username = this.data.currentUser.services.facebook.first_name;
 			}
 			userIsAdmin = Roles.userIsInRole(this.data.currentUser._id, ['admin']);
 		}

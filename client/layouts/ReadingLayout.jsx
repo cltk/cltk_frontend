@@ -53,7 +53,7 @@ ReadingLayout = React.createClass({
 		}
 
 		window.addEventListener('resize', this.calculateTextNodeDepths);
-		// window.addEventListener('scroll', debounce(100, this.handleScroll));
+		window.addEventListener('scroll', debounce(100, this.handleScroll));
 	},
 
 	componentDidUpdate() {
@@ -189,7 +189,6 @@ ReadingLayout = React.createClass({
 			work,
 			attachment,
 			textNodes,
-			currentUser: Meteor.user(),
 		};
 	},
 
