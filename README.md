@@ -29,10 +29,24 @@ git submodule update --init --recursive
 meteor npm install
 meteor
 ```
-#### Note:
-If there is no text data in your database, the application will try to sync document data from the CLTK API (as defined in /server/text-server-sync.js). Please allow a few moments for the process to take place and watch your console for sync information.
 
-For managing lists of outstanding development items, we're using ZenHub: https://www.zenhub.io/.  If you're interested in contributing, please consider installing the ZenHub plugin for your browser.
+#### Database
+
+In order to use the database with your meteor instance, we recommend restoring the database to your meteor application instance (but you could as easily use an external mongodb server as well and configure the MONGO_URL param when starting meteor). You will need the mongodb package installed on your local machine to restore the database to your local copy of the application.
+
+First, download the database dump from here: https://s3.amazonaws.com/cltk-data001/dump.tgz
+
+Unzip and -tar the database dump:
+
+```
+tar zxvf dump.tgz
+```
+
+Restore the dump to your *running* meteor application database:
+
+```
+mongorestore -h localhost:3001 -d meteor --drop dump/cltk_frontend_dev
+```
 
 
 # Contributing
