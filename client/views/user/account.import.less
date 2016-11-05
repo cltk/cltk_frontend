@@ -59,19 +59,25 @@ button.at-social-btn {
 .user-profile-section {
 	position:relative;
 
-	.user-profile-picture {
+	.user-profile-picture-container {
+		position:absolute;
+		z-index:1;
+		top:-100px;
 		width:230px;
 		height:230px;
+		left:50%;
+		margin-left:-100px;
+	}
+	.user-profile-picture {
 		border-radius:100%;
-		border:3px solid @light;
-		cursor:pointer;
-		margin:0 auto;
-		display:inline-block;
 		overflow:hidden;
-		position: relative;
+		border:3px solid @light;
+		width:230px;
+		height:230px;
+		cursor:pointer;
 
 		&:hover {
-			.upload-profile-picture-overlay {
+			.upload-profile-picture {
 				opacity:1;
 			}
 
@@ -80,22 +86,21 @@ button.at-social-btn {
 		img {
 			display:block;
 			width:100%;
-			object-fit:cover;
 		}
 
-		.upload-profile-picture-overlay {
+		.upload-profile-picture {
 			position:absolute;
-			z-index:1;
 			top:0;
 			left:0;
 			width:100%;
 			height:100%;
-			border-radius:100%;
 			background:rgba(0,0,0,0.6);
 			opacity:0;
 			.transition(opacity 200ms ease-out);
-			display:inline-block;
-			padding-top:48px;
+			border-radius:100%;
+			overflow:hidden;
+			border:3px solid @light;
+			cursor:pointer;
 
 			.mdi.mdi-image-area {
 				color:@light;
@@ -105,7 +110,6 @@ button.at-social-btn {
 				&:before {
 					font-size:60px;
 				}
-
 			}
 
 			.help-text {
@@ -197,99 +201,6 @@ button.at-social-btn {
 		display:block;
 		margin:25px 0;
 		height:auto;
-
-  }
-
-
-}
-
-.user-discussion-comments {
-
-  max-width:800px;
-  width:100%;
-  margin:0px auto 60px;
-  display:block;
-
-	h2 {
-		width:100%;
-		margin:0 auto;
-		padding:0px 0 30px !important;
-		font-size:24px;
-		font-family:@font-title;
-		text-align:center !important;
-
-	}
-
-  // Intentionally nested here because this is a special use-case for discussion comments
-  // appearing only user profiles
-  .user-discussion-comment {
-		width:100%;
-		border-top:2px solid @md-primary;
-		margin:25px auto;
-		display:block;
-
-		.user-discussion-comment-title {
-		  font-size:16px;
-		  text-align:left;
-		  padding:50px 0 0px;
-		  margin:0 auto;
-		  max-width:710px;
-		  display:block;
-			font-family:@font-light;
-			color:@text-secondary;
-			text-transform: uppercase;
-			font-weight:bold;
-
-		  &:hover {
-				color:@md-primary;
-		  }
-		}
-
-	  p {
-			font-size:20px;
-			line-height:1.5em;
-			margin:0 auto;
-			padding:20px 0;
-			max-width:710px;
-			color:@text-dark;
-			color:rgba(0,0,0,0.66);
-
-	  }
-
-
-		.user-discussion-comment-replies {
-		  display:block !important;
-		  margin:10px 30px 30px !important;
-		  float:left;
-
-		  &:hover {
-				background:@light;
-				span, i {
-				  color:@md-primary !important;
-				}
-		  }
-
-		  span, i {
-				font-size:16px;
-				color:@text-secondary;
-		  }
-
-		  .mdi {
-				color:@text-secondary !important;
-				&:before {
-					font-size:18px;
-
-				}
-		  }
-
-		}
-
-  }
-
-  .no-results.no-discussion-comments {
-	text-align:center;
-	font-size:24px;
-	color:#999;
 
   }
 

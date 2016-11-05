@@ -4,6 +4,7 @@
   "description": "A frontend reading environment for the Classical Language ToolKit Archive texts",
   "main": "bundle/main.js",
   "dependencies": {
+    "gm": "^1.23.0",
     "ion-rangeslider": "^2.1.4",
     "linkifyjs": "^2.0.5",
     "material-ui": "^0.15.4",
@@ -25,8 +26,10 @@
     "react-rangeslider": "^1.0.3",
     "react-slick": "^0.12.2",
     "react-tap-event-plugin": "^1.0.0",
+    "spawn-sync": "^1.0.15",
     "textures": "^1.0.4",
-    "throttle-debounce": "^1.0.1"
+    "throttle-debounce": "^1.0.1",
+    "try-thread-sleep": "^1.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^6.1.2",

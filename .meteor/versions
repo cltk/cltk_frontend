@@ -86,7 +86,7 @@ iron:middleware-stack@1.1.0
 iron:router@1.0.12
 iron:url@1.0.11
 jabbslad:basic-auth@0.2.2
-jalik:ufs@0.7.1
+jalik:ufs@0.7.1_1
 jalik:ufs-gridfs@0.1.4
 jalik:ufs-local@0.2.8
 jparker:crypto-core@0.1.0
@@ -104,6 +104,7 @@ localstorage@1.0.11
 logging@1.1.14
 matb33:collection-hooks@0.8.4
 materialize:materialize@0.97.6
+mdg:validated-method@1.1.0
 mdg:validation-error@0.2.0
 meteor@1.2.16
 meteor-base@1.0.4
