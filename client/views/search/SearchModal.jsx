@@ -82,7 +82,6 @@ SearchModal = React.createClass({
 			}
 		});
 
-		// console.log('SearchModal query', query);
 		const handle = Meteor.subscribe('searchWorks', query, this.state.skip, this.state.limit);
 		if (handle.ready()) {
 			works = Works.find({}, {}).fetch();
@@ -116,7 +115,6 @@ SearchModal = React.createClass({
 	works: [],
 
 	loadMoreWorks() {
-		// console.log('SearchModal.loadMoreWorks', this.state.skip + this.state.limit);
 		this.setState({
 			skip: this.state.skip + this.state.limit,
 		});
@@ -179,7 +177,6 @@ SearchModal = React.createClass({
 
 		if (textsearch && textsearch.length) {
 			let textsearchInFilters = false;
-			console.log(filters);
 
 			filters.forEach((filter, i) => {
 				if (filter.key === 'textsearch') {
@@ -187,7 +184,6 @@ SearchModal = React.createClass({
 					textsearchInFilters = true;
 				}
 			});
-			console.log(filters);
 
 			if (!textsearchInFilters) {
 				filters.push({
@@ -294,7 +290,6 @@ SearchModal = React.createClass({
 	},
 
 	render() {
-		// console.log("SearchModal.filters", this.state.filters);
 
 		let hasMoreWorks = true;
 

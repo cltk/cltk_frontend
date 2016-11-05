@@ -19,8 +19,6 @@ HomeFeatures = React.createClass({
 
 	render() {
 
-		console.log("HomeFeatures.data", this.data);
-
 		return (
 			<section id="features" >
 

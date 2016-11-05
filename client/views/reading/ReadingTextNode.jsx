@@ -215,8 +215,6 @@ ReadingTextNode = React.createClass({
 			bookmarked = this.state.bookmarked;
 		}
 
-		console.log("readingtextnode", bookmarked);
-
 		if (this.state.showAnnotations) {
 			textClasses += ' with-annotations';
 		}

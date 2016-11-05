@@ -85,7 +85,6 @@ HeaderReading = React.createClass({
 		const work = this.props.work;
 		const location = this.props.location;
 		const textLocation = location.join('.');
-		// console.log('ReadingHeader', this.props);
 
 		return (
 			<div>

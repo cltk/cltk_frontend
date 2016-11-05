@@ -52,7 +52,6 @@ SearchTools = React.createClass({
 					return sortVal;
 				});
 
-				// console.log('searchTools response', res);
 				this.setState({
 					languages: res.languages,
 					corpora: res.corpora,

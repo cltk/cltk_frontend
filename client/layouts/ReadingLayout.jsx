@@ -121,8 +121,6 @@ ReadingLayout = React.createClass({
 					query.n_1 = { $gte: this.textQuery[0] };
 				}
 
-				console.log('ReadingLayout textNodes Query:', query);
-
 				const handleText = Meteor.subscribe('textNodes', query, this.state.limit);
 				if (handleText.ready()) {
 					textNodes = Texts.find({}, {}).fetch();
@@ -177,11 +175,7 @@ ReadingLayout = React.createClass({
 							this.textQuery[0] += this.state.limit;
 						}
 					}
-				} else {
-					// console.log('No text found for work', work);
 				}
-			} else {
-				// console.log('No work found for id', this.props.params.id);
 			}
 		}
 
@@ -339,7 +333,6 @@ ReadingLayout = React.createClass({
 			});
 		});
 
-		// console.log('ReadingLayout.textNodesDepths', textNodesDepths);
 		this.textNodesDepths = textNodesDepths;
 	},
 
@@ -585,8 +578,6 @@ ReadingLayout = React.createClass({
 			}
 		}
 
-		// console.log("renderReadingEnvironment textNodes.length", textNodes.length);
-
 		// If data is loaded
 		if (work && textNodes) {
 			return (
@@ -610,7 +601,6 @@ ReadingLayout = React.createClass({
 	},
 
 	render() {
-		// console.log('ReadingLayout.textLocation', this.textLocation);
 
 		let readingClassName = 'clearfix';
 		if (
