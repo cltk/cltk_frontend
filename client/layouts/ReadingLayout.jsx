@@ -306,7 +306,6 @@ ReadingLayout = React.createClass({
 
 	handleScroll() {
 		const scrollY = window.scrollY;
-		const defaultLocation = [];
 		let activeTextNode = null;
 		this.textNodesDepths.forEach((textNodeDepth) => {
 			if (scrollY > textNodeDepth.depth) {
@@ -314,20 +313,15 @@ ReadingLayout = React.createClass({
 			}
 		});
 
-		if (activeTextNode) {
-			if (
-				'location' in this.props.queryParams
-				&& activeTextNode.location !== this.props.queryParams.location
-			) {
-				FlowRouter.setQueryParams({ location: activeTextNode.location });
-			} else {
-				FlowRouter.setQueryParams({ location: activeTextNode.location });
-			}
-		} else {
-			this.state.location.forEach(() => {
-				defaultLocation.push(1);
-			});
-			FlowRouter.setQueryParams({ location: defaultLocation.join('.') });
+		if (!activeTextNode) {
+			activeTextNode = this.textNodesDepths[0];
+		}
+
+		if (
+			'location' in this.props.queryParams
+			&& activeTextNode.location !== this.props.queryParams.location
+		) {
+			FlowRouter.setQueryParams({ location: activeTextNode.location });
 		}
 	},
 
