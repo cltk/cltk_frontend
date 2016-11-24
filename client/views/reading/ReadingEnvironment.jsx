@@ -102,8 +102,6 @@ ReadingEnvironment = React.createClass({
 	render() {
 		const work = this.props.work;
 		const form = work.form || 'prose';
-		console.log('ReadingEnv.props.isTextBefore', this.props.isTextBefore);
-		console.log('ReadingEnv.props.isTextAfter', this.props.isTextAfter);
 
 		return (
 			<div className={`reading-container reading-container--${form}`}>

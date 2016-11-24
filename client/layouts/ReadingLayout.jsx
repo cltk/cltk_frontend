@@ -1,4 +1,5 @@
 import debounce from 'throttle-debounce/debounce';
+import LoadingDoubleWell from '/imports/spinkit/client/LoadingDoubleWell';
 
 ReadingLayout = React.createClass({
 
@@ -41,7 +42,7 @@ ReadingLayout = React.createClass({
 
 	componentDidMount() {
 		window.addEventListener('resize', this.calculateTextNodeDepths);
-		// window.addEventListener('scroll', debounce(100, this.handleScroll));
+		window.addEventListener('scroll', debounce(100, this.handleScroll));
 	},
 
 	componentDidUpdate() {
@@ -100,8 +101,6 @@ ReadingLayout = React.createClass({
 			query.n_1 = { $gte: textLocation[0] };
 		}
 
-		console.log('ReadingLayout.getMeteorData textNodes query', query);
-
 		Meteor.subscribe('textNodes', query, this.state.limit);
 		textNodes = Texts.find(query).fetch();
 
@@ -112,8 +111,6 @@ ReadingLayout = React.createClass({
 		};
 	},
 
-	textLocation: [],
-	location: [],
 	textNodes: [],
 	textNodesDepths: [],
 	isTextAfter: true,
@@ -124,20 +121,6 @@ ReadingLayout = React.createClass({
 		const work = this.data.work;
 		let textLocation = this.state.location;
 		let locationUpdated = false;
-
-		if (textLocation.length === 0) {
-			if ('rangeN5' in work) {
-				textLocation = [1, 1, 1, 1, 1];
-			} else if ('rangeN4' in work) {
-				textLocation = [1, 1, 1, 1];
-			} else if ('rangeN3' in work) {
-				textLocation = [1, 1, 1];
-			} else if ('rangeN2' in work) {
-				textLocation = [1, 1];
-			} else {
-				textLocation = [1];
-			}
-		}
 
 		if (direction === 'next') {
 			// Bump query for each nested level of the document structure if need be
@@ -248,9 +231,8 @@ ReadingLayout = React.createClass({
 				if (textNode.n_1 === 1) {
 					this.isTextBefore = false;
 				}
-			})
+			});
 		}
-		console.log("ReadingLayout.checkIfTextBefore", this.isTextBefore);
 	},
 
 	checkIfTextAfter() {
@@ -299,18 +281,14 @@ ReadingLayout = React.createClass({
 			} else {
 				this.isTextAfter = true;
 			}
-		} else {
-			if (
+		} else if (
 				work.rangeN1.high === textNodes[textNodes.length - 1].n_1
-			) {
-				this.isTextAfter = false;
-			} else {
-				this.isTextAfter = true;
-			}
+		) {
+			this.isTextAfter = false;
+		} else {
+			this.isTextAfter = true;
 		}
-		console.log("ReadingLayout.checkIftextAfter", this.isTextAfter);
 	},
-
 
 	calculateTextNodeDepths() {
 		const $textNodes = $('.text-node');
@@ -328,28 +306,28 @@ ReadingLayout = React.createClass({
 
 	handleScroll() {
 		const scrollY = window.scrollY;
-		let activeTextNodeDepth = null;
-		let locationArray = [];
+		const defaultLocation = [];
+		let activeTextNode = null;
 		this.textNodesDepths.forEach((textNodeDepth) => {
 			if (scrollY > textNodeDepth.depth) {
-				activeTextNodeDepth = textNodeDepth;
+				activeTextNode = textNodeDepth;
 			}
 		});
 
-		if (activeTextNodeDepth) {
-			locationArray = activeTextNodeDepth.location.split('.');
-			locationArray.forEach((textN, i) => {
-				locationArray[i] = parseInt(textN, 10);
-			});
-			if ('location' in this.props.queryParams) {
-				if (activeTextNodeDepth.location !== this.props.queryParams.location) {
-					this.textLocation = locationArray;
-					FlowRouter.setQueryParams({ location: activeTextNodeDepth.location });
-				}
+		if (activeTextNode) {
+			if (
+				'location' in this.props.queryParams
+				&& activeTextNode.location !== this.props.queryParams.location
+			) {
+				FlowRouter.setQueryParams({ location: activeTextNode.location });
 			} else {
-				this.textLocation = locationArray;
-				FlowRouter.setQueryParams({ location: activeTextNodeDepth.location });
+				FlowRouter.setQueryParams({ location: activeTextNode.location });
 			}
+		} else {
+			this.state.location.forEach(() => {
+				defaultLocation.push(1);
+			});
+			FlowRouter.setQueryParams({ location: defaultLocation.join('.') });
 		}
 	},
 
@@ -465,6 +443,32 @@ ReadingLayout = React.createClass({
 		const work = this.data.work;
 		const textNodes = this.textNodes;
 
+		// Set default location when textNodes are available
+		if (
+				work
+			&& textNodes.length === 0
+			&& this.state.location.length === 0
+		) {
+			if ('rangeN5' in work) {
+				textLocation = [1, 1, 1, 1, 1];
+			} else if ('rangeN4' in work) {
+				textLocation = [1, 1, 1, 1];
+			} else if ('rangeN3' in work) {
+				textLocation = [1, 1, 1];
+			} else if ('rangeN2' in work) {
+				textLocation = [1, 1];
+			} else {
+				textLocation = [1];
+			}
+
+			this.setState({
+				location: textLocation,
+			});
+			FlowRouter.setQueryParams({
+				location: textLocation.join('.'),
+			});
+		}
+
 		// Deduplicate text response data
 		if (this.data.textNodes.length) {
 			this.data.textNodes.forEach(textNode => {
@@ -569,14 +573,14 @@ ReadingLayout = React.createClass({
 		}
 
 
-
 		// Update the textBefore / textAfter values
-		this.checkIfTextBefore();
-		this.checkIfTextAfter();
-
-		console.log("ReadingLayout.renderReadingEnvironment.data.textNodes", this.data.textNodes);
-		console.log("ReadingLayout.renderReadingEnvironment.textNodes.length", this.textNodes.length);
-		console.log("ReadingLayout.renderReadingEnvironment.state.location", this.state.location);
+		if(
+			work
+		&& this.textNodes.length
+		) {
+			this.checkIfTextBefore();
+			this.checkIfTextAfter();
+		}
 
 		// If data is loaded
 		if (work && textNodes) {
@@ -639,7 +643,6 @@ ReadingLayout = React.createClass({
 					<div>
 						<HeaderReading
 							work={this.data.work}
-							location={this.textLocation}
 							showSearchModal={this.showSearchModal}
 							toggleSidePanel={this.toggleSidePanel}
 							toggleDefinitions={this.state.toggleDefinitions}
@@ -684,10 +687,9 @@ ReadingLayout = React.createClass({
 						/>
 					</div>
 				:
-					<div className="reading-loading">
-						<div className="well-spinner-double">
-							<div className="double-bounce1" />
-							<div className="double-bounce2" />
+					<div>
+						<div className="loading-reading-layout">
+							<LoadingDoubleWell />
 						</div>
 					</div>
 				}
