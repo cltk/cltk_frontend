@@ -3,6 +3,7 @@ import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import FlatButton from 'material-ui/FlatButton';
+import LoadingWell from '/imports/spinkit/client/LoadingWell';
 
 ReadingEnvironment = React.createClass({
 
@@ -153,27 +154,33 @@ ReadingEnvironment = React.createClass({
 
 				</section>
 
-				{this.props.isTextBefore ?
-					<div className="reading-load-more reading-load-more--before">
-						<FlatButton
-							className={`load-more ${this.isLoading ? 'load-more--loading' : ''}`}
-							onClick={this.loadMore.bind(null, 'previous')}
-							label={this.isLoading ? 'Loading . . .' : 'Previous'}
-						/>
+				{this.props.textNodes.length ?
+					<div>
+						{this.props.isTextBefore ?
+							<div className="reading-load-more reading-load-more--before">
+								<FlatButton
+									className={`load-more ${this.isLoading ? 'load-more--loading' : ''}`}
+									onClick={this.loadMore.bind(null, 'previous')}
+									label={this.isLoading ? 'Loading . . .' : 'Previous'}
+								/>
+							</div>
+						: '' }
+						<div className="reading-text-outer">
+							{this.renderText()}
+						</div>
+						{this.props.isTextRemaining ?
+							<div className="reading-load-more reading-load-more--after">
+								<FlatButton
+									className={`load-more ${this.isLoading ? 'load-more--loading' : ''}`}
+									onClick={this.loadMore.bind(null, 'next')}
+									label={this.isLoading ? 'Loading . . .' : 'Next'}
+								/>
+							</div>
+						: '' }
 					</div>
-				: '' }
-				<div className="reading-text-outer">
-					{this.renderText()}
-				</div>
-				{this.props.isTextRemaining ?
-					<div className="reading-load-more reading-load-more--after">
-						<FlatButton
-							className={`load-more ${this.isLoading ? 'load-more--loading' : ''}`}
-							onClick={this.loadMore.bind(null, 'next')}
-							label={this.isLoading ? 'Loading . . .' : 'Next'}
-						/>
-					</div>
-				: '' }
+				:
+					<LoadingWell />
+				}
 
 
 			</div>

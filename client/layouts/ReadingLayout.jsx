@@ -195,6 +195,7 @@ ReadingLayout = React.createClass({
 
 	loadMore(direction) {
 		const textLocation = this.textLocation;
+		console.log('loadMore', direction);
 		if (direction === 'next') {
 			if (this.isTextRemaining) {
 				textLocation[textLocation.length - 1] = textLocation[textLocation.length - 1] + 30;
@@ -224,9 +225,9 @@ ReadingLayout = React.createClass({
 	},
 
 	checkIfTextBefore() {
-		let isTextBefore = false;
+		console.log("checkIfTextBefore", this.isTextBefore);
 		if (this.textNodes.length) {
-			isTextBefore = true;
+			this.isTextBefore = true;
 
 			if ('n_5' in this.textNodes[0]) {
 				this.textNodes.forEach((textNode) => {
@@ -260,6 +261,7 @@ ReadingLayout = React.createClass({
 				})
 			}
 		}
+		console.log("checkIfTextBefore", this.isTextBefore);
 	},
 
 	checkIfTextRemaining() {
@@ -275,9 +277,9 @@ ReadingLayout = React.createClass({
 				&& work.rangeN2.high === textNodes[textNodes.length - 1].n_2
 				&& work.rangeN1.high === textNodes[textNodes.length - 1].n_1
 				) {
-					isTextRemaining = false;
+					this.isTextRemaining = false;
 				} else {
-					isTextRemaining = true;
+					this.isTextRemaining = true;
 				}
 			} else if ('rangeN4' in work) {
 				if (
@@ -286,9 +288,9 @@ ReadingLayout = React.createClass({
 				&& work.rangeN2.high === textNodes[textNodes.length - 1].n_2
 				&& work.rangeN1.high === textNodes[textNodes.length - 1].n_1
 				) {
-					isTextRemaining = false;
+					this.isTextRemaining = false;
 				} else {
-					isTextRemaining = true;
+					this.isTextRemaining = true;
 				}
 			} else if ('rangeN3' in work) {
 				if (
@@ -296,26 +298,26 @@ ReadingLayout = React.createClass({
 				&& work.rangeN2.high === textNodes[textNodes.length - 1].n_2
 				&& work.rangeN1.high === textNodes[textNodes.length - 1].n_1
 				) {
-					isTextRemaining = false;
+					this.isTextRemaining = false;
 				} else {
-					isTextRemaining = true;
+					this.isTextRemaining = true;
 				}
 			} else if ('rangeN2' in work) {
 				if (
 					work.rangeN2.high === textNodes[textNodes.length - 1].n_2
 				&& work.rangeN1.high === textNodes[textNodes.length - 1].n_1
 				) {
-					isTextRemaining = false;
+					this.isTextRemaining = false;
 				} else {
-					isTextRemaining = true;
+					this.isTextRemaining = true;
 				}
 			} else {
 				if (
 					work.rangeN1.high === textNodes[textNodes.length - 1].n_1
 				) {
-					isTextRemaining = false;
+					this.isTextRemaining = false;
 				} else {
-					isTextRemaining = true;
+					this.isTextRemaining = true;
 				}
 			}
 		}
@@ -474,6 +476,8 @@ ReadingLayout = React.createClass({
 		const self = this;
 		const work = this.data.work;
 		const textNodes = this.textNodes;
+
+		console.log("renderReadingEnvironment", this.data.work, this.textNodes);
 
 		// Deduplicate text response data
 		if (this.data.textNodes.length) {
