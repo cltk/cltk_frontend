@@ -1,0 +1,21 @@
+#!/bin/sh
+
+SELF_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$SELF_DIR/config"
+
+MONGO_URL=$1
+
+if [ -z "$MONGO_URL" ]
+then
+	echo "Error: mongo url required"
+	exit 1
+fi
+
+docker run \
+	-t \
+	--tmpfs /tmp \
+	--name ${IMAGE_NAME} \
+	-p 3000:3000 \
+	--rm \
+	-e MONGO_URL=$MONGO_URL \
+	${IMAGE_NAME}:latest
