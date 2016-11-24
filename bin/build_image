@@ -1,0 +1,19 @@
+#!/bin/sh
+
+SELF_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$SELF_DIR/config"
+
+pushd $BUILD_DEST > /dev/null
+
+cp "$PROJECT_DIR/Dockerfile" .
+
+docker build -t "$REGISTRY_PREFIX/$IMAGE_NAME:$BUILD_TAG" -t "$REGISTRY_PREFIX/$IMAGE_NAME:latest" -f Dockerfile .
+EC=$?
+if [ $EC -ne 0 ]
+then
+	echo "Image build failed"
+	popd > /dev/null
+	exit $EC
+fi
+
+popd > /dev/null
