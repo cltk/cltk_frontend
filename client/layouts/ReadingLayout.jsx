@@ -169,27 +169,21 @@ ReadingLayout = React.createClass({
 				location: textLocation,
 			});
 		} else if (direction === 'previous') {
-			textLocation[textLocation.length - 1] = textLocation[textLocation.length - 1] - 60;
-			if (textLocation[textLocation.length - 1] < 1) {
-				textLocation[textLocation.length - 1] = 1;
+			// Decrement the final number in the textLocation by the state limit
+			textLocation[textLocation.length - 1] = textLocation[textLocation.length - 1] - this.state.limit;
 
-				if (textLocation[textLocation.length - 2]) {
-					textLocation[textLocation.length - 2] = textLocation[textLocation.length - 2] - 1;
-					if (textLocation[textLocation.length - 2] < 1) {
-						if (textLocation[textLocation.length - 3]) {
-							textLocation[textLocation.length - 3] = textLocation[textLocation.length - 3] - 1;
-							if (textLocation[textLocation.length - 3] < 1) {
-								if (textLocation[textLocation.length - 4]) {
-									textLocation[textLocation.length - 4] = textLocation[textLocation.length - 4] - 1;
-									if (textLocation[textLocation.length - 4] < 1) {
-										if (textLocation[textLocation.length - 5]) {
-											textLocation[textLocation.length - 5] = textLocation[textLocation.length - 5] - 1;
-										}
-									}
-								}
-							}
-						}
+			// If necessary, decrement the other numbers in the location by 1
+			for (let i = 1; i <= textLocation.length; i++) {
+				if (
+						textLocation[textLocation.length - i]
+					&& textLocation[textLocation.length - i] < 1
+				) {
+					textLocation[textLocation.length - i] = 1;
+					if (textLocation[textLocation.length - (i + 1)]) {
+						textLocation[textLocation.length - (i + 1)] = textLocation[textLocation.length - (i + 1)] - 1;
 					}
+				} else {
+					break;
 				}
 			}
 
