@@ -237,7 +237,6 @@ HeaderReading = React.createClass({
 											<li>
 												<FlatButton
 													style={styles.flatIconButton}
-													href="#"
 													onClick={this.props.showSearchModal}
 													icon={<FontIcon className="mdi mdi-magnify" />}
 												/>
