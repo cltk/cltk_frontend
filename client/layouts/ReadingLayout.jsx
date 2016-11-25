@@ -520,48 +520,12 @@ ReadingLayout = React.createClass({
 				}
 			});
 
-			if (this.textNodes.length) {
-				if ('n_5' in this.textNodes[0]) {
-					this.textNodes.sort((a, b) => {
-						if (a.n_5 < b.n_5) return -1;
-						if (a.n_5 > b.n_5) return 1;
-						return 0;
-					});
-				}
-				if ('n_4' in this.textNodes[0]) {
-					this.textNodes.sort((a, b) => {
-						if (a.n_4 < b.n_4) return -1;
-						if (a.n_4 > b.n_4) return 1;
-						return 0;
-					});
-				}
-				if ('n_3' in this.textNodes[0]) {
-					this.textNodes.sort((a, b) => {
-						if (a.n_3 < b.n_3) return -1;
-						if (a.n_3 > b.n_3) return 1;
-						return 0;
-					});
-				}
-				if ('n_2' in this.textNodes[0]) {
-					this.textNodes.sort((a, b) => {
-						if (a.n_2 < b.n_2) return -1;
-						if (a.n_2 > b.n_2) return 1;
-						return 0;
-					});
-				}
-				if ('n_1' in this.textNodes[0]) {
-					this.textNodes.sort((a, b) => {
-						if (a.n_1 < b.n_1) return -1;
-						if (a.n_1 > b.n_1) return 1;
-						return 0;
-					});
-				}
-			}
+			// Sort the textNodes array after adding the the new results
+			this.textNodes.sort(Utils.sortBy('n_1', 'n_2', 'n_3', 'n_4', 'n_5'));
 		}
 
-
 		// Update the textBefore / textAfter values
-		if(
+		if (
 			work
 		&& this.textNodes.length
 		) {
