@@ -1,11 +1,11 @@
-this.Annotation = new Meteor.Collection('annotation');
+this.Annotations = new Meteor.Collection('annotations');
 
-Schemas.Annotation = new SimpleSchema({
+Schemas.Annotations = new SimpleSchema({
 	user: {
 		type: String,
 	},
-	textNodes: {
-		type: [String],
+	textNode: {
+		type: String,
 	},
 	content: {
 		type: String,
@@ -13,15 +13,30 @@ Schemas.Annotation = new SimpleSchema({
 	isPrivate: {
 		type: Boolean,
 	},
-	author: {
+	parentId: {
 		type: String,
-		max: 60,
+		optional: true,
 	},
-	work: {
+	status: {
 		type: String,
-		max: 60,
+		optional: true,
 	},
-
+	votes: {
+		type: Number,
+		optional: true,
+	},
+	voters: {
+		type: [Schemas.User],
+		optional: true,
+	},
+	reported: {
+		type: Number,
+		optional: true,
+	},
+	usersReported: {
+		type: [Schemas.User],
+		optional: true,
+	},
 
 	createdAt: {
 		type: Date,
@@ -53,4 +68,4 @@ Schemas.Annotation = new SimpleSchema({
 	},
 });
 
-Annotation.attachSchema(Schemas.Annotation);
+Annotations.attachSchema(Schemas.Annotations);

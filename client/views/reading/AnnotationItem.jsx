@@ -1,182 +1,377 @@
-import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
-import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card';
-import Toggle from 'material-ui/Toggle';
+import IconButton from 'material-ui/IconButton';
+import FontIcon from 'material-ui/FontIcon';
 
 AnnotationItem = React.createClass({
 
 	propTypes: {
-		isOwner: React.PropTypes.bool.isRequired,
-		annotation: React.PropTypes.object,
-	},
-
-	getDefaultProps() {
-		return {
-			annotation: {
-				author: 'Archimedes of Syracuse',
-				date: '14 Oct 2016',
-				thumbnail: '/images/archimedes.jpg',
-				content: 'Quid faciat laetas segetes quo sidere terram vertere Mycenas ' +
-				'ulmisque adiungere vites conveniat quae curum boum qui cultus habendo',
-			},
-		};
+		annotation: React.PropTypes.object.isRequired,
+		currentUser: React.PropTypes.object,
 	},
 
 	getInitialState() {
 		return {
-			editing: false,
-			annotationText: this.props.annotation.content,
-			annotationPrivate: this.props.annotation.isPrivate,
+			editMode: false,
+			moreOptionsVisible: false,
+			shareOptionsVisible: false,
 		};
 	},
 
-	getChildContext() {
-		return { muiTheme: getMuiTheme(baseTheme) };
-	},
+	mixins: [ReactMeteorData],
 
-	handleEdit() {
-		this.setState({
-			editing: true,
-		});
-	},
+	getMeteorData() {
+		let user;
+		Meteor.users.findOne({_id: this.props.annotation.user})
 
-	handleDelete() {
-		Meteor.call('annotation.remove', this.props.annotation._id);
-	},
-
-	handleCancel() {
-		this.setState({
-			editing: false,
-		});
-	},
-
-	handleSave() {
-		this.setState({
-			editing: false,
-		});
-		const annotationData = {
-			content: this.state.annotationText,
-			isPrivate: this.state.annotationPrivate,
+		return {
+			user,
 		};
-		Meteor.call('annotation.update', this.props.annotation._id, annotationData);
 	},
 
-	handleAnnotationToggle() {
+	showEditMode() {
 		this.setState({
-			annotationPrivate: !this.state.annotationPrivate,
+			editMode: true,
 		});
 	},
 
-	handleAnnotationInput(event) {
+	closeEditMode() {
 		this.setState({
-			annotationText: event.target.value,
+			editMode: false,
+		});
+	},
+
+	updateannotation() {
+		const content = $(this.updateCommentForm).find('textarea').val();
+
+		Meteor.call('annotation.update', {
+			_id: this.props.annotation._id,
+			content,
+		});
+
+		this.setState({
+			editMode: false,
+		});
+	},
+
+	upvoteannotation() {
+		if (typeof this.props.currentUser !== 'undefined' || 'null') {
+			Meteor.call('annotation.upvote',
+				this.props.annotation._id
+			);
+		}
+	},
+
+	reportannotation() {
+		if (typeof this.props.currentUser !== 'undefined' || 'null') {
+			Meteor.call('annotation.report',
+				this.props.annotation._id
+			);
+		}
+	},
+
+	toggleMoreOptions() {
+		this.setState({
+			moreOptionsVisible: !this.state.moreOptionsVisible,
+			shareOptionsVisible: false,
+		});
+	},
+
+	toggleShareOptions() {
+		this.setState({
+			shareOptionsVisible: !this.state.shareOptionsVisible,
+			moreOptionsVisible: false,
 		});
 	},
 
 	render() {
+		const self = this;
+		const userIsLoggedIn = Meteor.user();
 		const annotation = this.props.annotation;
+		let user = this.data.user || null;
+		let userLink = '';
+		annotation.children = [];
+		let userUpvoted = false;
+		let userReported = false;
+		let username = '';
 
-		const style = {
-			annotationCard: {
-				width: 250,
-			},
-			annotationInput: {
-				width: 200,
-				fontSize: 'small',
-			},
-			annotationToggle: {
-				width: 'auto',
-				float: 'right',
-				padding: 16,
-			},
-			annotationTitle: {
-				width: 'auto',
-				float: 'left',
-			},
-
-		};
-
-
-		if (this.props.isOwner && this.state.editing) {
-			// render annotation edit UI
-			return (
-				<Card
-					style={style.annotationCard}
-				>
-					<CardTitle
-						style={style.annotationTitle}
-						subtitle="Edit note"
-					/>
-					<Toggle
-						style={style.annotationToggle}
-						label="Private"
-						toggled={this.state.annotationPrivate}
-						onToggle={this.handleAnnotationToggle}
-					/>
-					<CardText>
-						<TextField
-							name="annotationInput"
-							style={style.annotationInput}
-							multiLine
-							rowsMax={4}
-							value={this.state.annotationText}
-							onChange={this.handleAnnotationInput}
-						/>
-					</CardText>
-					<CardActions>
-						<FlatButton
-							label="Save"
-							primary
-							onClick={this.handleSave}
-						/>
-						<FlatButton
-							label="Cancel"
-							onClick={this.handleCancel}
-						/>
-					</CardActions>
-				</Card>
-			);
+		if (user) {
+			if (user.username) {
+				userLink = `/users/${user._id}/${user.username}`;
+			} else {
+				userLink = `/users/${user._id}`;
+			}
+			if (user.username) {
+				username = user.username;
+			} else if (
+				'emails' in user
+				&& user.emails.length
+			) {
+				username = user.emails[0].address.split('@')[0];
+			}
 		}
 
-		// render annotation view UI
+		if (
+			this.props.currentUser &&
+			annotation.voters &&
+			annotation.voters.indexOf(this.props.currentUser._id) >= 0
+		) {
+			userUpvoted = true;
+		}
+
+		if (
+			this.props.currentUser &&
+			annotation.usersReported &&
+			annotation.usersReported.indexOf(this.props.currentUser._id) >= 0
+		) {
+			userReported = true;
+		}
+
 		return (
-			<div className="annotation-item">
-				<div className="annotation-header">
-					<div className="annotation-profile-image">
-						<img alt={annotation.author} src={annotation.thumbnail} />
-					</div>
-					<h4 className="annotation-author">
-						{annotation.author}
-					</h4>
-					<span className="annotation-date">
-						{annotation.date}
-					</span>
-					{this.props.isOwner ?
-						<div className="annotation-item-actions">
-							<FlatButton
-								label="Edit"
-								primary
-								onClick={this.handleEdit}
+			<div className="annotation paper-shadow">
+				<div className="inner-comment-row">
+					<div className="annotationer-profile-picture profile-picture paper-shadow">
+						<a href={userLink}>
+						{user ?
+							<img
+								src={user.avatar ?
+									user.avatar.url : '/images/default_user.jpg'}
+								alt={username}
 							/>
-							<FlatButton
-								label="Delete"
-								onClick={this.handleDelete}
-							/>
-						</div>
 						:
-						null
-					}
+							<img
+								src='/images/default_user.jpg'
+								alt='Default user'
+							/>
+						}
+						</a>
+					</div>
+
+					<div className="annotater-meta">
+						<a href={userLink}>
+							<span className="annotationer-name">
+								{username}
+							</span>
+						</a>
+						<span className="annotation-date">
+							<span>{annotation.updated ? 'Updated: ' : 'Created: '}</span>
+							{moment(annotation.updated ||
+								annotation.created).format('D MMMM YYYY')}
+						</span>
+					</div>
+
 				</div>
-				<p>
-					{this.props.annotation.content}
-				</p>
-			</div>
+				<div className="inner-comment-row">
+					<div className="annotation-text">
+						{/* <div
+						 dangerouslySetInnerHTML={{ __html: annotation.content}}
+						 ></div> */}
+						{this.state.editMode ?
+							<form
+								className="update-comment-form clearfix"
+								name="update-comment-form"
+								ref={(component) => { this.updateCommentForm = component; }}
+							>
+								<textarea
+									className="new-comment-text"
+									defaultValue={this.props.annotation.content}
+								/>
+								<div className="comment-edit-buttons">
+									<RaisedButton
+										label="Update"
+										className="submit-comment-button paper-shadow"
+										onClick={this.updateannotation}
+									/>
+									<FlatButton
+										label="Close"
+										className="close-form-button"
+										onClick={this.closeEditMode}
+									/>
+								</div>
+							</form>
+							:
+							<div>{annotation.content}</div>
+
+						}
+
+					</div>
+				</div>
+				<div className="inner-comment-row">
+					<FlatButton
+						label={annotation.votes}
+						onClick={this.upvoteannotation}
+						className={`annotation-button vote-up ${(userUpvoted) ? 'upvoted' : ''}`}
+						icon={<FontIcon className="mdi mdi-chevron-up" />}
+					>
+						{!userIsLoggedIn ?
+							<span className="md-tooltip">You must be signed in to vote.</span>
+							:
+							''
+						}
+					</FlatButton>
+					{(
+							'currentUser' in self.props
+						&& user
+						&& self.props.currentUser
+						&& self.props.currentUser._id === user._id
+					) ?
+						<FlatButton
+							label="Edit"
+							onClick={this.showEditMode}
+							className="annotation-button edit"
+						/>
+					:
+						''
+					}
+					<FlatButton
+						label=""
+						onClick={this.toggleShareOptions}
+						className="annotation-button"
+						icon={<FontIcon className="mdi mdi-share" />}
+					>
+						<span className="md-tooltip">Share</span>
+					</FlatButton>
+
+					<FlatButton
+						onClick={this.toggleMoreOptions}
+						label=""
+						className={`annotation-button toggle-more-button ${(this.state.moreOptionsVisible) ? 'toggle-more-button--active' : ''}`}
+						icon={<FontIcon className="mdi mdi-dots-horizontal" />}
+					>
+						<span className="md-tooltip">Show more</span>
+					</FlatButton>
+
+					<div className={`more-options ${this.state.moreOptionsVisible ? 'more-options--visible' : ''}`}>
+						<FlatButton
+							label="Report"
+							onClick={this.reportannotation}
+							className={`annotation-button report ${(userReported) ? 'reported' : ''}`}
+							icon={<FontIcon className="mdi mdi-flag" />}
+						>
+							{!userIsLoggedIn ?
+								<span className="md-tooltip">
+									You must be signed in to report a comment.
+								</span>
+								:
+								''
+							}
+						</FlatButton>
+					</div>
+					<div className={`more-options share-options ${this.state.shareOptionsVisible ? 'more-options--visible' : ''}`}>
+						<FlatButton
+							label="Facebook"
+							href="#"
+							className="annotation-button"
+							icon={<FontIcon className="mdi mdi-facebook" />}
+						/>
+						<FlatButton
+							label="Twitter"
+							href="#"
+							className="annotation-button"
+							icon={<FontIcon className="mdi mdi-twitter" />}
+						/>
+						<FlatButton
+							label="Google"
+							href="#"
+							className="annotation-button"
+							icon={<FontIcon className="mdi mdi-google-plus" />}
+						/>
+						<FlatButton
+							label="Mail"
+							href="#"
+							className="annotation-button"
+							icon={<FontIcon className="mdi mdi-email-outline" />}
+						/>
+					</div>
+				</div>
+
+
+				{/* false ?
+					<div className="reply-create-form">
+						<div className="add-comment-wrap">
+							<form
+								className="new-comment-form"
+								name="new-comment-form"
+							>
+								<div className="add-comment-row-1">
+									<textarea
+										className="new-comment-text"
+										placeholder="Enter your reply here . . . "
+									/>
+									<RaisedButton
+										label="Submit"
+										type="submit"
+										className="submit-comment-button paper-shadow"
+									/>
+									<RaisedButton
+										label="Close Reply"
+										className="close-form-button"
+										onClick={this.closeReply}
+									/>
+								</div>
+							</form>
+						</div>
+					</div>
+					: '' */}
+
+				<div className="annotation-children">
+
+					{annotation.children.map((annotationChild, j) =>
+						<div
+							key={j}
+							className="annotation annotation-child"
+						>
+							<div className="inner-comment-row">
+								<div className="annotationer-profile-picture profile-picture paper-shadow">
+									<img src="/images/default_user.png" alt={username} />
+								</div>
+								<div className="annotationer-meta">
+									<span className="annotationer-name">
+										{annotationChild.user.name}
+									</span>
+									<span className="annotation-date">
+										{annotationChild.updated}
+									</span>
+								</div>
+							</div>
+							<div className="inner-comment-row">
+								<div className="annotation-text">
+									<p
+										dangerouslySetInnerHTML={{
+											__html: annotationChild.content,
+										}}
+									/>
+								</div>
+							</div>
+							<div className="inner-comment-row">
+								<FlatButton
+									label={annotation.votes}
+									onClick={this.upvoteannotation}
+									className="vote-up upvoted"
+									icon={<FontIcon className="mdi mdi-chevron-up" />}
+								/>
+								<FlatButton
+									label="Reply"
+									onClick={this.showReplyForm}
+									className="reply"
+								/>
+								<FlatButton
+									label="Edit"
+									onClick={this.editannotation}
+									className="edit"
+								/>
+								<FlatButton
+									label="Remove"
+									onClick={this.removeannotation}
+									className="remove"
+								/>
+							</div>
+
+							{/* <!-- .annotation-child --> */}</div>
+					)}
+					{/* <!-- .annotation-children --> */}</div>
+				{/* <!-- .annotation --> */}</div>
 		);
 	},
+
 });
-AnnotationItem.childContextTypes = {
-	muiTheme: React.PropTypes.object.isRequired,
-};

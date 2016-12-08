@@ -62,8 +62,8 @@ UserLayout = React.createClass({
 											<div
 												className="tab-content annotations-tab-content"
 											>
-												<BookmarkList />
-												<NotesList />
+												<UserBookmarksList />
+												<UserAnnotationsList />
 											</div>
 										</Tab>
 										<Tab
