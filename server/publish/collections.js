@@ -20,7 +20,7 @@ if (Meteor.isServer) {
 		return Texts.find(query, { limit, sort: { n_1: 1, n_2: 1, n_3: 1, n_4: 1, n_5: 1 } });
 	});
 
-	Meteor.publish('works', (query = {}, skip = 0, limit = 0) => {
+	Meteor.publish('works', (query = {}, skip = 0, limit = 10) => {
 		check(query, Object);
 		check(skip, Number);
 		check(limit, Number);

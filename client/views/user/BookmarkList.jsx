@@ -5,12 +5,22 @@ BookmarkList = React.createClass({
 	getMeteorData() {
 		let bookmarkedText = [];
 		const handleBookmark = Meteor.subscribe('bookmark');
-		if (handleBookmark.ready()) {
-			const bookmarkList = Meteor.users.findOne({}, { fields: { bookmarks: 1 } });
-			if (bookmarkList && bookmarkList.bookmarks) {
-				bookmarkedText = Texts.find({ _id: { $in: bookmarkList.bookmarks } }).fetch();
+		const bookmarkList = Meteor.users.findOne({}, { fields: { bookmarks: 1 } });
+
+		const bookmarks = [];
+
+		if (bookmarkList && bookmarkList.bookmarks && bookmarkList.bookmarks.length) {
+			bookmarkList.bookmarks.forEach((bookmark) => {
+				bookmarks.push(new Meteor.Collection.ObjectID(bookmark));
+			});
+
+			const handleText = Meteor.subscribe('textNodes', { _id: { $in: bookmarks } });
+
+			if (handleText.ready()) {
+				bookmarkedText = Texts.find({ _id: { $in: bookmarks } }).fetch();
 			}
 		}
+
 		return {
 			bookmarkedText,
 		};
@@ -24,27 +34,25 @@ BookmarkList = React.createClass({
 				whiteSpace: 'nowrap',
 				font: 'normal',
 			},
-			innerList: {
-				maxHeight: 250,
-				overflow: 'auto',
-			},
 			list: {
 				marginTop: 0,
 			},
 		};
+
 		return (
-			<ul className="collection with-header" style={styles.list}>
-				<li className="collection-header"> <h3>Bookmarks</h3></li>
-				<div style={styles.innerList}>
-					{this.data.bookmarkedText.map((text, i) => (
-						<li key={i} className="collection-item" style={styles.listItem}>
-							<a href={`/works/${text.author}/${text.work}?id=${text._id}`}>
-								{text.html}
-							</a>
-						</li>
-				))}
-				</div>
-			</ul>
+			<div className="collection with-header" style={styles.list}>
+				<div className="collection-header"> <h3>Bookmarks</h3></div>
+				{this.data.bookmarkedText.map((text, i) => {
+
+					return (
+						<BookmarkedTextNode
+							key={i}
+							isOdd={i % 2}
+							text={text}
+						/>
+					);
+				})}
+			</div>
 		);
 	},
 

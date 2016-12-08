@@ -287,16 +287,18 @@ ReadingTextNode = React.createClass({
 				</p>
 
 				<div className="text-meta text-entities">
-				{entities.map((entity) =>
+				{entities.map((entity, i) =>
 					<ReadingEntity
+						key={i}
 						entity={entity}
 					/>
 				)}
 				</div>
 
 				<div className="text-meta text-media">
-					{mediaItems.map((mediaId) => (
+					{mediaItems.map((mediaId, i) => (
 						<ReadingMedia
+							key={i}
 							mediaId={mediaId}
 						/>
 					))}
@@ -307,8 +309,9 @@ ReadingTextNode = React.createClass({
 						className="mdi mdi-close"
 						onClick={this.toggleShowAnnotations}
 					/>
-					{this.data.annotations.map((annotation) => (
+					{this.data.annotations.map((annotation, i) => (
 						<AnnotationItem
+							key={i}
 							annotation={annotation}
 							isOwner={false}
 						/>
@@ -320,8 +323,9 @@ ReadingTextNode = React.createClass({
 						className="mdi mdi-close"
 						onClick={this.toggleShowRelatedPassages}
 					/>
-					{relatedPassages.map((relatedPassage) => (
+					{relatedPassages.map((relatedPassage, i) => (
 						<ReadingRelatedPassage
+							key={i}
 							relatedPassage={relatedPassage}
 						/>
 					))}
