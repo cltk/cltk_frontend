@@ -118,6 +118,20 @@ AnnotateWidget = React.createClass({
 								Submit Correction
 							</span>
 						</div>
+						
+						<div
+							className="annotations-button add-annotation-button"
+							onClick={this.toggleBaseannotationDrawer}
+						>
+							<IconButton
+								className="annotations-icon-button"
+								iconClassName="mdi mdi-share"
+							/>
+							<span className="annotations-button-label">
+								Share
+							</span>
+						</div>
+
 
 						<div
 							className="annotations-button media-button"
@@ -129,19 +143,6 @@ AnnotateWidget = React.createClass({
 							/>
 							<span className="annotations-button-label">
 								Upload Media
-							</span>
-						</div>
-
-						<div
-							className="annotations-button add-annotation-button"
-							onClick={this.toggleBaseannotationDrawer}
-						>
-							<IconButton
-								className="annotations-icon-button"
-								iconClassName="mdi mdi-lead-pencil"
-							/>
-							<span className="annotations-button-label">
-								Annotation
 							</span>
 						</div>
 
