@@ -9,7 +9,6 @@ HeaderReading = React.createClass({
 	propTypes: {
 		showSearchModal: React.PropTypes.func,
 		work: React.PropTypes.object,
-		location: React.PropTypes.array.isRequired,
 		toggleSidePanel: React.PropTypes.func.isRequired,
 		toggleCommentary: React.PropTypes.bool.isRequired,
 		toggleDefinitions: React.PropTypes.bool.isRequired,
@@ -83,9 +82,7 @@ HeaderReading = React.createClass({
 		};
 
 		const work = this.props.work;
-		const location = this.props.location;
-		const textLocation = location.join('.');
-		// console.log('ReadingHeader', this.props);
+		const textLocation = FlowRouter.getQueryParam('location');
 
 		return (
 			<div>
@@ -105,7 +102,7 @@ HeaderReading = React.createClass({
 									onClick={this.toggleLeftMenu}
 								/>
 
-								{work && location ?
+								{work && textLocation ?
 									<div className="reading-location">
 										<div
 											className="reading-location-param reading-location-param--author"
@@ -135,9 +132,9 @@ HeaderReading = React.createClass({
 											className="reading-location-param reading-location-param--number"
 											href={`/works/${work._id}/${work.slug}?location=${textLocation}`}
 										>
-											{location.map((textN, i) => (
+											{textLocation.split('.').map((textN, i) => (
 												<span key={i} >
-													{textN}{((i + 1) === location.length) ? '' : '.'}
+													{textN}{((i + 1) === textLocation.split('.').length) ? '' : '.'}
 												</span>
 											))}
 										</a>
@@ -240,7 +237,6 @@ HeaderReading = React.createClass({
 											<li>
 												<FlatButton
 													style={styles.flatIconButton}
-													href="#"
 													onClick={this.props.showSearchModal}
 													icon={<FontIcon className="mdi mdi-magnify" />}
 												/>

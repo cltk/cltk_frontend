@@ -35,6 +35,7 @@ SearchModal = React.createClass({
 		const query = {};
 		let works = [];
 		let worksCount = null;
+		textSearch = null;
 
 		// Parse the filters to the query
 		this.state.filters.forEach((filter) => {
@@ -42,6 +43,7 @@ SearchModal = React.createClass({
 			switch (filter.key) {
 			case 'textsearch': {
 				query.$text = { $search: filter.values[0] };
+				textSearch = new RegExp(filter.values[0], 'i');
 				break;
 			}
 
@@ -82,10 +84,14 @@ SearchModal = React.createClass({
 			}
 		});
 
-		// console.log('SearchModal query', query);
 		const handle = Meteor.subscribe('searchWorks', query, this.state.skip, this.state.limit);
 		if (handle.ready()) {
-			works = Works.find({}, {}).fetch();
+			delete query.$text;
+			if (textSearch) {
+				query.english_title = textSearch;
+				query.original_title = textSearch;
+			}
+			works = Works.find(query, {}).fetch();
 
 			works.forEach((work, i) => {
 				works[i].authors = Authors.find({ _id: { $in: work.authors } }).fetch();
@@ -116,7 +122,6 @@ SearchModal = React.createClass({
 	works: [],
 
 	loadMoreWorks() {
-		// console.log('SearchModal.loadMoreWorks', this.state.skip + this.state.limit);
 		this.setState({
 			skip: this.state.skip + this.state.limit,
 		});
@@ -179,7 +184,6 @@ SearchModal = React.createClass({
 
 		if (textsearch && textsearch.length) {
 			let textsearchInFilters = false;
-			console.log(filters);
 
 			filters.forEach((filter, i) => {
 				if (filter.key === 'textsearch') {
@@ -187,7 +191,6 @@ SearchModal = React.createClass({
 					textsearchInFilters = true;
 				}
 			});
-			console.log(filters);
 
 			if (!textsearchInFilters) {
 				filters.push({
@@ -294,7 +297,6 @@ SearchModal = React.createClass({
 	},
 
 	render() {
-		// console.log("SearchModal.filters", this.state.filters);
 
 		let hasMoreWorks = true;
 

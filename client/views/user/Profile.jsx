@@ -41,7 +41,6 @@ Profile = React.createClass({
 	},
 
 	handleChangeTextDebounced(field, value) {
-		console.log(value);
 		Meteor.call('account.update', `profile.${field}`, value, (err) => {
 			if (err) {
 				console.error(err);
@@ -58,7 +57,6 @@ Profile = React.createClass({
 	},
 
 	render() {
-		console.log(this.data.user);
 		const currentUser = this.data.user;
 		if (currentUser && !('profile' in currentUser)) {
 			currentUser.profile = {};

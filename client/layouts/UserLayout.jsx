@@ -2,7 +2,7 @@ import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import AvatarEditor from '/imports/avatar/client/ui/AvatarEditor.jsx';
-
+import { SnackAttack } from '/imports/ui/components/SnackAttack.jsx';
 
 UserLayout = React.createClass({
 
@@ -62,8 +62,8 @@ UserLayout = React.createClass({
 											<div
 												className="tab-content annotations-tab-content"
 											>
-												<BookmarkList />
-												<NotesList />
+												<UserBookmarksList />
+												<UserAnnotationsList />
 											</div>
 										</Tab>
 										<Tab
@@ -79,6 +79,7 @@ UserLayout = React.createClass({
 					</main>
 					<Footer />
 				</div>
+				<SnackAttack />
 			</div>
 		);
 	},

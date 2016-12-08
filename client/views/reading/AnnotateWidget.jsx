@@ -120,6 +120,20 @@ AnnotateWidget = React.createClass({
 						</div>
 
 						<div
+							className="annotations-button add-annotation-button"
+							onClick={this.toggleBaseannotationDrawer}
+						>
+							<IconButton
+								className="annotations-icon-button"
+								iconClassName="mdi mdi-share"
+							/>
+							<span className="annotations-button-label">
+								Share
+							</span>
+						</div>
+
+
+						<div
 							className="annotations-button media-button"
 							onClick={this.toggleBaseannotationDrawer}
 						>
@@ -129,19 +143,6 @@ AnnotateWidget = React.createClass({
 							/>
 							<span className="annotations-button-label">
 								Upload Media
-							</span>
-						</div>
-
-						<div
-							className="annotations-button add-annotation-button"
-							onClick={this.toggleBaseannotationDrawer}
-						>
-							<IconButton
-								className="annotations-icon-button"
-								iconClassName="mdi mdi-lead-pencil"
-							/>
-							<span className="annotations-button-label">
-								Annotation
 							</span>
 						</div>
 
@@ -155,50 +156,6 @@ AnnotateWidget = React.createClass({
 					</FloatingActionButton>
 
 				</div>
-
-				<Popover
-					open={this.state.annotationOpen}
-					anchorEl={this.state.anchorEl}
-					anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-					targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-				>
-					<Card
-						style={style.annotationCard}
-					>
-						<CardTitle
-							style={style.annotationTitle}
-							title="Add a note"
-						/>
-						<Toggle
-							style={style.annotationToggle}
-							label="Private"
-							toggled={this.state.annotationPrivate}
-							onToggle={this.handleAnnotationToggle}
-						/>
-						<CardText>
-							<TextField
-								name="annotationInput"
-								style={style.annotationInput}
-								multiLine
-								rows={4}
-								rowsMax={4}
-								value={this.state.annotationText}
-								onChange={this.handleAnnotationInput}
-							/>
-						</CardText>
-						<CardActions>
-							<FlatButton
-								label="Save"
-								primary
-								onClick={this.handleAnnotationSubmit}
-							/>
-							<FlatButton
-								label="Cancel"
-								onClick={this.handleAnnotationCancel}
-							/>
-						</CardActions>
-					</Card>
-				</Popover>
 			</div>
 		);
 	},

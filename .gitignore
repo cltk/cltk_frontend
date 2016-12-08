@@ -6,6 +6,8 @@ private/settings/production.json
 *.log
 .uploads
 node_modules
+k8s/production
+build_tag.js
 
 
 # Editors

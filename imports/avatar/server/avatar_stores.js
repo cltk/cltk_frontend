@@ -1,37 +1,39 @@
-import { Meteor } from 'meteor/meteor';
-import { UploadFS } from 'meteor/jalik:ufs';
+import gm from 'gm';
 import { Avatars } from '../avatar_collections.js';
 
-// TODO: avatar permissions
-const AvatarPermissions = new UploadFS.StorePermissions({
-	insert: (userId, avatar) => {
-		// todo: for commenter context check role
-		// console.log('AvatarPermissions.insert userId:', userId, ' avatar:', avatar);
-		return true;
-	},
-	remove: (userId, avatar) => {
-		// console.log('AvatarPermissions.remove userId:', userId, ' avatar:', avatar);
-		return true;
-	},
-	update: (userId, avatar) => {
-		// console.log('AvatarPermissions.update userId:', userId, ' avatar:', avatar);
-		return true;
-	},
-});
+export function checkAvatarPermissions(userId, avatar) {
+	if (!userId) {
+		return false;
+	}
+	return userId === avatar.userId;
+}
 
 const AvatarFilter = new UploadFS.Filter({
 	minSize: 1,
 	maxSize: 1024 * 1000, // 1 MB
-	constentTypes: [ 'image/*' ],
-	extensions: [ 'jpg', 'jpeg' , 'png', 'gif' ],
+	constentTypes: ['image/*'],
+	extensions: ['jpg', 'jpeg', 'png', 'gif'],
 });
 
 export const AvatarStore = new UploadFS.store.Local({
 	collection: Avatars,
 	name: 'avatars',
-	path: 'uploads/avatars',
+	path: '../../../var/avatars',
 	filter: AvatarFilter,
-	permissions: AvatarPermissions,
+	permissions: new UploadFS.StorePermissions({
+		insert: checkAvatarPermissions,
+		remove: checkAvatarPermissions,
+		update: checkAvatarPermissions,
+	}),
+
+	transformWrite(from, to) {
+		const p = gm(from);
+		p.resize(230, 230)
+			.gravity('Center')
+			.extent(230, 230)
+			.quality(100);
+		p.stream().pipe(to);
+	},
 });
 
 function finishUserAvatarUpload(avatar) {
@@ -49,8 +51,8 @@ function finishUserAvatarUpload(avatar) {
 				},
 			},
 		},
-		{ multi: false, },
-		function handleUserAvatarUpdateComplete(avatarUpdateErr) {
+		{ multi: false },
+		(avatarUpdateErr) => {
 			if (avatarUpdateErr) {
 				console.error('could not update user ', user._id, ' with avatar ', avatar._id,
 					'; error:', avatarUpdateErr
@@ -69,50 +71,18 @@ function finishUserAvatarUpload(avatar) {
 	);
 }
 
-function finishCommenterAvatarUpload(avatar) {
-	const c = Commenters.findOne({_id: avatar.commenterId}, { fields: { _id:1, avatar:1 }});
-	const oldAvatarId = 'avatar' in c && c.avatar ? c.avatar : null;
-
-	Commenters.update(
-		{ _id: avatar.commenterId },
-		{
-			$set: {
-				avatar: avatar._id,
-			}
-		},
-		{ multi: false },
-		function handleCommenterAvatarUpdateComplete(avatarUpdateErr) {
-			if (avatarUpdateErr) {
-				console.error('could not update commenter ', avatar.commenterId, ' with avatar ', avatar._id,
-					'; error:', avatarUpdateErr
-				);
-				AvatarStore.delete(avatar._id);
-			} else if (oldAvatarId) {
-				AvatarStore.delete(oldAvatarId, (storeDeleteErr) => {
-					if (storeDeleteErr) {
-						console.error('could not delete avatar ', oldAvatarId, ' for commenter ', avatar.commenterId,
-							'; error:', storeDeleteErr
-						);
-					}
-				});
-			}
-		}
-	);
-}
-
 AvatarStore.onFinishUpload = function handleAvatarFinishUpdate(avatar) {
-	if (avatar.contextType === 'user')
-		finishUserAvatarUpload(avatar);
-	else if (avatar.contextType === 'commenter')
-		finishCommenterAvatarUpload(avatar);
+	finishUserAvatarUpload(avatar);
 };
 
-// TODO:
 AvatarStore.onCopyError = (err, avatarId, avatar) => {
+	console.log('Avatar copy error. avatar:', avatar, ' error:', err);
 };
 
 AvatarStore.nReadError = (err, avatarId, avatar) => {
+	console.log('Avatar read error. avatar:', avatar, ' error', err);
 };
 
 AvatarStore.onWriteError = (err, avatarId, avatar) => {
+	console.log('Avatar write error. avatar:', avatar, ' error', err);
 };

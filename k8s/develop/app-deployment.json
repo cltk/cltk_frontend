@@ -1,0 +1,52 @@
+{
+	"kind":"Deployment",
+	"apiVersion":"extensions/v1beta1",
+	"metadata": {
+		"name":"cltk-app-dep",
+		"labels": {
+			"name":"cltk-app-dep"
+		}
+	},
+	"spec":{
+		"replicas": 1,
+		"template": {
+			"metadata": {
+				"labels": {
+					"name":"cltk-app-pod"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "cltk-app-cont",
+						"image": "us.gcr.io/archimedes-01201/cltk_app:latest",
+						"ports": [
+							{
+								"name": "http-server",
+								"containerPort": 3000
+							}
+						],
+						"env": [
+							{
+								"name": "HTTP_FORWARDED_COUNT",
+								"value"  :  "1"
+							},
+							{
+								"name": "MONGO_URL",
+								"value": "mongodb://localhost/cltkDev"
+							},
+							{
+								"name": "ROOT_URL",
+								"value": "http://archive-dev.cltk.org"
+							},
+							{
+								"name": "UPLOAD_TMP",
+								"value": "/tmp/uploads"
+							}
+						]
+					}
+				]
+			}
+		}
+	}
+}

@@ -14,21 +14,20 @@ if (Meteor.isServer) {
 
 	Meteor.publish('languages', () => Languages.find());
 
-	Meteor.publish('textNodes', (query, limit) => {
+	Meteor.publish('textNodes', (query = {}, limit = 0) => {
 		check(query, Object);
 		check(limit, Number);
 		return Texts.find(query, { limit, sort: { n_1: 1, n_2: 1, n_3: 1, n_4: 1, n_5: 1 } });
 	});
 
-	Meteor.publish('works', (query, skip, limit) => {
+	Meteor.publish('works', (query = {}, skip = 0, limit = 10) => {
 		check(query, Object);
-		check(skip, Match.Optional(Number));
-		check(limit, Match.Optional(Number));
-
+		check(skip, Number);
+		check(limit, Number);
 		return Works.find(query, { skip, limit, sort: { english_title: 1 } });
 	});
 
-	Meteor.publish('searchWorks', (query, skip, limit) => {
+	Meteor.publish('searchWorks', (query = {}, skip = 0, limit = 0) => {
 		check(query, Object);
 		check(skip, Match.Optional(Number));
 		check(limit, Match.Optional(Number));
@@ -40,7 +39,7 @@ if (Meteor.isServer) {
 		Counts.publish(this, 'worksCount', Works.find());
 	});
 
-	Meteor.publish('workSingle', (query) => {
+	Meteor.publish('workSingle', (query = {}) => {
 		check(query, Object);
 		return Works.find(query, { limit: 1 });
 	});
@@ -65,16 +64,20 @@ if (Meteor.isServer) {
 		return Commentary.find({ work });
 	});
 
-	Meteor.publish('annotation', function publishAnnotation() {
+	Meteor.publish('annotation', function pubAnnotation(query = {}, skip = 0, limit = 100) {
+		check(query, Object);
+		check(skip, Number);
+		check(limit, Number);
+
 		if (this.userId) {
-			return Annotation.find({
+			return Annotations.find({
 				$or: [
 					{ isPrivate: false },
 					{ user: this.userId },
 				],
 			});
 		}
-		return Annotation.find({ isPrivate: false });
+		return Annotations.find({ isPrivate: false });
 	});
 
 	Meteor.publish('bookmark', function publishBookmark() {

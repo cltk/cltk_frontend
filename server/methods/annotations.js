@@ -1,24 +1,32 @@
 Meteor.methods({
-	'annotation.insert': function annotationInsert(annotation) {
+	'annotations.insert': function annotationInsert(annotationCandidate) {
 		// Make sure the user is logged in before inserting
 		if (!this.userId) {
 			throw new Meteor.Error('not-authorized');
 		}
-		check(annotation, {
-			user: String,
-			textNodes: [String],
-			isPrivate: Boolean,
+		console.log(annotationCandidate);
+		check(annotationCandidate, {
+			textNode: String,
 			content: String,
-			author: String,
-			work: String,
 		});
+
+		const annotation = annotationCandidate;
+
+		annotation.user = this.userId;
+		annotation.status = 'approved';
+		annotation.isPrivate = false;
+		annotation.votes = 1;
+		annotation.voters = [this.userId];
+		annotation.reported = 0;
+		annotation.usersReported = [];
+
 		try {
-			Annotation.insert(annotation);
+			Annotations.insert(annotation);
 		} catch (err) {
 			console.log(err);
 		}
 	},
-	'annotation.remove': function annotationRemove(annotationId) {
+	'annotations.remove': function annotationRemove(annotationId) {
 		// Make sure the user is permitted to remove
 		check(annotationId, String);
 		const annotation = Annotation.findOne(annotationId);
@@ -31,7 +39,7 @@ Meteor.methods({
 			console.log(err);
 		}
 	},
-	'annotation.update': function annotationUpdate(annotationId, annotationData) {
+	'annotations.update': function annotationUpdate(annotationId, annotationData) {
 		// Make sure the user is permitted to update
 		check(annotationId, String);
 		check(annotationData, {

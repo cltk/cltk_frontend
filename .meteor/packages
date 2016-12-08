@@ -87,10 +87,11 @@ todda00:friendly-slugs
 # mquandalle:promisify-core
 materialize:materialize@0.97.0
 gwendall:blaze-to-react
-jalik:ufs@0.7.1
+jalik:ufs@=0.7.1_1
 jalik:ufs-local@0.2.8
 jalik:ufs-gridfs@0.1.4
 buishi:autoform-ufs
 mpowaga:autoform-summernote
 mfactory:admin-lte
 tmeasday:publish-counts
+mdg:validated-method
