@@ -1,4 +1,4 @@
-BookmarkList = React.createClass({
+UserBookmarksList = React.createClass({
 
 	mixins: [ReactMeteorData],
 

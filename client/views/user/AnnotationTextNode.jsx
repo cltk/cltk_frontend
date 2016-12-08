@@ -1,10 +1,10 @@
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-BookmarkedTextNode = React.createClass({
+AnnotationTextNode = React.createClass({
 
 	propTypes: {
-		text: React.PropTypes.object.isRequired,
+		annotation: React.PropTypes.object.isRequired,
 		isOdd: React.PropTypes.bool,
 	},
 
@@ -20,9 +20,11 @@ BookmarkedTextNode = React.createClass({
 
 	getMeteorData() {
 		let work = null;
-		const query = { _id: this.props.text.work };
+		/*
+		const query = { _id: text.work };
 		const handleWorks = Meteor.subscribe('works', query);
 		work = Works.findOne(query);
+		*/
 
 		return {
 			work,
@@ -30,7 +32,7 @@ BookmarkedTextNode = React.createClass({
 	},
 
 	getTextLocation() {
-		const text = this.props.text;
+		const text = this.data.text;
 		let location = '';
 		let textN = '';
 
@@ -67,9 +69,11 @@ BookmarkedTextNode = React.createClass({
 
 
 	render() {
-		const text = this.props.text;
-		let textClasses = 'text-node bookmark-text-node clearfix';
-		const textLocation = this.getTextLocation();
+		//const text = this.props.text;
+		const annotation = this.props.annotation;
+		let textClasses = 'text-node bookmark-text-node annotation-text-node clearfix';
+		// const textLocation = this.getTextLocation();
+		const textLocation = '';
 		let workTitle = '';
 		let link = '';
 
@@ -89,8 +93,8 @@ BookmarkedTextNode = React.createClass({
 		return (
 			<a
 				className={textClasses}
-				data-id={text._id}
-				data-loc={textLocation.location}
+				data-id={annotation._id}
+				//data-loc={textLocation.location}
 				href={link}
 			>
 				<div className="text-left-header">
@@ -104,8 +108,8 @@ BookmarkedTextNode = React.createClass({
 						return ref;
 					}}
 				>
-					{text.text && text.text .length ?
-						<span>{Utils.trunc(text.text, 120)}</span>
+					{annotation.content && annotation.content.length ?
+						<span>{annotation.content}</span>
 					:
 						<span>[ . . . ]</span>
 					}

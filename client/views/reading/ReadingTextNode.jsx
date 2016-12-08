@@ -51,7 +51,7 @@ ReadingTextNode = React.createClass({
 		const handleAnnotation = Meteor.subscribe('annotation');
 		const handleRelatedPassages = Meteor.subscribe('relatedPassages');
 		if (handleAnnotation.ready()) {
-			annotations = Annotation.find({ textNodes: this.props.text._id }).fetch();
+			annotations = Annotations.find({ textNodes: this.props.text._id }).fetch();
 		}
 		if (handleRelatedPassages.ready()) {
 			relatedPassages = RelatedPassages.find({ textNodes: this.props.text._id }).fetch();
@@ -309,13 +309,57 @@ ReadingTextNode = React.createClass({
 						className="mdi mdi-close"
 						onClick={this.toggleShowAnnotations}
 					/>
-					{this.data.annotations.map((annotation, i) => (
-						<AnnotationItem
-							key={i}
-							annotation={annotation}
-							isOwner={false}
+
+					{/* <div className="text-annotations--create">
+						<Popover
+							open={this.state.annotationOpen}
+							anchorEl={this.state.anchorEl}
+							anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+							targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+						>
+							<Card
+								style={style.annotationCard}
+							>
+								<CardTitle
+									style={style.annotationTitle}
+									title="Add a note"
+								/>
+								<Toggle
+									style={style.annotationToggle}
+									label="Private"
+									toggled={this.state.annotationPrivate}
+									onToggle={this.handleAnnotationToggle}
+								/>
+								<CardText>
+									<TextField
+										name="annotationInput"
+										style={style.annotationInput}
+										multiLine
+										rows={4}
+										rowsMax={4}
+										value={this.state.annotationText}
+										onChange={this.handleAnnotationInput}
+									/>
+								</CardText>
+								<CardActions>
+									<FlatButton
+										label="Save"
+										primary
+										onClick={this.handleAnnotationSubmit}
+									/>
+									<FlatButton
+										label="Cancel"
+										onClick={this.handleAnnotationCancel}
+									/>
+								</CardActions>
+							</Card>
+						</Popover>
+					</div> */}
+					<div className="text-annotations--content">
+						<AnnotationsList
+							text={text}
 						/>
-					))}
+					</div>
 				</div>
 
 				<div className="text-meta text-related-passages">

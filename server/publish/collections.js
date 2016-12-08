@@ -64,16 +64,20 @@ if (Meteor.isServer) {
 		return Commentary.find({ work });
 	});
 
-	Meteor.publish('annotation', function publishAnnotation() {
+	Meteor.publish('annotation', function pubAnnotation(query = {}, skip = 0, limit = 100) {
+		check(query, Object);
+		check(skip, Number);
+		check(limit, Number);
+
 		if (this.userId) {
-			return Annotation.find({
+			return Annotations.find({
 				$or: [
 					{ isPrivate: false },
 					{ user: this.userId },
 				],
 			});
 		}
-		return Annotation.find({ isPrivate: false });
+		return Annotations.find({ isPrivate: false });
 	});
 
 	Meteor.publish('bookmark', function publishBookmark() {
