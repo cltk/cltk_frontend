@@ -312,7 +312,8 @@ ReadingLayout = React.createClass({
 		}
 
 		if (
-			'location' in this.props.queryParams
+			activeTextNode
+			&& 'location' in this.props.queryParams
 			&& activeTextNode.location !== this.props.queryParams.location
 		) {
 			FlowRouter.setQueryParams({ location: activeTextNode.location });
