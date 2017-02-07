@@ -25,19 +25,25 @@ WorksList = React.createClass({
 			).fetch();
 
 			works.forEach((work, i) => {
-				works[i].authors = Authors.find({
-					_id: {
-						$in: work.authors,
-					},
-				}).fetch();
+				if ('authors' in work) {
+					works[i].authors = Authors.find({
+						_id: {
+							$in: work.authors,
+						},
+					}).fetch();
+				} else {
+					works[i].authors = [];
+				}
 			});
 		}
 
 		works.sort((a, b) => {
-			if (a.authors[0].english_name > b.authors[0].english_name) {
-				return 1;
-			} else if (b.authors[0].english_name > a.authors[0].english_name) {
-				return -1;
+			if (a.authors.length && b.authors.length) {
+				if (a.authors[0].english_name > b.authors[0].english_name) {
+					return 1;
+				} else if (b.authors[0].english_name > a.authors[0].english_name) {
+					return -1;
+				}
 			}
 			return 0;
 		});

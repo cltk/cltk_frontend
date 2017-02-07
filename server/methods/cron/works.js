@@ -6,7 +6,7 @@ Meteor.method('cron_works', () => {
 	works.forEach((work, i) => {
 		const countComments = Commentary.find({ work: work._id }).count();
 		const countTranslations = Translations.find({ work: work._id }).count();
-		const countAnnotations = Annotation.find({ work: work._id }).count();
+		const countAnnotations = Annotations.find({ work: work._id }).count();
 
 		// This needs to be an array search in the future
 		const entities = [];
