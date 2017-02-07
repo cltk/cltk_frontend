@@ -2,9 +2,9 @@
 	"kind":"Deployment",
 	"apiVersion":"extensions/v1beta1",
 	"metadata": {
-		"name":"cltk-app-dep",
+		"name":"cltk-frontend-dep",
 		"labels": {
-			"name":"cltk-app-dep"
+			"name":"cltk-frontend-dep"
 		}
 	},
 	"spec":{
@@ -12,14 +12,14 @@
 		"template": {
 			"metadata": {
 				"labels": {
-					"name":"cltk-app-pod"
+					"name":"cltk-frontend-pod"
 				}
 			},
 			"spec": {
 				"containers": [
 					{
-						"name": "cltk-app-cont",
-						"image": "us.gcr.io/archimedes-01201/cltk_app:latest",
+						"name": "cltk-frontend-cont",
+						"image": "us.gcr.io/archimedes-01201/cltk-frontend:latest",
 						"ports": [
 							{
 								"name": "http-server",
