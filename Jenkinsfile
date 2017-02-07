@@ -10,6 +10,9 @@ node {
 
   checkout scm
 
+  stage 'Checking out git submodules:'
+  sh("git submodule update --init --recursive")
+
   stage 'Building application:'
   sh("./bin/build_app")
 	//sh("npm install")
