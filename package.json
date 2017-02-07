@@ -4,6 +4,7 @@
   "description": "A frontend reading environment for the Classical Language ToolKit Archive texts",
   "main": "bundle/main.js",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "gm": "^1.23.0",
     "ion-rangeslider": "^2.1.4",
     "linkifyjs": "^2.0.5",
