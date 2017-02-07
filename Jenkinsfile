@@ -7,16 +7,13 @@ node {
 	def deployArch = "os.linux.x86_64"
 
   checkout scm
-
-  stage('Checking out git submodules:') {
-	  sh("git submodule update --init --recursive")
-	}
+  sh("git submodule update --init --recursive")
+  sh('git describe --dirty --always > build_tag.out')
+  def buildTag = readFile('build_tag.out').trim()
+  def imageTag = "us.gcr.io/${project}/${appName}:${buildTag}"
 
   stage('Building application:') {
 	  sh("./bin/build_app")
-	  sh('git describe --dirty --always > build_tag.out')
-	  def buildTag = readFile('build_tag.out').trim()
-	  def imageTag = "us.gcr.io/${project}/${appName}:${buildTag}"
 	}
 
   stage('Building application image:') {
