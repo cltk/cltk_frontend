@@ -27,7 +27,7 @@ node {
 	  sh("sudo gcloud docker push -- ${imageTag}")
 	}
 
-  stage('Deploying Application:' {
+  stage('Deploying Application:') {
 	  sh("kubectl set image deployment/${deploymentName} ${appContainerName}=${imageTag}")
 		sh("echo http://`kubectl get service/${feSvcName} --output=json | jq -r '.status.loadBalancer.ingress[0].ip'` > ${feSvcName}")
 	}
