@@ -19,7 +19,7 @@
 				"containers": [
 					{
 						"name": "cltk-frontend-cont",
-						"image": "us.gcr.io/archimedes-01201/cltk_app:latest",
+						"image": "us.gcr.io/archimedes-01201/cltk-frontend:latest",
 						"ports": [
 							{
 								"name": "http-server",
