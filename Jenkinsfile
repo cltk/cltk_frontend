@@ -11,6 +11,7 @@ node {
   sh('git describe --dirty --always > build_tag.out')
   def buildTag = readFile('build_tag.out').trim()
   def imageTag = "us.gcr.io/${project}/${appName}:${buildTag}"
+	sh("sudo gcloud container clusters get-credentials cltk-frontend")
 
   stage('Building application:') {
 	  sh("./bin/build_app")
