@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 SELF_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$SELF_DIR/config"
@@ -14,9 +14,6 @@ npm install --production
 #	echo "NPM dependencies failed to install" >&2
 #	exit 1
 #fi
-
-# echo "Testing app"
-# npm test
 
 echo "const buildTag='$BUILD_TAG'; console.log('buildTag', buildTag);" > ./build_tag.js
 

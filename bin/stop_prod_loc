@@ -5,4 +5,5 @@ source "$SELF_DIR/config"
 
 echo "Stopping $IMAGE_NAME"
 docker stop ${IMAGE_NAME}
+docker rm ${IMAGE_NAME}
 echo "Stopped"

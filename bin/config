@@ -1,21 +1,23 @@
-#!/bin/sh
+#!/bin/bash
 
 SELF_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 pushd "$SELF_DIR/.." > /dev/null
 
-export PROJECT_NAME=cltk
+export PROJECT_NAME=ahcip
 
 export PROJECT_DIR=`pwd`
 
-mkdir -p "$PROJECT_DIR/../build/$PROJECT_NAME"
+mkdir -p "$PROJECT_DIR/.meteor/local/deploy"
 
-export BUILD_DEST=`pushd $PROJECT_DIR/../build/$PROJECT_NAME > /dev/null; pwd; popd > /dev/null`
+export BUILD_DEST=`pushd $PROJECT_DIR/.meteor/local/deploy > /dev/null; pwd; popd > /dev/null`
 
 export DEPLOY_ARCH=os.linux.x86_64
 
-export IMAGE_NAME=${PROJECT_NAME}_app
+export IMAGE_NAME=${PROJECT_NAME}-app
 export BUILD_TAG=`git describe --dirty --always`
 export REGISTRY_PREFIX="us.gcr.io/archimedes-01201"
+#export DEFAULT_IMAGE_TAG="$REGISTRY_PREFIX/$IMAGE_NAME:latest"
+export DEFAULT_IMAGE_TAG="$IMAGE_NAME:$BUILD_TAG"
 
 popd > /dev/null
