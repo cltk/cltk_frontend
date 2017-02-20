@@ -1,3 +1,5 @@
+import Annotations from '/imports/collections/annotations';
+
 UserAnnotationsList = React.createClass({
 
 	mixins: [ReactMeteorData],
@@ -40,7 +42,7 @@ UserAnnotationsList = React.createClass({
 						return (
 							<AnnotationTextNode
 								key={i}
-								isOdd={i % 2}
+								isOdd={i % 2 ? true : false}
 								annotation={annotation}
 							/>
 					)})}

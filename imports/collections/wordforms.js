@@ -1,23 +1,18 @@
-this.Corpora = new Meteor.Collection('corpora');
+const Wordforms = new Meteor.Collection('wordforms');
 
-Schemas.Corpora = new SimpleSchema({
-	title: {
+Wordforms.schema = new SimpleSchema({
+	word: {
 		type: String,
 		max: 60,
 	},
-	slug: {
-		type: String,
-		max: 200,
-		optional: true,
-		autoform: {
-			type: 'hidden',
-			label: false,
-		},
-	},
 
-	corpusLanguages: {
-		type: [String],
-		max: 60,
+	definitions: {
+		type: String,
+		regEx: SimpleSchema.RegEx.Id,
+	},
+	texts: {
+		type: String,
+		regEx: SimpleSchema.RegEx.Id,
 	},
 
 	createdAt: {
@@ -49,8 +44,8 @@ Schemas.Corpora = new SimpleSchema({
 		},
 	},
 
-
 });
 
-Corpora.attachSchema(Schemas.Corpora);
-Corpora.friendlySlugs('title');
+Wordforms.attachSchema(Wordforms.schema);
+
+export default Wordforms;

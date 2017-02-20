@@ -1,13 +1,9 @@
-this.Authors = new Meteor.Collection('authors');
+const Languages = new Meteor.Collection('languages');
 
-Schemas.Authors = new SimpleSchema({
-	english_name: {
+Languages.schema = new SimpleSchema({
+	title: {
 		type: String,
-		optional: true,
-	},
-	original_name: {
-		type: String,
-		optional: true,
+		max: 60,
 	},
 
 	slug: {
@@ -19,17 +15,6 @@ Schemas.Authors = new SimpleSchema({
 			label: false,
 		},
 	},
-
-	authorLanguages: {
-		type: [String],
-		max: 60,
-	},
-
-/*
-corpus: {
-type: String,
-max: 60
-},*/
 
 	createdAt: {
 		type: Date,
@@ -62,5 +47,7 @@ max: 60
 
 });
 
-Authors.attachSchema(Schemas.Authors);
-Authors.friendlySlugs('english_title');
+Languages.attachSchema(Languages.schema);
+Languages.friendlySlugs('title');
+
+export default Languages;

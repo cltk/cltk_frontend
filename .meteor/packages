@@ -96,3 +96,5 @@ mfactory:admin-lte
 tmeasday:publish-counts
 mdg:validated-method
 shell-server
+apollo@0.1.0
+kuip:schema-graphql-bridge

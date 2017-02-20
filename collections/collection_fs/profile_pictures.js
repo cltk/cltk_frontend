@@ -1,4 +1,4 @@
-this.ProfilePictures = new FS.Collection('profilePictures', {
+ProfilePictures = new FS.Collection('profilePictures', {
 	stores: [
 		new FS.Store.GridFS('images', {
 			transformWrite(fileObj, readStream, writeStream) {

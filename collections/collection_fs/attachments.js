@@ -1,4 +1,4 @@
-this.Attachments = new FS.Collection('Attachments', {
+Attachments = new FS.Collection('Attachments', {
 	stores: [
 		new FS.Store.GridFS('attachments', {
 			transformWrite(fileObj, readStream, writeStream) {

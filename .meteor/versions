@@ -16,6 +16,7 @@ aldeed:simple-schema@1.5.3
 aldeed:tabular@1.4.2
 aldeed:template-extension@3.4.3
 allow-deny@1.0.5
+apollo@0.3.1
 archimedigital:core@0.1.1
 autoupdate@1.2.11
 babel-compiler@6.13.0
@@ -99,6 +100,7 @@ juliancwirko:s-alert-stackslide@1.1.4
 kadira:blaze-layout@2.3.0
 kadira:flow-router@2.12.1
 kadira:react-layout@1.5.3
+kuip:schema-graphql-bridge@1.0.3
 less@2.7.8
 livedata@1.0.18
 localstorage@1.0.12
@@ -172,7 +174,7 @@ templating-compiler@1.3.0
 templating-runtime@1.3.0
 templating-tools@1.1.0
 timmyg:wow@1.0.1
-tmeasday:check-npm-versions@0.2.0
+tmeasday:check-npm-versions@0.3.1
 tmeasday:publish-counts@0.8.0
 todda00:friendly-slugs@0.6.0
 tracker@1.1.1

@@ -1,3 +1,5 @@
+import Authors from '/imports/collections/authors';
+
 Meteor.method('cron_authors', () => {
 	// const Authors = Authors.find().fetch();
 

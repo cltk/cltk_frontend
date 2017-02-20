@@ -1,3 +1,5 @@
+import Works from '/imports/collections/works';
+
 Meteor.method('cron_works', () => {
 	const works = Works.find().fetch();
 

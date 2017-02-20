@@ -1,6 +1,6 @@
-this.Definitions = new Meteor.Collection('definitions');
+const Definitions = new Meteor.Collection('definitions');
 
-Schemas.Definitions = new SimpleSchema({
+Definitions.schema = new SimpleSchema({
 	headword: {
 		type: String,
 		max: 60,
@@ -43,4 +43,6 @@ Schemas.Definitions = new SimpleSchema({
 
 });
 
-Definitions.attachSchema(Schemas.Definitions);
+Definitions.attachSchema(Definitions.schema);
+
+export default Definitions;

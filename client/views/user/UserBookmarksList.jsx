@@ -1,3 +1,6 @@
+
+import TextNodes from '/imports/collections/textNodes';
+
 UserBookmarksList = React.createClass({
 
 	mixins: [ReactMeteorData],
@@ -17,7 +20,7 @@ UserBookmarksList = React.createClass({
 			const handleText = Meteor.subscribe('textNodes', { _id: { $in: bookmarks } });
 
 			if (handleText.ready()) {
-				bookmarkedText = Texts.find({ _id: { $in: bookmarks } }).fetch();
+				bookmarkedText = TextNodes.find({ _id: { $in: bookmarks } }).fetch();
 			}
 		}
 

@@ -1,16 +1,17 @@
-this.RelatedPassages = new Meteor.Collection('relatedPassages');
+const RelatedPassages = new Meteor.Collection('relatedPassages');
 
-Schemas.RelatedPassages = new SimpleSchema({
-	user: {
-		type: String,
-	},
+RelatedPassages.schema = new SimpleSchema({
 	textNodeA: {
 		type: String,
 	},
+
 	textNodeB: {
 		type: String,
 	},
 
+	threshold: {
+		type: Number,
+	},
 
 	createdAt: {
 		type: Date,
@@ -42,4 +43,6 @@ Schemas.RelatedPassages = new SimpleSchema({
 	},
 });
 
-RelatedPassages.attachSchema(Schemas.RelatesPassages);
+RelatedPassages.attachSchema(RelatedPassages.schema);
+
+export default RelatedPassages;

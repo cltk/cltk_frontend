@@ -1,33 +1,41 @@
-this.Entities = new Meteor.Collection('entities');
+const Annotations = new Meteor.Collection('annotations');
 
-Schemas.Entities = new SimpleSchema({
-	english_name: {
+Annotations.schema = new SimpleSchema({
+	user: {
+		type: String,
+	},
+	textNode: {
+		type: String,
+	},
+	content: {
+		type: String,
+	},
+	isPrivate: {
+		type: Boolean,
+	},
+	parentId: {
 		type: String,
 		optional: true,
 	},
-	original_name: {
+	status: {
 		type: String,
 		optional: true,
 	},
-	slug: {
-		type: String,
-		max: 200,
+	votes: {
+		type: Number,
 		optional: true,
-		autoform: {
-			type: 'hidden',
-			label: false,
-		},
 	},
-
-	location: {
-		type: String,
+	voters: {
+		type: [Meteor.user],
 		optional: true,
-		autoform: {
-			type: 'map',
-			geolocation: true,
-			searchBox: true,
-			autolocate: true,
-		},
+	},
+	reported: {
+		type: Number,
+		optional: true,
+	},
+	usersReported: {
+		type: [Meteor.user],
+		optional: true,
 	},
 
 	createdAt: {
@@ -58,8 +66,7 @@ Schemas.Entities = new SimpleSchema({
 			label: false,
 		},
 	},
-
 });
 
-Entities.attachSchema(Schemas.Entities);
-Entities.friendlySlugs('english_title');
+Annotations.attachSchema(Annotations.schema);
+export default Annotations;
