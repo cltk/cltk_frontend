@@ -95,6 +95,6 @@ mpowaga:autoform-summernote
 mfactory:admin-lte
 tmeasday:publish-counts
 mdg:validated-method
-shell-server
-apollo@0.1.0
+shell-server@0.2.1
+# apollo
 kuip:schema-graphql-bridge
