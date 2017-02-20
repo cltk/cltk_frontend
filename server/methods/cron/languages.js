@@ -1,3 +1,5 @@
+import Languages from '/imports/collections/languages';
+
 Meteor.method('cron_languages', () => {
 	// const languages = Languages.find().fetch();
 

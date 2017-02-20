@@ -10,7 +10,7 @@ ReadingMedia = React.createClass({
 
 	getDefaultProps() {
 		return {
-			mediaId: 'aaaaaaaaaaaaa',
+			mediaId: '',
 		};
 	},
 

@@ -4,6 +4,9 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import TextField from 'material-ui/TextField';
 import ReactList from 'react-list';
 
+import Definitions from '/imports/collections/definitions';
+import Wordforms from '/imports/collections/wordforms';
+
 DefinitionsPanel = React.createClass({
 
 	propTypes: {
@@ -33,8 +36,6 @@ DefinitionsPanel = React.createClass({
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
 	},
-
-	// This mixin makes the getMeteorData method work
 
 	getMeteorData() {
 		const words = [];

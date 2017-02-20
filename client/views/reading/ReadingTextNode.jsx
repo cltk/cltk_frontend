@@ -1,5 +1,7 @@
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import Annotations from '/imports/collections/annotations';
+import RelatedPassages from '/imports/collections/relatedPassages';
 
 ReadingTextNode = React.createClass({
 

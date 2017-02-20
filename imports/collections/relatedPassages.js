@@ -10,7 +10,7 @@ RelatedPassages.schema = new SimpleSchema({
 	},
 
 	threshold: {
-		type: Float,
+		type: Number,
 	},
 
 	createdAt: {
@@ -43,6 +43,6 @@ RelatedPassages.schema = new SimpleSchema({
 	},
 });
 
-RelatedPassages.attachSchema(RelatesPassages.schema);
+RelatedPassages.attachSchema(RelatedPassages.schema);
 
 export default RelatedPassages;

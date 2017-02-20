@@ -1,3 +1,5 @@
+import Annotations from '/imports/collections/annotations';
+
 Meteor.methods({
 	'annotations.insert': function annotationInsert(annotationCandidate) {
 		// Make sure the user is logged in before inserting

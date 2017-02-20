@@ -1,5 +1,8 @@
 import debounce from 'throttle-debounce/debounce';
 import LoadingDoubleWell from '/imports/spinkit/client/LoadingDoubleWell';
+import Authors from '/imports/collections/authors';
+import TextNodes from '/imports/collections/textNodes';
+import Works from '/imports/collections/works';
 
 ReadingLayout = React.createClass({
 
@@ -102,7 +105,7 @@ ReadingLayout = React.createClass({
 		}
 
 		Meteor.subscribe('textNodes', query, this.state.limit);
-		textNodes = Texts.find(query).fetch();
+		textNodes = TextNodes.find(query).fetch();
 
 		return {
 			work,

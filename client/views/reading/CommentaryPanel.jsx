@@ -1,7 +1,8 @@
 import FlatButton from 'material-ui/FlatButton';
-
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import Commentary from '/imports/collections/commentary';
+import Translations from '/imports/collections/translations';
 
 CommentaryPanel = React.createClass({
 

@@ -1,4 +1,5 @@
 import Masonry from 'react-masonry-component/lib';
+import Works from '/imports/collections/works';
 
 BookshelfList = React.createClass({
 

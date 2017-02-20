@@ -26,7 +26,7 @@ Annotations.schema = new SimpleSchema({
 		optional: true,
 	},
 	voters: {
-		type: [Schemas.User],
+		type: [Meteor.user],
 		optional: true,
 	},
 	reported: {
@@ -34,7 +34,7 @@ Annotations.schema = new SimpleSchema({
 		optional: true,
 	},
 	usersReported: {
-		type: [Schemas.User],
+		type: [Meteor.user],
 		optional: true,
 	},
 
