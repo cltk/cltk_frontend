@@ -19,5 +19,6 @@ docker run \
 	-d \
 	--name ${IMAGE_NAME} \
 	-p 3000:3000 \
+	-p 4000:4000 \
 	-e MONGO_URL=$MONGO_URL \
 	"$IMAGE_TAG"
