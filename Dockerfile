@@ -1,4 +1,4 @@
-FROM node:4.6.1
+FROM node:4.6.2
 
 RUN apt-get update && apt-get install -y graphicsmagick
 RUN mkdir /app
