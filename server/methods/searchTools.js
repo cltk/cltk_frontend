@@ -1,3 +1,5 @@
+import Authors from '/imports/collections/authors';
+import Works from '/imports/collections/works';
 
 Meteor.methods({
 	searchTools() {

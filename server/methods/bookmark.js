@@ -1,3 +1,4 @@
+
 Meteor.methods({
 	'bookmark.insert': function bookmarkInsert(textNodeId) {
 		// Make sure the user is logged in before inserting

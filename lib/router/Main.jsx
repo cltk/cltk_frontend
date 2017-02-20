@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount } from 'react-mounter';
 
-
 /*
 * For the moment add subscriptions here; in future iterations, make them route
 * specific as necessary

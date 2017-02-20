@@ -1,6 +1,6 @@
-this.Translations = new Meteor.Collection('translations');
+const Translations = new Meteor.Collection('translations');
 
-Schemas.Translations = new SimpleSchema({
+Translations.schema = new SimpleSchema({
 	n_1: {
 		type: Number,
 		min: 0,
@@ -88,4 +88,5 @@ Schemas.Translations = new SimpleSchema({
 	},
 });
 
-Translations.attachSchema(Schemas.Translations);
+Translations.attachSchema(Translations.schema);
+export default Translations;

@@ -1,18 +1,24 @@
-this.Wordforms = new Meteor.Collection('wordforms');
+const Commentary = new Meteor.Collection('commentary');
 
-Schemas.Wordforms = new SimpleSchema({
-	word: {
+Commentary.schema = new SimpleSchema({
+	author: {
 		type: String,
 		max: 60,
 	},
-
-	definitions: {
+	year: {
 		type: String,
-		regEx: SimpleSchema.RegEx.Id,
+		max: 60,
 	},
-	texts: {
+	ref: {
 		type: String,
-		regEx: SimpleSchema.RegEx.Id,
+		max: 60,
+	},
+	content: {
+		type: String,
+	},
+	work: {
+		type: String,
+		max: 60,
 	},
 
 	createdAt: {
@@ -44,6 +50,8 @@ Schemas.Wordforms = new SimpleSchema({
 		},
 	},
 
+
 });
 
-Wordforms.attachSchema(Schemas.Wordforms);
+Commentary.attachSchema(Commentary.schema);
+export default Commentary;

@@ -2,7 +2,7 @@
 	"kind": "Service",
 	"apiVersion": "v1",
 	"metadata": {
-	"name": "cltk-app-serv"
+	"name": "cltk-frontend-serv"
 	},
 	"spec": {
 	"ports": [
@@ -12,9 +12,10 @@
 		}
 	],
 	"selector": {
-		"name": "cltk-app-pod"
+		"name": "cltk-frontend-pod"
 	},
 	"sessionAffinity": "ClientIP",
-	"type": "LoadBalancer"
+	"type": "LoadBalancer",
+	"loadBalancerIP": "xxx.xxx.xxx.xxx"
 	}
 }

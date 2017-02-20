@@ -1,3 +1,15 @@
+
+import Annotations from '/imports/collections/annotations';
+import Authors from '/imports/collections/authors';
+import Commentary from '/imports/collections/commentary';
+import Corpora from '/imports/collections/corpora';
+import Definitions from '/imports/collections/definitions';
+import Languages from '/imports/collections/languages';
+import TextNodes from '/imports/collections/textNodes';
+import Translations from '/imports/collections/translations';
+import Wordforms from '/imports/collections/wordforms';
+import Works from '/imports/collections/works';
+
 /*
 * Replace these in the future as they will publish our entire collections.
 */
@@ -17,21 +29,13 @@ if (Meteor.isServer) {
 	Meteor.publish('textNodes', (query = {}, limit = 0) => {
 		check(query, Object);
 		check(limit, Number);
-		return Texts.find(query, { limit, sort: { n_1: 1, n_2: 1, n_3: 1, n_4: 1, n_5: 1 } });
+		return TextNodes.find(query, { limit, sort: { n_1: 1, n_2: 1, n_3: 1, n_4: 1, n_5: 1 } });
 	});
 
 	Meteor.publish('works', (query = {}, skip = 0, limit = 10) => {
 		check(query, Object);
 		check(skip, Number);
 		check(limit, Number);
-		return Works.find(query, { skip, limit, sort: { english_title: 1 } });
-	});
-
-	Meteor.publish('searchWorks', (query = {}, skip = 0, limit = 0) => {
-		check(query, Object);
-		check(skip, Match.Optional(Number));
-		check(limit, Match.Optional(Number));
-
 		return Works.find(query, { skip, limit, sort: { english_title: 1 } });
 	});
 
@@ -50,7 +54,7 @@ if (Meteor.isServer) {
 	});
 
 	Meteor.publish('wordForms', textIds => {
-		//check(textIds, [Object]);
+		// check(textIds, [Object]);
 		return Wordforms.find({ texts: { $in: textIds } });
 	});
 

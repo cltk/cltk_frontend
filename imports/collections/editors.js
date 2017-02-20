@@ -1,6 +1,6 @@
-this.Editors = new Meteor.Collection('editors');
+const Editors = new Meteor.Collection('editors');
 
-Schemas.Editors = new SimpleSchema({
+Editors.schema = new SimpleSchema({
 	english_name: {
 		type: String,
 		max: 60,
@@ -52,5 +52,7 @@ Schemas.Editors = new SimpleSchema({
 
 });
 
-Editors.attachSchema(Schemas.Editors);
+Editors.attachSchema(Editors.schema);
 Editors.friendlySlugs('english_name');
+
+export default Editors;

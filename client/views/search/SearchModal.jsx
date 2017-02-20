@@ -1,7 +1,8 @@
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import IconButton from 'material-ui/IconButton';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
+import Works from '/imports/collections/works';
+import Authors from '/imports/collections/authors';
 
 SearchModal = React.createClass({
 
@@ -43,7 +44,7 @@ SearchModal = React.createClass({
 			switch (filter.key) {
 			case 'textsearch': {
 				query.$text = { $search: filter.values[0] };
-				textSearch = new RegExp(filter.values[0], 'i');
+				textSearch = { $regex: filter.values[0], $options: 'i' };
 				break;
 			}
 
@@ -84,13 +85,17 @@ SearchModal = React.createClass({
 			}
 		});
 
-		const handle = Meteor.subscribe('searchWorks', query, this.state.skip, this.state.limit);
+		const handle = Meteor.subscribe('works', query, this.state.skip, this.state.limit);
 		if (handle.ready()) {
 			delete query.$text;
 			if (textSearch) {
-				query.english_title = textSearch;
-				query.original_title = textSearch;
+				query.$or = [{
+					english_title: textSearch,
+				}, {
+					original_title: textSearch,
+				}];
 			}
+			console.log('client', query);
 			works = Works.find(query, {}).fetch();
 
 			works.forEach((work, i) => {

@@ -1,42 +1,35 @@
-this.Annotations = new Meteor.Collection('annotations');
+const Authors = new Meteor.Collection('authors');
 
-Schemas.Annotations = new SimpleSchema({
-	user: {
-		type: String,
-	},
-	textNode: {
-		type: String,
-	},
-	content: {
-		type: String,
-	},
-	isPrivate: {
-		type: Boolean,
-	},
-	parentId: {
+Authors.schema = new SimpleSchema({
+	english_name: {
 		type: String,
 		optional: true,
 	},
-	status: {
+	original_name: {
 		type: String,
 		optional: true,
 	},
-	votes: {
-		type: Number,
+
+	slug: {
+		type: String,
+		max: 200,
 		optional: true,
+		autoform: {
+			type: 'hidden',
+			label: false,
+		},
 	},
-	voters: {
-		type: [Schemas.User],
-		optional: true,
+
+	authorLanguages: {
+		type: [String],
+		max: 60,
 	},
-	reported: {
-		type: Number,
-		optional: true,
-	},
-	usersReported: {
-		type: [Schemas.User],
-		optional: true,
-	},
+
+/*
+corpus: {
+type: String,
+max: 60
+},*/
 
 	createdAt: {
 		type: Date,
@@ -66,6 +59,10 @@ Schemas.Annotations = new SimpleSchema({
 			label: false,
 		},
 	},
+
 });
 
-Annotations.attachSchema(Schemas.Annotations);
+Authors.attachSchema(Authors.schema);
+Authors.friendlySlugs('english_title');
+
+export default Authors;

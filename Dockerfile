@@ -1,11 +1,15 @@
-FROM danieldent/meteor:1.0.3.1
-COPY . /opt/src
-WORKDIR /opt/src
-RUN meteor build .. --directory --server http://localhost:3000 \
-    && cd ../bundle/programs/server \
-    && npm install \
-    && rm -rf /opt/src
-WORKDIR /opt/bundle
-USER nobody
+FROM node:4.6.2
+
+RUN apt-get update && apt-get install -y graphicsmagick
+RUN mkdir /app
+COPY *.tar.gz /app/.
+RUN cd /app \
+	&& tar zxf *.tar.gz \
+	&& cd /app/bundle/programs/server \
+	&& npm install \
+	&& mkdir -p /app/bundle/programs/server/tmp/uploads
 ENV PORT 3000
-CMD ["/usr/local/bin/node", "main.js"]
+ENV ROOT_URL http://localhost:$PORT
+ENV UPLOAD_TMP /tmp/uploads
+WORKDIR /app/bundle
+CMD ["node", "main.js"]
