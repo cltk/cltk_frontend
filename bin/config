@@ -15,7 +15,7 @@ export BUILD_DEST=`pushd $PROJECT_DIR/.meteor/local/deploy > /dev/null; pwd; pop
 export DEPLOY_ARCH=os.linux.x86_64
 
 export IMAGE_NAME=${PROJECT_NAME}-app
-export BUILD_TAG=`git describe --dirty --always`
+export BUILD_TAG=`git describe --dirty --tags --always`
 export REGISTRY_PREFIX="us.gcr.io/archimedes-01201"
 #export DEFAULT_IMAGE_TAG="$REGISTRY_PREFIX/$IMAGE_NAME:latest"
 export DEFAULT_IMAGE_TAG="$IMAGE_NAME:$BUILD_TAG"
