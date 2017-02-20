@@ -33,7 +33,6 @@ if (Meteor.isServer) {
 	});
 
 	Meteor.publish('works', (query = {}, skip = 0, limit = 10) => {
-		console.log(query);
 		check(query, Object);
 		check(skip, Number);
 		check(limit, Number);
