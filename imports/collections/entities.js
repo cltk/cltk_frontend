@@ -1,6 +1,6 @@
-this.Entities = new Meteor.Collection('entities');
+const Entities = new Meteor.Collection('entities');
 
-Schemas.Entities = new SimpleSchema({
+Entities.schema = new SimpleSchema({
 	english_name: {
 		type: String,
 		optional: true,
@@ -61,5 +61,7 @@ Schemas.Entities = new SimpleSchema({
 
 });
 
-Entities.attachSchema(Schemas.Entities);
+Entities.attachSchema(Entities.schema);
 Entities.friendlySlugs('english_title');
+
+export default Entities;

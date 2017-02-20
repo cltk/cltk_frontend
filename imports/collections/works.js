@@ -1,6 +1,6 @@
-this.Works = new Meteor.Collection('works');
+const Works = new Meteor.Collection('works');
 
-Schemas.Works = new SimpleSchema({
+Works.schema = new SimpleSchema({
 	english_title: {
 		type: String,
 		optional: true,
@@ -220,5 +220,8 @@ Schemas.Works = new SimpleSchema({
 
 });
 
-Works.attachSchema(Schemas.Works);
+Works.attachSchema(Works.schema);
 Works.friendlySlugs('original_title');
+
+
+export default Works;

@@ -1,6 +1,6 @@
-this.Texts = new Meteor.Collection('texts');
+const TextNodes = new Meteor.Collection('texts');
 
-Schemas.Texts = new SimpleSchema({
+TextNodes.schema = new SimpleSchema({
 	n_1: {
 		type: Number,
 		min: 0,
@@ -102,42 +102,7 @@ Schemas.Texts = new SimpleSchema({
 	},
 
 	relatedPassages: {
-		type: [Object],
-		optional: true,
-	},
-
-	'relatedPassages.$.workId': {
-		type: String,
-		optional: true,
-	},
-
-	'relatedPassages.$.englishTitle': {
-		type: String,
-		optional: true,
-	},
-
-	'relatedPassages.$.edition': {
-		type: String,
-		optional: true,
-	},
-
-	'relatedPassages.$.location': {
-		type: String,
-		optional: true,
-	},
-
-	'relatedPassages.$.textNodes': {
-		type: [Object],
-		optional: true,
-	},
-
-	'relatedPassages.$.textNodes.$.text': {
-		type: [Object],
-		optional: true,
-	},
-
-	'relatedPassages.$.textNodes.$.n': {
-		type: [Object],
+		type: [String],
 		optional: true,
 	},
 
@@ -172,4 +137,6 @@ Schemas.Texts = new SimpleSchema({
 
 });
 
-Texts.attachSchema(Schemas.Texts);
+TextNodes.attachSchema(TextNodes.schema);
+
+export default TextNodes;

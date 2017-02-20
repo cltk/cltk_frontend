@@ -1,11 +1,10 @@
-this.Languages = new Meteor.Collection('languages');
+const Corpora = new Meteor.Collection('corpora');
 
-Schemas.Languages = new SimpleSchema({
+Corpora.schema = new SimpleSchema({
 	title: {
 		type: String,
 		max: 60,
 	},
-
 	slug: {
 		type: String,
 		max: 200,
@@ -14,6 +13,11 @@ Schemas.Languages = new SimpleSchema({
 			type: 'hidden',
 			label: false,
 		},
+	},
+
+	corpusLanguages: {
+		type: [String],
+		max: 60,
 	},
 
 	createdAt: {
@@ -45,7 +49,10 @@ Schemas.Languages = new SimpleSchema({
 		},
 	},
 
+
 });
 
-Languages.attachSchema(Schemas.Languages);
-Languages.friendlySlugs('title');
+Corpora.attachSchema(Corpora.schema);
+Corpora.friendlySlugs('title');
+
+export default Corpora;
