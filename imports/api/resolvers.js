@@ -39,27 +39,58 @@ export default resolvers = {
 				args['_id'] = new Meteor.Collection.ObjectID(args._id);
 			}
 
-			return Authors.find(args).fetch();
+			const authors = Authors.find(args).fetch();
+
+			// Fix inconsistencies with _id format
+			authors.forEach((author) => {
+				if ('_str' in author._id) {
+					author._id = author._id._str;
+				}
+			});
+
+			return authors;
 		},
 		corpora(_, args){
 			if ('_id' in args) {
 				args['_id'] = new Meteor.Collection.ObjectID(args._id);
 			}
 
-			return Corpora.find(args).fetch();
+			const corpora = Corpora.find(args).fetch();
+
+			// Fix inconsistencies with _id format
+			corpora.forEach((corpus) => {
+				if ('_str' in corpus._id) {
+					corpus._id = corpus._id._str;
+				}
+			});
+
+			return corpora;
 		},
 		definitions(_, args){
-			return Definitions.find(args).fetch();
+			let limit = 100;
+			let skip = 0;
+
+			return Definitions.find(args, { limit, skip }).fetch();
 		},
 		languages(_, args){
 			if ('_id' in args) {
 				args['_id'] = new Meteor.Collection.ObjectID(args._id);
 			}
 
-			return Languages.find(args).fetch();
+			const languages = Languages.find(args).fetch();
+
+			// Fix inconsistencies with _id format
+			languages.forEach((language) => {
+				if ('_str' in language._id) {
+					language._id = language._id._str;
+				}
+			});
+
+			return languages;
 		},
 		textNodes(_, args){
-			let limit = 1000;
+			let limit = 100;
+			let skip = 0;
 
 			if ('_id' in args) {
 				args['_id'] = new Meteor.Collection.ObjectID(args._id);
@@ -72,11 +103,28 @@ export default resolvers = {
 				delete args.limit;
 			}
 
+			if ('skip' in args) {
+				skip = args.skip;
+				delete args.skip;
+			}
+
 			if ('text' in args) {
 				args.text = { $regex: args.text, $options: 'i'};
 			}
 
-			return TextNodes.find(args, {limit, sort: { n_1: 1, n_2: 1, n_3: 1, n_4: 1, n_5: 1 } }).fetch();
+			const textNodes = TextNodes.find(args, {skip, limit, sort: { n_1: 1, n_2: 1, n_3: 1, n_4: 1, n_5: 1 } }).fetch();
+
+			// Fix inconsistencies with _id format
+			textNodes.forEach((textNode) => {
+				if ('_str' in textNode._id) {
+					textNode._id = textNode._id._str;
+				}
+				if ('_str' in textNode.work) {
+					textNode.work = textNode.work._str;
+				}
+			});
+
+			return textNodes;
 		},
 		wordForms(_, args){
 			return Wordforms.find(args).fetch();
@@ -94,11 +142,16 @@ export default resolvers = {
 				args.original_title = { $regex: args.original_title, $options: 'i'}
 			}
 
-			console.log('#########');
-			console.log(args);
-			console.log('#########');
+			const works = Works.find(args).fetch();
 
-			return Works.find(args).fetch();
+			// Fix inconsistencies with _id format
+			works.forEach((work) => {
+				if ('_str' in work._id) {
+					work._id = work._id._str;
+				}
+			});
+
+			return works;
 		},
 	},
 

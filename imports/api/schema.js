@@ -9,7 +9,7 @@ import Works from '/imports/collections/works';
 
 const authorSchema = SchemaBridge.schema(Authors.schema, 'Author', {wrap: false});
 const corporaSchema = SchemaBridge.schema(Corpora.schema, 'Corpus', {wrap: false});
-const definitionSchema = SchemaBridge.schema(Definitions.schema, 'Definition');
+const definitionSchema = SchemaBridge.schema(Definitions.schema, 'Definition', {wrap: false});
 const languageSchema = SchemaBridge.schema(Languages.schema, 'Language', {wrap: false});
 const textNodeSchema = SchemaBridge.schema(TextNodes.schema, 'TextNode', {wrap: false});
 const wordformSchema = SchemaBridge.schema(Wordforms.schema, 'Wordform');
@@ -20,37 +20,47 @@ export default typeDefs = [`
 scalar JSON
 scalar Date
 
-${definitionSchema}
 ${wordformSchema}
+
+${definitionSchema.objects}
+type Definition {
+	_id: String
+	${definitionSchema.fields}
+	skip: Int
+	limit: Int
+}
 
 ${authorSchema.objects}
 type Author {
-	_id: JSON
+	_id: String
 	${authorSchema.fields}
 }
 
 ${corporaSchema.objects}
 type Corpus {
-	_id: JSON
+	_id: String
 	${corporaSchema.fields}
 }
 
 ${languageSchema.objects}
 type Language {
-	_id: JSON
+	_id: String
 	${languageSchema.fields}
 }
 
 ${workSchema.objects}
 type Work {
-	_id: JSON
+	_id: String
 	${workSchema.fields}
 }
 
 ${textNodeSchema.objects}
 type TextNode {
+	_id: String
 	${textNodeSchema.fields}
 	textNodeWork: Work
+	skip: Int
+	limit: Int
 }
 
 type Query {
