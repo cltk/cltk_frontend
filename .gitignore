@@ -8,6 +8,8 @@ private/settings/production.json
 node_modules
 k8s/production
 build_tag.js
+dump
+dump.*
 
 
 # Editors
