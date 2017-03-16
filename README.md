@@ -34,7 +34,7 @@ meteor
 
 In order to use the database with your meteor instance, we recommend restoring the database to your meteor application instance (but you could as easily use an external mongodb server as well and configure the MONGO_URL param when starting meteor). You will need the mongodb package installed on your local machine to restore the database to your local copy of the application.
 
-First, download the database dump from here: https://storage.googleapis.com/archimedes-data--regional/cltk/dump-without-users.tgz
+First, download the database dump from here: https://storage.googleapis.com/archimedes-data--regional/cltk/dump-without-users.tgz NOTICE: This database dump, when restored to Mongo, creates a database sized at 7.950GB.
 
 Unzip and -tar the database dump:
 
