@@ -4,7 +4,7 @@ The Classics Archive application is currently under active development and is no
 
 # About  
 
-The goal of this application is to provide a modern reading environment for documents included in the CLTK corpora. Dev builds will be put up at http://api.cltk.org for the early stages of development.  Text data is consumed by the API under development at this repository: https://github.com/cltk/cltk_api
+The goal of this application is to provide a modern reading environment for documents included in the CLTK corpora. Dev builds will be put up at http://archive.cltk.org for the early stages of development.  Text data is ingested from the cltk_json directories in the
 
 
 # Development
@@ -34,7 +34,7 @@ meteor
 
 In order to use the database with your meteor instance, we recommend restoring the database to your meteor application instance (but you could as easily use an external mongodb server as well and configure the MONGO_URL param when starting meteor). You will need the mongodb package installed on your local machine to restore the database to your local copy of the application.
 
-First, download the database dump from here: https://s3.amazonaws.com/cltk-data001/dump.tgz
+First, download the database dump from here: https://storage.googleapis.com/archimedes-data--regional/cltk/dump-without-users.tgz
 
 Unzip and -tar the database dump:
 
@@ -42,11 +42,19 @@ Unzip and -tar the database dump:
 tar zxvf dump.tgz
 ```
 
-Restore the dump to your *running* meteor application database:
+Restore the dump to your running meteor application database:
 
 ```
 mongorestore -h localhost:3001 -d meteor --drop dump/cltk_frontend_dev
 ```
+
+# Linting configuration
+
+We now have an updated, more permissive eslint configuration. We suggest adding an eslint plugin to your editor of choice.
+
+For example, options for integrating with the Atom editor are the following:
+https://atom.io/packages/linter
+https://atom.io/packages/eslint
 
 
 # Contributing
@@ -79,7 +87,7 @@ We know that including all of these is possible and useful based on a previous i
 
 # Challenges
 
-We need to serve text and all the related materials to the web browser with the least possible load time.  It will not be possible to identify, extract, and serve metadata (such as entities and related passages) on the fly, much as that would simply the task.  Instead, we need to overcome the challenge of the time and server resources required to predict and mining the data for related materials by caching the source text from the [CLTK API](https://github.com/cltk/cltk_api) in the Meteor application's Mongo database and then for each passage of the source text, query the CLTK API for each type of related material.  
+We need to serve text and all the related materials to the web browser with the least possible load time. It will not be possible to identify, extract, and serve metadata (such as entities and related passages) on the fly, much as that would simply the task.  Instead, we need to overcome the challenge of the time and server resources required to predict and mining the data for related materials by caching the source text from the [CLTK API](https://github.com/cltk/cltk_api) in the Meteor application's Mongo database and then for each passage of the source text, query the CLTK API for each type of related material.  
 
 Instead of the traditional model of a client-side Javascript application querying an API and rendering a JSON response to the page every time the page is loaded, this application will rely on server-side Javascript to sync content continually from the API, and Meteor's [DDP](https://www.meteor.com/ddp) layer will take care of rendering the data that is stored in the application database.  
 
@@ -97,51 +105,5 @@ meteor build .
 (or if you like storing your build files in named directories, something like "meteor build ../builds/1.0.1/")
 
 ### Deploying
-The server hosting this application will need Node 0.10.40 (nvm recommended), MongoDB, and NGINX.
 
-First, rsync the generated tar.gz file to the server. Extract the build archive in a directory of your choice (ideally one that makes sense with the build version--1.0.1, 1.1.0, etc.).
-
-Ensure you are using the correct version of Node for your build and cd to ./bundle/programs/server of your extracted application and run
-```
-npm install
-```
-
-Configure a Upstart service file as described in the tutorial linked at the start of this section. Ensure all parameters included in the file are set appropriately.
-
-Configure and enable an NGINX virtual host to proxy requests to the port the application is listening on.
-
-Start the Upstart service with whatever you named your service file.  Something such as this:
-```
-sudo start cltk_frontend
-```
-If you named your Upstart service file cltk_frontend.conf
-
-## Building and Deploying with Docker
-
-From the meteor-starter application, here's a good workflow for interacting with docker:
-
-
-for Dev
-
-```
-docker build -t myrepo/meteordev -f Dockerfile-dev .
-```
-
-Run
-
-```
-docker run -it -p 3000:3000 --rm myrepo/meteordev
-```
-
-
-for Prod
-
-```
-docker build -t myrepo/mymeteorapp .
-```
-
-Run it
-```
-docker run --name mongodb -d mongo
-docker run -it --rm -p 3000:3000 --link mongodb:db -e "MONGO_URL=mongodb://db" -e "ROOT_URL=http://localhost:3000" myrepo/mymeteorapp
-```
+The CLTK Archive Meteor app is currently deployed via Kubernetes on a cluster on Google Cloud Platform. In order to build and push an image to the container repository on GCP, you can run ./bin/build_all, and we hopefully will integrate with a CI server at some point in the future to automate this process.
