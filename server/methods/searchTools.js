@@ -1,39 +1,77 @@
 import Authors from '/imports/collections/authors';
 import Works from '/imports/collections/works';
 
+import cache from '/server/cache';
+
+const CACHE_KEY = 'searchTools_cache_key';
+
+function getDistinctFieldInWorks(field) {
+	// NOTE: Works._collection.rawCollection() will only work on the server.
+	// This is fine for now, because this file only runs on the server, but
+	// there would need to be a workaround (or a `Meteor.isServer` check) if
+	// the browser wanted to run this file.
+	return Works._collection.rawCollection().distinct(field, {
+		[field]: { $exists: true, $nin: ['', null] }
+	});
+}
+
 Meteor.methods({
 	searchTools() {
-		let languages = [];
-		let corpora = [];
-		let author = {};
-		const authors = [];
+		const cachedResults = cache.get(CACHE_KEY);
 
-		languages = _.uniq(Works.find({ workLanguage: { $exists: true } }, {
-			sort: { workLanguage: 1 }, fields: { workLanguage: true },
-		}).fetch().map((x) => x.workLanguage), true);
-		corpora = _.uniq(Works.find({ corpus: { $exists: true } }, {
-			sort: { corpus: 1 }, fields: { corpus: true },
-		}).fetch().map((x) => x.corpus), true);
-		worksAuthorsRaw = Works.find({ authors: { $exists: true } }, {
-			sort: { 'authors.english_name': 1 }, fields: { authors: true },
-		}).fetch().map((x) => x.authors);
+		if (cachedResults) {
+			return {
+				...cachedResults,
+				authors: Authors.find({
+					_id: { $in: cachedResults.authors.map(a => new Mongo.ObjectID(a)) },
+				}, {
+					sort: { english_name: 1 }
+				}).fetch()
+			};
+		}
 
-		worksAuthorsRaw.forEach((authorsRaw) => {
-			authorsRaw.forEach((authorRaw) => {
-				author = Authors.findOne({ _id: authorRaw });
-				if (author && !(authors.some((existingAuthor) =>
-					existingAuthor._id._str === author._id._str
-				))) {
-					authors.push(author);
-				}
+		const languagesPromise = getDistinctFieldInWorks('workLanguage');
+		const corporaPromise = getDistinctFieldInWorks('corpus');
+		const worksAuthorsPromise = getDistinctFieldInWorks('authors');
+
+		return Promise.all([
+			languagesPromise,
+			corporaPromise,
+			worksAuthorsPromise
+		]).then(([languages, corpora, authorsRaw]) => {
+			languages = languages.sort();
+			console.log(languages);
+			corpora = corpora.sort();
+			authorsRaw = authorsRaw.map(a => a.toString());
+
+			cache.set(CACHE_KEY, {
+				languages,
+				corpora,
+				// `languages` and `corpora` are reasonably small, and
+				// unlikely to grow dramatically, so it seems okay to
+				// store them as is in the cache. Storing `authors`
+				// wholesale, on the other hand, would dramatically
+				// increase the size of the cached document, so just
+				// store the `_id`s.
+				authors: authorsRaw,
 			});
-		});
 
-		return {
-			languages,
-			corpora,
-			authors,
-		};
+			const authors = Authors.find({
+				// NOTE: The values of `authorsRaw` need to be converted to Strings
+				// (above) and then converted back into ObjectIDs for this query to work.
+				_id: { $in: authorsRaw.map(a => new Mongo.ObjectID(a)) }
+			}, {
+				sort: { english_name: 1 }
+			}).fetch();
+
+			return {
+				languages,
+				corpora,
+				authors,
+			};
+		}).catch(reason => {
+			console.log(reason);
+		});
 	},
 
 });

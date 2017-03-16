@@ -29,6 +29,9 @@
 			"error",
 			"tab"
 		],
+		"object-shorthand": "off",
+		"no-param-reassign": "off",
+		"no-tabs": "off",
 		"no-underscore-dangle": "off",
 		"no-undef": "off",
 		"no-console": "off",
@@ -41,10 +44,23 @@
 			"tab"
 		],
 		"react/react-in-jsx-scope": "off",
-		"react/prefer-es6-class": "off",
 		"react/prefer-stateless-function": "off",
 		"react/jsx-no-undef": "off",
 		"react/jsx-no-bind": "off",
-		"jsx-a11y/label-has-for": "off"
+		"jsx-a11y/label-has-for": "off",
+		"new-cap": ["error", { "capIsNewExceptions": ["Match", "Maybe", "OpenSeadragon", "OneOf"] }],
+		"import/no-extraneous-dependencies": "off",
+		"object-curly-spacing": "off",
+		"no-multiple-empty-lines": "off",
+		"comma-dangle": "off",
+		"meteor/no-session": "off",
+		"no-trailing-spaces": "off",
+		"space-before-function-paren": "off",
+		"prefer-arrow-callback": "off",
+    "max-len": "off",
+    "jsx-a11y/anchor-has-content": "off",
+    "no-bitwise": "off",
+    "padded-blocks": "off",
+    "import/extensions": "off"
 	}
 }
