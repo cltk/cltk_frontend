@@ -39,19 +39,6 @@ SearchTools = React.createClass({
 			if (err) {
 				console.log(err);
 			} else {
-				res.authors.sort((a, b) => {
-					let sortVal = 1;
-					if (a.english_name > b.english_name) {
-						sortVal = 1;
-					} else if (b.english_name > a.english_name) {
-						sortVal = -1;
-					} else {
-						sortVal = 0;
-					}
-
-					return sortVal;
-				});
-
 				this.setState({
 					languages: res.languages,
 					corpora: res.corpora,
