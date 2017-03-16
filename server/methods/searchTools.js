@@ -3,7 +3,7 @@ import Works from '/imports/collections/works';
 
 import cache from '/server/cache';
 
-const CACHE_KEY = 'searchTools_cache_key'
+const CACHE_KEY = 'searchTools_cache_key';
 
 function getDistinctFieldInWorks(field) {
 	// NOTE: Works._collection.rawCollection() will only work on the server.
@@ -24,13 +24,13 @@ Meteor.methods({
 				...cachedResults,
 				authors: Authors.find({
 					_id: { $in: cachedResults.authors.map(a => new Mongo.ObjectID(a)) },
-				 }, {
-					 sort: { english_name: 1 }
-				 }).fetch()
+				}, {
+					sort: { english_name: 1 }
+				}).fetch()
 			};
 		}
 
-		const languagesPromise = getDistinctFieldInWorks('language');
+		const languagesPromise = getDistinctFieldInWorks('workLanguage');
 		const corporaPromise = getDistinctFieldInWorks('corpus');
 		const worksAuthorsPromise = getDistinctFieldInWorks('authors');
 
@@ -38,8 +38,9 @@ Meteor.methods({
 			languagesPromise,
 			corporaPromise,
 			worksAuthorsPromise
-		]).then(([ languages, corpora, authorsRaw ]) => {
+		]).then(([languages, corpora, authorsRaw]) => {
 			languages = languages.sort();
+			console.log(languages);
 			corpora = corpora.sort();
 			authorsRaw = authorsRaw.map(a => a.toString());
 
