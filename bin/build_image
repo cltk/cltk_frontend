@@ -7,10 +7,7 @@ pushd $BUILD_DEST > /dev/null
 
 cp "$PROJECT_DIR/Dockerfile" .
 
-IMAGE_TAG=${1-$DEFAULT_IMAGE_TAG}
-
-# docker build -t "$REGISTRY_PREFIX/$IMAGE_NAME:$BUILD_TAG" -t "$REGISTRY_PREFIX/$IMAGE_NAME:latest" -f Dockerfile .
-docker build -t "$IMAGE_TAG" -f Dockerfile .
+docker build -t $DEFAULT_IMAGE_TAG -f Dockerfile .
 EC=$?
 if [ $EC -ne 0 ]
 then

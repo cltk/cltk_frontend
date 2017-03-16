@@ -4,7 +4,7 @@ SELF_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 pushd "$SELF_DIR/.." > /dev/null
 
-export PROJECT_NAME=ahcip
+export PROJECT_NAME="cltk-frontend"
 
 export PROJECT_DIR=`pwd`
 
