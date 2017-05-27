@@ -1,5 +1,7 @@
 # Notice
 
+[![Join the chat at https://gitter.im/cltk/cltk_frontend](https://badges.gitter.im/cltk/cltk_frontend.svg)](https://gitter.im/cltk/cltk_frontend?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 The Classics Archive application is currently under active development and is not ready for production.
 
 # About  
