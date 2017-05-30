@@ -3,8 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default class MasterLayout extends React.Component {
-	getInitialState() {
-		return {
+	constructor(props) {
+		super(props);
+
+		this.state = {
 			searchModalVisible: false,
 		};
 	}

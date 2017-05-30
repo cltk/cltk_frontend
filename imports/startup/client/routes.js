@@ -143,6 +143,8 @@ function onRouteLoad() {
 // Add onRouteLoad to FlowRouter.triggers.enter callbacks
 FlowRouter.triggers.enter([onRouteLoad]);
 
+// FIXME (pletcher): iron-router is showing errors
+// that it can't find masterLayout and notFound
 Router.configure({
 	layoutTemplate: 'masterLayout',
 	loadingTemplate: 'loading',

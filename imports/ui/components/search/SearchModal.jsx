@@ -15,26 +15,23 @@ class SearchModal extends React.Component {
 
 		this.state = {
 			layout: 'grid',
-			filters: [],
-			skip: 0,
-			limit: 15,
-		}
+		};
+
+		this.works = [];
 	}
 
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
 	}
 
-	works: [],
-
 	loadMoreWorks() {
-		this.setState({
-			skip: this.state.skip + this.state.limit,
+		this.props.changeSearchParams({
+			skip: this.props.skip + this.props.limit,
 		});
-	},
+	}
 
 	toggleSearchTerm(key, value) {
-		const filters = this.state.filters;
+		const filters = this.props.filters;
 		let keyIsInFilter = false;
 		let valueIsInFilter = false;
 		let filterValueToRemove;
@@ -79,14 +76,14 @@ class SearchModal extends React.Component {
 			});
 		}
 
-		this.setState({
+		this.props.changeSearchParams({
 			filters,
 			skip: 0,
 		});
-	},
+	}
 
 	handleChangeTextsearch(textsearch) {
-		const filters = this.state.filters;
+		const filters = this.props.filters;
 
 		if (textsearch && textsearch.length) {
 			let textsearchInFilters = false;
@@ -118,14 +115,14 @@ class SearchModal extends React.Component {
 			}
 		}
 
-		this.setState({
+		this.props.changeSearchParams({
 			filters,
 			skip: 0,
 		});
-	},
+	}
 
 	handleChangeDate(e) {
-		const filters = this.state.filters;
+		const filters = this.props.filters;
 
 		let dateFromInFilters = false;
 
@@ -183,33 +180,30 @@ class SearchModal extends React.Component {
 			}
 		}
 
-		this.setState({
+		this.props.changeSearchParams({
 			filters,
 			skip: 0,
 		});
-	},
+	}
 
 	toggleLayout(layout) {
 		this.setState({
 			layout,
 		});
-	},
+	}
 
 	closeSearchModal() {
-		this.setState({
-			filters: [],
-		});
+		this.props.changeSearchParams({ filters: [] });
 		this.props.closeSearchModal();
-	},
+	}
 
 	render() {
-
 		let hasMoreWorks = true;
 
-		if (this.works.length === 0 || this.state.skip === 0) {
-			this.works = this.data.works;
+		if (this.works.length === 0 || this.props.skip === 0) {
+			this.works = this.props.works;
 		} else {
-			this.data.works.forEach((workResult) => {
+			this.props.works.forEach((workResult) => {
 				if (!this.works.some((existingWork) =>
 					workResult._id._str === existingWork._id._str
 				)) {
@@ -220,9 +214,9 @@ class SearchModal extends React.Component {
 
 		const works = this.works;
 
-		if (this.data.worksCount && this.data.worksCount <= this.works.length) {
+		if (this.props.worksCount && this.props.worksCount <= this.works.length) {
 			hasMoreWorks = false;
-		} else if (this.data.works.length < this.state.limit) {
+		} else if (this.props.works.length < this.props.limit) {
 			hasMoreWorks = false;
 		}
 
@@ -242,13 +236,13 @@ class SearchModal extends React.Component {
 				{this.props.visible ?
 					<div>
 						<SearchTools
-							filters={this.state.filters}
+							filters={this.props.filters}
 							toggleSearchTerm={this.toggleSearchTerm}
 							handleChangeDate={this.handleChangeDate}
 							handleChangeTextsearch={this.handleChangeTextsearch}
 						/>
 						<SearchFilters
-							filters={this.state.filters}
+							filters={this.props.filters}
 							toggleSearchTerm={this.toggleSearchTerm}
 						/>
 
@@ -269,7 +263,7 @@ class SearchModal extends React.Component {
 
 			</div>
 		);
-	},
+	}
 };
 
 SearchModal.childContextTypes = {
@@ -277,7 +271,11 @@ SearchModal.childContextTypes = {
 };
 
 SearchModal.propTypes = {
+	changeSearchParams: PropTypes.func.isRequired,
 	closeSearchModal: PropTypes.func,
+	filters: PropTypes.array,
+	limit: PropTypes.number,
+	skip: PropTypes.number,
 	visible: PropTypes.bool,
 	work: PropTypes.object,
 };
@@ -289,7 +287,7 @@ export default SearchModalContainer = createContainer(props => {
 	textSearch = null;
 
 	// Parse the filters to the query
-	this.state.filters.forEach((filter) => {
+	props.searchParams.filters.forEach((filter) => {
 		const date = moment(`${filter.values[0]}-01-01`, 'YYYY MM DD');
 		switch (filter.key) {
 		case 'textsearch': {
@@ -335,7 +333,13 @@ export default SearchModalContainer = createContainer(props => {
 		}
 	});
 
-	const handle = Meteor.subscribe('works', query, this.state.skip, this.state.limit);
+	const handle = Meteor.subscribe(
+		'works',
+		query,
+		props.searchParams.skip,
+		props.searchParams.limit
+	);
+
 	if (handle.ready()) {
 		delete query.$text;
 		if (textSearch) {
@@ -371,6 +375,8 @@ export default SearchModalContainer = createContainer(props => {
 	worksCount = Counts.get('worksCount');
 
 	return {
+		...props,
+		...props.searchParams,
 		works,
 		worksCount,
 	};
