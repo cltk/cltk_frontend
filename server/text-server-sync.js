@@ -3,11 +3,11 @@
 *
 */
 import pseries from 'pseries';
-import Corpora from '/imports/collections/corpora';
-import Definitions from '/imports/collections/definitions';
-import Languages from '/imports/collections/languages';
-import Texts from '/imports/collections/textNodes';
-import Works from '/imports/collections/works';
+import Corpora from '/imports/api/collections/corpora';
+import Definitions from '/imports/api/collections/definitions';
+import Languages from '/imports/api/collections/languages';
+import Texts from '/imports/api/collections/textNodes';
+import Works from '/imports/api/collections/works';
 
 // TODO: Change the url to "api.cltk.org" once the updated api is deployed
 const BASE_URL = 'http://localhost:5000';

@@ -1,3 +1,6 @@
+import Attachments from '/imports/api/collections/attachments';
+import ProfilePictures from '/imports/api/collections/profilePictures';
+
 ProfilePictures.allow({
 	insert() {
 		return true;

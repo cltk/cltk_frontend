@@ -1,4 +1,4 @@
-import TextNodes from '/imports/collections/textNodes';
+import TextNodes from '/imports/api/collections/textNodes';
 
 Meteor.method('cron_text', () => {
 // var textNodes = TextNodes.find().fetch();

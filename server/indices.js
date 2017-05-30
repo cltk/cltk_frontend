@@ -1,6 +1,6 @@
 
-import Works from '/imports/collections/works';
-import Texts from '/imports/collections/textNodes';
+import Works from '/imports/api/collections/works';
+import Texts from '/imports/api/collections/textNodes';
 
 Works._ensureIndex({
 	english_title: 'text',

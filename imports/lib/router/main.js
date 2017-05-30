@@ -1,6 +1,8 @@
 import React from 'react';
 import { mount } from 'react-mounter';
 
+import HomeLayout from '/imports/layouts/HomeLayout/HomeLayout.jsx'
+
 /*
 * For the moment add subscriptions here; in future iterations, make them route
 * specific as necessary
