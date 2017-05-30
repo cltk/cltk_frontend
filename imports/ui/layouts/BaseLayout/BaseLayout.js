@@ -1,4 +1,4 @@
-MainLayout = React.createClass({
+BaseLayout = React.createClass({
 	propTypes: {
 		content: React.PropTypes.element,
 	},

@@ -1,0 +1,6 @@
+{
+  "name": "UserBookmarksList",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./UserBookmarksList.js"
+}
