@@ -1,8 +1,8 @@
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import IconButton from 'material-ui/IconButton';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import Works from '/imports/collections/works';
-import Authors from '/imports/collections/authors';
+import Works from '/imports/api/collections/works';
+import Authors from '/imports/api/collections/authors';
 
 SearchModal = React.createClass({
 

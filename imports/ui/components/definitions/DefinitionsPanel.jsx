@@ -4,8 +4,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import TextField from 'material-ui/TextField';
 import ReactList from 'react-list';
 
-import Definitions from '/imports/collections/definitions';
-import Wordforms from '/imports/collections/wordforms';
+import Definitions from '/imports/api/collections/definitions';
+import Wordforms from '/imports/api/collections/wordforms';
 
 DefinitionsPanel = React.createClass({
 

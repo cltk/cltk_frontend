@@ -1,7 +1,7 @@
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import Annotations from '/imports/collections/annotations';
+import Annotations from '/imports/api/collections/annotations';
 
 AnnotationsList = React.createClass({
 

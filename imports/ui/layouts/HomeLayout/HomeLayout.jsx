@@ -1,4 +1,4 @@
-HomeLayout = React.createClass({
+const HomeLayout = React.createClass({
 
 	getInitialState() {
 		return {
@@ -61,3 +61,5 @@ HomeLayout = React.createClass({
 	},
 
 });
+
+export default HomeLayout

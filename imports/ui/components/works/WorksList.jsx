@@ -1,5 +1,5 @@
-import Works from '/imports/collections/works';
-import Authors from '/imports/collections/authors';
+import Works from '/imports/api/collections/works';
+import Authors from '/imports/api/collections/authors';
 
 import Masonry from 'react-masonry-component/lib';
 

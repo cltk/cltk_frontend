@@ -1,8 +1,8 @@
 import debounce from 'throttle-debounce/debounce';
 import LoadingDoubleWell from '/imports/spinkit/client/LoadingDoubleWell';
-import Authors from '/imports/collections/authors';
-import TextNodes from '/imports/collections/textNodes';
-import Works from '/imports/collections/works';
+import Authors from '/imports/api/collections/authors';
+import TextNodes from '/imports/api/collections/textNodes';
+import Works from '/imports/api/collections/works';
 
 ReadingLayout = React.createClass({
 

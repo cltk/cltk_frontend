@@ -1,4 +1,4 @@
-import Annotations from '/imports/collections/annotations';
+import Annotations from '/imports/api/collections/annotations';
 
 UserAnnotationsList = React.createClass({
 
