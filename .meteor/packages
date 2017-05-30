@@ -100,3 +100,4 @@ kuip:schema-graphql-bridge
 facebook-config-ui@1.0.0
 google-config-ui@1.0.0
 twitter-config-ui@1.0.0
+kadira:react-layout

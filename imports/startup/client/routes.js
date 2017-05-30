@@ -1,3 +1,93 @@
+import React from 'react';
+import { mount } from 'react-mounter';
+
+import HomeLayout from '/imports/ui/layouts/HomeLayout/HomeLayout.jsx';
+import MasterLayout from '/imports/ui/layouts/MasterLayout/MasterLayout.jsx';
+import Utils from '/imports/lib/utils';
+
+/*
+* For the moment add subscriptions here; in future iterations, make them route
+* specific as necessary
+*/
+
+FlowRouter.subscriptions = function subscriptions() {
+	this.register('authors', Meteor.subscribe('authors'));
+	this.register('worksCount', Meteor.subscribe('worksCount'));
+	this.register('authorsCount', Meteor.subscribe('authorsCount'));
+};
+
+/*
+* Routes for application
+*/
+FlowRouter.route('/works/:id/:work', {
+	action(params, queryParams) {
+		mount(ReadingLayout, { params, queryParams });
+	},
+});
+
+FlowRouter.route('/', {
+	name: 'Home',
+	action() {
+		mount(HomeLayout);
+	},
+});
+
+FlowRouter.route('/about', {
+	action() {
+		mount(MasterLayout, { content: <AboutPage /> });
+	},
+});
+
+FlowRouter.route('/browse', {
+	action() {
+		mount(MasterLayout, { content: <BrowseView /> });
+	},
+});
+
+FlowRouter.route('/terms', {
+	action() {
+		mount(MasterLayout, { content: <TermsPage /> });
+	},
+});
+
+/**
+ * User routes
+ */
+
+/*
+ * Route groups with permissions
+ */
+loggedInGroup = FlowRouter.group({
+	triggersEnter: [AccountsTemplates.ensureSignedIn],
+});
+
+loggedInGroup.route('/profile', {
+	action() {
+		ReactLayout.render(UserLayout);
+	},
+});
+loggedInGroup.route('/account', {
+	action() {
+		BlazeLayout.render('masterLayout', { main: 'account' });
+	},
+});
+
+loggedInGroup.route('/setUserName', {
+	action() {
+	// Do nothing
+	},
+});
+loggedInGroup.route('/sign-out', {
+	triggersEnter: [
+		() => {
+			AccountsTemplates.logout();
+		},
+	],
+	action: () => {
+		// Do nothing
+	},
+});
+
 this.subs = new SubsManager();
 
 /*

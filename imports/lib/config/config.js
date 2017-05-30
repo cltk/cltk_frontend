@@ -1,4 +1,4 @@
-this.Config = {
+const Config = {
 	name: 'CLTK Archive',
 	title() {
 		return 'CLTK Archive';
@@ -38,3 +38,5 @@ this.Config = {
 	publicRoutes: ['home'],
 	dashboardRoute: '/dashboard',
 };
+
+export default Config;

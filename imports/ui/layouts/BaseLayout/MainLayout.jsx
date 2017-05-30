@@ -1,14 +1,13 @@
-MainLayout = React.createClass({
-	propTypes: {
-		content: React.PropTypes.element,
-	},
+import React from 'react';
 
-	render() {
-		return (
-			<main>
-				{this.props.content}
-			</main>
-		);
-	},
+export default function MainLayout(props) {
+	return (
+		<main>
+			{props.content}
+		</main>
+	);
+}
 
-});
+MainLayout.propTypes = {
+	content: React.PropTypes.element
+};

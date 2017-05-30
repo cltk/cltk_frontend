@@ -1,10 +1,19 @@
-const HomeLayout = React.createClass({
+import React from 'react';
 
-	getInitialState() {
-		return {
-			searchModalVisible: false,
-		};
-	},
+import Footer from '/imports/ui/components/footer/Footer/Footer.jsx';
+import Header from '/imports/ui/components/header/Header/Header.jsx';
+import HomeBuild from '/imports/ui/components/home/HomeBuild/HomeBuild.jsx';
+import HomeFeatures from '/imports/ui/components/home/HomeFeatures/HomeFeatures.jsx';
+import HomeIntro from '/imports/ui/components/home/HomeIntro/HomeIntro.jsx';
+
+export default class HomeLayout extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			searchModalVisible: false
+		}
+	}
 
 	componentDidMount() {
 		/*
@@ -17,19 +26,19 @@ const HomeLayout = React.createClass({
 				$('html, body').animate({ scrollTop: $(location.hash).offset().top - 100 }, 300);
 			}, 1000);
 		}
-	},
+	}
 
 	showSearchModal() {
 		this.setState({
 			searchModalVisible: true,
 		});
-	},
+	}
 
 	closeSearchModal() {
 		this.setState({
 			searchModalVisible: false,
 		});
-	},
+	}
 
 	render() {
 		return (
@@ -58,8 +67,6 @@ const HomeLayout = React.createClass({
 				/>
 			</div>
 		);
-	},
+	}
 
-});
-
-export default HomeLayout
+};
