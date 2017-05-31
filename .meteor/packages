@@ -64,7 +64,7 @@ iron:router
 #multiply:iron-router-progress
 useraccounts:core
 useraccounts:materialize
-useraccounts:flow-routing
+useraccounts:flow-routing@1.14.3
 percolate:momentum
 
 # Packages added for project
