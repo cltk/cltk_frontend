@@ -32,6 +32,7 @@
     "react-addons-transition-group": "^15.5.2",
     "react-addons-update": "^15.0.2",
     "react-apollo": "^1.0.0",
+    "react-autobind": "^1.0.6",
     "react-dom": "^15.4.0",
     "react-list": "^0.7.18",
     "react-masonry-component": "^4.2.1",

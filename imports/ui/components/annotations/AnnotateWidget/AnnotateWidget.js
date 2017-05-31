@@ -1,3 +1,5 @@
+import React from 'react';
+import autoBind from 'react-autobind';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
@@ -9,42 +11,35 @@ import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card';
 import Toggle from 'material-ui/Toggle';
 import IconButton from 'material-ui/IconButton';
 
-AnnotateWidget = React.createClass({
+export default class AnnotateWidget extends React.Component {
 
-	propTypes: {
-		annotationCheckList: React.PropTypes.array.isRequired,
-		work: React.PropTypes.object.isRequired,
-		annotationSubmit: React.PropTypes.func,
-		onActionCallback: React.PropTypes.func,
-	},
+	constructor(props) {
+		super(props);
 
-	childContextTypes: {
-		muiTheme: React.PropTypes.object.isRequired,
-	},
-
-	getInitialState() {
-		return {
+		this.state = {
 			annotationOpen: false,
 			annotationText: '',
 			annotationPrivate: true,
 		};
-	},
+
+		autoBind(this);
+	}
 
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
-	},
+	}
 
 	handleAnnotationToggle() {
 		this.setState({
 			annotationPrivate: !this.state.annotationPrivate,
 		});
-	},
+	}
 
 	handleAnnotationInput(event) {
 		this.setState({
 			annotationText: event.target.value,
 		});
-	},
+	}
 
 	handleAnnotationSubmit() {
 		const annotation = {
@@ -62,24 +57,24 @@ AnnotateWidget = React.createClass({
 		});
 
 		this.props.annotationSubmit();
-	},
+	}
 
 	handleAnnotationCancel() {
 		this.setState({
 			annotationOpen: false,
 		});
 		this.props.onActionCallback();
-	},
+	}
 
 	handleTouchTap(event) {
-// This prevents ghost click.
+		// This prevents ghost click.
 		event.preventDefault();
 
 		this.setState({
 			annotationOpen: true,
 			anchorEl: event.currentTarget,
 		});
-	},
+	}
 
 	render() {
 		const style = {
@@ -158,5 +153,16 @@ AnnotateWidget = React.createClass({
 				</div>
 			</div>
 		);
-	},
-});
+	}
+}
+
+AnnotateWidget.propTypes = {
+	annotationCheckList: React.PropTypes.array.isRequired,
+	work: React.PropTypes.object.isRequired,
+	annotationSubmit: React.PropTypes.func,
+	onActionCallback: React.PropTypes.func,
+};
+
+AnnotateWidget.childContextTypes = {
+	muiTheme: React.PropTypes.object.isRequired,
+};
