@@ -934,8 +934,8 @@ function doSyncParallel() {
 function doSyncSequence() {
 // Promise returning functions to execute
 	pseries([getLanguagesSequence, getCorporaSequence, getAuthorsSequence,
-	getWorksSequence, getTextNodesSequence, getTranslationsSequence,
-	getCommentarySequence, getDefinitionSequence]);
+		getWorksSequence, getTextNodesSequence, getTranslationsSequence,
+		getCommentarySequence, getDefinitionSequence]);
 }
 
 
