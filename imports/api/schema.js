@@ -15,7 +15,7 @@ const textNodeSchema = SchemaBridge.schema(TextNodes.schema, 'TextNode', {wrap: 
 const wordformSchema = SchemaBridge.schema(Wordforms.schema, 'Wordform');
 const workSchema = SchemaBridge.schema(Works.schema, 'Work', {wrap: false});
 
-export default typeDefs = [`
+const typeDefs = [`
 
 scalar JSON
 scalar Date
@@ -77,3 +77,5 @@ schema {
   query: Query
 }
 `];
+
+export default typeDefs;

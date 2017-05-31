@@ -19,7 +19,7 @@ function deleteCommenterAvatar(userId, avatar) {
 	return Avatars.remove({ _id: avatar._id });
 }
 
-export default deleteAvatar = new ValidatedMethod({
+const deleteAvatar = new ValidatedMethod({
 	name: 'avatar.delete',
 
 	validate: new SimpleSchema({
@@ -48,3 +48,5 @@ export default deleteAvatar = new ValidatedMethod({
 		throw new Meteor.Error('invalid-type', `Unknow avatar type ${avatar.contextType}.`);
 	},
 });
+
+export default deleteAvatar;
