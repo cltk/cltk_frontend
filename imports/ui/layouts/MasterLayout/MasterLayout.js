@@ -1,13 +1,15 @@
-MasterLayout = React.createClass({
-	propTypes: {
-		content: React.PropTypes.element,
-	},
+import React from 'react';
 
-	getInitialState() {
-		return {
+import PropTypes from 'prop-types';
+
+export default class MasterLayout extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
 			searchModalVisible: false,
 		};
-	},
+	}
 
 	componentDidMount() {
 		if (typeof location.hash !== 'undefined' && location.hash.length > 0) {
@@ -15,19 +17,19 @@ MasterLayout = React.createClass({
 				$('html, body').animate({ scrollTop: $(location.hash).offset().top - 100 }, 300);
 			}, 1000);
 		}
-	},
+	}
 
 	showSearchModal() {
 		this.setState({
 			searchModalVisible: true,
 		});
-	},
+	}
 
 	closeSearchModal() {
 		this.setState({
 			searchModalVisible: false,
 		});
-	},
+	}
 
 	render() {
 		return (
@@ -50,6 +52,10 @@ MasterLayout = React.createClass({
 				/>
 			</div>
 		);
-	},
+	}
 
-});
+};
+
+MasterLayout.propTypes = {
+	content: PropTypes.element,
+};

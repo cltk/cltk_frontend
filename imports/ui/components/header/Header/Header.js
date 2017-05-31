@@ -1,64 +1,61 @@
+import React from 'react';
 
 import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
+import PropTypes from 'prop-types';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-Header = React.createClass({
+import LeftMenu from '/imports/ui/components/header/LeftMenu/LeftMenu.jsx';
+import LoginButtons from '/imports/ui/components/auth/LoginButtons/LoginButtons.jsx';
 
-	propTypes: {
-		showSearchModal: React.PropTypes.func,
+export default class Header extends React.Component {
+	constructor(props) {
+		super(props);
 
-	},
-
-	childContextTypes: {
-		muiTheme: React.PropTypes.object.isRequired,
-	},
-
-	getInitialState() {
-		return {
+		this.state = {
 			leftMenuOpen: false,
 			modalLoginLowered: false,
 			modalSignupLowered: false,
 		};
-	},
+	}
 
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
-	},
+	}
 
 	toggleLeftMenu() {
 		this.setState({
 			leftMenuOpen: !this.state.leftMenuOpen,
 		});
-	},
+	}
 
 	closeLeftMenu() {
 		this.setState({
 			leftMenuOpen: false,
 		});
-	},
+	}
 	showLoginModal() {
 		this.setState({
 			modalLoginLowered: true,
 		});
-	},
+	}
 	showSignupModal() {
 		this.setState({
 			modalSignupLowered: true,
 		});
-	},
+	}
 	closeLoginModal() {
 		this.setState({
 			modalLoginLowered: false,
 		});
-	},
+	}
 	closeSignupModal() {
 		this.setState({
 			modalSignupLowered: false,
 		});
-	},
+	}
 
 	render() {
 		const styles = {
@@ -194,5 +191,13 @@ Header = React.createClass({
 				}
 			</div>
 		);
-	},
-});
+	}
+};
+
+Header.childContextTypes = {
+	muiTheme: PropTypes.object.isRequired,
+};
+
+Header.propTypes = {
+	showSearchModal: PropTypes.func,
+};

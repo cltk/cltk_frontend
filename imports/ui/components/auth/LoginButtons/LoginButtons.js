@@ -1,3 +1,5 @@
+import React from 'react';
+
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
@@ -7,31 +9,22 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 
-LoginButtons = React.createClass({
+import { createContainer } from 'meteor/react-meteor-data';
+import PropTypes from 'prop-types';
 
-	propTypes: {
-		showLoginModal: React.PropTypes.func,
-		showSignupModal: React.PropTypes.func,
-	},
+class LoginButtons extends React.Component {
+	constructor(props) {
+		super(props);
 
-	mixins: [ReactMeteorData],
-
-	getInitialState() {
-		return {
+		this.state = {
 			loginOptionOpen: false,
 			anchorEl: null,
-		};
-	},
+		}
+	}
 
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
-	},
-
-	getMeteorData() {
-		return {
-			user: Meteor.user(),
-		};
-	},
+	}
 
 	handleClick(event) {
 		// This prevents ghost click.
@@ -40,13 +33,13 @@ LoginButtons = React.createClass({
 			loginOptionOpen: true,
 			anchorEl: event.currentTarget,
 		});
-	},
+	}
 
 	handleRequestClose() {
 		this.setState({
 			loginOptionOpen: false,
 		});
-	},
+	}
 
 	render() {
 		const styles = {
@@ -59,17 +52,17 @@ LoginButtons = React.createClass({
 		};
 
 
-		if (this.data.user) {
+		if (this.props.user) {
 			// render logged in info
 
 			// make a user dispaly name from available user profile info
 			let userNiceName = '';
 
-			if ('profile' in this.data.user) {
-				const profile = this.data.user.profile;
+			if ('profile' in this.props.user) {
+				const profile = this.props.user.profile;
 				userNiceName = profile.firstName;
-			} else if ('emails' in this.data.user && this.data.user.emails.length > 0) {
-				userNiceName = this.data.user.emails[0].address;
+			} else if ('emails' in this.props.user && this.props.user.emails.length > 0) {
+				userNiceName = this.props.user.emails[0].address;
 			} else {
 				userNiceName = 'User';
 			}
@@ -120,8 +113,20 @@ LoginButtons = React.createClass({
 				/>
 			</div>
 		);
-	},
-});
-LoginButtons.childContextTypes = {
-	muiTheme: React.PropTypes.object.isRequired,
+	}
 };
+
+LoginButtons.childContextTypes = {
+	muiTheme: PropTypes.object.isRequired,
+};
+
+LoginButtons.propTypes = {
+	showLoginModal: PropTypes.func,
+	showSignupModal: PropTypes.func,
+};
+
+export default LoginButtonsContainer = createContainer(props => {
+	return {
+		user: Meteor.user(),
+	};
+}, LoginButtons);

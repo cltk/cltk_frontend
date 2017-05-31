@@ -1,15 +1,16 @@
+import React from 'react';
+
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import PropTypes from 'prop-types';
 
-
-Footer = React.createClass({
+export default class Footer extends React.Component {
 
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
-	},
-
+	}
 
 	render() {
 		const date = new Date();
@@ -99,8 +100,8 @@ Footer = React.createClass({
 				</div>
 			</footer>
 		);
-	},
-});
+	}
+};
 
 Footer.childContextTypes = {
 	muiTheme: React.PropTypes.object.isRequired,

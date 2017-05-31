@@ -1,3 +1,6 @@
+import Config from '/imports/lib/config/config';
+import MainLayout from '/imports/ui/layouts/BaseLayout/MainLayout.jsx';
+
 AccountsTemplates.configure({
 	defaultLayoutType: 'blaze-to-react',
 	defaultLayout: MainLayout,
@@ -22,3 +25,14 @@ AccountsTemplates.configure({
 	privacyUrl: Config.privacyUrl || null,
 	termsUrl: Config.termsUrl || null,
 });
+
+AccountsTemplates.configureRoute('changePwd');
+AccountsTemplates.configureRoute('forgotPwd');
+AccountsTemplates.configureRoute('resetPwd');
+AccountsTemplates.configureRoute('signIn', {
+	redirect: '/profile',
+});
+// AccountsTemplates.configureRoute('signUp', {
+// 	redirect: '/profile',
+// });
+AccountsTemplates.configureRoute('verifyEmail');

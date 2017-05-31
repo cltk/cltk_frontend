@@ -1,139 +1,36 @@
+import React from 'react';
+
+import { createContainer } from 'meteor/react-meteor-data';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import IconButton from 'material-ui/IconButton';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import Works from '/imports/collections/works';
-import Authors from '/imports/collections/authors';
+import IconButton from 'material-ui/IconButton';
+import PropTypes from 'prop-types';
+import Authors from '/imports/api/collections/authors';
+import Works from '/imports/api/collections/works';
 
-SearchModal = React.createClass({
+class SearchModal extends React.Component {
+	constructor(props) {
+		super(props);
 
-	propTypes: {
-		closeSearchModal: React.PropTypes.func,
-		visible: React.PropTypes.bool,
-		work: React.PropTypes.object,
-	},
-
-	childContextTypes: {
-		muiTheme: React.PropTypes.object.isRequired,
-	},
-
-	mixins: [ReactMeteorData],
-
-	getInitialState() {
-		return {
+		this.state = {
 			layout: 'grid',
-			filters: [],
-			skip: 0,
-			limit: 15,
 		};
-	},
+
+		this.works = [];
+	}
 
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
-	},
-
-
-	getMeteorData() {
-		const query = {};
-		let works = [];
-		let worksCount = null;
-		textSearch = null;
-
-		// Parse the filters to the query
-		this.state.filters.forEach((filter) => {
-			const date = moment(`${filter.values[0]}-01-01`, 'YYYY MM DD');
-			switch (filter.key) {
-			case 'textsearch': {
-				query.$text = { $search: filter.values[0] };
-				textSearch = { $regex: filter.values[0], $options: 'i' };
-				break;
-			}
-
-			case 'languages': {
-				query.workLanguage = { $in: filter.values };
-				break;
-			}
-
-			case 'corpora': {
-				query.corpus = { $in: filter.values };
-				break;
-			}
-
-			case 'authors': {
-				const values = [];
-
-				filter.values.forEach((value) => {
-					values.push(value._id);
-				});
-
-				query.authors = { $in: values };
-				break;
-			}
-
-			case 'dateStart': {
-				query.dateBegun = { $gte: new Date(date.toISOString()) };
-				break;
-			}
-
-			case 'dateEnd': {
-				query.dateEnded = { $lte: new Date(date.toISOString()) };
-				break;
-			}
-
-			default: {
-				// do nothing
-			}
-			}
-		});
-
-		const handle = Meteor.subscribe('works', query, this.state.skip, this.state.limit);
-		if (handle.ready()) {
-			delete query.$text;
-			if (textSearch) {
-				query.$or = [{
-					english_title: textSearch,
-				}, {
-					original_title: textSearch,
-				}];
-			}
-			console.log('client', query);
-			works = Works.find(query, {}).fetch();
-
-			works.forEach((work, i) => {
-				works[i].authors = Authors.find({ _id: { $in: work.authors } }).fetch();
-			});
-
-			works.sort((a, b) => {
-				let sortVal = 1;
-				if (a.authors[0].english_name > b.authors[0].english_name) {
-					sortVal = 1;
-				} else if (b.authors[0].english_name > a.authors[0].english_name) {
-					sortVal = -1;
-				} else {
-					sortVal = 0;
-				}
-
-				return sortVal;
-			});
-		}
-
-		worksCount = Counts.get('worksCount');
-
-		return {
-			works,
-			worksCount,
-		};
-	},
-
-	works: [],
+	}
 
 	loadMoreWorks() {
-		this.setState({
-			skip: this.state.skip + this.state.limit,
+		this.props.changeSearchParams({
+			skip: this.props.skip + this.props.limit,
 		});
-	},
+	}
 
 	toggleSearchTerm(key, value) {
-		const filters = this.state.filters;
+		const filters = this.props.filters;
 		let keyIsInFilter = false;
 		let valueIsInFilter = false;
 		let filterValueToRemove;
@@ -178,14 +75,14 @@ SearchModal = React.createClass({
 			});
 		}
 
-		this.setState({
+		this.props.changeSearchParams({
 			filters,
 			skip: 0,
 		});
-	},
+	}
 
 	handleChangeTextsearch(textsearch) {
-		const filters = this.state.filters;
+		const filters = this.props.filters;
 
 		if (textsearch && textsearch.length) {
 			let textsearchInFilters = false;
@@ -217,14 +114,14 @@ SearchModal = React.createClass({
 			}
 		}
 
-		this.setState({
+		this.props.changeSearchParams({
 			filters,
 			skip: 0,
 		});
-	},
+	}
 
 	handleChangeDate(e) {
-		const filters = this.state.filters;
+		const filters = this.props.filters;
 
 		let dateFromInFilters = false;
 
@@ -282,33 +179,30 @@ SearchModal = React.createClass({
 			}
 		}
 
-		this.setState({
+		this.props.changeSearchParams({
 			filters,
 			skip: 0,
 		});
-	},
+	}
 
 	toggleLayout(layout) {
 		this.setState({
 			layout,
 		});
-	},
+	}
 
 	closeSearchModal() {
-		this.setState({
-			filters: [],
-		});
+		this.props.changeSearchParams({ filters: [] });
 		this.props.closeSearchModal();
-	},
+	}
 
 	render() {
-
 		let hasMoreWorks = true;
 
-		if (this.works.length === 0 || this.state.skip === 0) {
-			this.works = this.data.works;
+		if (this.works.length === 0 || this.props.skip === 0) {
+			this.works = this.props.works;
 		} else {
-			this.data.works.forEach((workResult) => {
+			this.props.works.forEach((workResult) => {
 				if (!this.works.some((existingWork) =>
 					workResult._id._str === existingWork._id._str
 				)) {
@@ -319,9 +213,9 @@ SearchModal = React.createClass({
 
 		const works = this.works;
 
-		if (this.data.worksCount && this.data.worksCount <= this.works.length) {
+		if (this.props.worksCount && this.props.worksCount <= this.works.length) {
 			hasMoreWorks = false;
-		} else if (this.data.works.length < this.state.limit) {
+		} else if (this.props.works.length < this.props.limit) {
 			hasMoreWorks = false;
 		}
 
@@ -341,13 +235,13 @@ SearchModal = React.createClass({
 				{this.props.visible ?
 					<div>
 						<SearchTools
-							filters={this.state.filters}
+							filters={this.props.filters}
 							toggleSearchTerm={this.toggleSearchTerm}
 							handleChangeDate={this.handleChangeDate}
 							handleChangeTextsearch={this.handleChangeTextsearch}
 						/>
 						<SearchFilters
-							filters={this.state.filters}
+							filters={this.props.filters}
 							toggleSearchTerm={this.toggleSearchTerm}
 						/>
 						<section className="search-results">
@@ -364,5 +258,121 @@ SearchModal = React.createClass({
 
 			</div>
 		);
-	},
-});
+	}
+};
+
+SearchModal.childContextTypes = {
+	muiTheme: PropTypes.object.isRequired,
+};
+
+SearchModal.propTypes = {
+	changeSearchParams: PropTypes.func.isRequired,
+	closeSearchModal: PropTypes.func,
+	filters: PropTypes.array,
+	limit: PropTypes.number,
+	skip: PropTypes.number,
+	visible: PropTypes.bool,
+	work: PropTypes.object,
+};
+
+export default SearchModalContainer = createContainer(props => {
+	const query = {};
+	let works = [];
+	let worksCount = null;
+	textSearch = null;
+
+	// Parse the filters to the query
+	props.searchParams.filters.forEach((filter) => {
+		const date = moment(`${filter.values[0]}-01-01`, 'YYYY MM DD');
+		switch (filter.key) {
+		case 'textsearch': {
+			query.$text = { $search: filter.values[0] };
+			textSearch = { $regex: filter.values[0], $options: 'i' };
+			break;
+		}
+
+		case 'languages': {
+			query.workLanguage = { $in: filter.values };
+			break;
+		}
+
+		case 'corpora': {
+			query.corpus = { $in: filter.values };
+			break;
+		}
+
+		case 'authors': {
+			const values = [];
+
+			filter.values.forEach((value) => {
+				values.push(value._id);
+			});
+
+			query.authors = { $in: values };
+			break;
+		}
+
+		case 'dateStart': {
+			query.dateBegun = { $gte: new Date(date.toISOString()) };
+			break;
+		}
+
+		case 'dateEnd': {
+			query.dateEnded = { $lte: new Date(date.toISOString()) };
+			break;
+		}
+
+		default: {
+			// do nothing
+		}
+		}
+	});
+
+	const handle = Meteor.subscribe(
+		'works',
+		query,
+		props.searchParams.skip,
+		props.searchParams.limit
+	);
+
+	if (handle.ready()) {
+		delete query.$text;
+		if (textSearch) {
+			query.$or = [{
+				english_title: textSearch,
+			}, {
+				original_title: textSearch,
+			}];
+		}
+
+		// FIXME (pletcher): Okay to remove console.log?
+		console.log('client', query);
+		works = Works.find(query, {}).fetch();
+
+		works.forEach((work, i) => {
+			works[i].authors = Authors.find({ _id: { $in: work.authors } }).fetch();
+		});
+
+		works.sort((a, b) => {
+			let sortVal = 1;
+			if (a.authors[0].english_name > b.authors[0].english_name) {
+				sortVal = 1;
+			} else if (b.authors[0].english_name > a.authors[0].english_name) {
+				sortVal = -1;
+			} else {
+				sortVal = 0;
+			}
+
+			return sortVal;
+		});
+	}
+
+	worksCount = Counts.get('worksCount');
+
+	return {
+		...props,
+		...props.searchParams,
+		works,
+		worksCount,
+	};
+}, SearchModal);

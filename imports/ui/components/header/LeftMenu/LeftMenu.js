@@ -1,54 +1,38 @@
+import React from 'react';
+
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 import Drawer from 'material-ui/Drawer';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import { createContainer } from 'meteor/react-meteor-data';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import PropTypes from 'prop-types';
 
-LeftMenu = React.createClass({
-
-
-	propTypes: {
-		open: React.PropTypes.bool.isRequired,
-		closeLeftMenu: React.PropTypes.func.isRequired,
-	},
-
-	childContextTypes: {
-		muiTheme: React.PropTypes.object.isRequired,
-	},
-
-
-	mixins: [ReactMeteorData],
-
+class LeftMenu extends React.Component {
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
-	},
-
-	getMeteorData() {
-		return {
-			currentUser: Meteor.users.findOne({ _id: Meteor.userId() }),
-		};
-	},
+	}
 
 	scrollToAbout(e) {
 		$('html, body').animate({ scrollTop: $('#get-started').height() - 100 }, 300);
 
 		this.props.closeLeftMenu();
 		e.preventDefault();
-	},
+	}
 
 	render() {
-		const userIsLoggedIn = this.data.currentUser !== undefined;
+		const userIsLoggedIn = this.props.currentUser !== undefined;
 		let username = '';
 		let userIsAdmin = false;
 
 		if (userIsLoggedIn) {
-			if ('emails' in this.data.currentUser && this.data.currentUser.emails.length) {
-				username = this.data.currentUser.emails[0].address;
+			if ('emails' in this.props.currentUser && this.props.currentUser.emails.length) {
+				username = this.props.currentUser.emails[0].address;
 			}
-			if ('facebook' in this.data.currentUser) {
-				username = this.data.currentUser.services.facebook.first_name;
+			if ('facebook' in this.props.currentUser) {
+				username = this.props.currentUser.services.facebook.first_name;
 			}
-			userIsAdmin = Roles.userIsInRole(this.data.currentUser._id, ['admin']);
+			userIsAdmin = Roles.userIsInRole(this.props.currentUser._id, ['admin']);
 		}
 
 
@@ -147,5 +131,20 @@ LeftMenu = React.createClass({
 				</Drawer>
 			</div>
 		);
-	},
-});
+	}
+};
+
+LeftMenu.childContextTypes = {
+	muiTheme: PropTypes.object.isRequired,
+};
+
+LeftMenu.propTypes = {
+	open: PropTypes.bool.isRequired,
+	closeLeftMenu: PropTypes.func.isRequired,
+};
+
+export default LeftMenuContainer = createContainer(props => {
+	return {
+		currentUser: Meteor.users.findOne({ _id: Meteor.userId() }),
+	};
+}, LeftMenu);
