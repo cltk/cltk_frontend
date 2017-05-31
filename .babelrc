@@ -1,0 +1,9 @@
+{
+  "plugins": [
+		"babel-root-slash-import",
+		"transform-class-properties",
+		"transform-object-rest-spread",
+		"lodash"
+	],
+	"presets": ["es2015", "react"]
+}
