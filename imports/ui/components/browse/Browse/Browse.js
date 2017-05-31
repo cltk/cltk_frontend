@@ -1,10 +1,4 @@
-
-
-BrowseView = React.createClass({
-
-	propTypes: {
-	},
-
+Browse = React.createClass({
 
 	render() {
 		return (

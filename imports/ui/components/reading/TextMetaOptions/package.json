@@ -1,1 +1,6 @@
-{}
+{
+  "name": "TextMetaOptions",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./TextMetaOptions.js"
+}
