@@ -1,47 +1,40 @@
+import React from 'react';
+import autoBind from 'react-autobind';
+import { Meteor } from 'meteor/meteor';
+import { createContainer } from 'meteor/react-meteor-data';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
+import { moment } from 'meteor/momentjs:moment';
 
-AnnotationItem = React.createClass({
+class AnnotationItem extends React.Component {
 
-	propTypes: {
-		annotation: React.PropTypes.object.isRequired,
-		currentUser: React.PropTypes.object,
-	},
+	constructor(props) {
+		super(props);
 
-	getInitialState() {
-		return {
+		this.state = {
 			editMode: false,
 			moreOptionsVisible: false,
 			shareOptionsVisible: false,
 		};
-	},
 
-	mixins: [ReactMeteorData],
-
-	getMeteorData() {
-		let user;
-		Meteor.users.findOne({_id: this.props.annotation.user})
-
-		return {
-			user,
-		};
-	},
+		autoBind(this);
+	}
 
 	showEditMode() {
 		this.setState({
 			editMode: true,
 		});
-	},
+	}
 
 	closeEditMode() {
 		this.setState({
 			editMode: false,
 		});
-	},
+	}
 
-	updateannotation() {
+	updateAnnotation() {
 		const content = $(this.updateCommentForm).find('textarea').val();
 
 		Meteor.call('annotation.update', {
@@ -52,45 +45,46 @@ AnnotationItem = React.createClass({
 		this.setState({
 			editMode: false,
 		});
-	},
+	}
 
-	upvoteannotation() {
+	upvoteAnnotation() {
 		if (typeof this.props.currentUser !== 'undefined' || 'null') {
 			Meteor.call('annotation.upvote',
 				this.props.annotation._id
 			);
 		}
-	},
+	}
 
-	reportannotation() {
+	reportAnnotation() {
 		if (typeof this.props.currentUser !== 'undefined' || 'null') {
 			Meteor.call('annotation.report',
 				this.props.annotation._id
 			);
 		}
-	},
+	}
 
 	toggleMoreOptions() {
 		this.setState({
 			moreOptionsVisible: !this.state.moreOptionsVisible,
 			shareOptionsVisible: false,
 		});
-	},
+	}
 
 	toggleShareOptions() {
 		this.setState({
 			shareOptionsVisible: !this.state.shareOptionsVisible,
 			moreOptionsVisible: false,
 		});
-	},
+	}
 
 	render() {
 		const self = this;
 		const userIsLoggedIn = Meteor.user();
-		const annotation = this.props.annotation;
-		let user = this.data.user || null;
-		let userLink = '';
+
+		const { annotation, user } = this.props;
 		annotation.children = [];
+
+		let userLink = '';
 		let userUpvoted = false;
 		let userReported = false;
 		let username = '';
@@ -365,11 +359,30 @@ AnnotationItem = React.createClass({
 									className="remove"
 								/>
 							</div>
-							{/* <!-- .annotation-child --> */}</div>
+							{/* <!-- .annotation-child --> */}
+						</div>
 					)}
-					{/* <!-- .annotation-children --> */}</div>
-				{/* <!-- .annotation --> */}</div>
+					{/* <!-- .annotation-children --> */}
+				</div>
+				{/* <!-- .annotation --> */}
+			</div>
 		);
-	},
+	}
+}
 
-});
+AnnotationItem.propTypes = {
+	annotation: React.PropTypes.object.isRequired,
+	user: React.PropTypes.object,
+};
+
+export default createContainer(({ annotation }) => {
+	let user;
+
+	if (annotation && annotation.user) {
+		user = Meteor.users.findOne({_id: annotation.user})
+	}
+
+	return {
+		user,
+	};
+}, AnnotationItem);

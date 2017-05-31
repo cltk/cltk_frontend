@@ -9,7 +9,15 @@ describe('AnnotateWidget', () => {
 	it('renders correctly', () => {
 
 		const tree = renderer
-			.create(<AnnotateWidget />)
+			.create(
+				<AnnotateWidget
+					annotationCheckList={[]}
+					work={{
+						title: 'test',
+						slug: 'test',
+					}}
+				/>
+			)
 			.toJSON();
 		expect(tree).toMatchSnapshot();
 	});

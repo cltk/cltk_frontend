@@ -1,44 +1,22 @@
+import React from 'react';
+import autoBind from 'react-autobind';
+import { Meteor } from 'meteor/meteor';
+import { createContainer } from 'meteor/react-meteor-data';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import Annotations from '/imports/collections/annotations';
+import Annotations from '/imports/api/collections/annotations';
 
-AnnotationsList = React.createClass({
+class AnnotationsList extends React.Component {
 
-	propTypes: {
-		text: React.PropTypes.object.isRequired,
-	},
-
-	mixins: [ReactMeteorData],
-
-	getInitialState() {
-		return {
+	constructor(props) {
+		super(props);
+		this.state = {
 			sortMethod: 'votes',
 		};
-	},
 
-	getMeteorData() {
-		let annotations = [];
-
-		let sort = {};
-		switch (this.state.sortMethod) {
-			case 'votes':
-				sort = { votes: -1, updated: -1 };
-				break;
-			case 'recent':
-				sort = { updated: -1, votes: -1 };
-				break;
-		}
-
-		const query = { textNode: this.props.text._id._str };
-
-		const handle = Meteor.subscribe('annotations', query);
-		annotations = Annotations.find(query, { sort }).fetch();
-
-		return {
-			annotations,
-		};
-	},
+		autoBind(this);
+	}
 
 	addDiscussionComment() {
 		const content = $(this.newCommentForm).find('textarea').val();
@@ -49,16 +27,17 @@ AnnotationsList = React.createClass({
 		});
 
 		$(this.newCommentForm).find('textarea').val('');
-	},
+	}
 
 	sortMethodSelect(value) {
 		this.setState({
 			sortMethod: value,
 		})
-	},
+	}
 
 	render() {
 		const currentUser = Meteor.user();
+		const { annotations } = this.props;
 
 		let discussionWrapClass = 'discussion-wrap';
 
@@ -135,18 +114,18 @@ AnnotationsList = React.createClass({
 						{/*
 						 <span className="sort-by-label">Sort by:</span>
 						 <RaisedButton
-						 label="Top"
-						 className="sort-by-option selected-sort sort-by-top"
-						 onClick={this.toggleSort}>
+							 label="Top"
+							 className="sort-by-option selected-sort sort-by-top"
+							 onClick={this.toggleSort}>
 						 </RaisedButton>
 						 <RaisedButton
-						 label="Newest"
-						 className="sort-by-option sort-by-new"
-						 onClick={this.toggleSort}>
+							 label="Newest"
+							 className="sort-by-option sort-by-new"
+							 onClick={this.toggleSort}>
 						 </RaisedButton>
 						 */}
 					</div>
-					{this.data.annotations.length === 0 ?
+					{annotations && annotations.length === 0 ?
 						<div className="no-results-wrap">
 							<span className="no-results-text">No annotations.</span>
 						</div>
@@ -166,7 +145,7 @@ AnnotationsList = React.createClass({
 							onClick={this.sortMethodSelect.bind(null, 'recent')}
 						/>
 					</div>
-					{this.data.annotations.map((annotation, i) =>
+					{annotations && annotations.map((annotation, i) =>
 						<AnnotationItem
 							key={i}
 							className="discussion-comment paper-shadow"
@@ -177,5 +156,39 @@ AnnotationsList = React.createClass({
 				</div>
 			</div>
 		);
-	},
-});
+	}
+}
+
+
+AnnotationsList.propTypes = {
+	text: React.PropTypes.object.isRequired,
+};
+
+export default createContainer((props) => {
+	let annotations = [];
+	let query = {};
+
+	let sort = {};
+	switch (props.sortMethod) {
+		case 'recent':
+			sort = { updated: -1, votes: -1 };
+			break;
+		case 'votes':
+			sort = { votes: -1, updated: -1 };
+			break;
+		default:
+			sort = { votes: -1, updated: -1 };
+			break;
+	}
+
+	if (props.text) {
+		query = { textNode: props.text._id._str };
+	}
+
+	const handle = Meteor.subscribe('annotations', query);
+	annotations = Annotations.find(query, { sort }).fetch();
+
+	return {
+		annotations,
+	};
+}, AnnotationsList);
