@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -157,12 +158,12 @@ export default class AnnotateWidget extends React.Component {
 }
 
 AnnotateWidget.propTypes = {
-	annotationCheckList: React.PropTypes.array.isRequired,
-	work: React.PropTypes.object.isRequired,
-	annotationSubmit: React.PropTypes.func,
-	onActionCallback: React.PropTypes.func,
+	annotationCheckList: PropTypes.array.isRequired,
+	work: PropTypes.object.isRequired,
+	annotationSubmit: PropTypes.func,
+	onActionCallback: PropTypes.func,
 };
 
 AnnotateWidget.childContextTypes = {
-	muiTheme: React.PropTypes.object.isRequired,
+	muiTheme: PropTypes.object.isRequired,
 };

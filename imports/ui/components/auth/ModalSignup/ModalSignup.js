@@ -1,20 +1,14 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-ModalSignup = React.createClass({
-
-	propTypes: {
-		lowered: React.PropTypes.bool,
-		closeModal: React.PropTypes.func,
-	},
-
-	childContextTypes: {
-		muiTheme: React.PropTypes.object.isRequired,
-	},
+class ModalSignup extends React.Component {
 
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
-	},
+	}
 
 	render() {
 		const lowered = this.props.lowered;
@@ -31,9 +25,23 @@ ModalSignup = React.createClass({
 					<i className="mdi mdi-close" />
 				</div>
 				<div className="modal-inner">
-					<BlazeToReact blazeTemplate="atForm" state="signUp" />
+					{!this.props.isTest ?
+						<BlazeToReact blazeTemplate="atForm" state="signUp" />
+					: ''}
 				</div>
 			</div>
 		);
-	},
-});
+	}
+}
+
+ModalSignup.propTypes = {
+	lowered: PropTypes.bool,
+	closeModal: PropTypes.func,
+	isTest: PropTypes.bool,
+};
+
+ModalSignup.childContextTypes = {
+	muiTheme: PropTypes.object.isRequired,
+};
+
+export default ModalSignup;

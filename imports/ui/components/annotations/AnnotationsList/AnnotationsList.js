@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
@@ -161,7 +162,7 @@ class AnnotationsList extends React.Component {
 
 
 AnnotationsList.propTypes = {
-	text: React.PropTypes.object.isRequired,
+	text: PropTypes.object.isRequired,
 };
 
 export default createContainer((props) => {

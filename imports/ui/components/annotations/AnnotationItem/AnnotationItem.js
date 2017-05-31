@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
@@ -371,8 +372,8 @@ class AnnotationItem extends React.Component {
 }
 
 AnnotationItem.propTypes = {
-	annotation: React.PropTypes.object.isRequired,
-	user: React.PropTypes.object,
+	annotation: PropTypes.object.isRequired,
+	user: PropTypes.object,
 };
 
 export default createContainer(({ annotation }) => {

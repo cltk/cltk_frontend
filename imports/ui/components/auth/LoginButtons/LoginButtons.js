@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Meteor } from 'meteor/meteor';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
@@ -125,8 +125,10 @@ LoginButtons.propTypes = {
 	showSignupModal: PropTypes.func,
 };
 
-export default LoginButtonsContainer = createContainer(props => {
+const LoginButtonsContainer = createContainer(props => {
 	return {
 		user: Meteor.user(),
 	};
 }, LoginButtons);
+
+export default LoginButtonsContainer;
