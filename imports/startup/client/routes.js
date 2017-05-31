@@ -68,7 +68,8 @@ loggedInGroup.route('/profile', {
 });
 loggedInGroup.route('/account', {
 	action() {
-		BlazeLayout.render('masterLayout', { main: 'account' });
+		// TODO: Fix the blazeLayout render for account
+		// BlazeLayout.render('masterLayout', { main: 'account' });
 	},
 });
 
@@ -142,29 +143,3 @@ function onRouteLoad() {
 
 // Add onRouteLoad to FlowRouter.triggers.enter callbacks
 FlowRouter.triggers.enter([onRouteLoad]);
-
-// FIXME (pletcher): iron-router is showing errors
-// that it can't find masterLayout and notFound
-Router.configure({
-	layoutTemplate: 'masterLayout',
-	loadingTemplate: 'loading',
-	notFoundTemplate: 'notFound',
-	routeControllerNameConverter: 'camelCase',
-	onBeforeAction() {
-		if (Config.username && Meteor.userId() && !Meteor.user().username) {
-			this.redirect('/setUserName');
-		}
-		return this.next();
-	},
-});
-
-/*
-Router.waitOn(function() {
-return subs.subscribe('user');
-});
-
-
-Router.plugin('ensureSignedIn', {
-except: ['home', 'atSignIn', 'atSignUp', 'atForgotPassword', 'atSignOut']
-});
-*/

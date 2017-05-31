@@ -17,31 +17,21 @@ alanning:roles
 aldeed:simple-schema
 fortawesome:fontawesome
 tap:i18n
-raix:handlebar-helpers
 cfs:standard-packages
 cfs:gridfs
 aldeed:template-extension
 cfs:graphicsmagick
 yogiben:helpers
-# manuelschoebel:ms-seo
-# spiderable
-# accounts-facebook
-# accounts-google
-# accounts-twitter
 accounts-ui@1.1.9
 jparker:gravatar
 service-configuration@1.0.11
 yogiben:mixpanel
-juliancwirko:s-alert
-juliancwirko:s-alert-stackslide
 momentjs:moment
-zimme:active-route
 twbs:bootstrap
 reywood:publish-composite
 natestrauser:animate-css
 meteorhacks:subs-manager
 timmyg:wow
-yogiben:admin
 tsega:skrollr
 utilities:avatar
 meteor-base@1.0.4
@@ -60,12 +50,9 @@ yogiben:autoform-modals
 yogiben:autoform-file
 yogiben:autoform-map
 check@1.2.5
-iron:router
-#multiply:iron-router-progress
 useraccounts:core
 useraccounts:materialize
 useraccounts:flow-routing@1.14.3
-percolate:momentum
 
 # Packages added for project
 http@1.2.12
@@ -73,7 +60,6 @@ react
 ecmascript@0.7.3
 archimedigital:core
 jabbslad:basic-auth
-# deanius:promise
 kadira:flow-router
 kadira:blaze-layout
 user-thumbs
@@ -83,7 +69,6 @@ simple:rest
 dburles:google-maps
 natestrauser:jquery-scrollto
 todda00:friendly-slugs
-# mquandalle:promisify-core
 materialize:materialize@0.97.0
 gwendall:blaze-to-react
 jalik:ufs@=0.7.1_1
@@ -95,7 +80,6 @@ mfactory:admin-lte
 tmeasday:publish-counts
 mdg:validated-method
 shell-server@0.2.3
-# apollo
 kuip:schema-graphql-bridge
 facebook-config-ui@1.0.0
 google-config-ui@1.0.0
