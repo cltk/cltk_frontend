@@ -7,8 +7,8 @@ import PropTypes from 'prop-types';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import LeftMenu from '/imports/ui/components/header/LeftMenu/LeftMenu.jsx';
-import LoginButtons from '/imports/ui/components/auth/LoginButtons/LoginButtons.jsx';
+import LeftMenu from '/imports/ui/components/header/LeftMenu';
+import LoginButtons from '/imports/ui/components/auth/LoginButtons';
 
 export default class Header extends React.Component {
 	constructor(props) {

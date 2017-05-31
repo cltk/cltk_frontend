@@ -2,7 +2,7 @@ import React from 'react';
 import LinearProgress from 'material-ui/LinearProgress';
 import { createContainer } from 'meteor/react-meteor-data';
 import { AvatarUploader } from '/imports/avatar/client/avatar_client_utils.js';
-import { sendSnack } from '/imports/ui/components/SnackAttack.jsx';
+import { sendSnack } from '/imports/ui/components/SnackAttack';
 
 class AvatarEditor extends React.Component {
 	constructor(props) {

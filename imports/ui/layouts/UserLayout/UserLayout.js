@@ -1,8 +1,8 @@
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import AvatarEditor from '/imports/avatar/client/ui/AvatarEditor.jsx';
-import { SnackAttack } from '/imports/ui/components/SnackAttack.jsx';
+import AvatarEditor from '/imports/avatar/client/ui/AvatarEditor';
+import { SnackAttack } from '/imports/ui/components/shared/SnackAttack';
 
 UserLayout = React.createClass({
 

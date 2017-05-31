@@ -1,8 +1,8 @@
 import React from 'react';
 import { mount } from 'react-mounter';
 
-import HomeLayout from '/imports/ui/layouts/HomeLayout/HomeLayout.jsx';
-import MasterLayout from '/imports/ui/layouts/MasterLayout/MasterLayout.jsx';
+import HomeLayout from '/imports/ui/layouts/HomeLayout';
+import MasterLayout from '/imports/ui/layouts/MasterLayout';
 import Utils from '/imports/lib/utils';
 
 /*

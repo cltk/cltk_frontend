@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Footer from '/imports/ui/components/footer/Footer/Footer.jsx';
-import Header from '/imports/ui/components/header/Header/Header.jsx';
-import HomeBuild from '/imports/ui/components/home/HomeBuild/HomeBuild.jsx';
-import HomeFeatures from '/imports/ui/components/home/HomeFeatures/HomeFeatures.jsx';
-import HomeIntro from '/imports/ui/components/home/HomeIntro/HomeIntro.jsx';
-import SearchModal from '/imports/ui/components/search/SearchModal.jsx';
+import Footer from '/imports/ui/components/footer/Footer';
+import Header from '/imports/ui/components/header/Header';
+import HomeBuild from '/imports/ui/components/home/HomeBuild';
+import HomeFeatures from '/imports/ui/components/home/HomeFeatures';
+import HomeIntro from '/imports/ui/components/home/HomeIntro';
+import SearchModal from '/imports/ui/components/search/SearchModal';
 
 export default class HomeLayout extends React.Component {
 	constructor(props) {
@@ -87,6 +87,5 @@ export default class HomeLayout extends React.Component {
 				/>
 			</div>
 		);
-	},
-
-});
+	}
+}
