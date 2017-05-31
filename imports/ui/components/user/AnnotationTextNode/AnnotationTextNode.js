@@ -1,35 +1,15 @@
+import React from 'react';
+
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-AnnotationTextNode = React.createClass({
+import { createContainer } from 'meteor/react-meteor-data';
+import PropTypes from 'prop-types';
 
-	propTypes: {
-		annotation: React.PropTypes.object.isRequired,
-		isOdd: React.PropTypes.bool,
-	},
-
-	childContextTypes: {
-		muiTheme: React.PropTypes.object.isRequired,
-	},
-
+class AnnotationTextNode extends React.Component {
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
-	},
-
-	mixins: [ReactMeteorData],
-
-	getMeteorData() {
-		let work = null;
-		/*
-		const query = { _id: text.work };
-		const handleWorks = Meteor.subscribe('works', query);
-		work = Works.findOne(query);
-		*/
-
-		return {
-			work,
-		};
-	},
+	}
 
 	getTextLocation() {
 		const text = this.data.text;
@@ -61,11 +41,11 @@ AnnotationTextNode = React.createClass({
 			location,
 			textN,
 		};
-	},
+	}
 
 	handleClick() {
 
-	},
+	}
 
 
 	render() {
@@ -117,5 +97,29 @@ AnnotationTextNode = React.createClass({
 
 			</a>
 		);
-	},
-});
+	}
+};
+
+AnnotationTextNode.childContextTypes = {
+	muiTheme: PropTypes.object.isRequired,
+};
+
+AnnotationTextNode.propTypes = {
+	annotation: PropTypes.object.isRequired,
+	isOdd: PropTypes.bool,
+};
+
+const AnnotationTextNodeContainer = createContainer(props => {
+	let work = null;
+	/*
+	const query = { _id: text.work };
+	const handleWorks = Meteor.subscribe('works', query);
+	work = Works.findOne(query);
+	*/
+
+	return {
+		work,
+	};
+}, AnnotationTextNode);
+
+export default AnnotationTextNodeContainer;

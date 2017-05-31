@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
-
 const RelatedPassages = new Meteor.Collection('relatedPassages');
 
 RelatedPassages.schema = new SimpleSchema({

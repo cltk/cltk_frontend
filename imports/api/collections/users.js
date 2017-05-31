@@ -1,7 +1,5 @@
-
 import { Meteor } from 'meteor/meteor';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
-
 
 Schemas.UserProfile = new SimpleSchema({
 	picture: {

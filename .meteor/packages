@@ -49,7 +49,7 @@ aldeed:autoform
 yogiben:autoform-modals
 yogiben:autoform-file
 yogiben:autoform-map
-check@1.2.5
+check
 useraccounts:core
 useraccounts:materialize
 useraccounts:flow-routing@1.14.3
