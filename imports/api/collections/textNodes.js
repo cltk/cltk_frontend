@@ -59,15 +59,9 @@ TextNodes.schema = new SimpleSchema({
 
 	text: {
 		type: String,
-		autoform: {
-			rows: 5,
-		},
 	},
 	html: {
 		type: String,
-		autoform: {
-			rows: 5,
-		},
 	},
 	comments: {
 		type: [String],
@@ -76,32 +70,16 @@ TextNodes.schema = new SimpleSchema({
 
 	entities: {
 		type: [String],
-		regEx: SimpleSchema.RegEx.Id,
 		optional: true,
-		autoform: {
-			options() {
-				return _.map(Entities.find().fetch(), entity => ({
-					label: entity.english_name,
-					value: entity._id,
-				}));
-			},
-		},
 	},
 
 	mediaItems: {
 		type: [String],
 		optional: true,
-		autoform: {
-			afFieldInput: {
-				type: 'fileUpload',
-				collection: 'Attachments',
-			},
-		},
 	},
 
 	annotations: {
 		type: [String],
-		regEx: SimpleSchema.RegEx.Id,
 		optional: true,
 	},
 
@@ -119,10 +97,6 @@ TextNodes.schema = new SimpleSchema({
 			}
 			return null;
 		},
-		autoform: {
-			type: 'hidden',
-			label: false,
-		},
 	},
 	updatedAt: {
 		type: Date,
@@ -132,10 +106,6 @@ TextNodes.schema = new SimpleSchema({
 				return new Date();
 			}
 			return null;
-		},
-		autoform: {
-			type: 'hidden',
-			label: false,
 		},
 	},
 

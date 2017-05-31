@@ -33,10 +33,6 @@ Commentary.schema = new SimpleSchema({
 			}
 			return null;
 		},
-		autoform: {
-			type: 'hidden',
-			label: false,
-		},
 	},
 	updatedAt: {
 		type: Date,
@@ -46,10 +42,6 @@ Commentary.schema = new SimpleSchema({
 				return new Date();
 			}
 			return null;
-		},
-		autoform: {
-			type: 'hidden',
-			label: false,
 		},
 	},
 

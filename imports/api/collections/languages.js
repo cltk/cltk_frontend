@@ -13,10 +13,6 @@ Languages.schema = new SimpleSchema({
 		type: String,
 		max: 200,
 		optional: true,
-		autoform: {
-			type: 'hidden',
-			label: false,
-		},
 	},
 
 	createdAt: {
@@ -28,10 +24,6 @@ Languages.schema = new SimpleSchema({
 			}
 			return null;
 		},
-		autoform: {
-			type: 'hidden',
-			label: false,
-		},
 	},
 	updatedAt: {
 		type: Date,
@@ -41,10 +33,6 @@ Languages.schema = new SimpleSchema({
 				return new Date();
 			}
 			return null;
-		},
-		autoform: {
-			type: 'hidden',
-			label: false,
 		},
 	},
 

@@ -17,10 +17,6 @@ Works.schema = new SimpleSchema({
 		type: String,
 		max: 200,
 		optional: true,
-		autoform: {
-			type: 'hidden',
-			label: false,
-		},
 	},
 
 	workLanguage: {
@@ -50,16 +46,7 @@ Works.schema = new SimpleSchema({
 	},
 	authors: {
 		type: [String],
-		regEx: SimpleSchema.RegEx.Id,
 		optional: true,
-		autoform: {
-			options() {
-				return _.map(Authors.find().fetch(), author => ({
-					label: author.english_name,
-					value: author._id,
-				}));
-			},
-		},
 	},
 
 	edition: {
@@ -69,16 +56,7 @@ Works.schema = new SimpleSchema({
 
 	editors: {
 		type: [String],
-		regEx: SimpleSchema.RegEx.Id,
 		optional: true,
-		autoform: {
-			options() {
-				return _.map(Editors.find().fetch(), editor => ({
-					label: editor.english_name,
-					value: editor._id,
-				}));
-			},
-		},
 	},
 
 	structure: {
@@ -94,13 +72,6 @@ Works.schema = new SimpleSchema({
 		type: String,
 		optional: true,
 		label: 'Cover Image',
-		autoform: {
-			type: 'ufs',
-			collection: 'images',
-			store: 'ImageStore',
-			publication: 'images',
-			thumbnails: 'thumbnails',
-		},
 	},
 
 
@@ -201,10 +172,6 @@ Works.schema = new SimpleSchema({
 			}
 			return null;
 		},
-		autoform: {
-			type: 'hidden',
-			label: false,
-		},
 	},
 	updatedAt: {
 		type: Date,
@@ -214,10 +181,6 @@ Works.schema = new SimpleSchema({
 				return new Date();
 			}
 			return null;
-		},
-		autoform: {
-			type: 'hidden',
-			label: false,
 		},
 	},
 

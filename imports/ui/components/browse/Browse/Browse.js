@@ -1,4 +1,7 @@
-Browse = React.createClass({
+import React from 'react';
+import WorksList from '/imports/ui/components/works/WorksList';
+
+export default class Browse extends React.Component {
 
 	render() {
 		return (
@@ -29,8 +32,7 @@ Browse = React.createClass({
 					<WorksList />
 				</section>
 
-
 			</div>
 		);
-	},
-});
+	}
+}

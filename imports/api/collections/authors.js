@@ -17,10 +17,6 @@ Authors.schema = new SimpleSchema({
 		type: String,
 		max: 200,
 		optional: true,
-		autoform: {
-			type: 'hidden',
-			label: false,
-		},
 	},
 
 	authorLanguages: {
@@ -43,10 +39,6 @@ max: 60
 			}
 			return null;
 		},
-		autoform: {
-			type: 'hidden',
-			label: false,
-		},
 	},
 	updatedAt: {
 		type: Date,
@@ -56,10 +48,6 @@ max: 60
 				return new Date();
 			}
 			return null;
-		},
-		autoform: {
-			type: 'hidden',
-			label: false,
 		},
 	},
 

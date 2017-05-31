@@ -11,11 +11,9 @@ Wordforms.schema = new SimpleSchema({
 
 	definitions: {
 		type: String,
-		regEx: SimpleSchema.RegEx.Id,
 	},
 	texts: {
 		type: String,
-		regEx: SimpleSchema.RegEx.Id,
 	},
 
 	createdAt: {
@@ -27,10 +25,6 @@ Wordforms.schema = new SimpleSchema({
 			}
 			return null;
 		},
-		autoform: {
-			type: 'hidden',
-			label: false,
-		},
 	},
 	updatedAt: {
 		type: Date,
@@ -40,10 +34,6 @@ Wordforms.schema = new SimpleSchema({
 				return new Date();
 			}
 			return null;
-		},
-		autoform: {
-			type: 'hidden',
-			label: false,
 		},
 	},
 

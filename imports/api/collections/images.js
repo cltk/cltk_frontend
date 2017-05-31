@@ -42,9 +42,11 @@ ThumbnailStore = new UploadFS.store.Local({
 	},
 });
 
-ImageStore = new UploadFS.store.Local({
+const ImageStore = new UploadFS.store.Local({
 	collection: Images,
 	name: 'images',
 	path: 'ufs/uploads/images',
 	copyTo: [ThumbnailStore],
 });
+
+export default ImageStore;

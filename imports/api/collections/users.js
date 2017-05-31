@@ -8,12 +8,6 @@ Schemas.UserProfile = new SimpleSchema({
 		type: String,
 		optional: true,
 		label: 'Profile picture',
-		autoform: {
-			afFieldInput: {
-				type: 'fileUpload',
-				collection: 'ProfilePictures',
-			},
-		},
 	},
 	firstName: {
 		type: String,
@@ -30,9 +24,6 @@ Schemas.UserProfile = new SimpleSchema({
 	bio: {
 		type: String,
 		optional: true,
-		autoform: {
-			rows: 4,
-		},
 	},
 	country: {
 		type: String,
@@ -118,10 +109,6 @@ Schemas.User = new SimpleSchema({
 			}
 			return null;
 		},
-		autoform: {
-			type: 'hidden',
-			label: false,
-		},
 	},
 	updatedAt: {
 		type: Date,
@@ -131,10 +118,6 @@ Schemas.User = new SimpleSchema({
 				return new Date();
 			}
 			return null;
-		},
-		autoform: {
-			type: 'hidden',
-			label: false,
 		},
 	},
 

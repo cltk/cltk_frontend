@@ -1,4 +1,4 @@
-import TextNodes from '/imports/collections/textNodes';
+import TextNodes from '/imports/api/collections/textNodes';
 
 UserBookmarksList = React.createClass({
 

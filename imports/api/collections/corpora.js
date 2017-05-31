@@ -12,10 +12,6 @@ Corpora.schema = new SimpleSchema({
 		type: String,
 		max: 200,
 		optional: true,
-		autoform: {
-			type: 'hidden',
-			label: false,
-		},
 	},
 
 	corpusLanguages: {
@@ -32,10 +28,6 @@ Corpora.schema = new SimpleSchema({
 			}
 			return null;
 		},
-		autoform: {
-			type: 'hidden',
-			label: false,
-		},
 	},
 	updatedAt: {
 		type: Date,
@@ -45,10 +37,6 @@ Corpora.schema = new SimpleSchema({
 				return new Date();
 			}
 			return null;
-		},
-		autoform: {
-			type: 'hidden',
-			label: false,
 		},
 	},
 

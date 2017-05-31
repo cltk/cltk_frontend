@@ -51,15 +51,9 @@ Translations.schema = new SimpleSchema({
 	},
 	text: {
 		type: String,
-		autoform: {
-			rows: 5,
-		},
 	},
 	html: {
 		type: String,
-		autoform: {
-			rows: 5,
-		},
 	},
 
 	createdAt: {
@@ -71,10 +65,6 @@ Translations.schema = new SimpleSchema({
 			}
 			return null;
 		},
-		autoform: {
-			type: 'hidden',
-			label: false,
-		},
 	},
 	updatedAt: {
 		type: Date,
@@ -84,10 +74,6 @@ Translations.schema = new SimpleSchema({
 				return new Date();
 			}
 			return null;
-		},
-		autoform: {
-			type: 'hidden',
-			label: false,
 		},
 	},
 });
