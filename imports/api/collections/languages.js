@@ -1,3 +1,6 @@
+import { Meteor } from 'meteor/meteor';
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+
 const Languages = new Meteor.Collection('languages');
 
 Languages.schema = new SimpleSchema({

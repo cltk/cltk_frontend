@@ -1,3 +1,6 @@
+import { Meteor } from 'meteor/meteor';
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+
 const Authors = new Meteor.Collection('authors');
 
 Authors.schema = new SimpleSchema({

@@ -1,3 +1,6 @@
+import { Meteor } from 'meteor/meteor';
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+
 const Commentary = new Meteor.Collection('commentary');
 
 Commentary.schema = new SimpleSchema({

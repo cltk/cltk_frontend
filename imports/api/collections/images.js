@@ -1,3 +1,6 @@
+import { Meteor } from 'meteor/meteor';
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+
 Thumbnails = new Mongo.Collection('thumbnails');
 
 Images = new Mongo.Collection('images');

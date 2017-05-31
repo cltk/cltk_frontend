@@ -1,3 +1,7 @@
+import { Meteor } from 'meteor/meteor';
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+
+
 const Entities = new Meteor.Collection('entities');
 
 Entities.schema = new SimpleSchema({

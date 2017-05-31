@@ -1,3 +1,6 @@
+import { Meteor } from 'meteor/meteor';
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+
 const Editors = new Meteor.Collection('editors');
 
 Editors.schema = new SimpleSchema({
