@@ -1,3 +1,6 @@
+import { Meteor } from 'meteor/meteor';
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+
 const Annotations = new Meteor.Collection('annotations');
 
 Annotations.schema = new SimpleSchema({
