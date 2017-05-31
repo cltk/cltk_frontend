@@ -8,6 +8,6 @@ export default function BaseLayout(props) {
 	);
 }
 
-MainLayout.propTypes = {
+BaseLayout.propTypes = {
 	content: React.PropTypes.element
 };
