@@ -1,18 +1,23 @@
+import React from 'react';
+
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { Tabs, Tab } from 'material-ui/Tabs';
+import PropTypes from 'prop-types';
+
 import AvatarEditor from '/imports/avatar/client/ui/AvatarEditor';
+import BookshelfList from '/imports/ui/components/user/BookshelfList/BookshelfList';
+import Header from '/imports/ui/components/header/Header/Header';
+import Footer from '/imports/ui/components/footer/Footer/Footer';
+import Profile from '/imports/ui/components/user/Profile/Profile';
+import UserAnnotationsList from '/imports/ui/components/user/UserAnnotationsList/UserAnnotationsList';
+import UserBookmarksList from '/imports/ui/components/user/UserBookmarksList/UserBookmarksList';
 import { SnackAttack } from '/imports/ui/components/shared/SnackAttack';
 
-UserLayout = React.createClass({
-
-	childContextTypes: {
-		muiTheme: React.PropTypes.object.isRequired,
-	},
-
+export default class UserLayout extends React.Component {
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
-	},
+	}
 
 	render() {
 		return (
@@ -82,6 +87,10 @@ UserLayout = React.createClass({
 				<SnackAttack />
 			</div>
 		);
-	},
+	}
 
-});
+};
+
+UserLayout.childContextTypes = {
+	muiTheme: PropTypes.object.isRequired,
+};

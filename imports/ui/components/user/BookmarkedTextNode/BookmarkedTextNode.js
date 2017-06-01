@@ -1,34 +1,18 @@
+import React from 'react';
+
+import PropTypes from 'prop-types';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+import { Meteor } from 'meteor/meteor';
+import { createContainer } from 'meteor/react-meteor-data';
+
 import Works from '/imports/api/collections/works';
 
-BookmarkedTextNode = React.createClass({
-
-	propTypes: {
-		text: React.PropTypes.object.isRequired,
-		isOdd: React.PropTypes.bool,
-	},
-
-	childContextTypes: {
-		muiTheme: React.PropTypes.object.isRequired,
-	},
-
+class BookmarkedTextNode extends React.Component {
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
-	},
-
-	mixins: [ReactMeteorData],
-
-	getMeteorData() {
-		let work = null;
-		const query = { _id: this.props.text.work };
-		const handleWorks = Meteor.subscribe('works', query);
-		work = Works.findOne(query);
-
-		return {
-			work,
-		};
-	},
+	}
 
 	getTextLocation() {
 		const text = this.props.text;
@@ -60,11 +44,11 @@ BookmarkedTextNode = React.createClass({
 			location,
 			textN,
 		};
-	},
+	}
 
 	handleClick() {
 
-	},
+	}
 
 
 	render() {
@@ -74,9 +58,9 @@ BookmarkedTextNode = React.createClass({
 		let workTitle = '';
 		let link = '';
 
-		if (this.data.work) {
-			workTitle = this.data.work.english_title;
-			link = `/works/${this.data.work._id}/${this.data.work.slug}?location=${textLocation.location}`;
+		if (this.props.work) {
+			workTitle = this.props.work.english_title;
+			link = `/works/${this.props.work._id}/${this.props.work.slug}?location=${textLocation.location}`;
 		}
 
 		if (this.props.isOdd) {
@@ -114,5 +98,28 @@ BookmarkedTextNode = React.createClass({
 
 			</a>
 		);
-	},
-});
+	}
+};
+
+BookmarkedTextNode.childContextTypes = {
+	muiTheme: PropTypes.object.isRequired,
+};
+
+BookmarkedTextNode.propTypes = {
+	text: PropTypes.shape({
+		work: PropTypes.object.isRequired,
+	}).isRequired,
+	isOdd: PropTypes.bool,
+};
+
+const BookmarkedTextNodeContainer = createContainer(function(props) {
+	const query = { _id: props.text.work };
+	const handleWorks = Meteor.subscribe('works', query);
+	const work = Works.findOne(query);
+
+	return {
+		work,
+	};
+}, BookmarkedTextNode);
+
+export default BookmarkedTextNodeContainer;

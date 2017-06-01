@@ -6,6 +6,7 @@ import Drawer from 'material-ui/Drawer';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import { createContainer } from 'meteor/react-meteor-data';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 
 class LeftMenu extends React.Component {
@@ -143,8 +144,10 @@ LeftMenu.propTypes = {
 	closeLeftMenu: PropTypes.func.isRequired,
 };
 
-export default LeftMenuContainer = createContainer(props => {
+const LeftMenuContainer = createContainer(props => {
 	return {
 		currentUser: Meteor.users.findOne({ _id: Meteor.userId() }),
 	};
 }, LeftMenu);
+
+export default LeftMenuContainer;

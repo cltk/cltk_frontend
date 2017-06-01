@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
+
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
@@ -10,6 +10,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 
 import { createContainer } from 'meteor/react-meteor-data';
+import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 
 class LoginButtons extends React.Component {

@@ -1,44 +1,32 @@
+import React from 'react';
+
+import DatePicker from 'material-ui/DatePicker';
+import PropTypes from 'prop-types';
+import TextField from 'material-ui/TextField';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import TextField from 'material-ui/TextField';
-import DatePicker from 'material-ui/DatePicker';
+import { Meteor } from 'meteor/meteor';
+import { createContainer } from 'meteor/react-meteor-data';
 import { debounce } from 'throttle-debounce';
 
-Profile = React.createClass({
-
-	propTypes: {
-		user: React.PropTypes.object,
-	},
-
-	childContextTypes: {
-		muiTheme: React.PropTypes.object.isRequired,
-	},
-
-	mixins: [ReactMeteorData],
-
+class Profile extends React.Component {
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
-	},
+	}
 
 	componentWillMount() {
 		this.handleChangeTextDebounced = debounce(1000, this.handleChangeTextDebounced);
-	},
-
-	getMeteorData() {
-		return {
-			user: Meteor.user(),
-		};
-	},
+	}
 
 	_openFileDialog() {
 		const fileUploadDom = this.refs.fileUpload;
 		fileUploadDom.click();
-	},
+	}
 
 	handleChangeText(field, event) {
 		const value = event.target.value;
 		this.handleChangeTextDebounced(field, value);
-	},
+	}
 
 	handleChangeTextDebounced(field, value) {
 		Meteor.call('account.update', `profile.${field}`, value, (err) => {
@@ -46,7 +34,7 @@ Profile = React.createClass({
 				console.error(err);
 			}
 		});
-	},
+	}
 
 	handleChangeDate(event = null, date) {
 		Meteor.call('account.update', 'profile.birthday', date, (err) => {
@@ -54,10 +42,10 @@ Profile = React.createClass({
 				console.error(err);
 			}
 		});
-	},
+	}
 
 	render() {
-		const currentUser = this.data.user;
+		const currentUser = this.props.user;
 		if (currentUser && !('profile' in currentUser)) {
 			currentUser.profile = {};
 		}
@@ -159,6 +147,22 @@ Profile = React.createClass({
 			)
 
 		);
-	},
+	}
 
-});
+};
+
+Profile.childContextTypes = {
+	muiTheme: PropTypes.object.isRequired,
+}
+
+Profile.propTypes = {
+	user: PropTypes.object,
+}
+
+const ProfileContainer = createContainer(props => {
+	return {
+		user: Meteor.user(),
+	};
+}, Profile);
+
+export default ProfileContainer;
