@@ -1,32 +1,25 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import autoBind from 'react-autobind';
 import FlatButton from 'material-ui/FlatButton';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-SearchTermButton = React.createClass({
+class SearchTermButton extends React.Components {
 
-	propTypes: {
-		toggleSearchTerm: React.PropTypes.func.isRequired,
-		label: React.PropTypes.string.isRequired,
-		searchTermKey: React.PropTypes.string.isRequired,
-		value: React.PropTypes.string.isRequired,
-		authorValue: React.PropTypes.object,
-		activeWork: React.PropTypes.bool,
-		active: React.PropTypes.bool,
-	},
+	constructor(props) {
+		super(props);
 
-	childContextTypes: {
-		muiTheme: React.PropTypes.object.isRequired,
-	},
-
-	getInitialState() {
-		return {
+		this.state = {
 			active: false,
 		};
-	},
+
+		autoBind(this);
+	}
 
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
-	},
+	}
 
 	toggleSearchTerm() {
 		if (this.props.authorValue) {
@@ -34,7 +27,7 @@ SearchTermButton = React.createClass({
 		} else {
 			this.props.toggleSearchTerm(this.props.searchTermKey, this.props.value);
 		}
-	},
+	}
 
 	render() {
 		let className = 'search-term-button';
@@ -61,6 +54,21 @@ SearchTermButton = React.createClass({
 				/>
 			</li>
 		);
-	},
+	}
+}
 
-});
+SearchTermButton.propTypes = {
+	toggleSearchTerm: PropTypes.func.isRequired,
+	label: PropTypes.string.isRequired,
+	searchTermKey: PropTypes.string.isRequired,
+	value: PropTypes.string.isRequired,
+	authorValue: PropTypes.object,
+	activeWork: PropTypes.bool,
+	active: PropTypes.bool,
+};
+
+SearchTermButton.childContextTypes = {
+	muiTheme: PropTypes.object.isRequired,
+};
+
+export default SearchTermButton;

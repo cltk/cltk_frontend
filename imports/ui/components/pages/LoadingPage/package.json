@@ -1,0 +1,6 @@
+{
+  "name": "LoadingPage",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./LoadingPage.js"
+}

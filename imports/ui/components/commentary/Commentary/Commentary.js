@@ -1,20 +1,19 @@
-Commentary = React.createClass({
+import React from 'react';
+import PropTypes from 'prop-types';
 
-	propTypes: {
-		comment: React.PropTypes.object.isRequired,
-	},
+class Commentary extends React.Component {
 
 	getInitialState() {
 		return {
 			showMore: false,
 		};
-	},
+	}
 
 	toggleShowMore() {
 		this.setState({
 			showMore: !this.state.showMore,
 		});
-	},
+	}
 
 	render() {
 		const commentClassName = `meta-item panel-item commentary-comment ${
@@ -41,5 +40,11 @@ Commentary = React.createClass({
 				/>
 			</div>
 		);
-	},
-});
+	}
+}
+
+Commentary.propTypes = {
+	comment: React.PropTypes.object.isRequired,
+};
+
+export default Commentary;

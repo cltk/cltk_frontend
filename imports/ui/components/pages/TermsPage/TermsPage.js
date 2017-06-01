@@ -1,4 +1,6 @@
-TermsPage = React.createClass({
+import React from 'react';
+
+class TermsPage extends React.Component {
 
 	render() {
 		return (
@@ -109,5 +111,7 @@ TermsPage = React.createClass({
 
 			</div>
 		);
-	},
-});
+	}
+}
+
+export default TermsPage;

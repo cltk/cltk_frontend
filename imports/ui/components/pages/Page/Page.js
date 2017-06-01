@@ -10,11 +10,11 @@ import Utils from '/imports/lib/utils';
 import Pages from '/imports/api/collections/pages';
 
 // layouts
-import NotFound from '/imports/ui/layouts/notFound/NotFound';
+import NotFound from '/imports/ui/layouts/NotFound';
 
 // components
-import BackgroundImageHolder from '/imports/ui/components/shared/BackgroundImageHolder';
-import LoadingPage from '/imports/ui/components/loading/LoadingPage';
+import BackgroundImageHolder from '/imports/ui/components/pages/BackgroundImageHolder';
+import LoadingPage from '/imports/ui/components/pages/LoadingPage';
 
 
 const Page = React.createClass({

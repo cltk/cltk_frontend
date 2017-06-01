@@ -12,7 +12,7 @@ describe('DateRangeSlider', () => {
 		const tree = renderer
 			.create(
 				<MuiThemeProvider>
-					<DateRangeSlider />
+					<DateRangeSlider handleChangeDate={() => {}} />
 				</MuiThemeProvider>
 			)
 			.toJSON();

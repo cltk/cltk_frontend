@@ -1,21 +1,19 @@
-DefinitionWord = React.createClass({
+import React from 'react';
+import PropTypes from 'prop-types';
 
-	propTypes: {
-		word: React.PropTypes.object.isRequired,
-
-	},
+class DefinitionWord extends React.Component {
 
 	getInitialState() {
 		return {
 			showMore: false,
 		};
-	},
+	}
 
 	toggleShowMore() {
 		this.setState({
 			showMore: !this.state.showMore,
 		});
-	},
+	}
 
 	render() {
 		const wordClassName = `meta-item panel-item definition ${
@@ -58,6 +56,11 @@ DefinitionWord = React.createClass({
 				<div className="bottom-gradient" />
 			</div>
 		);
-	},
+	}
+}
 
-});
+DefinitionWord.propTypes = {
+	word: PropTypes.object.isRequired,
+};
+
+export default DefinitionWord;

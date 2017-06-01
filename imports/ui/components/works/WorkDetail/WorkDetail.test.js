@@ -12,7 +12,14 @@ describe('WorkDetail', () => {
 		const tree = renderer
 			.create(
 				<MuiThemeProvider>
-					<WorkDetail />
+					<WorkDetail
+						work={{
+							author: 'Test author',
+							title: 'Test Work',
+							editor: 'Editor',
+							year: '0',
+						}}
+					/>
 				</MuiThemeProvider>
 			)
 			.toJSON();

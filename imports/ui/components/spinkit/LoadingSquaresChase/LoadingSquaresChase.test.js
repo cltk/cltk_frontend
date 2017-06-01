@@ -4,15 +4,15 @@ import renderer from 'react-test-renderer';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // component:
-import LoadingSquareChase from './LoadingSquareChase';
+import LoadingSquaresChase from './LoadingSquaresChase';
 
-describe('LoadingSquareChase', () => {
+describe('LoadingSquaresChase', () => {
 	it('renders correctly', () => {
 
 		const tree = renderer
 			.create(
 				<MuiThemeProvider>
-					<LoadingSquareChase />
+					<LoadingSquaresChase />
 				</MuiThemeProvider>
 			)
 			.toJSON();

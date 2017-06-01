@@ -12,7 +12,11 @@ describe('Translation', () => {
 		const tree = renderer
 			.create(
 				<MuiThemeProvider>
-					<Translation />
+					<Translation
+						translation={{
+							text: [],
+						}}
+					/>
 				</MuiThemeProvider>
 			)
 			.toJSON();

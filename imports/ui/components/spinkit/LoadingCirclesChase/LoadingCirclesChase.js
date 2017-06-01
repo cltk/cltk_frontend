@@ -1,3 +1,6 @@
+
+import React from 'react';
+
 export default class LoadingCirclesChase extends React.Component {
 	render() {
 		return (

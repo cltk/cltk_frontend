@@ -1,30 +1,17 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Meteor } from 'meteor/meteor';
+import { createContainer } from 'meteor/react-meteor-data';
 import FlatButton from 'material-ui/FlatButton';
 
-ReadingMedia = React.createClass({
-
-	propTypes: {
-		mediaId: React.PropTypes.string,
-	},
-
-	mixins: [ReactMeteorData],
+class ReadingMedia extends React.Component {
 
 	getDefaultProps() {
 		return {
 			mediaId: '',
 		};
-	},
+	}
 
-	getMeteorData() {
-		const mediaSubscription = Meteor.subscribe('attachments', this.props.mediaId);
-		let attachment = null;
-		if (mediaSubscription.ready()) {
-			attachment = Attachments.findOne({ _id: this.props.mediaId });
-		}
-
-		return {
-			mediaItem: attachment,
-		};
-	},
 
 	render() {
 		const mediaItem = this.data.mediaItem;
@@ -59,5 +46,24 @@ ReadingMedia = React.createClass({
 
 			</div>
 		);
-	},
-});
+	}
+}
+
+ReadingMedia.propTypes = {
+	mediaId: PropTypes.string,
+};
+
+const ReadingMediaContainer = createContainer(() => {
+	const mediaSubscription = Meteor.subscribe('attachments', this.props.mediaId);
+	let attachment = null;
+	if (mediaSubscription.ready()) {
+		attachment = Attachments.findOne({ _id: this.props.mediaId });
+	}
+
+	return {
+		mediaItem: attachment,
+	};
+}, ReadingMedia);
+
+
+export default ReadingMediaContainer;

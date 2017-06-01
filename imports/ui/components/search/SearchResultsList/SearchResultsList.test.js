@@ -12,7 +12,10 @@ describe('SearchResultsList', () => {
 		const tree = renderer
 			.create(
 				<MuiThemeProvider>
-					<SearchResultsList />
+					<SearchResultsList
+						works={[]}
+						loadMore={() => {}}
+					/>
 				</MuiThemeProvider>
 			)
 			.toJSON();

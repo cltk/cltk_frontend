@@ -1,4 +1,4 @@
-this.Utils = {
+const Utils = {
 	prettyDate(date) {
 		if (date) {
 			if (Config.dateFormat) {
@@ -138,3 +138,5 @@ this.Utils = {
 		};
 	},
 };
+
+export default Utils;

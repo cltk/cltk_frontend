@@ -1,86 +1,37 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import autoBind from 'react-autobind';
+import { createContainer } from 'meteor/react-meteor-data';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
 import Annotations from '/imports/api/collections/annotations';
 import RelatedPassages from '/imports/api/collections/relatedPassages';
 
-ReadingTextNode = React.createClass({
+class ReadingTextNode extends React.Component{
 
-	propTypes: {
-		index: React.PropTypes.number.isRequired,
-		text: React.PropTypes.object.isRequired,
-		showNumber: React.PropTypes.bool.isRequired,
-		numbering: React.PropTypes.string.isRequired,
-		addAnnotationCheckList: React.PropTypes.func,
-		annotationCheckList: React.PropTypes.array,
-		highlight: React.PropTypes.bool,
-		toggleReadingMeta: React.PropTypes.func,
-		showLoginModal: React.PropTypes.func,
-		showSignupModal: React.PropTypes.func,
-		closeLoginModal: React.PropTypes.func,
-		closeSignupModal: React.PropTypes.func,
-	},
+	constructor(props) {
+		super(props);
 
-	childContextTypes: {
-		muiTheme: React.PropTypes.object.isRequired,
-	},
-
-	mixins: [ReactMeteorData],
-
-	getInitialState() {
-		return {
+		this.state = {
 			bookmarked: false,
 			showRelatedPassages: false,
 			showAnnotations: false,
-			annotationOpen: this.props.highlight,
+			annotationOpen: props.highlight,
 			anchorEl: this.anchorEl,
 		};
-	},
+		autoBind(this);
+	}
 
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
-	},
+	}
 
 	componentDidMount() {
 		if (this.props.highlight) {
 			$('html,body').animate({ scrollTop: this.anchorEl.getBoundingClientRect().top }, 400);
 		}
-	},
-
-	getMeteorData() {
-		let annotations = [];
-		let relatedPassages = [];
-		let bookmarked = false;
-		const handleAnnotation = Meteor.subscribe('annotation');
-		const handleRelatedPassages = Meteor.subscribe('relatedPassages');
-		if (handleAnnotation.ready()) {
-			annotations = Annotations.find({ textNodes: this.props.text._id }).fetch();
-		}
-		if (handleRelatedPassages.ready()) {
-			relatedPassages = RelatedPassages.find({ textNodes: this.props.text._id }).fetch();
-		}
-
-		const handleBookmark = Meteor.subscribe('bookmark');
-		if (handleBookmark.ready()) {
-			const bookmarksList = Meteor.users.findOne({
-				_id: Meteor.userId(),
-			}, {
-				fields: {
-					bookmarks: 1,
-				},
-			});
-
-			if (bookmarksList && 'bookmarks' in bookmarksList) {
-				// Check if current textNode exist in bookmarked textNodes
-				bookmarked = ~bookmarksList.bookmarks.indexOf(this.props.text._id._str);
-			}
-		}
-
-		return {
-			annotations,
-			relatedPassages,
-			bookmarked,
-		};
-	},
+	}
 
 	getTextLocation() {
 		const text = this.props.text;
@@ -112,8 +63,7 @@ ReadingTextNode = React.createClass({
 			location,
 			textN,
 		};
-	},
-
+	}
 
 	handleClick(event) {
 		translation = $(`.translation-text[data-num="${this.props.index}"]`);
@@ -130,7 +80,7 @@ ReadingTextNode = React.createClass({
 		this.setState({
 			annotationOpen: true,
 		});
-	},
+	}
 
 	addAnnotationCheckList() {
 		if (Meteor.userId()) {
@@ -140,13 +90,13 @@ ReadingTextNode = React.createClass({
 		} else {
 			this.props.showLoginModal();
 		}
-	},
+	}
 
 	handleRequestClose() {
 		this.setState({
 			annotationOpen: false,
 		});
-	},
+	}
 
 	toggleBookmark() {
 		if (Meteor.userId()) {
@@ -168,14 +118,14 @@ ReadingTextNode = React.createClass({
 		} else {
 			this.props.showLoginModal();
 		}
-	},
+	}
 
 	toggleBookmarked() {
 		this.setState({
 			bookmarked: !this.state.bookmarked,
 
 		});
-	},
+	}
 
 	toggleShowAnnotations() {
 		this.props.toggleReadingMeta('annotations');
@@ -183,7 +133,7 @@ ReadingTextNode = React.createClass({
 		this.setState({
 			showAnnotations: !this.state.showAnnotations,
 		});
-	},
+	}
 
 	toggleShowRelatedPassages() {
 		this.props.toggleReadingMeta('annotations');
@@ -192,7 +142,7 @@ ReadingTextNode = React.createClass({
 			showRelatedPassages: !this.state.showRelatedPassages,
 
 		});
-	},
+	}
 
 	renderAnnotations() {
 		return this.data.annotations.map((annotation, i) => (
@@ -201,7 +151,7 @@ ReadingTextNode = React.createClass({
 				annotation={annotation}
 			/>
 		));
-	},
+	}
 
 	render() {
 		const text = this.props.text;
@@ -380,5 +330,62 @@ ReadingTextNode = React.createClass({
 			</div>
 
 		);
-	},
-});
+	}
+}
+
+ReadingTextNode.propTypes = {
+	index: PropTypes.number.isRequired,
+	text: PropTypes.object.isRequired,
+	showNumber: PropTypes.bool.isRequired,
+	numbering: PropTypes.string.isRequired,
+	addAnnotationCheckList: PropTypes.func,
+	annotationCheckList: PropTypes.array,
+	highlight: PropTypes.bool,
+	toggleReadingMeta: PropTypes.func,
+	showLoginModal: PropTypes.func,
+	showSignupModal: PropTypes.func,
+	closeLoginModal: PropTypes.func,
+	closeSignupModal: PropTypes.func,
+};
+
+ReadingTextNode.childContextTypes = {
+	muiTheme: PropTypes.object.isRequired,
+};
+
+const ReadingTextNodeContainer = createContainer(props => {
+	let annotations = [];
+	let relatedPassages = [];
+	let bookmarked = false;
+	const handleAnnotation = Meteor.subscribe('annotation');
+	const handleRelatedPassages = Meteor.subscribe('relatedPassages');
+	if (handleAnnotation.ready()) {
+		annotations = Annotations.find({ textNodes: props.text._id }).fetch();
+	}
+	if (handleRelatedPassages.ready()) {
+		relatedPassages = RelatedPassages.find({ textNodes: props.text._id }).fetch();
+	}
+
+	const handleBookmark = Meteor.subscribe('bookmark');
+	if (handleBookmark.ready()) {
+		const bookmarksList = Meteor.users.findOne({
+			_id: Meteor.userId(),
+		}, {
+			fields: {
+				bookmarks: 1,
+			},
+		});
+
+		if (bookmarksList && 'bookmarks' in bookmarksList) {
+			// Check if current textNode exist in bookmarked textNodes
+			bookmarked = ~bookmarksList.bookmarks.indexOf(props.text._id._str);
+		}
+	}
+
+	return {
+		annotations,
+		relatedPassages,
+		bookmarked,
+	};
+}, ReadingTextNode);
+
+export default ReadingTextNodeContainer;

@@ -1,14 +1,9 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
 import IconButton from 'material-ui/IconButton';
 
-TextMetaOptions = React.createClass({
-
-	propTypes: {
-		toggleBookmark: React.PropTypes.func.isRequired,
-		toggleShowAnnotations: React.PropTypes.func.isRequired,
-		toggleShowRelatedPassages: React.PropTypes.func.isRequired,
-		annotationsCount: React.PropTypes.number,
-		relatedPassagesCount: React.PropTypes.number,
-	},
+class TextMetaOptions extends React.Component {
 
 	render() {
 		const styles = {
@@ -53,5 +48,15 @@ TextMetaOptions = React.createClass({
 				</div>
 			</div>
 		);
-	},
-});
+	}
+}
+
+TextMetaOptions.propTypes = {
+	toggleBookmark: React.PropTypes.func.isRequired,
+	toggleShowAnnotations: React.PropTypes.func.isRequired,
+	toggleShowRelatedPassages: React.PropTypes.func.isRequired,
+	annotationsCount: React.PropTypes.number,
+	relatedPassagesCount: React.PropTypes.number,
+};
+
+export default TextMetaOptions;

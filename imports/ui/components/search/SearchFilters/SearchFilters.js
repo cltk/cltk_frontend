@@ -1,27 +1,14 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import RaisedButton from 'material-ui/RaisedButton';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-SearchFilters = React.createClass({
-
-	propTypes: {
-		filters: React.PropTypes.array.isRequired,
-		toggleSearchTerm: React.PropTypes.func,
-	},
-
-	childContextTypes: {
-		muiTheme: React.PropTypes.object.isRequired,
-	},
+class SearchFilters extends React.createClass {
 
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
-	},
-
-	getMeteorData() {
-		return {
-			authors: [],
-		};
-	},
+	}
 
 	render() {
 		const self = this;
@@ -74,5 +61,15 @@ SearchFilters = React.createClass({
 				))}
 			</div>
 		);
-	},
-});
+	}
+}
+SearchFilters.propTypes = {
+	filters: React.PropTypes.array.isRequired,
+	toggleSearchTerm: React.PropTypes.func,
+};
+
+SearchFilters.childContextTypes = {
+	muiTheme: React.PropTypes.object.isRequired,
+};
+
+export default SearchFilters;

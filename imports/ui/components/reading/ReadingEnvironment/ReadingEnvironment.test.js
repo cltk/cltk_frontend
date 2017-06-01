@@ -12,7 +12,11 @@ describe('ReadingEnvironment', () => {
 		const tree = renderer
 			.create(
 				<MuiThemeProvider>
-					<ReadingEnvironment />
+					<ReadingEnvironment
+						work={{
+							form: 'prose',
+						}}
+					/>
 				</MuiThemeProvider>
 			)
 			.toJSON();

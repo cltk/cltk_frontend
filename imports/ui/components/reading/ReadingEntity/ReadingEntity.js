@@ -1,9 +1,8 @@
 
-ReadingEntity = React.createClass({
+import React from 'react';
+import PropTypes from 'prop-types';
 
-	propTypes: {
-		entity: React.PropTypes.object,
-	},
+class ReadingEntity extends React.Component {
 
 	getDefaultProps() {
 		return {
@@ -11,7 +10,7 @@ ReadingEntity = React.createClass({
 				slug: 'demo-entity',
 			},
 		};
-	},
+	}
 
 	render() {
 		const entity = this.props.entity;
@@ -57,5 +56,12 @@ ReadingEntity = React.createClass({
 
 			</div>
 		);
-	},
-});
+	}
+}
+
+
+ReadingEntity.propTypes = {
+	entity: PropTypes.object,
+};
+
+export default ReadingEntity;

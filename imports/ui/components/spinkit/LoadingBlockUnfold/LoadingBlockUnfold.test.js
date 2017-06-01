@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // component:
-import LoadingBlockUnfold from './LodaingBlockUnfold';
+import LoadingBlockUnfold from './LoadingBlockUnfold';
 
 describe('LoadingBlockUnfold', () => {
 	it('renders correctly', () => {

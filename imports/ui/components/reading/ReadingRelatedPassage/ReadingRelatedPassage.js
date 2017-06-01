@@ -1,8 +1,7 @@
-ReadingRelatedPassage = React.createClass({
+import React from 'react';
+import PropTypes from 'prop-types';
 
-	propTypes: {
-		relatedPassage: React.PropTypes.object,
-	},
+class ReadingRelatedPassage extends React.Component {
 
 	getDefaultProps() {
 		return {
@@ -20,7 +19,7 @@ ReadingRelatedPassage = React.createClass({
 				],
 			},
 		};
-	},
+	}
 
 	render() {
 		const relatedPassage = this.props.relatedPassage;
@@ -48,5 +47,9 @@ ReadingRelatedPassage = React.createClass({
 				</div>
 			</div>
 		);
-	},
-});
+	}
+}
+
+ReadingRelatedPassage.propTypes = {
+	relatedPassage: PropTypes.object,
+};

@@ -1,23 +1,16 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import Masonry from 'react-masonry-component/lib';
 
-SearchResultsList = React.createClass({
+class SearchResultsList extends React.Component {
 
-	propTypes: {
-		works: React.PropTypes.array.isRequired,
-		loadMore: React.PropTypes.func.isRequired,
-		hasMoreWorks: React.PropTypes.bool,
-	},
-
-	componentDidUpdate(prevProps) {
-	},
-
-	isLoading: false,
-	worksCount: 0,
+	isLoading = false
+	worksCount = 0
 
 	loadMore() {
 		this.isLoading = true;
 		this.props.loadMore();
-	},
+	}
 
 	renderWorks() {
 		return this.props.works.map((work) => (
@@ -26,8 +19,7 @@ SearchResultsList = React.createClass({
 				work={work}
 			/>
 		));
-	},
-
+	}
 
 	render() {
 		const masonryOptions = {
@@ -79,5 +71,13 @@ SearchResultsList = React.createClass({
 
 			</div>
 		);
-	},
-});
+	}
+}
+
+SearchResultsList.propTypes = {
+	works: PropTypes.array.isRequired,
+	loadMore: PropTypes.func.isRequired,
+	hasMoreWorks: PropTypes.bool,
+};
+
+export default SearchResultsList;

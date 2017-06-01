@@ -1,9 +1,8 @@
-// Single work detail view
-WorkDetail = React.createClass({
+import React from 'react';
+import PropTypes from 'prop-types';
 
-	propTypes: {
-		work: React.PropTypes.object.isRequired,
-	},
+// Single work detail view
+class WorkDetail extends React.Component {
 
 	render() {
 		const work = this.props.work;
@@ -75,16 +74,16 @@ WorkDetail = React.createClass({
 								vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae
 								consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
 							</p>
-
-
 						</div>
-
 					</div>
-
 				</section>
-
-
 			</div>
 		);
-	},
-});
+	}
+}
+
+WorkDetail.propTypes = {
+	work: PropTypes.object.isRequired,
+};
+
+export default WorkDetail;

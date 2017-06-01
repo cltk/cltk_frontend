@@ -1,3 +1,6 @@
+
+import React from 'react';
+
 export default class LoadingWell extends React.Component {
 	render() {
 		return (

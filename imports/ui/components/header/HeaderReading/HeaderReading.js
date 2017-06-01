@@ -1,28 +1,12 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-HeaderReading = React.createClass({
-
-	propTypes: {
-		showSearchModal: React.PropTypes.func,
-		work: React.PropTypes.object,
-		toggleSidePanel: React.PropTypes.func.isRequired,
-		toggleCommentary: React.PropTypes.bool.isRequired,
-		toggleDefinitions: React.PropTypes.bool.isRequired,
-		toggleTranslations: React.PropTypes.bool.isRequired,
-		toggleScansion: React.PropTypes.bool.isRequired,
-		toggleMedia: React.PropTypes.bool.isRequired,
-		toggleEntities: React.PropTypes.bool.isRequired,
-		toggleAnnotations: React.PropTypes.bool.isRequired,
-	},
-
-	childContextTypes: {
-		muiTheme: React.PropTypes.object.isRequired,
-	},
-
+class HeaderReading extends React.Component {
 	getDefaultProps() {
 		return {
 			toggleDefinitions: false,
@@ -32,36 +16,35 @@ HeaderReading = React.createClass({
 			toggleScansion: false,
 			toggleEntities: false,
 		};
-	},
+	}
 
 	getInitialState() {
 		return {
 			leftMenuOpen: false,
 		};
-	},
+	}
 
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
-	},
-
+	}
 
 	toggleSidePanel(metadata) {
 		if (typeof this.props.toggleSidePanel === 'function') {
 			this.props.toggleSidePanel(metadata);
 		}
-	},
+	}
 
 	toggleLeftMenu() {
 		this.setState({
 			leftMenuOpen: !this.state.leftMenuOpen,
 		});
-	},
+	}
 
 	closeLeftMenu() {
 		this.setState({
 			leftMenuOpen: false,
 		});
-	},
+	}
 
 	render() {
 		const styles = {
@@ -250,5 +233,24 @@ HeaderReading = React.createClass({
 
 			</div>
 		);
-	},
-});
+	}
+}
+
+HeaderReading.propTypes = {
+	showSearchModal: PropTypes.func,
+	work: PropTypes.object,
+	toggleSidePanel: PropTypes.func.isRequired,
+	toggleCommentary: PropTypes.bool.isRequired,
+	toggleDefinitions: PropTypes.bool.isRequired,
+	toggleTranslations: PropTypes.bool.isRequired,
+	toggleScansion: PropTypes.bool.isRequired,
+	toggleMedia: PropTypes.bool.isRequired,
+	toggleEntities: PropTypes.bool.isRequired,
+	toggleAnnotations: PropTypes.bool.isRequired,
+};
+
+HeaderReading.childContextTypes = {
+	muiTheme: PropTypes.object.isRequired,
+};
+
+export default HeaderReading;

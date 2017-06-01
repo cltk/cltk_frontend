@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserAnnotationsList renders correctly 1`] = `
+<ul
+  className="collection with-header"
+  style={
+    Object {
+      "margin": 0,
+    }
+  }
+>
+  <li
+    className="collection-header"
+  >
+     
+    <h3>
+      Annotations
+    </h3>
+  </li>
+  <div
+    style={
+      Object {
+        "maxHeight": 250,
+        "overflow": "auto",
+      }
+    }
+  />
+</ul>
+`;

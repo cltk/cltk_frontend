@@ -12,7 +12,11 @@ describe('ReadingTextNode', () => {
 		const tree = renderer
 			.create(
 				<MuiThemeProvider>
-					<ReadingTextNode />
+					<ReadingTextNode
+						text={{
+							_id: 'testId',
+						}}
+					/>
 				</MuiThemeProvider>
 			)
 			.toJSON();

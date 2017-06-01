@@ -275,7 +275,7 @@ SearchModal.propTypes = {
 	work: PropTypes.object,
 };
 
-export default SearchModalContainer = createContainer(props => {
+const SearchModalContainer = createContainer(props => {
 	const query = {};
 	let works = [];
 	let worksCount = null;
@@ -376,3 +376,5 @@ export default SearchModalContainer = createContainer(props => {
 		worksCount,
 	};
 }, SearchModal);
+
+export default SearchModalContainer;

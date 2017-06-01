@@ -1,50 +1,35 @@
+
+import React from 'react';
+import PropTypes from 'prop-types';
+
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import FlatButton from 'material-ui/FlatButton';
-import LoadingWell from '/imports/spinkit/client/LoadingWell';
+import LoadingWell from '/imports/ui/components/spinkit/LoadingWell';
 
-ReadingEnvironment = React.createClass({
+class ReadingEnvironment extends React.Component {
 
-	propTypes: {
-		work: React.PropTypes.object.isRequired,
-		textNodes: React.PropTypes.array.isRequired,
-		loadMore: React.PropTypes.func.isRequired,
-		calculateTextNodeDepths: React.PropTypes.func.isRequired,
-		highlightId: React.PropTypes.string,
-		toggleReadingMeta: React.PropTypes.func,
-		isTextAfter: React.PropTypes.bool,
-		isTextBefore: React.PropTypes.bool,
-		isLoading: React.PropTypes.bool,
-		showLoginModal: React.PropTypes.func,
-		showSignupModal: React.PropTypes.func,
-		closeLoginModal: React.PropTypes.func,
-		closeSignupModal: React.PropTypes.func,
-	},
-
-	childContextTypes: {
-		muiTheme: React.PropTypes.object.isRequired,
-	},
-
-	getInitialState() {
-		return {
+	constructor(props) {
+		super(props);
+		this.state = {
 			isLoading: false,
 		};
-	},
+	}
 
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
-	},
+	}
 
-	textNodesLength: 0,
-	isLoading: false,
+	textNodesLength = 0
+	isLoading = false
 
 	loadMore(direction) {
 		if (!this.isLoading) {
 			this.isLoading = true;
 			this.props.loadMore(direction);
 		}
-	},
+	}
 
 	renderText() {
 		const textNodes = this.props.textNodes;
@@ -96,7 +81,7 @@ ReadingEnvironment = React.createClass({
 				/>
 			);
 		});
-	},
+	}
 
 	render() {
 		const work = this.props.work;
@@ -140,7 +125,28 @@ ReadingEnvironment = React.createClass({
 			</div>
 
 		);
-	},
+	}
 
-});
-Contact GitHub API Training Shop Blog About
+}
+
+ReadingEnvironment.propTypes = {
+	work: React.PropTypes.object.isRequired,
+	textNodes: React.PropTypes.array.isRequired,
+	loadMore: React.PropTypes.func.isRequired,
+	calculateTextNodeDepths: React.PropTypes.func.isRequired,
+	highlightId: React.PropTypes.string,
+	toggleReadingMeta: React.PropTypes.func,
+	isTextAfter: React.PropTypes.bool,
+	isTextBefore: React.PropTypes.bool,
+	isLoading: React.PropTypes.bool,
+	showLoginModal: React.PropTypes.func,
+	showSignupModal: React.PropTypes.func,
+	closeLoginModal: React.PropTypes.func,
+	closeSignupModal: React.PropTypes.func,
+};
+
+ReadingEnvironment.childContextTypes = {
+	muiTheme: React.PropTypes.object.isRequired,
+};
+
+export default ReadingEnvironment;

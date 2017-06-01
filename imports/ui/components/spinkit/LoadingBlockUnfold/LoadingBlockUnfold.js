@@ -1,3 +1,6 @@
+
+import React from 'react';
+
 export default class LoadingBlockUnfold extends React.Component {
 	render() {
 		return (

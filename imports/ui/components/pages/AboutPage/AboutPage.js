@@ -1,4 +1,6 @@
-AboutPage = React.createClass({
+import React from 'react';
+
+class AboutPage extends React.Component {
 
 	render() {
 		return (
@@ -70,5 +72,7 @@ AboutPage = React.createClass({
 			</div>
 
 		);
-	},
-});
+	}
+}
+
+export default AboutPage;

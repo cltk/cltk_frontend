@@ -1,56 +1,28 @@
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import React from 'react';
+import PropTypes from 'prop-types';
+import autoBind from 'react-autobind';
+import { createContainer } from 'meteor/react-meteor-data';
 import { Card } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-// Needed for onTouchTap
-// Check this repo:
-// https://github.com/zilverline/react-tap-event-plugin
-injectTapEventPlugin();
 
 // Work Teaser
-WorkTeaser = React.createClass({
+class WorkTeaser extends React.Component {
 
-	propTypes: {
-		work: React.PropTypes.object.isRequired,
-	},
+	constructor(props) {
+		super(props);
 
-	mixins: [ReactMeteorData],
-
-	getInitialState() {
-		return {
+		this.state = {
 			isInShelf: false,
 		};
-	},
+		autoBind(this);
+	}
 
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
-	},
-
-	getMeteorData() {
-		let isInShelf = false;
-
-		const worksShelfList = Meteor.users.findOne({
-			_id: Meteor.userId(),
-		}, {
-			fields: {
-				worksShelf: 1,
-			},
-		});
-
-		const handle = Meteor.subscribe('worksShelf');
-		if (handle.ready()) {
-			if (worksShelfList && 'worksShelf' in worksShelfList) {
-				// Check if current textNode exist in bookmarked textNodes
-				isInShelf = ~worksShelfList.worksShelf.indexOf(this.props.work._id._str);
-			}
-		}
-
-		return {
-			isInShelf,
-		};
-	},
+	}
 
 	toggleShelf(isChecked) {
 		if (Meteor.userId()) {
@@ -67,13 +39,13 @@ WorkTeaser = React.createClass({
 				showLoginDialog: true,
 			});
 		}
-	},
+	}
 
 	render() {
 		const work = this.props.work;
 		const workUrl = `/works/${work._id._str}/${work.slug}`;
 
-		let isInShelf = this.data.isInShelf;
+		let isInShelf = this.props.isInShelf;
 
 		if (this.state.isInShelf) {
 			isInShelf = this.state.isInShelf;
@@ -181,10 +153,39 @@ WorkTeaser = React.createClass({
 				</CardActions>*/}
 			</Card>
 		);
-	},
-
-});
+	}
+}
 
 WorkTeaser.childContextTypes = {
-	muiTheme: React.PropTypes.object.isRequired,
+	muiTheme: PropTypes.object.isRequired,
 };
+
+WorkTeaser.propTypes = {
+	work: PropTypes.object.isRequired,
+};
+
+const WorkTeaserContainer = createContainer((props) => {
+	let isInShelf = false;
+
+	const worksShelfList = Meteor.users.findOne({
+		_id: Meteor.userId(),
+	}, {
+		fields: {
+			worksShelf: 1,
+		},
+	});
+
+	const handle = Meteor.subscribe('worksShelf');
+	if (handle.ready()) {
+		if (worksShelfList && 'worksShelf' in worksShelfList) {
+			// Check if current textNode exist in bookmarked textNodes
+			isInShelf = ~worksShelfList.worksShelf.indexOf(props.work._id._str);
+		}
+	}
+
+	return {
+		isInShelf,
+	};
+}, WorkTeaser);
+
+export default WorkTeaserContainer;

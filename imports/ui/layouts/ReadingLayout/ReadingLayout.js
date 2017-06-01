@@ -1,19 +1,17 @@
+
+import React from 'react';
+import PropTypes from 'prop-types';
 import debounce from 'throttle-debounce/debounce';
-import LoadingDoubleWell from '/imports/spinkit/client/LoadingDoubleWell';
+import LoadingDoubleWell from '/imports/ui/components/spinkit/LoadingDoubleWell';
 import Authors from '/imports/api/collections/authors';
 import TextNodes from '/imports/api/collections/textNodes';
 import Works from '/imports/api/collections/works';
 
-ReadingLayout = React.createClass({
+class ReadingLayout extends React.Component {
 
-	propTypes: {
-		params: React.PropTypes.object.isRequired,
-		queryParams: React.PropTypes.object.isRequired,
-	},
+	constructor(props) {
+		super(props);
 
-	mixins: [ReactMeteorData],
-
-	getInitialState() {
 		const queryParams = this.props.queryParams;
 		let location = [];
 
@@ -24,7 +22,7 @@ ReadingLayout = React.createClass({
 			});
 		}
 
-		return {
+		this.state = {
 			toggleCommentary: false,
 			toggleDefinitions: false,
 			toggleTranslations: false,
@@ -41,83 +39,23 @@ ReadingLayout = React.createClass({
 			modalSignupLowered: false,
 			location,
 		};
-	},
+	}
 
 	componentDidMount() {
 		window.addEventListener('resize', this.calculateTextNodeDepths);
 		window.addEventListener('scroll', debounce(100, this.handleScroll));
-	},
+	}
 
 	componentDidUpdate() {
 		if (this.textNodesDepths.length !== this.textNodes.length) {
 			this.calculateTextNodeDepths();
 		}
-	},
+	}
 
-	getMeteorData() {
-		const workQuery = {
-			_id: new Meteor.Collection.ObjectID(this.props.params.id),
-		};
-		const textLocation = this.state.location;
-		let query = {};
-		let textNodes = [];
-		let work = null;
-		let attachment = null;
-
-		Meteor.subscribe('workSingle', workQuery);
-		work = Works.findOne();
-
-		if (work) {
-			// Get the work authors
-			work.authors = Authors.find({ _id: { $in: work.authors } }).fetch();
-
-			// Get the work cover image
-			if ('coverImage' in work) {
-				Meteor.subscribe('images');
-				attachment = Images.findOne(work.coverImage);
-			}
-		}
-
-		/*
-		* Set the query
-		*/
-		query = {
-			work: new Meteor.Collection.ObjectID(this.props.params.id),
-		};
-
-		/*
-		 * This needs much more attention for a simpler solution in the future.
-		 */
-		if (textLocation.length === 5) {
-			query.n_5 = { $gte: textLocation[4] };
-		}
-		if (textLocation.length >= 4) {
-			query.n_4 = { $gte: textLocation[3] };
-		}
-		if (textLocation.length >= 3) {
-			query.n_3 = { $gte: textLocation[2] };
-		}
-		if (textLocation.length >= 2) {
-			query.n_2 = { $gte: textLocation[1] };
-		}
-		if (textLocation.length >= 1) {
-			query.n_1 = { $gte: textLocation[0] };
-		}
-
-		Meteor.subscribe('textNodes', query, this.state.limit);
-		textNodes = TextNodes.find(query).fetch();
-
-		return {
-			work,
-			attachment,
-			textNodes,
-		};
-	},
-
-	textNodes: [],
-	textNodesDepths: [],
-	isTextAfter: true,
-	isTextBefore: false,
+	textNodes: []
+	textNodesDepths: []
+	isTextAfter: true
+	isTextBefore: false
 
 	loadMore(direction) {
 		const textNodes = this.textNodes;
@@ -194,7 +132,7 @@ ReadingLayout = React.createClass({
 				location: textLocation,
 			});
 		}
-	},
+	}
 
 	checkIfTextBefore() {
 		this.isTextBefore = true;
@@ -230,7 +168,7 @@ ReadingLayout = React.createClass({
 				}
 			});
 		}
-	},
+	}
 
 	checkIfTextAfter() {
 		const work = this.data.work;
@@ -285,7 +223,7 @@ ReadingLayout = React.createClass({
 		} else {
 			this.isTextAfter = true;
 		}
-	},
+	}
 
 	calculateTextNodeDepths() {
 		const $textNodes = $('.text-node');
@@ -299,7 +237,7 @@ ReadingLayout = React.createClass({
 		});
 
 		this.textNodesDepths = textNodesDepths;
-	},
+	}
 
 	handleScroll() {
 		const scrollY = window.scrollY;
@@ -323,7 +261,7 @@ ReadingLayout = React.createClass({
 				FlowRouter.setQueryParams({ location: activeTextNode.location });
 			});
 		}
-	},
+	}
 
 	toggleSidePanel(metadata) {
 		if (metadata === 'definitions') {
@@ -362,8 +300,7 @@ ReadingLayout = React.createClass({
 				toggleScansion: toggle,
 			});
 		}
-	},
-
+	}
 
 	addAnnotationCheckList(textNodeId, isChecked) {
 		const annotationCheckList = this.state.annotationCheckList;
@@ -378,47 +315,49 @@ ReadingLayout = React.createClass({
 		this.setState({
 			annotationCheckList,
 		});
-	},
-
+	}
 
 	resetAnnotationCheckList() {
 		this.setState({
 			annotationCheckList: [],
 		});
-	},
+	}
 
 	showSearchModal() {
 		this.setState({
 			searchModalVisible: true,
 		});
-	},
+	}
 
 	closeSearchModal() {
 		this.setState({
 			searchModalVisible: false,
 		});
-	},
+	}
 
 	showLoginModal() {
 		this.setState({
 			modalLoginLowered: true,
 		});
-	},
+	}
+
 	showSignupModal() {
 		this.setState({
 			modalSignupLowered: true,
 		});
-	},
+	}
+
 	closeLoginModal() {
 		this.setState({
 			modalLoginLowered: false,
 		});
-	},
+	}
+
 	closeSignupModal() {
 		this.setState({
 			modalSignupLowered: false,
 		});
-	},
+	}
 
 	toggleReadingMeta(metaType) {
 		if (metaType === 'annotations') {
@@ -430,7 +369,7 @@ ReadingLayout = React.createClass({
 				toggleRelatedPassages: !this.state.toggleRelatedPassages,
 			});
 		}
-	},
+	}
 
 	renderReadingEnvironment() {
 		const self = this;
@@ -559,7 +498,7 @@ ReadingLayout = React.createClass({
 			);
 		}
 		return null;
-	},
+	}
 
 	render() {
 
@@ -660,6 +599,72 @@ ReadingLayout = React.createClass({
 				}
 			</div>
 		);
-	},
+	}
+}
 
-});
+ReadingLayout.propTypes = {
+	params: PropTypes.object.isRequired,
+	queryParams: PropTypes.object.isRequired,
+};
+
+const ReadingLayoutContainer = createContainer(props => {
+	const workQuery = {
+		_id: new Meteor.Collection.ObjectID(props.params.id),
+	};
+	const textLocation = props.location;
+	let query = {};
+	let textNodes = [];
+	let work = null;
+	let attachment = null;
+
+	Meteor.subscribe('workSingle', workQuery);
+	work = Works.findOne();
+
+	if (work) {
+		// Get the work authors
+		work.authors = Authors.find({ _id: { $in: work.authors } }).fetch();
+
+		// Get the work cover image
+		if ('coverImage' in work) {
+			Meteor.subscribe('images');
+			attachment = Images.findOne(work.coverImage);
+		}
+	}
+
+	/*
+	* Set the query
+	*/
+	query = {
+		work: new Meteor.Collection.ObjectID(props.params.id),
+	};
+
+	/*
+	 * This needs much more attention for a simpler solution in the future.
+	 */
+	if (textLocation.length === 5) {
+		query.n_5 = { $gte: textLocation[4] };
+	}
+	if (textLocation.length >= 4) {
+		query.n_4 = { $gte: textLocation[3] };
+	}
+	if (textLocation.length >= 3) {
+		query.n_3 = { $gte: textLocation[2] };
+	}
+	if (textLocation.length >= 2) {
+		query.n_2 = { $gte: textLocation[1] };
+	}
+	if (textLocation.length >= 1) {
+		query.n_1 = { $gte: textLocation[0] };
+	}
+
+	Meteor.subscribe('textNodes', query, props.limit);
+	textNodes = TextNodes.find(query).fetch();
+
+	return {
+		work,
+		attachment,
+		textNodes,
+	};
+}, ReadingLayout);
+
+export default ReadingLayoutContainer;

@@ -1,15 +1,8 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import { debounce } from 'throttle-debounce';
-import 'ion-rangeslider/js/ion.rangeSlider.js';
-import 'ion-rangeslider/css/ion.rangeSlider.css';
-import 'ion-rangeslider/css/ion.rangeSlider.skinFlat.css';
 
-DateRangeSlider = React.createClass({
-
-	propTypes: {
-		handleChangeDate: React.PropTypes.func.isRequired,
-		min: React.PropTypes.number,
-		max: React.PropTypes.number,
-	},
+class DateRangeSlider extends React.Component {
 
 	componentDidMount() {
 		$('#date-range').ionRangeSlider({
@@ -22,12 +15,19 @@ DateRangeSlider = React.createClass({
 			onChange: debounce(500, this.props.handleChangeDate),
 
 		});
-	},
+	}
 
 	render() {
 		return (
 			<div id="date-range" />
 		);
-	},
+	}
+}
 
-});
+DateRangeSlider.propTypes = {
+	handleChangeDate: PropTypes.func.isRequired,
+	min: PropTypes.number,
+	max: PropTypes.number,
+};
+
+export default DateRangeSlider;

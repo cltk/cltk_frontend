@@ -1,4 +1,6 @@
-HomeGetStarted = React.createClass({
+import React from 'react';
+
+class HomeGetStarted extends React.Component {
 
 	render() {
 		return (
@@ -29,5 +31,7 @@ HomeGetStarted = React.createClass({
 			</section>
 
 		);
-	},
-});
+	}
+}
+
+export default HomeGetStarted;

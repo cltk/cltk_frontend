@@ -1,8 +1,7 @@
-ReadingWorkHeader = React.createClass({
+import React from 'react';
+import PropTypes from 'prop-types';
 
-	propTypes: {
-		work: React.PropTypes.object.isRequired,
-	},
+class ReadingWorkHeader extends React.Component {
 
 	render() {
 		const work = this.props.work;
@@ -56,5 +55,11 @@ ReadingWorkHeader = React.createClass({
 
 			</section>
 		);
-	},
-});
+	}
+}
+
+ReadingWorkHeader.propTypes = {
+	work: PropTypes.object.isRequired,
+};
+
+export default ReadingWorkHeader;

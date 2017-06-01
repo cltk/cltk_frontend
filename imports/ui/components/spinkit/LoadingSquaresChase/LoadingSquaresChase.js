@@ -1,3 +1,6 @@
+
+import React from 'react';
+
 export default class LoadingSquaresChase extends React.Component {
 	render() {
 		return (

@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoadingCirclesChase renders correctly 1`] = `
+<div
+  className="loading-spinner loading-spinner-circles-chase"
+>
+  <div
+    className="dot1"
+  />
+  <div
+    className="dot2"
+  />
+</div>
+`;

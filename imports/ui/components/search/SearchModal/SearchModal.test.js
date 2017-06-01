@@ -12,7 +12,9 @@ describe('SearchModal', () => {
 		const tree = renderer
 			.create(
 				<MuiThemeProvider>
-					<SearchModal />
+					<SearchModal
+						works={[]}
+					/>
 				</MuiThemeProvider>
 			)
 			.toJSON();

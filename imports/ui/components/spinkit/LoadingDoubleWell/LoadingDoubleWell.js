@@ -1,3 +1,6 @@
+
+import React from 'react';
+
 export default class LoadingDoubleWell extends React.Component {
 	render() {
 		return (

@@ -1,8 +1,8 @@
-Translation = React.createClass({
+import React from 'react';
+import PropTypes from 'prop-types';
 
-	propTypes: {
-		translation: React.PropTypes.object.isRequired,
-	},
+
+class Translation extends React.Component {
 
 	render() {
 		const translationClassName = 'meta-item translation';
@@ -15,10 +15,14 @@ Translation = React.createClass({
 						dangerouslySetInnerHTML={{ __html: text }}
 					/>
 				))}
-
 			</div>
-
 		);
-	},
+	}
+}
 
-});
+Translation.propTypes = {
+	translation: PropTypes.object.isRequired,
+};
+
+
+export default Translation;

@@ -12,7 +12,12 @@ describe('SearchTermButton', () => {
 		const tree = renderer
 			.create(
 				<MuiThemeProvider>
-					<SearchTermButton />
+					<SearchTermButton
+						toggleSearchTerm={() => {}}
+						label="Label"
+						searchTermKey="Key"
+						value="Value"
+					/>
 				</MuiThemeProvider>
 			)
 			.toJSON();

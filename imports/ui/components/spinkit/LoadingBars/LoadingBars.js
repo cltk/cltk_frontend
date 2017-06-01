@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default class LoadingBars extends React.Component {
 	render() {
 		return (

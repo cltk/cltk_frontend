@@ -61,7 +61,7 @@ HomeFeatures.propTypes = {
 	worksCount: PropTypes.number,
 };
 
-export default HomeFeaturesContainer = createContainer(props => {
+const HomeFeaturesContainer = createContainer(props => {
 	let authorsCount = 0;
 	let worksCount = 0;
 	let entitiesCount = 0;
@@ -75,3 +75,5 @@ export default HomeFeaturesContainer = createContainer(props => {
 		entitiesCount,
 	};
 }, HomeFeatures);
+
+export default HomeFeaturesContainer;

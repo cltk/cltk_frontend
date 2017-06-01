@@ -12,7 +12,9 @@ describe('SearchFilters', () => {
 		const tree = renderer
 			.create(
 				<MuiThemeProvider>
-					<SearchFilters />
+					<SearchFilters
+						filters={[]}
+					/>
 				</MuiThemeProvider>
 			)
 			.toJSON();

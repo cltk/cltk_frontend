@@ -1,26 +1,21 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { createContainer } from 'meteor/react-meteor-data';
+
 import FlatButton from 'material-ui/FlatButton';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Commentary from '/imports/api/collections/commentary';
 import Translations from '/imports/api/collections/translations';
 
-CommentaryPanel = React.createClass({
-
-	propTypes: {
-		toggleCommentary: React.PropTypes.bool,
-		toggleTranslations: React.PropTypes.bool,
-		work: React.PropTypes.string,
-		textNodes: React.PropTypes.array,
-	},
-
-	mixins: [ReactMeteorData],
+class CommentaryPanel extends React.Component {
 
 	getDefaultProps() {
 		return {
 			toggleCommentary: false,
 			toggleTranslations: false,
 		};
-	},
+	}
 
 	getInitialState() {
 		/* eslint max-len: "off" */
@@ -165,62 +160,17 @@ CommentaryPanel = React.createClass({
 		return {
 			selected_translation: 0,
 		};
-	},
+	}
 
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
-	},
-
-	getMeteorData() {
-		const translationsList = [];
-		const handle = Meteor.subscribe('translations', this.props.work);
-		if (handle.ready()) {
-			const translations = {};
-			Translations.find({}, { sort: { n_1: 1, n_2: 1, n_3: 1 },
-				limit: 1000 }).fetch().map((translation) => {
-					if (translations[translation.translator] == null) {
-						translations[translation.translator] = [];
-					}
-					translations[translation.translator].push(translation.text);
-					return true;
-				});
-			let index = 0;
-
-			Object.keys(translations).forEach((key) => {
-				const translation = {};
-				translation._id = index;
-				translation.translator = key;
-				translation.text = translations[key];
-				translationsList.push(translation);
-				index += 1;
-			});
-		}
-		const commentsList = [];
-		const handleCommentary = Meteor.subscribe('commentary', this.props.work);
-		if (handleCommentary.ready()) {
-			this.props.textNodes.forEach((textNode, i) => {
-				if (textNode.comments) {
-					Commentary.find({ _id: { $in: textNode.comments } }).fetch().forEach((comment) => {
-						tempComment = comment;
-						tempComment.index = i;
-						commentsList.push(tempComment);
-					});
-				}
-			});
-		}
-
-		return {
-			comments: commentsList,
-			translations: translationsList,
-
-		};
-	},
+	}
 
 	toggleTranslation(index) {
 		this.setState({
 			selected_translation: index,
 		});
-	},
+	}
 
 	renderComments() {
 		// Eventually this will be this.data.comments from the database
@@ -230,7 +180,7 @@ CommentaryPanel = React.createClass({
 				comment={comment}
 			/>
 		));
-	},
+	}
 
 	renderTranslations() {
 		// Eventually this will be this.data.translations from the database
@@ -240,7 +190,7 @@ CommentaryPanel = React.createClass({
 				translation={this.data.translations[this.state.selected_translation]}
 			/>
 		);
-	},
+	}
 
 	render() {
 		const styles = {
@@ -302,9 +252,62 @@ CommentaryPanel = React.createClass({
 				</div>
 			</div>
 		);
-	},
+	}
+}
 
-});
 CommentaryPanel.childContextTypes = {
-	muiTheme: React.PropTypes.object.isRequired,
+	muiTheme: PropTypes.object.isRequired,
 };
+
+CommentaryPanel.propTypes = {
+	toggleCommentary: PropTypes.bool,
+	toggleTranslations: PropTypes.bool,
+	work: PropTypes.string,
+	textNodes: PropTypes.array,
+};
+
+const CommentaryPanelContainer = createContainer(props => {
+	const translationsList = [];
+	const handle = Meteor.subscribe('translations', props.work);
+	if (handle.ready()) {
+		const translations = {};
+		Translations.find({}, { sort: { n_1: 1, n_2: 1, n_3: 1 },
+			limit: 1000 }).fetch().map((translation) => {
+				if (translations[translation.translator] == null) {
+					translations[translation.translator] = [];
+				}
+				translations[translation.translator].push(translation.text);
+				return true;
+			});
+		let index = 0;
+
+		Object.keys(translations).forEach((key) => {
+			const translation = {};
+			translation._id = index;
+			translation.translator = key;
+			translation.text = translations[key];
+			translationsList.push(translation);
+			index += 1;
+		});
+	}
+	const commentsList = [];
+	const handleCommentary = Meteor.subscribe('commentary', props.work);
+	if (handleCommentary.ready()) {
+		props.textNodes.forEach((textNode, i) => {
+			if (textNode.comments) {
+				Commentary.find({ _id: { $in: textNode.comments } }).fetch().forEach((comment) => {
+					tempComment = comment;
+					tempComment.index = i;
+					commentsList.push(tempComment);
+				});
+			}
+		});
+	}
+
+	return {
+		comments: commentsList,
+		translations: translationsList,
+	};
+}, CommentaryPanel);
+
+export default CommentaryPanelContainer;
