@@ -1,0 +1,579 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchTools renders correctly 1`] = `
+<div
+  className="search-tools"
+>
+  <div
+    className="text-search-row"
+  >
+    <i
+      className="search-icon mdi mdi-magnify"
+    />
+    <div
+      className="text-search-field"
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "cursor": "auto",
+          "display": "inline-block",
+          "fontFamily": "Roboto, sans-serif",
+          "fontSize": 16,
+          "height": 72,
+          "lineHeight": "24px",
+          "muiPrepared": true,
+          "position": "relative",
+          "transition": "height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+          "width": 256,
+        }
+      }
+    >
+      <label
+        className={undefined}
+        htmlFor="undefined-Search-Search-7564"
+        onTouchTap={undefined}
+        style={
+          Object {
+            "color": "rgba(0, 0, 0, 0.3)",
+            "lineHeight": "22px",
+            "muiPrepared": true,
+            "pointerEvents": "none",
+            "position": "absolute",
+            "top": 38,
+            "transform": "scale(0.75) translate(0, -28px)",
+            "transformOrigin": "left top",
+            "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+            "userSelect": "none",
+            "zIndex": 1,
+          }
+        }
+      >
+        Search
+      </label>
+      <div
+        style={
+          Object {
+            "bottom": 12,
+            "color": "rgba(0, 0, 0, 0.3)",
+            "muiPrepared": true,
+            "opacity": 1,
+            "position": "absolute",
+            "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+          }
+        }
+      >
+        Search
+      </div>
+      <input
+        disabled={false}
+        id="undefined-Search-Search-7564"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        style={
+          Object {
+            "WebkitTapHighlightColor": "rgba(0,0,0,0)",
+            "appearance": "textfield",
+            "backgroundColor": "rgba(0,0,0,0)",
+            "border": "none",
+            "boxSizing": "border-box",
+            "color": "rgba(0, 0, 0, 0.87)",
+            "cursor": "inherit",
+            "font": "inherit",
+            "height": "100%",
+            "marginTop": 14,
+            "muiPrepared": true,
+            "outline": "none",
+            "padding": 0,
+            "position": "relative",
+            "width": "100%",
+          }
+        }
+        type="text"
+      />
+      <div>
+        <hr
+          aria-hidden="true"
+          style={
+            Object {
+              "borderBottom": "solid 1px",
+              "borderColor": "#e0e0e0",
+              "borderLeft": "none",
+              "borderRight": "none",
+              "borderTop": "none",
+              "bottom": 8,
+              "boxSizing": "content-box",
+              "margin": 0,
+              "muiPrepared": true,
+              "position": "absolute",
+              "width": "100%",
+            }
+          }
+        />
+        <hr
+          aria-hidden="true"
+          style={
+            Object {
+              "borderBottom": "solid 2px",
+              "borderColor": "#00bcd4",
+              "borderLeft": "none",
+              "borderRight": "none",
+              "borderTop": "none",
+              "bottom": 8,
+              "boxSizing": "content-box",
+              "margin": 0,
+              "muiPrepared": true,
+              "position": "absolute",
+              "transform": "scaleX(0)",
+              "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+              "width": "100%",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="dropdown-search-row"
+  >
+    <div
+      className="cltk-dropdown search-dropdown search-dropdown-date"
+    >
+      <button
+        className="search-tool search-type-date dropdown-toggle"
+        disabled={false}
+        href={undefined}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onTouchStart={[Function]}
+        onTouchTap={[Function]}
+        style={
+          Object {
+            "WebkitTapHighlightColor": "rgba(0, 0, 0, 0)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "border": 10,
+            "borderRadius": 2,
+            "boxSizing": "border-box",
+            "color": "rgba(0, 0, 0, 0.87)",
+            "cursor": "pointer",
+            "display": "inline-block",
+            "fontFamily": "Roboto, sans-serif",
+            "fontSize": "inherit",
+            "fontWeight": "inherit",
+            "height": 36,
+            "lineHeight": "36px",
+            "margin": 0,
+            "minWidth": 88,
+            "muiPrepared": true,
+            "outline": "none",
+            "overflow": "hidden",
+            "padding": 0,
+            "position": "relative",
+            "textAlign": "center",
+            "textDecoration": "none",
+            "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+            "userSelect": "none",
+            "verticalAlign": null,
+            "zIndex": 1,
+          }
+        }
+        tabIndex={0}
+        type="button"
+      >
+        <div
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchStart={[Function]}
+        >
+          <span
+            style={
+              Object {
+                "fontSize": 14,
+                "fontWeight": 500,
+                "letterSpacing": 0,
+                "muiPrepared": true,
+                "paddingLeft": 16,
+                "paddingRight": 8,
+                "position": "relative",
+                "textTransform": "uppercase",
+                "verticalAlign": "middle",
+              }
+            }
+          >
+            Date
+          </span>
+          <span
+            className="mdi mdi-chevron-down"
+            color="rgba(0, 0, 0, 0.87)"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            style={
+              Object {
+                "color": "rgba(0, 0, 0, 0.87)",
+                "display": "inline-block",
+                "fontSize": 24,
+                "marginLeft": 0,
+                "marginRight": 12,
+                "muiPrepared": true,
+                "position": "relative",
+                "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                "userSelect": "none",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+        </div>
+      </button>
+      <ul
+        className="dropdown-menu "
+      >
+        <div
+          className="dropdown-menu-inner"
+        >
+          <div
+            className="search-tool--date toolbar"
+          >
+            <div
+              id="date-range"
+            />
+          </div>
+        </div>
+      </ul>
+    </div>
+    <div
+      className="cltk-dropdown search-dropdown search-dropdown-languages"
+    >
+      <button
+        className="search-tool search-type-languages dropdown-toggle"
+        disabled={false}
+        href={undefined}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onTouchStart={[Function]}
+        onTouchTap={[Function]}
+        style={
+          Object {
+            "WebkitTapHighlightColor": "rgba(0, 0, 0, 0)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "border": 10,
+            "borderRadius": 2,
+            "boxSizing": "border-box",
+            "color": "rgba(0, 0, 0, 0.87)",
+            "cursor": "pointer",
+            "display": "inline-block",
+            "fontFamily": "Roboto, sans-serif",
+            "fontSize": "inherit",
+            "fontWeight": "inherit",
+            "height": 36,
+            "lineHeight": "36px",
+            "margin": 0,
+            "minWidth": 88,
+            "muiPrepared": true,
+            "outline": "none",
+            "overflow": "hidden",
+            "padding": 0,
+            "position": "relative",
+            "textAlign": "center",
+            "textDecoration": "none",
+            "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+            "userSelect": "none",
+            "verticalAlign": null,
+            "zIndex": 1,
+          }
+        }
+        tabIndex={0}
+        type="button"
+      >
+        <div
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchStart={[Function]}
+        >
+          <span
+            style={
+              Object {
+                "fontSize": 14,
+                "fontWeight": 500,
+                "letterSpacing": 0,
+                "muiPrepared": true,
+                "paddingLeft": 16,
+                "paddingRight": 8,
+                "position": "relative",
+                "textTransform": "uppercase",
+                "verticalAlign": "middle",
+              }
+            }
+          >
+            languages
+          </span>
+          <span
+            className="mdi mdi-chevron-down"
+            color="rgba(0, 0, 0, 0.87)"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            style={
+              Object {
+                "color": "rgba(0, 0, 0, 0.87)",
+                "display": "inline-block",
+                "fontSize": 24,
+                "marginLeft": 0,
+                "marginRight": 12,
+                "muiPrepared": true,
+                "position": "relative",
+                "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                "userSelect": "none",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+        </div>
+      </button>
+      <ul
+        className="dropdown-menu "
+      >
+        <div
+          className="dropdown-menu-inner"
+        >
+          <span
+            className="no-results"
+          >
+            No languages found in archive.
+          </span>
+        </div>
+      </ul>
+    </div>
+    <div
+      className="cltk-dropdown search-dropdown search-dropdown-corpora"
+    >
+      <button
+        className="search-tool search-type-corpora dropdown-toggle"
+        disabled={false}
+        href={undefined}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onTouchStart={[Function]}
+        onTouchTap={[Function]}
+        style={
+          Object {
+            "WebkitTapHighlightColor": "rgba(0, 0, 0, 0)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "border": 10,
+            "borderRadius": 2,
+            "boxSizing": "border-box",
+            "color": "rgba(0, 0, 0, 0.87)",
+            "cursor": "pointer",
+            "display": "inline-block",
+            "fontFamily": "Roboto, sans-serif",
+            "fontSize": "inherit",
+            "fontWeight": "inherit",
+            "height": 36,
+            "lineHeight": "36px",
+            "margin": 0,
+            "minWidth": 88,
+            "muiPrepared": true,
+            "outline": "none",
+            "overflow": "hidden",
+            "padding": 0,
+            "position": "relative",
+            "textAlign": "center",
+            "textDecoration": "none",
+            "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+            "userSelect": "none",
+            "verticalAlign": null,
+            "zIndex": 1,
+          }
+        }
+        tabIndex={0}
+        type="button"
+      >
+        <div
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchStart={[Function]}
+        >
+          <span
+            style={
+              Object {
+                "fontSize": 14,
+                "fontWeight": 500,
+                "letterSpacing": 0,
+                "muiPrepared": true,
+                "paddingLeft": 16,
+                "paddingRight": 8,
+                "position": "relative",
+                "textTransform": "uppercase",
+                "verticalAlign": "middle",
+              }
+            }
+          >
+            corpora
+          </span>
+          <span
+            className="mdi mdi-chevron-down"
+            color="rgba(0, 0, 0, 0.87)"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            style={
+              Object {
+                "color": "rgba(0, 0, 0, 0.87)",
+                "display": "inline-block",
+                "fontSize": 24,
+                "marginLeft": 0,
+                "marginRight": 12,
+                "muiPrepared": true,
+                "position": "relative",
+                "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                "userSelect": "none",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+        </div>
+      </button>
+      <ul
+        className="dropdown-menu "
+      >
+        <div
+          className="dropdown-menu-inner"
+        >
+          <span
+            className="no-results"
+          >
+            No corpora found in archive.
+          </span>
+        </div>
+      </ul>
+    </div>
+    <div
+      className="cltk-dropdown search-dropdown search-dropdown-authors"
+    >
+      <button
+        className="search-tool search-type-authors dropdown-toggle"
+        disabled={false}
+        href={undefined}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onTouchStart={[Function]}
+        onTouchTap={[Function]}
+        style={
+          Object {
+            "WebkitTapHighlightColor": "rgba(0, 0, 0, 0)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "border": 10,
+            "borderRadius": 2,
+            "boxSizing": "border-box",
+            "color": "rgba(0, 0, 0, 0.87)",
+            "cursor": "pointer",
+            "display": "inline-block",
+            "fontFamily": "Roboto, sans-serif",
+            "fontSize": "inherit",
+            "fontWeight": "inherit",
+            "height": 36,
+            "lineHeight": "36px",
+            "margin": 0,
+            "minWidth": 88,
+            "muiPrepared": true,
+            "outline": "none",
+            "overflow": "hidden",
+            "padding": 0,
+            "position": "relative",
+            "textAlign": "center",
+            "textDecoration": "none",
+            "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+            "userSelect": "none",
+            "verticalAlign": null,
+            "zIndex": 1,
+          }
+        }
+        tabIndex={0}
+        type="button"
+      >
+        <div
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchStart={[Function]}
+        >
+          <span
+            style={
+              Object {
+                "fontSize": 14,
+                "fontWeight": 500,
+                "letterSpacing": 0,
+                "muiPrepared": true,
+                "paddingLeft": 16,
+                "paddingRight": 8,
+                "position": "relative",
+                "textTransform": "uppercase",
+                "verticalAlign": "middle",
+              }
+            }
+          >
+            authors
+          </span>
+          <span
+            className="mdi mdi-chevron-down"
+            color="rgba(0, 0, 0, 0.87)"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            style={
+              Object {
+                "color": "rgba(0, 0, 0, 0.87)",
+                "display": "inline-block",
+                "fontSize": 24,
+                "marginLeft": 0,
+                "marginRight": 12,
+                "muiPrepared": true,
+                "position": "relative",
+                "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                "userSelect": "none",
+                "verticalAlign": "middle",
+              }
+            }
+          />
+        </div>
+      </button>
+      <ul
+        className="dropdown-menu "
+      >
+        <div
+          className="dropdown-menu-inner"
+        >
+          <span
+            className="no-results"
+          >
+            No authors found in archive.
+          </span>
+        </div>
+      </ul>
+    </div>
+  </div>
+</div>
+`;

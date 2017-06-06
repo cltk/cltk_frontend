@@ -215,7 +215,7 @@ class SearchModal extends React.Component {
 
 		if (this.props.worksCount && this.props.worksCount <= this.works.length) {
 			hasMoreWorks = false;
-		} else if (this.props.works.length < this.props.limit) {
+		} else if (this.props.works && this.props.works.length < this.props.limit) {
 			hasMoreWorks = false;
 		}
 

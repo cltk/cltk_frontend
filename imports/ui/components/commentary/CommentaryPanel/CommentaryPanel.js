@@ -173,8 +173,8 @@ class CommentaryPanel extends React.Component {
 	}
 
 	renderComments() {
-		// Eventually this will be this.data.comments from the database
-		return this.data.comments.map((comment, i) => (
+		// Eventually this will be this.props.comments from the database
+		return this.props.comments.map((comment, i) => (
 			<Commentary
 				key={i}
 				comment={comment}
@@ -183,11 +183,11 @@ class CommentaryPanel extends React.Component {
 	}
 
 	renderTranslations() {
-		// Eventually this will be this.data.translations from the database
+		// Eventually this will be this.props.translations from the database
 		return (
 			<Translation
 				key={this.state.selected_translation}
-				translation={this.data.translations[this.state.selected_translation]}
+				translation={this.props.translations[this.state.selected_translation]}
 			/>
 		);
 	}
@@ -217,7 +217,7 @@ class CommentaryPanel extends React.Component {
 					<div className="modal-panel-inner commentary-panel-inner">
 						<div className="comments panel-items">
 							{this.renderComments()}
-							{this.data.comments.length === 0 ?
+							{this.props.comments.length === 0 ?
 								<span className="no-results no-results-commentary">
 									No commentary available.
 								</span>
@@ -229,14 +229,14 @@ class CommentaryPanel extends React.Component {
 					</div>
 					<div className="modal-panel-inner translations-panel-inner">
 						<div className="translations panel-items">
-							{this.data.translations.length === 0 ?
+							{this.props.translations.length === 0 ?
 								<span className="no-results no-results-translation">No translations available.</span>
 								:
 								this.renderTranslations()
 							}
 						</div>
 						<div className="translations-options">
-							{this.data.translations.map(function translatorButton(translation, i) {
+							{this.props.translations.map(function translatorButton(translation, i) {
 								return (
 									<FlatButton
 										key={i}

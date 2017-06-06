@@ -1,6 +1,9 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
+
+import Header from '/imports/ui/components/header/Header';
+import Footer from '/imports/ui/components/footer/Footer';
+import SearchModal from '/imports/ui/components/search/SearchModal';
 
 export default class MasterLayout extends React.Component {
 	constructor(props) {

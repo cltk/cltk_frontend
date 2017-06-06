@@ -100,7 +100,7 @@ class ReadingTextNode extends React.Component{
 
 	toggleBookmark() {
 		if (Meteor.userId()) {
-			let bookmarked = this.data.bookmarked;
+			let bookmarked = this.props.bookmarked;
 			if (this.state.bookmarked) {
 				bookmarked = this.state.bookmarked;
 			}
@@ -145,7 +145,7 @@ class ReadingTextNode extends React.Component{
 	}
 
 	renderAnnotations() {
-		return this.data.annotations.map((annotation, i) => (
+		return this.props.annotations.map((annotation, i) => (
 			<AnnotationItem
 				key={i}
 				annotation={annotation}
@@ -161,7 +161,7 @@ class ReadingTextNode extends React.Component{
 		const mediaItems = text.mediaItems || [];
 		const relatedPassages = text.relatedPassages || [];
 		const entities = text.entities || [];
-		let bookmarked = this.data.bookmarked;
+		let bookmarked = this.props.bookmarked;
 
 		if (this.state.bookmarked) {
 			bookmarked = this.state.bookmarked;
@@ -191,7 +191,7 @@ class ReadingTextNode extends React.Component{
 			textClasses = `${textClasses} show-related-passages`;
 		}
 
-		if (this.data.annotations.length !== 0) {
+		if (this.props.annotations.length !== 0) {
 			textClasses = `${textClasses} text-annotated`;
 			if (this.state.annotationOpen) {
 				textClasses = `${textClasses} has-annotation`;
@@ -219,8 +219,8 @@ class ReadingTextNode extends React.Component{
 					toggleBookmark={this.toggleBookmark}
 					toggleShowAnnotations={this.toggleShowAnnotations}
 					toggleShowRelatedPassages={this.toggleShowRelatedPassages}
-					annotationsCount={this.data.annotations.length}
-					relatedPassagesCount={this.data.relatedPassages.length}
+					annotationsCount={this.props.annotations.length}
+					relatedPassagesCount={this.props.relatedPassages.length}
 				/>
 
 				<p

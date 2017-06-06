@@ -1,6 +1,11 @@
 import $ from 'jquery';
 
 global.$ = global.jQuery = $;
+global.WOW = () => {
+	return {
+		init: () => {},
+	};
+}; 
 
 $.fn.ionRangeSlider = () => {};
 

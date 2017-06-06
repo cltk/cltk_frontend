@@ -12,7 +12,15 @@ describe('ReadingRelatedPassage', () => {
 		const tree = renderer
 			.create(
 				<MuiThemeProvider>
-					<ReadingRelatedPassage />
+					<ReadingRelatedPassage
+						relatedPassage={{
+							edition: 'edition',
+							authorName: 'authorName',
+							englishTitle: 'englishTitle',
+							location: 'location',
+							textNodes: [],
+						}}
+					/>
 				</MuiThemeProvider>
 			)
 			.toJSON();

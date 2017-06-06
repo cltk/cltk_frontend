@@ -13,6 +13,7 @@ describe('DefinitionsPanel', () => {
 				<MuiThemeProvider>
 					<DefinitionsPanel
 						textNodes={[]}
+						words={[]}
 					/>
 				</MuiThemeProvider>
 			)

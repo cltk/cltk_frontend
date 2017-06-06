@@ -12,7 +12,12 @@ describe('ReadingEntity', () => {
 		const tree = renderer
 			.create(
 				<MuiThemeProvider>
-					<ReadingEntity />
+					<ReadingEntity
+						entity={{
+							slug: 'slug',
+							
+						}}
+					/>
 				</MuiThemeProvider>
 			)
 			.toJSON();

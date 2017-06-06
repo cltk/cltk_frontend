@@ -6,6 +6,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // component:
 import WorkTeaser from './WorkTeaser';
 
+jest.mock('material-ui/internal/Tooltip');
+
 describe('WorkTeaser', () => {
 	it('renders correctly', () => {
 
@@ -19,6 +21,7 @@ describe('WorkTeaser', () => {
 							},
 							slug: 'test',
 							isInShelf: false,
+							authors: [],
 						}}
 					/>
 				</MuiThemeProvider>

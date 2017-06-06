@@ -3,7 +3,7 @@ import Snackbar from 'material-ui/Snackbar';
 
 const mountedAttacks = new Set();
 
-export function sendSnack(msg) {
+function sendSnack(msg) {
 	if (mountedAttacks.size > 1) {
 		console.warn('Too many SnackAttacks.', mountedAttacks);
 	} else if (mountedAttacks.size === 0) {
@@ -15,7 +15,7 @@ export function sendSnack(msg) {
 	}
 }
 
-export class SnackAttack extends React.Component {
+class SnackAttack extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -72,3 +72,5 @@ SnackAttack.propTypes = {
 SnackAttack.defaultProps = {
 	autoHideDuration: 4000,
 };
+
+export default SnackAttack;

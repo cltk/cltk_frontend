@@ -5,9 +5,10 @@ import FlatButton from 'material-ui/FlatButton';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-class SearchTermButton extends React.Components {
+class SearchTermButton extends React.Component {
 
 	constructor(props) {
+		console.log(props);
 		super(props);
 
 		this.state = {

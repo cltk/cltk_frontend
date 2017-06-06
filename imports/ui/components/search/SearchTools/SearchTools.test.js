@@ -11,7 +11,7 @@ describe('SearchTools', () => {
 		const tree = renderer
 			.create(
 				<MuiThemeProvider>
-					<SearchTools />
+					<SearchTools isTest />
 				</MuiThemeProvider>
 			)
 			.toJSON();

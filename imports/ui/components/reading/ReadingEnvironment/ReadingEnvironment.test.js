@@ -16,6 +16,7 @@ describe('ReadingEnvironment', () => {
 						work={{
 							form: 'prose',
 						}}
+						textNodes={[]}
 					/>
 				</MuiThemeProvider>
 			)

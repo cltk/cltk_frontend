@@ -14,7 +14,7 @@ import UserAnnotationsList from '/imports/ui/components/user/UserAnnotationsList
 import UserBookmarksList from '/imports/ui/components/user/UserBookmarksList/UserBookmarksList';
 import { SnackAttack } from '/imports/ui/components/shared/SnackAttack';
 
-export default class UserLayout extends React.Component {
+class UserLayout extends React.Component {
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
 	}
@@ -94,3 +94,5 @@ export default class UserLayout extends React.Component {
 UserLayout.childContextTypes = {
 	muiTheme: PropTypes.object.isRequired,
 };
+
+export default UserLayout;

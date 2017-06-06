@@ -12,7 +12,11 @@ describe('AnnotationTextNode', () => {
 		const tree = renderer
 			.create(
 				<MuiThemeProvider>
-					<AnnotationTextNode />
+					<AnnotationTextNode
+						annotation={{
+							_id: 'testId',
+						}}
+					/>
 				</MuiThemeProvider>
 			)
 			.toJSON();

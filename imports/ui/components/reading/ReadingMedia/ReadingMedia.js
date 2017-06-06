@@ -14,7 +14,7 @@ class ReadingMedia extends React.Component {
 
 
 	render() {
-		const mediaItem = this.data.mediaItem;
+		const mediaItem = this.props.mediaItem;
 
 		let image = {
 			caption: '"Folio 45V". <em>The Vergilius Vaticanus</em>. Vatican, Biblioteca Apostolica, Cod. Vat. lat. 3225). Rome, Italy. Ca 400 AD.',

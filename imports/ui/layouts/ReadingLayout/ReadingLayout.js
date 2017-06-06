@@ -1,7 +1,8 @@
-
 import React from 'react';
+import { createContainer } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import debounce from 'throttle-debounce/debounce';
+
 import LoadingDoubleWell from '/imports/ui/components/spinkit/LoadingDoubleWell';
 import Authors from '/imports/api/collections/authors';
 import TextNodes from '/imports/api/collections/textNodes';
@@ -59,7 +60,7 @@ class ReadingLayout extends React.Component {
 
 	loadMore(direction) {
 		const textNodes = this.textNodes;
-		const work = this.data.work;
+		const work = this.props.work;
 		let textLocation = this.state.location;
 		let locationUpdated = false;
 
@@ -171,7 +172,7 @@ class ReadingLayout extends React.Component {
 	}
 
 	checkIfTextAfter() {
-		const work = this.data.work;
+		const work = this.props.work;
 		const textNodes = this.textNodes;
 
 		if ('rangeN5' in work) {
@@ -373,7 +374,7 @@ class ReadingLayout extends React.Component {
 
 	renderReadingEnvironment() {
 		const self = this;
-		const work = this.data.work;
+		const work = this.props.work;
 		const textNodes = this.textNodes;
 
 		// Set default location when textNodes are available
@@ -403,8 +404,8 @@ class ReadingLayout extends React.Component {
 		}
 
 		// Deduplicate text response data
-		if (this.data.textNodes.length) {
-			this.data.textNodes.forEach(textNode => {
+		if (this.props.textNodes.length) {
+			this.props.textNodes.forEach(textNode => {
 				if (
 					!self.textNodes.some(existingTextNode =>
 						existingTextNode._id === textNode._id
@@ -535,10 +536,10 @@ class ReadingLayout extends React.Component {
 
 		return (
 			<div className="cltk-layout reading-layout">
-				{this.data.work ?
+				{this.props.work ?
 					<div>
 						<HeaderReading
-							work={this.data.work}
+							work={this.props.work}
 							showSearchModal={this.showSearchModal}
 							toggleSidePanel={this.toggleSidePanel}
 							toggleDefinitions={this.state.toggleDefinitions}
@@ -557,21 +558,21 @@ class ReadingLayout extends React.Component {
 						{/* <AnnotateWidget />*/}
 						<DefinitionsPanel
 							toggleDefinitions={this.state.toggleDefinitions}
-							textNodes={this.data.textNodes}
+							textNodes={this.props.textNodes}
 						/>
 						<CommentaryPanel
 							toggleCommentary={this.state.toggleCommentary}
 							toggleTranslations={this.state.toggleTranslations}
-							work={(this.data.work && 'title' in this.data.work) ? this.data.work.title : ''}
-							textNodes={this.data.textNodes}
+							work={(this.props.work && 'title' in this.props.work) ? this.props.work.title : ''}
+							textNodes={this.props.textNodes}
 						/>
 						<AnnotateWidget
 							annotationCheckList={this.state.annotationCheckList}
-							work={this.data.work || {}}
+							work={this.props.work || {}}
 							submitAnnotation={this.submitAnnotation}
 						/>
 						<SearchModal
-							work={this.data.work}
+							work={this.props.work}
 							visible={this.state.searchModalVisible}
 							closeSearchModal={this.closeSearchModal}
 						/>

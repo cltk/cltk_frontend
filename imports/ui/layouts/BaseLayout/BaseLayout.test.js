@@ -4,6 +4,8 @@ import renderer from 'react-test-renderer';
 // component:
 import BaseLayout from './BaseLayout';
 
+jest.mock('material-ui/List/ListItem');
+
 describe('BaseLayout', () => {
 	it('renders correctly', () => {
 

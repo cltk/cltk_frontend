@@ -33,20 +33,22 @@ class SearchTools extends React.Component {
 	}
 
 	componentDidMount() {
-		Meteor.call('searchTools', (err, res) => {
-			if (err) {
-				console.log(err);
-			} else {
-				this.setState({
-					languages: res.languages,
-					corpora: res.corpora,
-					authors: res.authors,
+		if (!this.props.isTest) {
+			Meteor.call('searchTools', (err, res) => {
+				if (err) {
+					console.log(err);
+				} else {
+					this.setState({
+						languages: res.languages,
+						corpora: res.corpora,
+						authors: res.authors,
 
-				});
-			}
-		});
+					});
+				}
+			});
 
-		this.refs.textsearch.getInputNode().focus();
+			this.refs.textsearch.getInputNode().focus();
+		}
 	}
 
 	toggleSearchDropdown(dropdown) {
@@ -268,6 +270,7 @@ SearchTools.propTypes = {
 	toggleSearchTerm: PropTypes.func,
 	handleChangeTextsearch: PropTypes.func,
 	handleChangeDate: PropTypes.func,
+	isTest: PropTypes.bool,
 };
 
 SearchTools.childContextTypes = {

@@ -12,7 +12,7 @@ class AnnotationTextNode extends React.Component {
 	}
 
 	getTextLocation() {
-		const text = this.data.text;
+		const text = this.props.text;
 		let location = '';
 		let textN = '';
 
@@ -50,16 +50,16 @@ class AnnotationTextNode extends React.Component {
 
 	render() {
 		//const text = this.props.text;
-		const annotation = this.props.annotation;
+		const { annotation } = this.props;
 		let textClasses = 'text-node bookmark-text-node annotation-text-node clearfix';
 		// const textLocation = this.getTextLocation();
 		const textLocation = '';
 		let workTitle = '';
 		let link = '';
 
-		if (this.data.work) {
-			workTitle = this.data.work.english_title;
-			link = `/works/${this.data.work._id}/${this.data.work.slug}?location=${textLocation.location}`;
+		if (this.props.work) {
+			workTitle = this.props.work.english_title;
+			link = `/works/${this.props.work._id}/${this.props.work.slug}?location=${textLocation.location}`;
 		}
 
 		if (this.props.isOdd) {

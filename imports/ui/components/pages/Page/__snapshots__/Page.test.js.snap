@@ -2,7 +2,7 @@
 
 exports[`Page renders correctly 1`] = `
 <div
-  className="chs-layout master-layout not-found-layout"
+  className="cltk-layout master-layout not-found-layout"
 >
   <div>
     <div>
@@ -728,7 +728,7 @@ exports[`Page renders correctly 1`] = `
           <img
             alt="A Homer Commentary in Progress - Commentator"
             className="background-image"
-            src="/images/odysseus.jpg"
+            src="/images/aeneid-demo-image-2.jpg"
           />
         </div>
         <div
@@ -750,15 +750,8 @@ exports[`Page renders correctly 1`] = `
               <h1
                 className="page-title"
               >
-                μὴ γένοιτο
-                , 404 Error!
+                Page not found, 404
               </h1>
-              <h2>
-                Viewing this page is against the will of the gods
-              </h2>
-              <h4>
-                (Or there's an error somewhere).
-              </h4>
             </div>
           </div>
         </div>
@@ -768,25 +761,7 @@ exports[`Page renders correctly 1`] = `
       className="page-content container"
     >
       <p>
-        Are you sure this is where you wanted to go? If not, please return to the previous page with the back button.
-      </p>
-      <p>
-        If this is a persistent error, please send us an email at 
-        <a
-          href="mailto:muellner@chs.harvard.edu"
-        >
-          muellner@chs.harvard.edu
-        </a>
-         and lament your woes (hexameter preferred).
-      </p>
-      <p>
-        Please include what paths you were wandering and what device you were using when you went astray.
-      </p>
-      <p>
-        Many thanks,
-      </p>
-      <p>
-        The CHS IT team
+        Page not found.
       </p>
     </section>
   </div>

@@ -53,3 +53,5 @@ class ReadingRelatedPassage extends React.Component {
 ReadingRelatedPassage.propTypes = {
 	relatedPassage: PropTypes.object,
 };
+
+export default ReadingRelatedPassage;

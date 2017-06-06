@@ -6,6 +6,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // component:
 import TextMetaOptions from './TextMetaOptions';
 
+jest.mock('material-ui/internal/Tooltip');
+
 describe('TextMetaOptions', () => {
 	it('renders correctly', () => {
 

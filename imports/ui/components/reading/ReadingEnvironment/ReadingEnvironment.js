@@ -1,12 +1,12 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
 import FlatButton from 'material-ui/FlatButton';
+
 import LoadingWell from '/imports/ui/components/spinkit/LoadingWell';
+import ReadingWorkHeader from '/imports/ui/components/reading/ReadingWorkHeader';
 
 class ReadingEnvironment extends React.Component {
 

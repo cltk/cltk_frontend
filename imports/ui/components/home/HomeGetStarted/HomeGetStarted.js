@@ -1,4 +1,5 @@
 import React from 'react';
+import WorksList from '/imports/ui/components/works/WorksList';
 
 class HomeGetStarted extends React.Component {
 

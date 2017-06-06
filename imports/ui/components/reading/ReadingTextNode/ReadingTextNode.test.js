@@ -16,6 +16,7 @@ describe('ReadingTextNode', () => {
 						text={{
 							_id: 'testId',
 						}}
+						annotations={[]}
 					/>
 				</MuiThemeProvider>
 			)

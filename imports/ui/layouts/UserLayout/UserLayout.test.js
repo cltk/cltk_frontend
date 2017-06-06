@@ -1,10 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-jest.mock('material-ui/List/ListItem');
-
 // component:
 import UserLayout from './UserLayout';
+
+jest.mock('material-ui/List/ListItem');
+
 
 describe('UserLayout', () => {
 	// test will not run while material-ui uses findDomNode;

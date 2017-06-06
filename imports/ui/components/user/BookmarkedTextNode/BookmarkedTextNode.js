@@ -15,7 +15,7 @@ class BookmarkedTextNode extends React.Component {
 	}
 
 	getTextLocation() {
-		const text = this.props.text;
+		const { text } = this.props;
 		let location = '';
 		let textN = '';
 
@@ -52,7 +52,7 @@ class BookmarkedTextNode extends React.Component {
 
 
 	render() {
-		const text = this.props.text;
+		const { text } = this.props;
 		let textClasses = 'text-node bookmark-text-node clearfix';
 		const textLocation = this.getTextLocation();
 		let workTitle = '';

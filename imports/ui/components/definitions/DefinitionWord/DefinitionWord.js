@@ -16,8 +16,9 @@ class DefinitionWord extends React.Component {
 	}
 
 	render() {
+		const { showMore } = this.state;
 		const wordClassName = `meta-item panel-item definition ${
-			(this.state.showMore ? 'expanded' : '')}`;
+			(showMore ? 'expanded' : '')}`;
 		return (
 			<div className={wordClassName}>
 				<div className="show-more-toggle" onClick={this.toggleShowMore}>

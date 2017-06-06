@@ -12,7 +12,9 @@ describe('BookmarkedTextNode', () => {
 		const tree = renderer
 			.create(
 				<MuiThemeProvider>
-					<BookmarkedTextNode />
+					<BookmarkedTextNode
+						text={{}}
+					/>
 				</MuiThemeProvider>
 			)
 			.toJSON();

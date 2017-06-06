@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { FlowRouter } from 'meteor/kadira:flow-router';
 import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+import LeftMenu from '/imports/ui/components/header/LeftMenu';
 
 class HeaderReading extends React.Component {
 	getDefaultProps() {
@@ -64,13 +66,14 @@ class HeaderReading extends React.Component {
 
 		};
 
-		const work = this.props.work;
+		const { work } = this.props;
+		const { leftMenuOpen } = this.state;
 		const textLocation = FlowRouter.getQueryParam('location');
 
 		return (
 			<div>
 				<LeftMenu
-					open={this.state.leftMenuOpen}
+					open={leftMenuOpen}
 					closeLeftMenu={this.closeLeftMenu}
 				/>
 				<header className="header-nav paper-shadow">

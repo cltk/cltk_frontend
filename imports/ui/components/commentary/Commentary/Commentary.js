@@ -16,8 +16,9 @@ class Commentary extends React.Component {
 	}
 
 	render() {
+		const { showMore } = this.state;
 		const commentClassName = `meta-item panel-item commentary-comment ${
-			(this.state.showMore ? 'expanded' : '')}`;
+			(showMore ? 'expanded' : '')}`;
 
 		return (
 			<div className={commentClassName} data-num={this.props.comment.index}>

@@ -112,7 +112,8 @@
       "^meteor/session": "<rootDir>/imports/mocks/session.js",
       "^meteor/momentjs:moment": "<rootDir>/imports/mocks/moment.js",
       "^meteor/edgee:slingshot": "<rootDir>/imports/mocks/slingshot.js",
-      "^meteor/random": "<rootDir>/imports/mocks/random.js"
+      "^meteor/random": "<rootDir>/imports/mocks/random.js",
+      "^meteor/kadira:flow-router": "<rootDir>/imports/mocks/flowRouter.js"
     },
     "setupFiles": [
       "<rootDir>/imports/mocks/env.js"
