@@ -1,19 +1,28 @@
 import React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import { createContainer } from 'meteor/react-meteor-data';
+import autoBind from 'react-autobind';
 import debounce from 'throttle-debounce/debounce';
 
-import LoadingDoubleWell from '/imports/ui/components/spinkit/LoadingDoubleWell';
+import Utils from '/imports/lib/utils';
 import Authors from '/imports/api/collections/authors';
 import TextNodes from '/imports/api/collections/textNodes';
 import Works from '/imports/api/collections/works';
+
+import LoadingDoubleWell from '/imports/ui/components/spinkit/LoadingDoubleWell';
+import HeaderReading from '/imports/ui/components/header/HeaderReading';
+import ReadingEnvironment from '/imports/ui/components/reading/ReadingEnvironment';
+import DefinitionsPanel from '/imports/ui/components/definitions/DefinitionsPanel';
+import CommentaryPanel from '/imports/ui/components/commentary/CommentaryPanel';
+import AnnotateWidget from '/imports/ui/components/annotations/AnnotateWidget';
+import SearchModal from '/imports/ui/components/search/SearchModal';
 
 class ReadingLayout extends React.Component {
 
 	constructor(props) {
 		super(props);
 
-		const queryParams = this.props.queryParams;
+		const queryParams = props.queryParams;
 		let location = [];
 
 		if ('location' in queryParams) {
@@ -39,7 +48,12 @@ class ReadingLayout extends React.Component {
 			modalLoginLowered: false,
 			modalSignupLowered: false,
 			location,
+			textNodesDepths: [],
+			isTextAfter: true,
+			isTextBefore: false,
 		};
+
+		autoBind(this);
 	}
 
 	componentDidMount() {
@@ -48,20 +62,14 @@ class ReadingLayout extends React.Component {
 	}
 
 	componentDidUpdate() {
-		if (this.textNodesDepths.length !== this.textNodes.length) {
+		if (this.props.textNodesDepths.length !== this.props.textNodes.length) {
 			this.calculateTextNodeDepths();
 		}
 	}
 
-	textNodes: []
-	textNodesDepths: []
-	isTextAfter: true
-	isTextBefore: false
-
 	loadMore(direction) {
-		const textNodes = this.textNodes;
-		const work = this.props.work;
-		let textLocation = this.state.location;
+		const { textNodes, work } = this.props;
+		let textLocation = this.props.location || [];
 		let locationUpdated = false;
 
 		if (direction === 'next') {
@@ -136,44 +144,49 @@ class ReadingLayout extends React.Component {
 	}
 
 	checkIfTextBefore() {
-		this.isTextBefore = true;
+		const { textNodes } = this.props;
+		let isTextBefore = true;
 
-		if ('n_5' in this.textNodes[0]) {
-			this.textNodes.forEach((textNode) => {
+		if ('n_5' in textNodes[0]) {
+			textNodes.forEach((textNode) => {
 				if (textNode.n_5 === 1) {
-					this.isTextBefore = false;
+					isTextBefore = false;
 				}
 			})
-		} else if ('n_4' in this.textNodes[0]) {
-			this.textNodes.forEach((textNode) => {
+		} else if ('n_4' in textNodes[0]) {
+			textNodes.forEach((textNode) => {
 				if (textNode.n_4 === 1) {
-					this.isTextBefore = false;
+					isTextBefore = false;
 				}
 			})
-		} else if ('n_3' in this.textNodes[0]) {
-			this.textNodes.forEach((textNode) => {
+		} else if ('n_3' in textNodes[0]) {
+			textNodes.forEach((textNode) => {
 				if (textNode.n_3 === 1) {
-					this.isTextBefore = false;
+					isTextBefore = false;
 				}
 			})
-		} else if ('n_2' in this.textNodes[0]) {
-			this.textNodes.forEach((textNode) => {
+		} else if ('n_2' in textNodes[0]) {
+			textNodes.forEach((textNode) => {
 				if (textNode.n_2 === 1) {
-					this.isTextBefore = false;
+					isTextBefore = false;
 				}
 			})
-		} else if ('n_1' in this.textNodes[0]) {
-			this.textNodes.forEach((textNode) => {
+		} else if ('n_1' in textNodes[0]) {
+			textNodes.forEach((textNode) => {
 				if (textNode.n_1 === 1) {
-					this.isTextBefore = false;
+					isTextBefore = false;
 				}
 			});
 		}
+
+		this.setState({
+			isTextBefore,
+		});
 	}
 
 	checkIfTextAfter() {
-		const work = this.props.work;
-		const textNodes = this.textNodes;
+		const { work, textNodes } = this.props;
+		let isTextAfter = false;
 
 		if ('rangeN5' in work) {
 			if (
@@ -183,9 +196,9 @@ class ReadingLayout extends React.Component {
 			&& work.rangeN2.high === textNodes[textNodes.length - 1].n_2
 			&& work.rangeN1.high === textNodes[textNodes.length - 1].n_1
 			) {
-				this.isTextAfter = false;
+				isTextAfter = false;
 			} else {
-				this.isTextAfter = true;
+				isTextAfter = true;
 			}
 		} else if ('rangeN4' in work) {
 			if (
@@ -194,9 +207,9 @@ class ReadingLayout extends React.Component {
 			&& work.rangeN2.high === textNodes[textNodes.length - 1].n_2
 			&& work.rangeN1.high === textNodes[textNodes.length - 1].n_1
 			) {
-				this.isTextAfter = false;
+				isTextAfter = false;
 			} else {
-				this.isTextAfter = true;
+				isTextAfter = true;
 			}
 		} else if ('rangeN3' in work) {
 			if (
@@ -204,26 +217,29 @@ class ReadingLayout extends React.Component {
 			&& work.rangeN2.high === textNodes[textNodes.length - 1].n_2
 			&& work.rangeN1.high === textNodes[textNodes.length - 1].n_1
 			) {
-				this.isTextAfter = false;
+				isTextAfter = false;
 			} else {
-				this.isTextAfter = true;
+				isTextAfter = true;
 			}
 		} else if ('rangeN2' in work) {
 			if (
 				work.rangeN2.high === textNodes[textNodes.length - 1].n_2
 			&& work.rangeN1.high === textNodes[textNodes.length - 1].n_1
 			) {
-				this.isTextAfter = false;
+				isTextAfter = false;
 			} else {
-				this.isTextAfter = true;
+				isTextAfter = true;
 			}
 		} else if (
 				work.rangeN1.high === textNodes[textNodes.length - 1].n_1
 		) {
-			this.isTextAfter = false;
+			isTextAfter = false;
 		} else {
-			this.isTextAfter = true;
+			isTextAfter = true;
 		}
+		this.setState({
+			isTextAfter,
+		});
 	}
 
 	calculateTextNodeDepths() {
@@ -236,14 +252,14 @@ class ReadingLayout extends React.Component {
 				location: textNode.dataset.loc,
 			});
 		});
-
-		this.textNodesDepths = textNodesDepths;
 	}
 
 	handleScroll() {
 		const scrollY = window.scrollY;
 		let activeTextNode = null;
-		this.textNodesDepths.forEach((textNodeDepth) => {
+		const textNodesDepths = [];
+
+		textNodesDepths.forEach((textNodeDepth) => {
 			if (scrollY > textNodeDepth.depth) {
 				activeTextNode = textNodeDepth;
 			}
@@ -374,8 +390,8 @@ class ReadingLayout extends React.Component {
 
 	renderReadingEnvironment() {
 		const self = this;
-		const work = this.props.work;
-		const textNodes = this.textNodes;
+		const { work, textNodes } = this.props;
+		let textLocation = this.props.location || [];
 
 		// Set default location when textNodes are available
 		if (
@@ -395,19 +411,17 @@ class ReadingLayout extends React.Component {
 				textLocation = [1];
 			}
 
-			this.setState({
-				location: textLocation,
-			});
 			FlowRouter.setQueryParams({
 				location: textLocation.join('.'),
 			});
 		}
 
 		// Deduplicate text response data
-		if (this.props.textNodes.length) {
-			this.props.textNodes.forEach(textNode => {
+		/*
+		if (textNodes.length) {
+			textNodes.forEach(textNode => {
 				if (
-					!self.textNodes.some(existingTextNode =>
+					!textNodes.some(existingTextNode =>
 						existingTextNode._id === textNode._id
 					)
 				) {
@@ -415,7 +429,7 @@ class ReadingLayout extends React.Component {
 
 					if (
 							'n_5' in textNode
-						&& self.textNodes.some((existingTextNode) =>
+						&& textNodes.some((existingTextNode) =>
 								existingTextNode.n_5 === textNode.n_5
 							&& existingTextNode.n_4 === textNode.n_4
 							&& existingTextNode.n_3 === textNode.n_3
@@ -426,7 +440,7 @@ class ReadingLayout extends React.Component {
 						isInTextNodes = true;
 					} else if (
 							'n_4' in textNode
-						&& self.textNodes.some((existingTextNode) =>
+						&& textNodes.some((existingTextNode) =>
 								existingTextNode.n_4 === textNode.n_4
 							&& existingTextNode.n_3 === textNode.n_3
 							&& existingTextNode.n_2 === textNode.n_2
@@ -436,7 +450,7 @@ class ReadingLayout extends React.Component {
 						isInTextNodes = true;
 					} else if (
 							'n_3' in textNode
-						&& self.textNodes.some((existingTextNode) =>
+						&& textNodes.some((existingTextNode) =>
 								existingTextNode.n_3 === textNode.n_3
 							&& existingTextNode.n_2 === textNode.n_2
 							&& existingTextNode.n_1 === textNode.n_1
@@ -445,14 +459,14 @@ class ReadingLayout extends React.Component {
 						isInTextNodes = true;
 					} else if (
 							'n_2' in textNode
-						&& self.textNodes.some((existingTextNode) =>
+						&& textNodes.some((existingTextNode) =>
 								existingTextNode.n_2 === textNode.n_2
 							&& existingTextNode.n_1 === textNode.n_1
 							)
 					) {
 						isInTextNodes = true;
 					} else if (
-						self.textNodes.some((existingTextNode) =>
+						textNodes.some((existingTextNode) =>
 							existingTextNode.n_2 === textNode.n_2
 						&& existingTextNode.n_1 === textNode.n_1
 						)
@@ -461,19 +475,20 @@ class ReadingLayout extends React.Component {
 					}
 
 					if (!isInTextNodes) {
-						self.textNodes.push(textNode);
+						textNodes.push(textNode);
 					}
 				}
 			});
 
 			// Sort the textNodes array after adding the the new results
-			this.textNodes.sort(Utils.sortBy('n_1', 'n_2', 'n_3', 'n_4', 'n_5'));
+			textNodes.sort(Utils.sortBy('n_1', 'n_2', 'n_3', 'n_4', 'n_5'));
 		}
+		*/
 
 		// Update the textBefore / textAfter values
 		if (
 			work
-		&& this.textNodes.length
+		&& textNodes.length
 		) {
 			this.checkIfTextBefore();
 			this.checkIfTextAfter();
@@ -606,13 +621,14 @@ class ReadingLayout extends React.Component {
 ReadingLayout.propTypes = {
 	params: PropTypes.object.isRequired,
 	queryParams: PropTypes.object.isRequired,
+	textNodes: PropTypes.array,
 };
 
 const ReadingLayoutContainer = createContainer(props => {
 	const workQuery = {
 		_id: new Meteor.Collection.ObjectID(props.params.id),
 	};
-	const textLocation = props.location;
+	const textLocation = props.location || [];
 	let query = {};
 	let textNodes = [];
 	let work = null;
@@ -660,6 +676,7 @@ const ReadingLayoutContainer = createContainer(props => {
 
 	Meteor.subscribe('textNodes', query, props.limit);
 	textNodes = TextNodes.find(query).fetch();
+	console.log(textNodes);
 
 	return {
 		work,

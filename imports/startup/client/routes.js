@@ -3,6 +3,8 @@ import { mount } from 'react-mounter';
 
 import HomeLayout from '/imports/ui/layouts/HomeLayout';
 import MasterLayout from '/imports/ui/layouts/MasterLayout';
+import ReadingLayout from '/imports/ui/layouts/ReadingLayout';
+import UserLayout from '/imports/ui/layouts/UserLayout';
 import Utils from '/imports/lib/utils';
 
 /*

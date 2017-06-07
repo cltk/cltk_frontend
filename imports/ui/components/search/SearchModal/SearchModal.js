@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createContainer } from 'meteor/react-meteor-data';
+import autoBind from 'react-autobind';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import IconButton from 'material-ui/IconButton';
@@ -20,7 +21,7 @@ class SearchModal extends React.Component {
 			layout: 'grid',
 		};
 
-		this.works = [];
+		autoBind(this);
 	}
 
 	getChildContext() {
@@ -34,7 +35,7 @@ class SearchModal extends React.Component {
 	}
 
 	toggleSearchTerm(key, value) {
-		const filters = this.props.filters;
+		const { filters } = this.props;
 		let keyIsInFilter = false;
 		let valueIsInFilter = false;
 		let filterValueToRemove;
@@ -202,25 +203,14 @@ class SearchModal extends React.Component {
 
 	render() {
 		let hasMoreWorks = true;
+		const { works, worksCount, skip, limit } = this.props;
 
-		if (this.works.length === 0 || this.props.skip === 0) {
-			this.works = this.props.works;
-		} else {
-			this.props.works.forEach((workResult) => {
-				if (!this.works.some((existingWork) =>
-					workResult._id._str === existingWork._id._str
-				)) {
-					this.works.push(workResult);
-				}
-			});
-		}
-
-		const works = this.works;
-
-		if (this.props.worksCount && this.props.worksCount <= this.works.length) {
-			hasMoreWorks = false;
-		} else if (this.props.works && this.props.works.length < this.props.limit) {
-			hasMoreWorks = false;
+		if (works) {
+			if (worksCount && worksCount <= works.length) {
+				hasMoreWorks = false;
+			} else if (works.length < limit) {
+				hasMoreWorks = false;
+			}
 		}
 
 		return (
@@ -284,9 +274,14 @@ const SearchModalContainer = createContainer(props => {
 	let works = [];
 	let worksCount = null;
 	let textSearch = null;
+	let searchParams = props.searchParams || {
+		filters: [],
+		skip: 0,
+		limit: 12,
+	};
 
 	// Parse the filters to the query
-	props.searchParams.filters.forEach((filter) => {
+	searchParams.filters.forEach((filter) => {
 		const date = moment(`${filter.values[0]}-01-01`, 'YYYY MM DD');
 		switch (filter.key) {
 		case 'textsearch': {
@@ -335,8 +330,8 @@ const SearchModalContainer = createContainer(props => {
 	const handle = Meteor.subscribe(
 		'works',
 		query,
-		props.searchParams.skip,
-		props.searchParams.limit
+		searchParams.skip,
+		searchParams.limit
 	);
 
 	if (handle.ready()) {

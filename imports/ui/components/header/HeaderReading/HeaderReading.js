@@ -7,6 +7,7 @@ import FontIcon from 'material-ui/FontIcon';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
+import Utils from '/imports/lib/utils';
 import LeftMenu from '/imports/ui/components/header/LeftMenu';
 
 class HeaderReading extends React.Component {
