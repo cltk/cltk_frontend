@@ -1,3 +1,6 @@
+import Config from './config/config';
+
+
 Template.registerHelper('Config', () => Config);
 
 Template.registerHelper('NCSchemas', () => NCSchemas);

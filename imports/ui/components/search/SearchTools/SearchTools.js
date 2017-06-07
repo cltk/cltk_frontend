@@ -10,6 +10,7 @@ import TextField from 'material-ui/TextField';
 import debounce from 'throttle-debounce/debounce';
 
 import DateRangeSlider from '/imports/ui/components/shared/DateRangeSlider';
+import SearchTermButton from '/imports/ui/components/search/SearchTermButton';
 
 class SearchTools extends React.Component {
 

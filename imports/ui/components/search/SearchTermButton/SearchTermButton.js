@@ -8,7 +8,6 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 class SearchTermButton extends React.Component {
 
 	constructor(props) {
-		console.log(props);
 		super(props);
 
 		this.state = {

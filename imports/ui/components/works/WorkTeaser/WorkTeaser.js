@@ -7,6 +7,8 @@ import IconButton from 'material-ui/IconButton';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
+import Utils from '/imports/lib/utils';
+
 
 // Work Teaser
 class WorkTeaser extends React.Component {

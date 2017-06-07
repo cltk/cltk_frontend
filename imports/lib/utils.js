@@ -1,3 +1,6 @@
+import Config from './config/config';
+
+
 const Utils = {
 	prettyDate(date) {
 		if (date) {

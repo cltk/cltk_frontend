@@ -1,12 +1,16 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import { createContainer } from 'meteor/react-meteor-data';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import IconButton from 'material-ui/IconButton';
-import PropTypes from 'prop-types';
+
 import Authors from '/imports/api/collections/authors';
 import Works from '/imports/api/collections/works';
+
+import SearchTools from '/imports/ui/components/search/SearchTools';
+import SearchFilters from '/imports/ui/components/search/SearchFilters';
+import SearchResultsList from '/imports/ui/components/search/SearchResultsList';
 
 class SearchModal extends React.Component {
 	constructor(props) {
@@ -279,7 +283,7 @@ const SearchModalContainer = createContainer(props => {
 	const query = {};
 	let works = [];
 	let worksCount = null;
-	textSearch = null;
+	let textSearch = null;
 
 	// Parse the filters to the query
 	props.searchParams.filters.forEach((filter) => {
@@ -345,10 +349,7 @@ const SearchModalContainer = createContainer(props => {
 			}];
 		}
 
-		// FIXME (pletcher): Okay to remove console.log?
-		console.log('client', query);
 		works = Works.find(query, {}).fetch();
-
 		works.forEach((work, i) => {
 			works[i].authors = Authors.find({ _id: { $in: work.authors } }).fetch();
 		});

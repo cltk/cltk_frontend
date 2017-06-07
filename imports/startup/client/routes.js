@@ -57,7 +57,7 @@ FlowRouter.route('/terms', {
 /*
  * Route groups with permissions
  */
-loggedInGroup = FlowRouter.group({
+const loggedInGroup = FlowRouter.group({
 	triggersEnter: [AccountsTemplates.ensureSignedIn],
 });
 
@@ -89,7 +89,7 @@ loggedInGroup.route('/sign-out', {
 	},
 });
 
-this.subs = new SubsManager();
+// this.subs = new SubsManager();
 
 /*
 * Perform functions necessary on route load

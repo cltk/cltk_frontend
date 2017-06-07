@@ -1,3 +1,5 @@
+import { Meteor } from 'meteor/meteor';
+
 const Config = {
 	name: 'CLTK Archive',
 	title() {

@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Masonry from 'react-masonry-component/lib';
 
+import WorkTeaser from '/imports/ui/components/works/WorkTeaser';
+
 class SearchResultsList extends React.Component {
 
 	isLoading = false
