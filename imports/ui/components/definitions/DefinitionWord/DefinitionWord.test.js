@@ -11,7 +11,11 @@ describe('DefinitionWord', () => {
 		const tree = renderer
 			.create(
 				<MuiThemeProvider>
-					<DefinitionWord />
+					<DefinitionWord
+						word={{
+							definitions: [],
+						}}
+					/>
 				</MuiThemeProvider>
 			)
 			.toJSON();

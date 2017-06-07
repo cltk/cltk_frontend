@@ -15,6 +15,7 @@ describe('ReadingEnvironment', () => {
 					<ReadingEnvironment
 						work={{
 							form: 'prose',
+							authors: [],
 						}}
 						textNodes={[]}
 					/>

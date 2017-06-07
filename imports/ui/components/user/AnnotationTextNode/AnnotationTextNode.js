@@ -1,10 +1,10 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
+import { createContainer } from 'meteor/react-meteor-data';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import { createContainer } from 'meteor/react-meteor-data';
-import PropTypes from 'prop-types';
+import Utils from '/imports/lib/utils';
 
 class AnnotationTextNode extends React.Component {
 	getChildContext() {

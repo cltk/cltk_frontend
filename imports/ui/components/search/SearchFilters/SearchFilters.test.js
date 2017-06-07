@@ -14,6 +14,7 @@ describe('SearchFilters', () => {
 				<MuiThemeProvider>
 					<SearchFilters
 						filters={[]}
+						toggleSearchTerm={() => {}}
 					/>
 				</MuiThemeProvider>
 			)

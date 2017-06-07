@@ -7,6 +7,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
+import Utils from '/imports/lib/utils';
 import Works from '/imports/api/collections/works';
 
 class BookmarkedTextNode extends React.Component {
@@ -112,7 +113,7 @@ BookmarkedTextNode.propTypes = {
 	isOdd: PropTypes.bool,
 };
 
-const BookmarkedTextNodeContainer = createContainer(function(props) {
+const BookmarkedTextNodeContainer = createContainer((props) => {
 	const query = { _id: props.text.work };
 	const handleWorks = Meteor.subscribe('works', query);
 	const work = Works.findOne(query);

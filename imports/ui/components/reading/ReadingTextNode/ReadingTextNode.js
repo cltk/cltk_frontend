@@ -5,6 +5,9 @@ import { createContainer } from 'meteor/react-meteor-data';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
+
+import TextMetaOptions from '/imports/ui/components/reading/TextMetaOptions';
+import AnnotationsList from '/imports/ui/components/annotations/AnnotationsList';
 import Annotations from '/imports/api/collections/annotations';
 import RelatedPassages from '/imports/api/collections/relatedPassages';
 

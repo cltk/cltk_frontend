@@ -11,7 +11,11 @@ describe('Commentary', () => {
 		const tree = renderer
 			.create(
 				<MuiThemeProvider>
-					<Commentary />
+					<Commentary
+						comment={{
+							index: 0,
+						}}
+					/>
 				</MuiThemeProvider>
 			)
 			.toJSON();

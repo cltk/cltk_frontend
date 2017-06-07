@@ -1,4 +1,5 @@
 import React from 'react';
+import autoBind from 'react-autobind';
 import PropTypes from 'prop-types';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import FlatButton from 'material-ui/FlatButton';
@@ -9,6 +10,14 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import LeftMenu from '/imports/ui/components/header/LeftMenu';
 
 class HeaderReading extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			leftMenuOpen: false,
+		};
+	}
+
 	getDefaultProps() {
 		return {
 			toggleDefinitions: false,
@@ -20,11 +29,6 @@ class HeaderReading extends React.Component {
 		};
 	}
 
-	getInitialState() {
-		return {
-			leftMenuOpen: false,
-		};
-	}
 
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
@@ -68,7 +72,7 @@ class HeaderReading extends React.Component {
 
 		const { work } = this.props;
 		const { leftMenuOpen } = this.state;
-		const textLocation = FlowRouter.getQueryParam('location');
+		const textLocation = FlowRouter.getQueryParam('location') || '';
 
 		return (
 			<div>
@@ -178,16 +182,17 @@ class HeaderReading extends React.Component {
 											/>
 										</li>
 
-										{work.form === 'poetry' ? <li
-											className={(this.props.toggleScansion) ? 'checked meta-toggle' :
-											'meta-toggle'}
-										>
-											<FlatButton
-												style={styles.flatButton}
-												label="Scansion"
-												onClick={this.toggleSidePanel.bind(this, 'scansion')}
-											/>
-										</li>
+										{work.form === 'poetry' ?
+											<li
+												className={(this.props.toggleScansion) ? 'checked meta-toggle' :
+												'meta-toggle'}
+											>
+												<FlatButton
+													style={styles.flatButton}
+													label="Scansion"
+													onClick={this.toggleSidePanel.bind(this, 'scansion')}
+												/>
+											</li>
 										: ''}
 
 										<li

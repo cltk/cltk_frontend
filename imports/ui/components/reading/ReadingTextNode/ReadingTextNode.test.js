@@ -6,6 +6,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // component:
 import ReadingTextNode from './ReadingTextNode';
 
+jest.mock('material-ui/internal/Tooltip');
+
 describe('ReadingTextNode', () => {
 	it('renders correctly', () => {
 
@@ -17,6 +19,7 @@ describe('ReadingTextNode', () => {
 							_id: 'testId',
 						}}
 						annotations={[]}
+						relatedPassages={[]}
 					/>
 				</MuiThemeProvider>
 			)

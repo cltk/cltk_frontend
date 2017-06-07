@@ -12,7 +12,11 @@ describe('ReadingWorkHeader', () => {
 		const tree = renderer
 			.create(
 				<MuiThemeProvider>
-					<ReadingWorkHeader />
+					<ReadingWorkHeader
+						work={{
+							authors: [],
+						}}
+					/>
 				</MuiThemeProvider>
 			)
 			.toJSON();

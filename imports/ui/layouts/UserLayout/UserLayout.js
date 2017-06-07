@@ -12,7 +12,7 @@ import Footer from '/imports/ui/components/footer/Footer/Footer';
 import Profile from '/imports/ui/components/user/Profile/Profile';
 import UserAnnotationsList from '/imports/ui/components/user/UserAnnotationsList/UserAnnotationsList';
 import UserBookmarksList from '/imports/ui/components/user/UserBookmarksList/UserBookmarksList';
-import { SnackAttack } from '/imports/ui/components/shared/SnackAttack';
+import SnackAttack from '/imports/ui/components/shared/SnackAttack';
 
 class UserLayout extends React.Component {
 	getChildContext() {
@@ -26,9 +26,7 @@ class UserLayout extends React.Component {
 					<Header />
 					<main>
 						<div className="page page-user-profile">
-
 							<section className="page-head fullscreen image-bg bg-dark">
-
 								<div className="background-image-holder more-blur blur">
 									<img className="background-image" alt="background" src="/images/books4.jpg" />
 								</div>

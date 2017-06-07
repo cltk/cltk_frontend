@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-class SearchFilters extends React.createClass {
+class SearchFilters extends React.Component {
 
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };

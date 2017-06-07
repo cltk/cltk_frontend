@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 
 class DefinitionWord extends React.Component {
 
-	getInitialState() {
-		return {
+	constructor(props) {
+		super(props);
+
+		this.state = {
 			showMore: false,
 		};
 	}
