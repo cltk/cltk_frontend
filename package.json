@@ -9,6 +9,8 @@
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
     "codemirror": "^5.26.0",
+    "draft-js-inline-toolbar-plugin": "^2.0.0-beta6",
+    "draft-js-mention-plugin": "^2.0.0-beta1",
     "express": "^4.15.3",
     "gm": "^1.23.0",
     "graphiql": "^0.9.3",
@@ -83,7 +85,7 @@
     "pretest": "npm run lint",
     "test": "jest",
     "test:watch": "npm run test -- --reporter min --watch",
-    "start": "MONGO_URL=mongodb://localhost/cltk_frontend meteor --settings production.json"
+    "start": "MONGO_URL=mongodb://localhost/cltk_frontend meteor --settings=./private/settings/production.json"
   },
   "repository": {
     "type": "git",
