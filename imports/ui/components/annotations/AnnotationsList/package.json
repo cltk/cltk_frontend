@@ -1,0 +1,6 @@
+{
+  "name": "AnnotationsList",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./AnnotationsList.js"
+}

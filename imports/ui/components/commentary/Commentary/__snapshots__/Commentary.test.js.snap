@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Commentary renders correctly 1`] = `
+<div
+  className="meta-item panel-item commentary-comment "
+  data-num={0}
+>
+  <div
+    className="show-more-toggle"
+    onClick={[Function]}
+  >
+    <i
+      className="mdi mdi-plus paper-shadow"
+    />
+    <i
+      className="mdi mdi-minus paper-shadow"
+    />
+  </div>
+  <div
+    className="comment-meta"
+  >
+    <span
+      className="comment-ref"
+    >
+       
+    </span>
+    <span
+      className="comment-authors"
+    />
+    <span
+      className="comment-date"
+    />
+  </div>
+  <p
+    className="comment-content"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": undefined,
+      }
+    }
+  />
+</div>
+`;

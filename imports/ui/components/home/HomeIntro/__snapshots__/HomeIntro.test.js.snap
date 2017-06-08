@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomeIntro renders correctly 1`] = `
+<section
+  className="cover fullscreen image-bg bg-dark "
+  id="intro"
+>
+  <div
+    className="background-image-holder less-blur blur"
+  >
+    <img
+      role="presentation"
+      src="/images/column.jpg"
+    />
+  </div>
+  <div
+    className="background-screen light"
+  />
+  <div
+    className="container v-align-transform header-container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="header-center text-center"
+      >
+        <h1>
+          Explore open classical literature
+        </h1>
+        <input
+          className="header-search"
+          onClick={undefined}
+          onTouchTap={undefined}
+          placeholder="Search . . ."
+          readOnly={true}
+          type="text"
+        />
+        <h6
+          className="uppercase mb16"
+        >
+          Read and research works in Chinese, Coptic, Greek, Hebrew, Latin, Pali, Punjabi, Sanskrit,
+          <br />
+          Telugu, and Tibetan and contribute annotations to the community.
+        </h6>
+        <a
+          aria-label="Learn More"
+          className="waves-effect waves-light btn-large"
+          href="#get-started"
+          onClick={[Function]}
+        >
+          Learn More
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+`;

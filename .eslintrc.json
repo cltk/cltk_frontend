@@ -29,7 +29,9 @@
 			"error",
 			"tab"
 		],
+		"consistent-return": "off",
 		"object-shorthand": "off",
+		"no-absolute-path": "off",
 		"no-param-reassign": "off",
 		"no-tabs": "off",
 		"no-underscore-dangle": "off",
@@ -47,8 +49,9 @@
 		"react/prefer-stateless-function": "off",
 		"react/jsx-no-undef": "off",
 		"react/jsx-no-bind": "off",
+		"react/sort-comp": "off",
 		"jsx-a11y/label-has-for": "off",
-		"new-cap": ["error", { "capIsNewExceptions": ["Match", "Maybe", "OpenSeadragon", "OneOf"] }],
+		"new-cap": "off",
 		"import/no-extraneous-dependencies": "off",
 		"object-curly-spacing": "off",
 		"no-multiple-empty-lines": "off",
@@ -57,10 +60,14 @@
 		"no-trailing-spaces": "off",
 		"space-before-function-paren": "off",
 		"prefer-arrow-callback": "off",
-    "max-len": "off",
-    "jsx-a11y/anchor-has-content": "off",
-    "no-bitwise": "off",
-    "padded-blocks": "off",
-    "import/extensions": "off"
+		"max-len": "off",
+		"jsx-a11y/anchor-has-content": "off",
+		"no-bitwise": "off",
+		"padded-blocks": "off",
+		"import/extensions": "off",
+		"react/prefer-es6-class": "off",
+		"no-unused-vars": "off",
+		"no-prototype-builtins": "off",
+		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
 	}
 }

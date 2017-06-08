@@ -1,5 +1,5 @@
-import Authors from '/imports/collections/authors';
-import Works from '/imports/collections/works';
+import Authors from '/imports/api/collections/authors';
+import Works from '/imports/api/collections/works';
 
 import cache from '/server/cache';
 

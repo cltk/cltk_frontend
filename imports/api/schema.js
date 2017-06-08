@@ -1,11 +1,11 @@
 import SchemaBridge from 'meteor/kuip:schema-graphql-bridge';
-import Authors from '/imports/collections/authors';
-import Corpora from '/imports/collections/corpora';
-import Definitions from '/imports/collections/definitions';
-import Languages from '/imports/collections/languages';
-import TextNodes from '/imports/collections/textNodes';
-import Wordforms from '/imports/collections/wordforms';
-import Works from '/imports/collections/works';
+import Authors from '/imports/api/collections/authors';
+import Corpora from '/imports/api/collections/corpora';
+import Definitions from '/imports/api/collections/definitions';
+import Languages from '/imports/api/collections/languages';
+import TextNodes from '/imports/api/collections/textNodes';
+import Wordforms from '/imports/api/collections/wordforms';
+import Works from '/imports/api/collections/works';
 
 const authorSchema = SchemaBridge.schema(Authors.schema, 'Author', {wrap: false});
 const corporaSchema = SchemaBridge.schema(Corpora.schema, 'Corpus', {wrap: false});
@@ -15,7 +15,7 @@ const textNodeSchema = SchemaBridge.schema(TextNodes.schema, 'TextNode', {wrap: 
 const wordformSchema = SchemaBridge.schema(Wordforms.schema, 'Wordform');
 const workSchema = SchemaBridge.schema(Works.schema, 'Work', {wrap: false});
 
-export default typeDefs = [`
+const typeDefs = [`
 
 scalar JSON
 scalar Date
@@ -77,3 +77,5 @@ schema {
   query: Query
 }
 `];
+
+export default typeDefs;

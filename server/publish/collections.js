@@ -1,14 +1,14 @@
 
-import Annotations from '/imports/collections/annotations';
-import Authors from '/imports/collections/authors';
-import Commentary from '/imports/collections/commentary';
-import Corpora from '/imports/collections/corpora';
-import Definitions from '/imports/collections/definitions';
-import Languages from '/imports/collections/languages';
-import TextNodes from '/imports/collections/textNodes';
-import Translations from '/imports/collections/translations';
-import Wordforms from '/imports/collections/wordforms';
-import Works from '/imports/collections/works';
+import Annotations from '/imports/api/collections/annotations';
+import Authors from '/imports/api/collections/authors';
+import Commentary from '/imports/api/collections/commentary';
+import Corpora from '/imports/api/collections/corpora';
+import Definitions from '/imports/api/collections/definitions';
+import Languages from '/imports/api/collections/languages';
+import TextNodes from '/imports/api/collections/textNodes';
+import Translations from '/imports/api/collections/translations';
+import Wordforms from '/imports/api/collections/wordforms';
+import Works from '/imports/api/collections/works';
 
 /*
 * Replace these in the future as they will publish our entire collections.
@@ -54,7 +54,7 @@ if (Meteor.isServer) {
 	});
 
 	Meteor.publish('wordForms', textIds => {
-		// check(textIds, [Object]);
+		check(textIds, [Object]);
 		return Wordforms.find({ texts: { $in: textIds } });
 	});
 

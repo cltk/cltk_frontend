@@ -4,12 +4,12 @@
 # but you can also edit it by hand.
 
 # Packages from meteor-starter template application
-less@2.7.8
-accounts-base@1.2.14
-accounts-password@1.3.3
-accounts-facebook@1.0.11
-accounts-google@1.0.11
-accounts-twitter@1.1.12
+less@2.7.9
+accounts-base@1.3.0
+accounts-password@1.3.6
+accounts-facebook@1.2.0
+accounts-google@1.2.0
+accounts-twitter@1.3.0
 aldeed:collection2
 dburles:collection-helpers
 matb33:collection-hooks
@@ -17,40 +17,30 @@ alanning:roles
 aldeed:simple-schema
 fortawesome:fontawesome
 tap:i18n
-raix:handlebar-helpers
 cfs:standard-packages
 cfs:gridfs
 aldeed:template-extension
 cfs:graphicsmagick
 yogiben:helpers
-# manuelschoebel:ms-seo
-# spiderable
-# accounts-facebook
-# accounts-google
-# accounts-twitter
 accounts-ui@1.1.9
 jparker:gravatar
 service-configuration@1.0.11
 yogiben:mixpanel
-juliancwirko:s-alert
-juliancwirko:s-alert-stackslide
 momentjs:moment
-zimme:active-route
 twbs:bootstrap
 reywood:publish-composite
 natestrauser:animate-css
 meteorhacks:subs-manager
 timmyg:wow
-yogiben:admin
 tsega:skrollr
 utilities:avatar
-meteor-base@1.0.4
-mongo@1.1.14
+meteor-base@1.1.0
+mongo@1.1.18
 blaze-html-templates
 session@1.1.7
 jquery@1.11.10
-tracker@1.1.1
-logging@1.1.16
+tracker@1.1.3
+logging@1.1.17
 reload@1.1.11
 random@1.0.10
 ejson@1.0.13
@@ -59,32 +49,26 @@ aldeed:autoform
 yogiben:autoform-modals
 yogiben:autoform-file
 yogiben:autoform-map
-check@1.2.4
-iron:router
-#multiply:iron-router-progress
+check@1.2.5
 useraccounts:core
 useraccounts:materialize
-useraccounts:flow-routing
-percolate:momentum
+useraccounts:flow-routing@1.14.3
 
 # Packages added for project
-http@1.2.10
+http@1.2.12
 react
-ecmascript@0.6.1
+ecmascript@0.8.0
 archimedigital:core
 jabbslad:basic-auth
-# deanius:promise
 kadira:flow-router
-kadira:react-layout
 kadira:blaze-layout
 user-thumbs
-standard-minifier-css@1.3.2
-standard-minifier-js@1.2.1
+standard-minifier-css@1.3.4
+standard-minifier-js@2.1.0
 simple:rest
 dburles:google-maps
 natestrauser:jquery-scrollto
 todda00:friendly-slugs
-# mquandalle:promisify-core
 materialize:materialize@0.97.0
 gwendall:blaze-to-react
 jalik:ufs@=0.7.1_1
@@ -95,6 +79,10 @@ mpowaga:autoform-summernote
 mfactory:admin-lte
 tmeasday:publish-counts
 mdg:validated-method
-shell-server@0.2.1
-# apollo
+shell-server@0.2.3
 kuip:schema-graphql-bridge
+facebook-config-ui@1.0.0
+google-config-ui@1.0.0
+twitter-config-ui@1.0.0
+kadira:react-layout
+dynamic-import
