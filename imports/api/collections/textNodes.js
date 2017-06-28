@@ -4,29 +4,12 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 const TextNodes = new Meteor.Collection('texts');
 
 TextNodes.schema = new SimpleSchema({
-	n_1: {
+	index: {
 		type: Number,
 		min: 0,
 	},
-	n_2: {
-		type: Number,
-		optional: true,
-		min: 0,
-	},
-	n_3: {
-		type: Number,
-		optional: true,
-		min: 0,
-	},
-	n_4: {
-		type: Number,
-		optional: true,
-		min: 0,
-	},
-	n_5: {
-		type: Number,
-		optional: true,
-		min: 0,
+	location: {
+		type: [Number],
 	},
 	textLanguage: {
 		type: String,
