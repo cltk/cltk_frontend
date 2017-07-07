@@ -9,6 +9,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import LeftMenu from '/imports/ui/components/header/LeftMenu';
 import LoginButtons from '/imports/ui/components/auth/LoginButtons';
+import ModalLogin from '/imports/ui/components/auth/ModalLogin';
 
 export default class Header extends React.Component {
 	constructor(props) {
@@ -19,6 +20,17 @@ export default class Header extends React.Component {
 			modalLoginLowered: false,
 			modalSignupLowered: false,
 		};
+
+		[
+			'toggleLeftMenu',
+			'closeLeftMenu',
+			'showLoginModal',
+			'showSignupModal',
+			'closeLoginModal',
+			'closeSignupModal',
+		].forEach(f => {
+			this[f] = this[f].bind(this);
+		});
 	}
 
 	getChildContext() {
