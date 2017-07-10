@@ -1,12 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
-import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
+import Blaze from 'meteor/gadicc:blaze-react-component'
+import ContentClear from 'material-ui/svg-icons/content/clear';
 import Dialog from 'material-ui/Dialog';
 import IconButton from 'material-ui/IconButton';
-import ContentClear from 'material-ui/svg-icons/content/clear';
+import PropTypes from 'prop-types';
+import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 class LoginDialog extends React.Component {
 
@@ -60,7 +59,7 @@ class LoginDialog extends React.Component {
 				<div className="row">
 					<div className="col s12 m8 push-m2 push-l3 l6 z-depth-1">
 						{!this.props.isTest ?
-							<BlazeToReact blazeTemplate="atForm" />
+							<Blaze template="atForm" />
 						: ''}
 					</div>
 				</div>

@@ -52,7 +52,6 @@ yogiben:autoform-map
 check@1.2.5
 useraccounts:core
 useraccounts:materialize
-useraccounts:flow-routing@1.14.3
 
 # Packages added for project
 http@1.2.12
@@ -70,7 +69,6 @@ dburles:google-maps
 natestrauser:jquery-scrollto
 todda00:friendly-slugs
 materialize:materialize@0.97.0
-gwendall:blaze-to-react
 jalik:ufs@=0.7.1_1
 jalik:ufs-local@0.2.8
 jalik:ufs-gridfs@0.1.4
@@ -86,3 +84,4 @@ google-config-ui@1.0.0
 twitter-config-ui@1.0.0
 kadira:react-layout
 dynamic-import
+gadicc:blaze-react-component

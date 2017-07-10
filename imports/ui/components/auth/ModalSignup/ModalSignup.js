@@ -1,6 +1,6 @@
 import React from 'react';
+import Blaze from 'meteor/gadicc:blaze-react-component'
 import PropTypes from 'prop-types';
-
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
@@ -26,7 +26,7 @@ class ModalSignup extends React.Component {
 				</div>
 				<div className="modal-inner">
 					{!this.props.isTest ?
-						<BlazeToReact blazeTemplate="atForm" state="signUp" />
+						<Blaze template="atForm" state="signUp" />
 					: ''}
 				</div>
 			</div>
