@@ -59,7 +59,7 @@ class LoginDialog extends React.Component {
 				<div className="row">
 					<div className="col s12 m8 push-m2 push-l3 l6 z-depth-1">
 						{!this.props.isTest ?
-							<BlazeToReact blazeTemplate="atForm" />
+							<Blaze template="atForm" />
 						: ''}
 					</div>
 				</div>
