@@ -1,5 +1,5 @@
 import React from 'react';
-import Blaze from 'meteor/gadicc:blaze-react-component'
+import BlazeToReact from 'meteor/gwendall:blaze-to-react';
 import PropTypes from 'prop-types';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -29,7 +29,7 @@ class ModalLogin extends React.Component {
 						</div>
 						<div className="modal-inner">
 							{!this.props.isTest ?
-								<Blaze template="atForm" state="signIn" />
+								<BlazeToReact blazeTemplate="atForm" state="signIn" />
 							: ''}
 						</div>
 					</div>

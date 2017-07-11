@@ -1,5 +1,5 @@
 import React from 'react';
-import Blaze from 'meteor/gadicc:blaze-react-component'
+import BlazeToReact from 'meteor/gwendall:blaze-to-react';
 import ContentClear from 'material-ui/svg-icons/content/clear';
 import Dialog from 'material-ui/Dialog';
 import IconButton from 'material-ui/IconButton';
@@ -59,7 +59,7 @@ class LoginDialog extends React.Component {
 				<div className="row">
 					<div className="col s12 m8 push-m2 push-l3 l6 z-depth-1">
 						{!this.props.isTest ?
-							<Blaze template="atForm" />
+							<BlazeToReact blazeTemplate="atForm" />
 						: ''}
 					</div>
 				</div>
