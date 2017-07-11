@@ -64,12 +64,12 @@ class SearchFilters extends React.Component {
 	}
 }
 SearchFilters.propTypes = {
-	filters: React.PropTypes.array.isRequired,
-	toggleSearchTerm: React.PropTypes.func,
+	filters: PropTypes.array.isRequired,
+	toggleSearchTerm: PropTypes.func,
 };
 
 SearchFilters.childContextTypes = {
-	muiTheme: React.PropTypes.object.isRequired,
+	muiTheme: PropTypes.object.isRequired,
 };
 
 export default SearchFilters;

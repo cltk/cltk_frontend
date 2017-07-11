@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import FlatButton from 'material-ui/FlatButton';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import FlatButton from 'material-ui/FlatButton';
 
 import LoadingWell from '/imports/ui/components/spinkit/LoadingWell';
 import ReadingWorkHeader from '/imports/ui/components/reading/ReadingWorkHeader';
@@ -130,23 +129,23 @@ class ReadingEnvironment extends React.Component {
 }
 
 ReadingEnvironment.propTypes = {
-	work: React.PropTypes.object.isRequired,
-	textNodes: React.PropTypes.array.isRequired,
-	loadMore: React.PropTypes.func.isRequired,
-	calculateTextNodeDepths: React.PropTypes.func.isRequired,
-	highlightId: React.PropTypes.string,
-	toggleReadingMeta: React.PropTypes.func,
-	isTextAfter: React.PropTypes.bool,
-	isTextBefore: React.PropTypes.bool,
-	isLoading: React.PropTypes.bool,
-	showLoginModal: React.PropTypes.func,
-	showSignupModal: React.PropTypes.func,
-	closeLoginModal: React.PropTypes.func,
-	closeSignupModal: React.PropTypes.func,
+	work: PropTypes.object.isRequired,
+	textNodes: PropTypes.array.isRequired,
+	loadMore: PropTypes.func.isRequired,
+	calculateTextNodeDepths: PropTypes.func.isRequired,
+	highlightId: PropTypes.string,
+	toggleReadingMeta: PropTypes.func,
+	isTextAfter: PropTypes.bool,
+	isTextBefore: PropTypes.bool,
+	isLoading: PropTypes.bool,
+	showLoginModal: PropTypes.func,
+	showSignupModal: PropTypes.func,
+	closeLoginModal: PropTypes.func,
+	closeSignupModal: PropTypes.func,
 };
 
 ReadingEnvironment.childContextTypes = {
-	muiTheme: React.PropTypes.object.isRequired,
+	muiTheme: PropTypes.object.isRequired,
 };
 
 export default ReadingEnvironment;

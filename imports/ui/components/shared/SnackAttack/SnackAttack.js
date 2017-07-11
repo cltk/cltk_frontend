@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Snackbar from 'material-ui/Snackbar';
 
 const mountedAttacks = new Set();
@@ -66,7 +67,7 @@ class SnackAttack extends React.Component {
 }
 
 SnackAttack.propTypes = {
-	autoHideDuration: React.PropTypes.number,
+	autoHideDuration: PropTypes.number,
 };
 
 SnackAttack.defaultProps = {

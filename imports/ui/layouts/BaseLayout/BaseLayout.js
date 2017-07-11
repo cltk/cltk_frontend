@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function BaseLayout(props) {
 	return (
@@ -9,5 +10,5 @@ export default function BaseLayout(props) {
 }
 
 BaseLayout.propTypes = {
-	content: React.PropTypes.element
+	content: PropTypes.element
 };

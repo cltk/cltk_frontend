@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function backgroundImages () {
 	$('.background-image-holder').each((i, elem) => {
@@ -42,7 +43,7 @@ class BackgroundImageHolder extends React.Component {
 	}
 }
 BackgroundImageHolder.propTypes = {
-	imgSrc: React.PropTypes.string.isRequired,
+	imgSrc: PropTypes.string.isRequired,
 };
 
 export default BackgroundImageHolder;

@@ -1,10 +1,9 @@
 import React from 'react';
-
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
+import PropTypes from 'prop-types';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import PropTypes from 'prop-types';
 
 export default class Footer extends React.Component {
 
@@ -104,5 +103,5 @@ export default class Footer extends React.Component {
 };
 
 Footer.childContextTypes = {
-	muiTheme: React.PropTypes.object.isRequired,
+	muiTheme: PropTypes.object.isRequired,
 };
