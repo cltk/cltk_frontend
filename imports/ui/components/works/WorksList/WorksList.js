@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
-import Works from '/imports/api/collections/works';
 import Authors from '/imports/api/collections/authors';
+import Works from '/imports/api/collections/works';
+import WorkTeaser from '/imports/ui/components/works/WorkTeaser';
 
 class WorksList extends React.Component {
 

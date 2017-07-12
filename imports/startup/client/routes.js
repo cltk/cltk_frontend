@@ -1,6 +1,8 @@
 import React from 'react';
 import { mount } from 'react-mounter';
 
+import AboutPage from '/imports/ui/components/pages/AboutPage';
+import BrowseView from '/imports/ui/components/browse/Browse';
 import HomeLayout from '/imports/ui/layouts/HomeLayout';
 import MasterLayout from '/imports/ui/layouts/MasterLayout';
 import ReadingLayout from '/imports/ui/layouts/ReadingLayout';

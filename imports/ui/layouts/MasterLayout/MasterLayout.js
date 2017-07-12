@@ -50,8 +50,9 @@ export default class MasterLayout extends React.Component {
 					<Footer />
 				</div>
 				<SearchModal
-					visible={this.state.searchModalVisible}
+					changeSearchParams={() => {}}
 					closeSearchModal={this.closeSearchModal}
+					visible={this.state.searchModalVisible}
 				/>
 			</div>
 		);
