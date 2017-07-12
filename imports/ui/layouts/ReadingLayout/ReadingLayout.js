@@ -1,23 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createContainer } from 'meteor/react-meteor-data';
 import autoBind from 'react-autobind';
+import classnames from 'classnames';
 import debounce from 'throttle-debounce/debounce';
+import { createContainer } from 'meteor/react-meteor-data';
 
 import Utils from '/imports/lib/utils';
 import Authors from '/imports/api/collections/authors';
 import TextNodes from '/imports/api/collections/textNodes';
 import Works from '/imports/api/collections/works';
 
-import LoadingDoubleWell from '/imports/ui/components/spinkit/LoadingDoubleWell';
-import HeaderReading from '/imports/ui/components/header/HeaderReading';
-import ReadingEnvironment from '/imports/ui/components/reading/ReadingEnvironment';
-import DefinitionsPanel from '/imports/ui/components/definitions/DefinitionsPanel';
-import CommentaryPanel from '/imports/ui/components/commentary/CommentaryPanel';
 import AnnotateWidget from '/imports/ui/components/annotations/AnnotateWidget';
+import CommentaryPanel from '/imports/ui/components/commentary/CommentaryPanel';
+import DefinitionsPanel from '/imports/ui/components/definitions/DefinitionsPanel';
+import HeaderReading from '/imports/ui/components/header/HeaderReading';
+import LoadingDoubleWell from '/imports/ui/components/spinkit/LoadingDoubleWell';
+import ReadingEnvironment from '/imports/ui/components/reading/ReadingEnvironment';
 import SearchModal from '/imports/ui/components/search/SearchModal';
 
 class ReadingLayout extends React.Component {
+	static defaultProps = {
+		textNodes: [],
+	}
+	static propTypes = {
+		params: PropTypes.object.isRequired,
+		queryParams: PropTypes.object.isRequired,
+		textNodes: PropTypes.array,
+	}
 
 	constructor(props) {
 		super(props);
@@ -62,8 +71,10 @@ class ReadingLayout extends React.Component {
 	}
 
 	componentDidUpdate() {
-		if (this.props.textNodesDepths.length !== this.props.textNodes.length) {
+		if (this.state.textNodesDepths.length !== this.props.textNodes.length) {
 			this.calculateTextNodeDepths();
+			this.checkIfTextBefore();
+			this.checkIfTextAfter();
 		}
 	}
 
@@ -485,15 +496,6 @@ class ReadingLayout extends React.Component {
 		}
 		*/
 
-		// Update the textBefore / textAfter values
-		if (
-			work
-		&& textNodes.length
-		) {
-			this.checkIfTextBefore();
-			this.checkIfTextAfter();
-		}
-
 		// If data is loaded
 		if (work && textNodes) {
 			return (
@@ -517,37 +519,19 @@ class ReadingLayout extends React.Component {
 	}
 
 	render() {
-
-		let readingClassName = 'clearfix';
-		if (
-				this.state.toggleCommentary
-			|| this.state.toggleTranslations
-		) {
-			readingClassName += ' with-right-panel';
-		} else if (
-				this.state.toggleMedia
-			|| this.state.toggleEntities
-			|| this.state.toggleAnnotations
-			|| this.state.toggleRelatedPassages
-		) {
-			readingClassName += ' with-right-metadata';
-		}
-
-		if (this.state.toggleMedia) {
-			readingClassName += ' with-media';
-		}
-
-		if (this.state.toggleEntities) {
-			readingClassName += ' with-entities';
-		}
-
-		if (this.state.toggleScansion) {
-			readingClassName += ' with-scansion';
-		}
-
-		if (this.state.toggleDefinitions) {
-			readingClassName += ' with-left-panel';
-		}
+		const readingClassName = classnames('clearfix', {
+			'with-entities': this.state.toggleEntities,
+			'with-left-panel': this.state.toggleDefinitions,
+			'with-media': this.state.toggleMedia,
+			'with-right-panel': this.state.toggleCommentary || this.state.toggleTranslations,
+			'with-right-metadata': (
+				this.state.toggleMedia ||
+				this.state.toggleEntities ||
+				this.state.toggleAnnotations ||
+				this.state.toggleRelatedPassages
+			),
+			'with-scansion': this.state.toggleScansion,
+		});
 
 		return (
 			<div className="cltk-layout reading-layout">
@@ -587,9 +571,10 @@ class ReadingLayout extends React.Component {
 							submitAnnotation={this.submitAnnotation}
 						/>
 						<SearchModal
-							work={this.props.work}
-							visible={this.state.searchModalVisible}
+							changeSearchParams={() => console.log('search params changed -- noop')}
 							closeSearchModal={this.closeSearchModal}
+							visible={this.state.searchModalVisible}
+							work={this.props.work}
 						/>
 					</div>
 				:
@@ -618,24 +603,16 @@ class ReadingLayout extends React.Component {
 	}
 }
 
-ReadingLayout.propTypes = {
-	params: PropTypes.object.isRequired,
-	queryParams: PropTypes.object.isRequired,
-	textNodes: PropTypes.array,
-};
-
 const ReadingLayoutContainer = createContainer(props => {
 	const workQuery = {
 		_id: new Meteor.Collection.ObjectID(props.params.id),
 	};
-	const textLocation = props.location || [];
-	let query = {};
-	let textNodes = [];
-	let work = null;
+	const textLocation = (props.queryParams.location || '').split('.').map(n => parseInt(n, 10));
+	const work = Works.findOne(workQuery);
+
 	let attachment = null;
 
 	Meteor.subscribe('workSingle', workQuery);
-	work = Works.findOne();
 
 	if (work) {
 		// Get the work authors
@@ -651,7 +628,7 @@ const ReadingLayoutContainer = createContainer(props => {
 	/*
 	* Set the query
 	*/
-	query = {
+	const query = {
 		work: new Meteor.Collection.ObjectID(props.params.id),
 	};
 
@@ -674,9 +651,8 @@ const ReadingLayoutContainer = createContainer(props => {
 		query.n_1 = { $gte: textLocation[0] };
 	}
 
-	Meteor.subscribe('textNodes', query, props.limit);
-	textNodes = TextNodes.find(query).fetch();
-	console.log(textNodes);
+	Meteor.subscribe('textNodes', query, props.limit || 0);
+	const textNodes = TextNodes.find(query).fetch();
 
 	return {
 		work,

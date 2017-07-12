@@ -5,6 +5,7 @@ import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import LoadingWell from '/imports/ui/components/spinkit/LoadingWell';
+import ReadingTextNode from '/imports/ui/components/reading/ReadingTextNode';
 import ReadingWorkHeader from '/imports/ui/components/reading/ReadingWorkHeader';
 
 class ReadingEnvironment extends React.Component {

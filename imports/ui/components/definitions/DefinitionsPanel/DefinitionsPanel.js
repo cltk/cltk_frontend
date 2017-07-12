@@ -11,6 +11,10 @@ import Definitions from '/imports/api/collections/definitions';
 import Wordforms from '/imports/api/collections/wordforms';
 
 class DefinitionsPanel extends React.Component {
+	static defaultProps = {
+		toggleDefinitions: false,
+		textNodes: [],
+	}
 
 	constructor(props) {
 		super(props);
@@ -21,14 +25,6 @@ class DefinitionsPanel extends React.Component {
 
 		autoBind(this);
 	}
-
-	getDefaultProps() {
-		return {
-			toggleDefinitions: false,
-			textNodes: [],
-		};
-	}
-
 
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };

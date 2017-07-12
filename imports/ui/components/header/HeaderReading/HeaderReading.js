@@ -11,22 +11,20 @@ import Utils from '/imports/lib/utils';
 import LeftMenu from '/imports/ui/components/header/LeftMenu';
 
 class HeaderReading extends React.Component {
+	static defaultProps = {
+		toggleDefinitions: false,
+		toggleCommentary: false,
+		toggleTranslations: false,
+		toggleMedia: false,
+		toggleScansion: false,
+		toggleEntities: false,
+	}
+
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			leftMenuOpen: false,
-		};
-	}
-
-	getDefaultProps() {
-		return {
-			toggleDefinitions: false,
-			toggleCommentary: false,
-			toggleTranslations: false,
-			toggleMedia: false,
-			toggleScansion: false,
-			toggleEntities: false,
 		};
 	}
 

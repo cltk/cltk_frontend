@@ -9,15 +9,11 @@ import Commentary from '/imports/api/collections/commentary';
 import Translations from '/imports/api/collections/translations';
 
 class CommentaryPanel extends React.Component {
-
-	getDefaultProps() {
-		return {
-			toggleCommentary: false,
-			toggleTranslations: false,
-		};
+	static defaultProps = {
+		toggleCommentary: false,
+		toggleTranslations: false,
 	}
 
-	getInitialState() {
 		/* eslint max-len: "off" */
 		/*
 		var translations = [{
@@ -156,8 +152,10 @@ class CommentaryPanel extends React.Component {
 		content : "The pre-eminence of Argos in early times is an inference from Homer, and even more from the Cyclic poems, e.g. the Thebais and the Epigoni (cf. v. 67 n.). Hellas did not obtain its name till after the Dorian invasion (cf. i. 58 nn.).<br>φόρτον. For the scene here described cf. Od. xv. 416 (Φοίνικες） μυρἴ ἄγοντες ἀθύρματα νηὶ μελαίνῃ."
 		}];
 		*/
+	constructor(props) {
+		super(props);
 
-		return {
+		this.state = {
 			selected_translation: 0,
 		};
 	}
