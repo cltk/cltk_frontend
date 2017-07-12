@@ -37,7 +37,10 @@ class BlazeToReactComponent extends React.Component {
   }
 }
 
-const container = createContainer(props => props, BlazeToReactComponent);
+export const BlazeToReact = createContainer(props => props, BlazeToReactComponent);
 
-window.BlazeToReact = container;
-export default container;
+if (typeof window !== 'undefined') {
+  window.BlazeToReact = BlazeToReact;
+}
+
+export default BlazeToReact;

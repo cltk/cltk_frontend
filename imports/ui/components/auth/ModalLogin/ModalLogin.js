@@ -29,7 +29,7 @@ class ModalLogin extends React.Component {
 						</div>
 						<div className="modal-inner">
 							{!this.props.isTest ?
-								<Blaze template="atForm" state="signIn" />
+								<BlazeToReact blazeTemplate="atForm" state="signIn" />
 							: ''}
 						</div>
 					</div>
