@@ -1,13 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import autoBind from 'react-autobind';
-import { Meteor } from 'meteor/meteor';
-import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
+import autoBind from 'react-autobind';
+import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import debounce from 'throttle-debounce/debounce';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { Meteor } from 'meteor/meteor';
 
 import DateRangeSlider from '/imports/ui/components/shared/DateRangeSlider';
 import SearchTermButton from '/imports/ui/components/search/SearchTermButton';

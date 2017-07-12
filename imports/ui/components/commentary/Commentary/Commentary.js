@@ -47,7 +47,7 @@ class Commentary extends React.Component {
 }
 
 Commentary.propTypes = {
-	comment: React.PropTypes.object.isRequired,
+	comment: PropTypes.object.isRequired,
 };
 
 export default Commentary;

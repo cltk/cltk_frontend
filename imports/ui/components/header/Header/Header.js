@@ -10,6 +10,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import LeftMenu from '/imports/ui/components/header/LeftMenu';
 import LoginButtons from '/imports/ui/components/auth/LoginButtons';
 import ModalLogin from '/imports/ui/components/auth/ModalLogin';
+import ModalSignup from '/imports/ui/components/auth/ModalSignup';
 
 export default class Header extends React.Component {
 	constructor(props) {
@@ -187,20 +188,14 @@ export default class Header extends React.Component {
 						</div>{/* <!-- .container.close-navbar -->*/}
 					</div>{/* <!-- .navigation-primary-->*/}
 				</header>
-				{this.state.modalLoginLowered ?
-					<ModalLogin
-						lowered={this.state.modalLoginLowered}
-						closeModal={this.closeLoginModal}
-					/>
-					: ''
-				}
-				{this.state.modalSignupLowered ?
-					<ModalSignup
-						lowered={this.state.modalSignupLowered}
-						closeModal={this.closeSignupModal}
-					/>
-					: ''
-				}
+				<ModalLogin
+					lowered={this.state.modalLoginLowered}
+					closeModal={this.closeLoginModal}
+				/>
+				<ModalSignup
+					lowered={this.state.modalSignupLowered}
+					closeModal={this.closeSignupModal}
+				/>
 			</div>
 		);
 	}

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
 import Masonry from 'react-masonry-component/lib';
+import PropTypes from 'prop-types';
+import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
 import Works from '/imports/api/collections/works';
@@ -52,8 +53,8 @@ class WorksList extends React.Component {
 }
 
 WorksList.propTypes = {
-	limit: React.PropTypes.number,
-	skip: React.PropTypes.number,
+	limit: PropTypes.number,
+	skip: PropTypes.number,
 };
 
 export default createContainer(props => {

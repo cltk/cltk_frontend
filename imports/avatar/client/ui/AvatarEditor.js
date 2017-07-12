@@ -1,5 +1,6 @@
 import React from 'react';
 import LinearProgress from 'material-ui/LinearProgress';
+import PropTypes from 'prop-types';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 
@@ -124,10 +125,10 @@ class AvatarEditor extends React.Component {
 }
 
 AvatarEditor.propTypes = {
-	defaultAvatarUrl: React.PropTypes.string.isRequired,
-	avatar: React.PropTypes.object,
-	avatarLoading: React.PropTypes.bool,
-	user: React.PropTypes.object,
+	defaultAvatarUrl: PropTypes.string.isRequired,
+	avatar: PropTypes.object,
+	avatarLoading: PropTypes.bool,
+	user: PropTypes.object,
 };
 
 AvatarEditor.defaultProps = {

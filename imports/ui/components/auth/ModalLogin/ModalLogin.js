@@ -1,9 +1,9 @@
 import React from 'react';
+import BlazeToReact from 'meteor/gwendall:blaze-to-react';
 import PropTypes from 'prop-types';
-import { Meteor } from 'meteor/meteor';
-
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { Meteor } from 'meteor/meteor';
 
 class ModalLogin extends React.Component {
 

@@ -4,7 +4,6 @@ import MainLayout from '/imports/ui/layouts/BaseLayout';
 AccountsTemplates.configure({
 	defaultLayoutType: 'blaze-to-react',
 	defaultLayout: MainLayout,
-	defaultContentRegion: 'content',
 	confirmPassword: false,
 	enablePasswordChange: true,
 	forbidClientAccountCreation: true,

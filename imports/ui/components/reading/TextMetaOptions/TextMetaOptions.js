@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
 import IconButton from 'material-ui/IconButton';
+import PropTypes from 'prop-types';
 
 class TextMetaOptions extends React.Component {
 
@@ -52,11 +51,11 @@ class TextMetaOptions extends React.Component {
 }
 
 TextMetaOptions.propTypes = {
-	toggleBookmark: React.PropTypes.func.isRequired,
-	toggleShowAnnotations: React.PropTypes.func.isRequired,
-	toggleShowRelatedPassages: React.PropTypes.func.isRequired,
-	annotationsCount: React.PropTypes.number,
-	relatedPassagesCount: React.PropTypes.number,
+	toggleBookmark: PropTypes.func.isRequired,
+	toggleShowAnnotations: PropTypes.func.isRequired,
+	toggleShowRelatedPassages: PropTypes.func.isRequired,
+	annotationsCount: PropTypes.number,
+	relatedPassagesCount: PropTypes.number,
 };
 
 export default TextMetaOptions;

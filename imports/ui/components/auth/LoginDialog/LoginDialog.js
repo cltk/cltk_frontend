@@ -1,12 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
-import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
+import BlazeToReact from 'meteor/gwendall:blaze-to-react';
+import ContentClear from 'material-ui/svg-icons/content/clear';
 import Dialog from 'material-ui/Dialog';
 import IconButton from 'material-ui/IconButton';
-import ContentClear from 'material-ui/svg-icons/content/clear';
+import PropTypes from 'prop-types';
+import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 class LoginDialog extends React.Component {
 

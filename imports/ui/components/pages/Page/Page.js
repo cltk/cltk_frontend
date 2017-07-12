@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session';
+import { createContainer } from 'meteor/react-meteor-data';
 
 // lib
 import Utils from '/imports/lib/utils';
@@ -80,13 +81,13 @@ const Page = props => {
 };
 
 Page.propTypes = {
-	slug: React.PropTypes.string,
-	page: React.PropTypes.object,
-	ready: React.PropTypes.bool,
-	images: React.PropTypes.array,
-	thumbnails: React.PropTypes.array,
-	loading: React.PropTypes.bool,
-	settings: React.PropTypes.object,
+	slug: PropTypes.string,
+	page: PropTypes.object,
+	ready: PropTypes.bool,
+	images: PropTypes.array,
+	thumbnails: PropTypes.array,
+	loading: PropTypes.bool,
+	settings: PropTypes.object,
 };
 
 const pageContainer = createContainer(({ slug }) => {
