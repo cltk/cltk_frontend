@@ -1,54 +1,50 @@
-/*
- * Available fonts
- *
-font-family:'Futura LT W01 Light';
-font-family:'Futura LT W01 Light Oblique';
-font-family:'Futura LT W01 Book';
-font-family:'Futura LT W01 Bold';
-font-family:'Futura LT W01 Book Oblique';
-font-family:'Freight Big W01 Light Regular';
-font-family:'Freight Big W01 Light Italic';
-font-family:'Freight Big W01 Book Regular';
-font-family:'Freight Big W01 Book Italic';
-font-family:'Freight Display W01 Light';
-font-family:'Freight Display W01 Light It';
-font-family:'Freight Display W01 Book';
-font-family:'Freight Display W01 Boo1197149';
-font-family:'Freight Display W01 Medium';
-font-family:'Freight Display W01 Medium It';
-font-family:'Brown Gothic W01 Cd Bold';
- *
- */
+/******************************************************************************
 
 
-@font-light:'Futura LT W01 Light';
-@font-label:'Futura LT W01 Book';
-@font-title:'Brown Gothic W01 Cd Bold';
-@font-reading:'Merriweather', @font-light, Georgia, Times New Roman, serif;
-@font-logo:'Roboto Condensed', sans-serif;
-@font-family-default-starter: 'Lato', sans-serif;
-@font-family-default-regular:@font-light;
-@font-family-default-regular-alt:@font-label;
-@font-family-default:@font-light;
+									_  _    _
+					   ___ | || |_ | | __
+					  / __|| || __|| |/ /
+					 | (__ | || |_ |   <
+					  \___||_| \__||_|\_\
 
+
+ |  Style Variables for CLTK Archive application
+ |
+ |   1. Colors
+ |   2. Typography
+ |   3. Mixins
+
+
+******************************************************************************/
+
+
+/******************************************************************************
+
+1. Colors
+
+******************************************************************************/
+
+/******************************************************************************
+
+1.1 Base Colors
+
+******************************************************************************/
 
 @light:#fff;
 @dark:#222222;
 @black:#000000;
-@text-dark:#212121;
-@text-secondary:#727272;
 @divider:#CCCCCC;
 @divider-light:#eee;
 @divider-dark:#666;
 @divider-transparent:rgba(204, 204, 204, 0.4);
 @background-gray:#f6f6f6;
-@highlight-yellow:#FFFF64;
-@highlight-grey:#E9E9E9;
 
-@md-primary-dark:#0097A7;
-@md-primary:#00BCD4;
-@md-primary-light:#B2EBF2;
-@md-accent:#795548;
+
+/******************************************************************************
+
+1.2 Brand Colors
+
+******************************************************************************/
 
 @md-primary-100: rgba(178, 235, 242, 1);
 @md-primary-200: rgba(128, 222, 234, 1);
@@ -75,11 +71,120 @@ font-family:'Brown Gothic W01 Cd Bold';
 @md-accent-800-60: rgba(78, 52, 46, 0.6);
 @md-accent-800-40: rgba(78, 52, 46, 0.4);
 
+@md-primary-dark:#0097A7;
+@md-primary:#00BCD4;
+@md-primary-light:#B2EBF2;
+@md-accent:#795548;
+
+
+/******************************************************************************
+
+1.3 Text Colors
+
+******************************************************************************/
+
+@text-dark:#212121;
+@text-secondary:#727272;
+@highlight-yellow:#FFFF64;
+@highlight-grey:#E9E9E9;
 
 
 
+/******************************************************************************
+
+2. Typography
+
+Available Fonts:
+
+=================================
+Google Fonts
+=================================
+font-family: 'Gentium Basic', serif;
+font-family: 'Merriweather', serif;
+
+=================================
+Fonts.com
+=================================
+font-family:'Slate W04 Light';
+font-family:'Slate W04 Bk';
+font-family:'Slate W04 Regular';
+font-family:'Slate W04 Medium';
+font-family:'Slate W04 Condensed';
+font-family:'Slate W04 Bold';
+font-family:'Slate W04 Black';
+font-family:'Proxima Nova W08 Light';
+font-family:'Proxima Nova W08 Reg';
+font-family:'Freight Text W03 Light';
+font-family:'Freight Text W03 Black';
+font-family:'Freight Text W03 Book';
+font-family:'Freight Text W03 Bold';
+font-family:'Courier Bold W07 Regular';
+font-family:'Courier W07 Regular';
+font-family:'Futura LT W04 Bold Cond1475886';
+font-family:'Futura LT W04 Book1475802';
+font-family:'Futura LT W04 Medium1475814';
+font-family:'Futura LT W04 Light1475790';
+font-family:'Futura LT W04 Black';
+
+=================================
+Material Design Icons
+=================================
+font-family: "Material Design Icons";
+
+******************************************************************************/
+
+/******************************************************************************
+
+2.1 Base Fonts
+
+******************************************************************************/
+@font-body: 'Slate W04 Light';
+@font-accent: 'Proxima Nova W08 Light';
+@font-label: 'Proxima Nova W08 Reg';
+@font-label-mono: 'Courier W07 Regular';
+@font-logo: 'Slate W04 Black';
+@font-family-default-starter: 'Lato', sans-serif;
+@font-family-default-regular:@font-body;
+@font-family-default-regular-alt:@font-label;
+@font-family-default:@font-body;
+
+/******************************************************************************
+
+2.2 Title Fonts
+
+******************************************************************************/
+@font-title: 'Proxima Nova W08 Reg';
+@font-title-light: 'Proxima Nova W08 Light';
+@font-title-bold: 'Proxima Nova W08 Reg'; // Need to add bold
+
+/******************************************************************************
+
+2.3 Reading Environment Fonts
+
+******************************************************************************/
+@font-reading: 'Merriweather', serif;
+@font-lemma: 'Gentium Basic', 'Merriweather', serif;
+
+/******************************************************************************
+
+2.4 Material Design Icons
+
+******************************************************************************/
+
+@font-face {
+  font-family: "Material Design Icons";
+  src: url("/fonts/materialdesignicons-webfont.eot?v=1.9.32");
+  src: url("/fonts/materialdesignicons-webfont.eot?#iefix&v=1.9.32") format("embedded-opentype"), url("/fonts/materialdesignicons-webfont.woff2?v=1.9.32") format("woff2"), url("/fonts/materialdesignicons-webfont.woff?v=1.9.32") format("woff"), url("/fonts/materialdesignicons-webfont.ttf?v=1.9.32") format("truetype"), url("/fonts/materialdesignicons-webfont.svg?v=1.9.32#materialdesigniconsregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
 
 
+/******************************************************************************
+
+3. Mixins
+
+******************************************************************************/
 
 .text-shadow (@string: 0 1px 3px rgba(0, 0, 0, 0.25)) {
 	text-shadow: @string;

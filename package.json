@@ -88,7 +88,7 @@
     "pretest": "npm run lint",
     "test": "jest",
     "test:watch": "npm run test -- --reporter min --watch",
-    "start": "MONGO_URL=mongodb://localhost/cltk_frontend meteor --settings=./private/settings/production.json"
+    "start": "MONGO_URL=mongodb://localhost/cltk_frontend meteor --settings=./private/settings/production.json --port=5000"
   },
   "repository": {
     "type": "git",
