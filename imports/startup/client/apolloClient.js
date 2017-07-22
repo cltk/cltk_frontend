@@ -2,9 +2,9 @@ import { ApolloClient, createNetworkInterface } from 'apollo-client';
 
 const networkInterface = createNetworkInterface({
 	uri: Meteor.settings.public.textServerURI,
-	opts: {
-		credentials: 'include',
-	}
+	// opts: {
+	//	credentials: 'include',
+	// }
 });
 
 networkInterface.use([{
@@ -21,12 +21,14 @@ const connectionParams = () => {
 	return { authToken: localStorage.getItem('token') ? localStorage.getItem('token') : null };
 };
 
+/*
 const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
 	networkInterface,
 );
+*/
 
 const client = new ApolloClient({
-	networkInterface: networkInterfaceWithSubscriptions,
+	networkInterface,
 });
 
 export default client;
