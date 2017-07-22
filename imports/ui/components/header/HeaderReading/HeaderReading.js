@@ -1,7 +1,6 @@
 import React from 'react';
 import autoBind from 'react-autobind';
 import PropTypes from 'prop-types';
-import { FlowRouter } from 'meteor/kadira:flow-router';
 import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
@@ -71,7 +70,7 @@ class HeaderReading extends React.Component {
 
 		const { work } = this.props;
 		const { leftMenuOpen } = this.state;
-		const textLocation = FlowRouter.getQueryParam('location') || '';
+		// const textLocation = FlowRouter.getQueryParam('location') || '';
 
 		return (
 			<div>
