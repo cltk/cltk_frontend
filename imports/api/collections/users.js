@@ -1,54 +1,66 @@
 import { Meteor } from 'meteor/meteor';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
-Schemas.UserProfile = new SimpleSchema({
-	picture: {
-		type: String,
-		optional: true,
-		label: 'Profile picture',
-	},
-	firstName: {
+const UserProfile = new SimpleSchema({
+	name: {
 		type: String,
 		optional: true,
 	},
-	lastName: {
-		type: String,
-		optional: true,
-	},
+
 	birthday: {
 		type: Date,
 		optional: true,
 	},
-	bio: {
+
+	biography: {
+		type: String,
+		optional: true,
+	},
+
+	publicEmailAddress: {
+		type: String,
+		optional: true,
+	},
+	academiaEdu: {
+		type: String,
+		optional: true,
+	},
+	twitter: {
+		type: String,
+		optional: true,
+	},
+	facebook: {
+		type: String,
+		optional: true,
+	},
+	google: {
+		type: String,
+		optional: true,
+	},
+	avatarUrl: {
+		type: String,
+		optional: true,
+	},
+	location: {
 		type: String,
 		optional: true,
 	},
 	country: {
 		type: String,
-		label: 'Nationality',
-		optional: true,
-	},
-	twitter: {
-		type: String,
-		label: 'Twitter',
-		optional: true,
-	},
-	google: {
-		type: String,
-		label: 'Google Plus',
-		optional: true,
-	},
-	facebook: {
-		type: String,
-		label: 'Facebook',
 		optional: true,
 	},
 });
 
-Schemas.User = new SimpleSchema({
+const User = new SimpleSchema({
+	_id: {
+		type: String,
+	},
 	username: {
 		type: String,
-		regEx: /^[a-z0-9A-Z_]{3,15}$/,
+		optional: true,
+	},
+	isAnnotator: {
+		type: Boolean,
 		optional: true,
 	},
 	emails: {
@@ -63,64 +75,122 @@ Schemas.User = new SimpleSchema({
 		type: Boolean,
 	},
 	profile: {
-		type: Schemas.UserProfile,
+		type: UserProfile,
 		optional: true,
 	},
 	services: {
 		type: Object,
 		optional: true,
-		blackbox: true,
+	},
+	'services.password.bcrypt': {
+		type: String,
+		optional: true,
+	},
+	'services.resume.loginTokens': {
+		type: [Object],
+		optional: true,
+	},
+	'services.email.verificationTokens': {
+		type: [Object],
+		optional: true,
 	},
 	roles: {
 		type: [String],
-		blackbox: true,
+		optional: true,
+	},
+	canEditCommenters: {
+		type: [String],
 		optional: true,
 	},
 	bookmarks: {
-		type: [String],
+		type: Array,
 		optional: true,
 	},
-	worksShelf: {
-		type: [String],
-		optional: true,
-	},
-	avatar: {
+	'bookmarks.$': {
 		type: Object,
 		optional: true,
 	},
-	'avatar._id': {
-		type: String,
+	canAnnotateBooks: {
+		type: Array,
+		optional: true,
 	},
-	'avatar.type': {
+	'canAnnotateBooks.$': {
 		type: String,
+		optional: true,
 	},
-	'avatar.url': {
+	authorOfBooks: {
+		type: Array,
+		optional: true,
+	},
+	'authorOfBooks.$': {
 		type: String,
+		optional: true,
 	},
-
+	highlightingPreference: {
+		type: Boolean,
+		optional: true,
+	},
+	recentPositions: {
+		type: Array,
+		optional: true,
+	},
+	'recentPositions.$': {
+		type: Object,
+		optional: true,
+	},
+	'recentPositions.$.author': {
+		type: String,
+		optional: true,
+	},
+	'recentPositions.$.title': {
+		type: String,
+		optional: true,
+	},
+	'recentPositions.$.subtitle': {
+		type: String,
+		optional: true,
+	},
+	'recentPositions.$.link': {
+		type: Number,
+		optional: true,
+	},
+	'recentPositions.$.activeElem': {
+		type: Number,
+		optional: true,
+	},
 	createdAt: {
 		type: Date,
 		optional: true,
-		autoValue() {
-			if (this.isInsert) {
-				return new Date();
-			}
-			return null;
-		},
+	},
+	createdBy: {
+		type: String,
+		optional: true,
 	},
 	updatedAt: {
 		type: Date,
 		optional: true,
-		autoValue() {
-			if (this.isUpdate) {
-				return new Date();
-			}
-			return null;
-		},
 	},
-
+	updatedBy: {
+		type: String,
+		optional: true,
+	},
 });
 
-Meteor.users.attachSchema(Schemas.User);
-this.Users = Meteor.users;
-this.StarterSchemas = Schemas;
+Meteor.users.schema = User;
+Meteor.users.attachSchema(User);
+
+Meteor.users.attachBehaviour('timestampable', {
+	createdAt: 'created',
+	createdBy: 'createdBy',
+	updatedAt: 'updated',
+	updatedBy: 'updatedBy',
+});
+
+Meteor.users.allow({
+	update: (userId) => {
+		if (Meteor.userId() === userId) {
+			return true;
+		}
+		return false;
+	},
+});

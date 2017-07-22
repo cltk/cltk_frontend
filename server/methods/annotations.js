@@ -6,7 +6,6 @@ Meteor.methods({
 		if (!this.userId) {
 			throw new Meteor.Error('not-authorized');
 		}
-		console.log(annotationCandidate);
 		check(annotationCandidate, {
 			textNode: String,
 			content: String,

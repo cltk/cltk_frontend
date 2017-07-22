@@ -1,5 +1,4 @@
 import React from 'react';
-import BlazeToReact from 'meteor/gwendall:blaze-to-react';
 import PropTypes from 'prop-types';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -25,9 +24,6 @@ class ModalSignup extends React.Component {
 					<i className="mdi mdi-close" />
 				</div>
 				<div className="modal-inner">
-					{!this.props.isTest ?
-						<BlazeToReact blazeTemplate="atForm" state="signUp" />
-					: ''}
 				</div>
 			</div>
 		);

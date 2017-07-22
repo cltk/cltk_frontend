@@ -24,11 +24,11 @@ Authors.schema = new SimpleSchema({
 		max: 60,
 	},
 
-/*
-corpus: {
-type: String,
-max: 60
-},*/
+	/*
+	corpus: {
+		type: String,
+		max: 60
+	},*/
 
 	createdAt: {
 		type: Date,

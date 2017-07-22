@@ -4,7 +4,7 @@
   "description": "A frontend reading environment for the Classical Language ToolKit Archive texts",
   "main": "bundle/main.js",
   "dependencies": {
-    "apollo-client": "^1.7.0",
+    "apollo-client": "^1.8.1",
     "babel-runtime": "^6.23.0",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
@@ -19,6 +19,7 @@
     "graphql": "^0.9.6",
     "graphql-server-express": "^0.6.0",
     "graphql-tools": "^0.10.1",
+    "history": "^4.6.3",
     "http-proxy-middleware": "^0.17.4",
     "ion-rangeslider": "^2.2.0",
     "linkifyjs": "^2.0.5",
@@ -43,6 +44,7 @@
     "react-masonry-component": "^5.0.7",
     "react-mounter": "^1.2.0",
     "react-rangeslider": "^1.0.3",
+    "react-router": "^4.1.2",
     "react-slick": "^0.12.2",
     "react-tap-event-plugin": "^2.0.1",
     "spawn-sync": "^1.0.15",
@@ -88,7 +90,7 @@
     "pretest": "npm run lint",
     "test": "jest",
     "test:watch": "npm run test -- --reporter min --watch",
-    "start": "MONGO_URL=mongodb://localhost/cltk_frontend meteor --settings=./private/settings/production.json --port=5000"
+    "start": "MONGO_URL=mongodb://localhost/cltk_frontend meteor --settings=./private/settings/production.json"
   },
   "repository": {
     "type": "git",
@@ -113,7 +115,6 @@
       "^meteor/blaze": "<rootDir>/imports/mocks/blaze.js",
       "^meteor/check": "<rootDir>/imports/mocks/check.js",
       "^meteor/edgee:slingshot": "<rootDir>/imports/mocks/slingshot.js",
-      "^meteor/gwendall:blaze-to-react": "<rootDir>/imports/mocks/blazeToReact.js",
       "^meteor/kadira:dochead": "<rootDir>/imports/mocks/docHead.js",
       "^meteor/kadira:flow-router": "<rootDir>/imports/mocks/flowRouter.js",
       "^meteor/meteor": "<rootDir>/imports/mocks/meteor.js",
