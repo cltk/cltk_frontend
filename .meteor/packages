@@ -5,9 +5,9 @@
 
 # Packages from meteor-starter template application
 less@2.7.9
-accounts-base@1.3.0
-accounts-password@1.3.6
-accounts-facebook@1.2.0
+accounts-base@1.3.1
+accounts-password@1.4.0
+accounts-facebook@1.2.1
 accounts-google@1.2.0
 accounts-twitter@1.3.0
 aldeed:collection2
@@ -24,7 +24,7 @@ yogiben:mixpanel
 meteorhacks:subs-manager
 timmyg:wow
 meteor-base@1.1.0
-mongo@1.1.18
+mongo@1.1.19
 blaze-html-templates
 session@1.1.7
 jquery@1.11.10
@@ -42,24 +42,22 @@ reywood:publish-composite
 # Packages added for project
 http@1.2.12
 react-meteor-data
-ecmascript@0.8.0
+ecmascript@0.8.1
 archimedigital:core
 jabbslad:basic-auth
 standard-minifier-css@1.3.4
-standard-minifier-js@2.1.0
+standard-minifier-js@2.1.1
 simple:rest
 dburles:google-maps
 todda00:friendly-slugs
-materialize:materialize@0.97.0
 tmeasday:publish-counts
 mdg:validated-method
-shell-server@0.2.3
+shell-server@0.2.4
 kuip:schema-graphql-bridge
 facebook-config-ui@1.0.0
 google-config-ui@1.0.0
 twitter-config-ui@1.0.0
-kadira:react-layout
-dynamic-import
+dynamic-import@0.1.1
 gadicc:blaze-react-component
 react-runtime
 edgee:slingshot

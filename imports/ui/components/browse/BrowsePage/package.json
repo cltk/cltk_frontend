@@ -1,6 +1,6 @@
 {
-  "name": "Browse",
+  "name": "BrowsePage",
   "version": "0.0.1",
   "private": true,
-  "main": "./Browse.js"
+  "main": "./BrowsePage.js"
 }
