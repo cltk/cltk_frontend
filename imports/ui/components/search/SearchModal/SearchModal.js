@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createContainer } from 'meteor/react-meteor-data';
+import { graphql, gql } from 'react-apollo';
 import autoBind from 'react-autobind';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -29,8 +29,9 @@ class SearchModal extends React.Component {
 	}
 
 	loadMoreWorks() {
+		const { offset, limit } = this.props;
 		this.props.changeSearchParams({
-			skip: this.props.skip + this.props.limit,
+			offset: offset + limit,
 		});
 	}
 
@@ -82,12 +83,12 @@ class SearchModal extends React.Component {
 
 		this.props.changeSearchParams({
 			filters,
-			skip: 0,
+			offset: 0,
 		});
 	}
 
 	handleChangeTextsearch(textsearch) {
-		const filters = this.props.filters;
+		const { filters } = this.props;
 
 		if (textsearch && textsearch.length) {
 			let textsearchInFilters = false;
@@ -121,12 +122,12 @@ class SearchModal extends React.Component {
 
 		this.props.changeSearchParams({
 			filters,
-			skip: 0,
+			offset: 0,
 		});
 	}
 
 	handleChangeDate(e) {
-		const filters = this.props.filters;
+		const { filters } = this.props;
 
 		let dateFromInFilters = false;
 
@@ -186,7 +187,7 @@ class SearchModal extends React.Component {
 
 		this.props.changeSearchParams({
 			filters,
-			skip: 0,
+			offset: 0,
 		});
 	}
 
@@ -203,7 +204,7 @@ class SearchModal extends React.Component {
 
 	render() {
 		let hasMoreWorks = true;
-		const { works, worksCount, skip, limit } = this.props;
+		const { works, worksCount, } = this.props;
 
 		if (works) {
 			if (worksCount && worksCount <= works.length) {
@@ -248,8 +249,6 @@ class SearchModal extends React.Component {
 					</div>
 					: ''
 				}
-
-
 			</div>
 		);
 	}
@@ -264,113 +263,83 @@ SearchModal.propTypes = {
 	closeSearchModal: PropTypes.func,
 	filters: PropTypes.array,
 	limit: PropTypes.number,
-	skip: PropTypes.number,
+	offset: PropTypes.number,
 	visible: PropTypes.bool,
 	work: PropTypes.object,
 };
 
-const SearchModalContainer = createContainer(props => {
-	const query = {};
-	let works = [];
-	let worksCount = null;
-	let textSearch = null;
-	let searchParams = props.searchParams || {
-		filters: [],
-		skip: 0,
-		limit: 12,
-	};
+const withData = graphql(gql`{
+  works
+	uniqueCorpora
+	uniqueLanguages
+	worksCount
+}`, {
+  options: ({ params }) => {
+		const query = {};
+		const { filters, offset, limit } = params.searchParams || {
+			filters: [],
+			offset: 0,
+			limit: 12,
+		};
 
-	// Parse the filters to the query
-	searchParams.filters.forEach((filter) => {
-		const date = moment(`${filter.values[0]}-01-01`, 'YYYY MM DD');
-		switch (filter.key) {
-		case 'textsearch': {
-			query.$text = { $search: filter.values[0] };
-			textSearch = { $regex: filter.values[0], $options: 'i' };
-			break;
-		}
-
-		case 'languages': {
-			query.workLanguage = { $in: filter.values };
-			break;
-		}
-
-		case 'corpora': {
-			query.corpus = { $in: filter.values };
-			break;
-		}
-
-		case 'authors': {
-			const values = [];
-
-			filter.values.forEach((value) => {
-				values.push(value._id);
-			});
-
-			query.authors = { $in: values };
-			break;
-		}
-
-		case 'dateStart': {
-			query.dateBegun = { $gte: new Date(date.toISOString()) };
-			break;
-		}
-
-		case 'dateEnd': {
-			query.dateEnded = { $lte: new Date(date.toISOString()) };
-			break;
-		}
-
-		default: {
-			// do nothing
-		}
-		}
-	});
-
-	const handle = Meteor.subscribe(
-		'works',
-		query,
-		searchParams.skip,
-		searchParams.limit
-	);
-
-	if (handle.ready()) {
-		delete query.$text;
-		if (textSearch) {
-			query.$or = [{
-				english_title: textSearch,
-			}, {
-				original_title: textSearch,
-			}];
-		}
-
-		works = Works.find(query, {}).fetch();
-		works.forEach((work, i) => {
-			works[i].authors = Authors.find({ _id: { $in: work.authors } }).fetch();
-		});
-
-		works.sort((a, b) => {
-			let sortVal = 1;
-			if (a.authors[0].english_name > b.authors[0].english_name) {
-				sortVal = 1;
-			} else if (b.authors[0].english_name > a.authors[0].english_name) {
-				sortVal = -1;
-			} else {
-				sortVal = 0;
+		// Parse the filters to the query
+		filters.forEach((filter) => {
+			const date = moment(`${filter.values[0]}-01-01`, 'YYYY MM DD');
+			switch (filter.key) {
+			case 'textsearch': {
+				query.textsearch = filter.values[0];
+				break;
 			}
 
-			return sortVal;
+			case 'languages': {
+				query.languages = filter.values;
+				break;
+			}
+
+			case 'corpora': {
+				query.corpora = filter.values;
+				break;
+			}
+
+			case 'authors': {
+				const values = [];
+
+				filter.values.forEach((value) => {
+					values.push(value.id);
+				});
+
+				query.authors = values;
+				break;
+			}
+
+			case 'dateStart': {
+				query.dateBegun = new Date(date.toISOString());
+				break;
+			}
+
+			case 'dateEnd': {
+				query.dateEnded = new Date(date.toISOString());
+				break;
+			}
+
+			default: {
+				// do nothing
+				break;
+			}
+			}
 		});
-	}
 
-	worksCount = Counts.get('worksCount');
+		return {
+	    variables: {
+				...query,
+				limit,
+				offset,
+			},
+		};
+  },
+  props: ({ data: { works, worksCount, uniqueCorpora, uniqueLanguages } }) => ({
+		works, worksCount, uniqueCorpora, uniqueLanguages,
+  }),
+});
 
-	return {
-		...props,
-		...props.searchParams,
-		works,
-		worksCount,
-	};
-}, SearchModal);
-
-export default SearchModalContainer;
+export default withData(SearchModal);
