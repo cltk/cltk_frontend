@@ -22,6 +22,7 @@ class ReadingLayout extends React.Component {
 	static defaultProps = {
 		textNodes: [],
 	}
+
 	static propTypes = {
 		params: PropTypes.object.isRequired,
 		queryParams: PropTypes.object.isRequired,
@@ -70,61 +71,12 @@ class ReadingLayout extends React.Component {
 		window.addEventListener('scroll', debounce(100, this.handleScroll));
 	}
 
-	componentDidUpdate() {
-		if (this.state.textNodesDepths.length !== this.props.textNodes.length) {
-			this.calculateTextNodeDepths();
-			this.checkIfTextBefore();
-			this.checkIfTextAfter();
-		}
-	}
-
 	loadMore(direction) {
 		const { textNodes, work } = this.props;
 		let textLocation = this.props.location || [];
-		let locationUpdated = false;
 
 		if (direction === 'next') {
 			// Bump query for each nested level of the document structure if need be
-			if ('rangeN5' in work) {
-				if (work.rangeN5.high === textNodes[textNodes.length - 1].n_5) {
-					textLocation[3]++;
-					textLocation[4] = 1;
-				} else {
-					textLocation[4] += this.state.limit;
-					locationUpdated = true;
-				}
-			}
-			if ('rangeN4' in work && !locationUpdated) {
-				if (work.rangeN4.high === textNodes[textNodes.length - 1].n_4) {
-					textLocation[2]++;
-					textLocation[3] = 1;
-				} else {
-					textLocation[3] += this.state.limit;
-					locationUpdated = true;
-				}
-			}
-			if ('rangeN3' in work && !locationUpdated) {
-				if (work.rangeN3.high === textNodes[textNodes.length - 1].n_3) {
-					textLocation[1]++;
-					textLocation[2] = 1;
-				} else {
-					textLocation[2] += this.state.limit;
-					locationUpdated = true;
-				}
-			}
-			if ('rangeN2' in work && !locationUpdated) {
-				if (work.rangeN2.high === textNodes[textNodes.length - 1].n_2) {
-					textLocation[0]++;
-					textLocation[1] = 1;
-				} else {
-					textLocation[1] += this.state.limit;
-					locationUpdated = true;
-				}
-			}
-			if ('rangeN1' in work && !locationUpdated) {
-				textLocation[0] += this.state.limit;
-				locationUpdated = true;
-			}
 
 			this.setState({
 				location: textLocation,
@@ -133,124 +85,10 @@ class ReadingLayout extends React.Component {
 			// Decrement the final number in the textLocation by the state limit
 			textLocation[textLocation.length - 1] = textLocation[textLocation.length - 1] - this.state.limit;
 
-			// If necessary, decrement the other numbers in the location by 1
-			for (let i = 1; i <= textLocation.length; i++) {
-				if (
-						textLocation[textLocation.length - i]
-					&& textLocation[textLocation.length - i] < 1
-				) {
-					textLocation[textLocation.length - i] = 1;
-					if (textLocation[textLocation.length - (i + 1)]) {
-						textLocation[textLocation.length - (i + 1)] = textLocation[textLocation.length - (i + 1)] - 1;
-					}
-				} else {
-					break;
-				}
-			}
-
 			this.setState({
 				location: textLocation,
 			});
 		}
-	}
-
-	checkIfTextBefore() {
-		const { textNodes } = this.props;
-		let isTextBefore = true;
-
-		if ('n_5' in textNodes[0]) {
-			textNodes.forEach((textNode) => {
-				if (textNode.n_5 === 1) {
-					isTextBefore = false;
-				}
-			})
-		} else if ('n_4' in textNodes[0]) {
-			textNodes.forEach((textNode) => {
-				if (textNode.n_4 === 1) {
-					isTextBefore = false;
-				}
-			})
-		} else if ('n_3' in textNodes[0]) {
-			textNodes.forEach((textNode) => {
-				if (textNode.n_3 === 1) {
-					isTextBefore = false;
-				}
-			})
-		} else if ('n_2' in textNodes[0]) {
-			textNodes.forEach((textNode) => {
-				if (textNode.n_2 === 1) {
-					isTextBefore = false;
-				}
-			})
-		} else if ('n_1' in textNodes[0]) {
-			textNodes.forEach((textNode) => {
-				if (textNode.n_1 === 1) {
-					isTextBefore = false;
-				}
-			});
-		}
-
-		this.setState({
-			isTextBefore,
-		});
-	}
-
-	checkIfTextAfter() {
-		const { work, textNodes } = this.props;
-		let isTextAfter = false;
-
-		if ('rangeN5' in work) {
-			if (
-				work.rangeN5.high === textNodes[textNodes.length - 1].n_5
-			&& work.rangeN4.high === textNodes[textNodes.length - 1].n_4
-			&& work.rangeN3.high === textNodes[textNodes.length - 1].n_3
-			&& work.rangeN2.high === textNodes[textNodes.length - 1].n_2
-			&& work.rangeN1.high === textNodes[textNodes.length - 1].n_1
-			) {
-				isTextAfter = false;
-			} else {
-				isTextAfter = true;
-			}
-		} else if ('rangeN4' in work) {
-			if (
-				work.rangeN4.high === textNodes[textNodes.length - 1].n_4
-			&& work.rangeN3.high === textNodes[textNodes.length - 1].n_3
-			&& work.rangeN2.high === textNodes[textNodes.length - 1].n_2
-			&& work.rangeN1.high === textNodes[textNodes.length - 1].n_1
-			) {
-				isTextAfter = false;
-			} else {
-				isTextAfter = true;
-			}
-		} else if ('rangeN3' in work) {
-			if (
-				work.rangeN3.high === textNodes[textNodes.length - 1].n_3
-			&& work.rangeN2.high === textNodes[textNodes.length - 1].n_2
-			&& work.rangeN1.high === textNodes[textNodes.length - 1].n_1
-			) {
-				isTextAfter = false;
-			} else {
-				isTextAfter = true;
-			}
-		} else if ('rangeN2' in work) {
-			if (
-				work.rangeN2.high === textNodes[textNodes.length - 1].n_2
-			&& work.rangeN1.high === textNodes[textNodes.length - 1].n_1
-			) {
-				isTextAfter = false;
-			} else {
-				isTextAfter = true;
-			}
-		} else if (
-				work.rangeN1.high === textNodes[textNodes.length - 1].n_1
-		) {
-			isTextAfter = false;
-		} else {
-			isTextAfter = true;
-		}
-		this.setState({
-			isTextAfter,
-		});
 	}
 
 	calculateTextNodeDepths() {
@@ -404,98 +242,6 @@ class ReadingLayout extends React.Component {
 		const { work, textNodes } = this.props;
 		let textLocation = this.props.location || [];
 
-		// Set default location when textNodes are available
-		if (
-				work
-			&& textNodes.length === 0
-			&& this.state.location.length === 0
-		) {
-			if ('rangeN5' in work) {
-				textLocation = [1, 1, 1, 1, 1];
-			} else if ('rangeN4' in work) {
-				textLocation = [1, 1, 1, 1];
-			} else if ('rangeN3' in work) {
-				textLocation = [1, 1, 1];
-			} else if ('rangeN2' in work) {
-				textLocation = [1, 1];
-			} else {
-				textLocation = [1];
-			}
-
-			FlowRouter.setQueryParams({
-				location: textLocation.join('.'),
-			});
-		}
-
-		// Deduplicate text response data
-		/*
-		if (textNodes.length) {
-			textNodes.forEach(textNode => {
-				if (
-					!textNodes.some(existingTextNode =>
-						existingTextNode._id === textNode._id
-					)
-				) {
-					let isInTextNodes = false;
-
-					if (
-							'n_5' in textNode
-						&& textNodes.some((existingTextNode) =>
-								existingTextNode.n_5 === textNode.n_5
-							&& existingTextNode.n_4 === textNode.n_4
-							&& existingTextNode.n_3 === textNode.n_3
-							&& existingTextNode.n_2 === textNode.n_2
-							&& existingTextNode.n_1 === textNode.n_1
-							)
-					) {
-						isInTextNodes = true;
-					} else if (
-							'n_4' in textNode
-						&& textNodes.some((existingTextNode) =>
-								existingTextNode.n_4 === textNode.n_4
-							&& existingTextNode.n_3 === textNode.n_3
-							&& existingTextNode.n_2 === textNode.n_2
-							&& existingTextNode.n_1 === textNode.n_1
-							)
-					) {
-						isInTextNodes = true;
-					} else if (
-							'n_3' in textNode
-						&& textNodes.some((existingTextNode) =>
-								existingTextNode.n_3 === textNode.n_3
-							&& existingTextNode.n_2 === textNode.n_2
-							&& existingTextNode.n_1 === textNode.n_1
-							)
-					) {
-						isInTextNodes = true;
-					} else if (
-							'n_2' in textNode
-						&& textNodes.some((existingTextNode) =>
-								existingTextNode.n_2 === textNode.n_2
-							&& existingTextNode.n_1 === textNode.n_1
-							)
-					) {
-						isInTextNodes = true;
-					} else if (
-						textNodes.some((existingTextNode) =>
-							existingTextNode.n_2 === textNode.n_2
-						&& existingTextNode.n_1 === textNode.n_1
-						)
-					) {
-						isInTextNodes = true;
-					}
-
-					if (!isInTextNodes) {
-						textNodes.push(textNode);
-					}
-				}
-			});
-
-			// Sort the textNodes array after adding the the new results
-			textNodes.sort(Utils.sortBy('n_1', 'n_2', 'n_3', 'n_4', 'n_5'));
-		}
-		*/
-
 		// If data is loaded
 		if (work && textNodes) {
 			return (
@@ -632,24 +378,6 @@ const ReadingLayoutContainer = createContainer(props => {
 		work: new Meteor.Collection.ObjectID(props.params.id),
 	};
 
-	/*
-	 * This needs much more attention for a simpler solution in the future.
-	 */
-	if (textLocation.length === 5) {
-		query.n_5 = { $gte: textLocation[4] };
-	}
-	if (textLocation.length >= 4) {
-		query.n_4 = { $gte: textLocation[3] };
-	}
-	if (textLocation.length >= 3) {
-		query.n_3 = { $gte: textLocation[2] };
-	}
-	if (textLocation.length >= 2) {
-		query.n_2 = { $gte: textLocation[1] };
-	}
-	if (textLocation.length >= 1) {
-		query.n_1 = { $gte: textLocation[0] };
-	}
 
 	Meteor.subscribe('textNodes', query, props.limit || 0);
 	const textNodes = TextNodes.find(query).fetch();
