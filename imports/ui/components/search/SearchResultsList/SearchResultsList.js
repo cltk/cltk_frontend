@@ -17,7 +17,7 @@ class SearchResultsList extends React.Component {
 	renderWorks() {
 		return this.props.works.map((work) => (
 			<WorkTeaser
-				key={work._id}
+				key={work.id}
 				work={work}
 			/>
 		));

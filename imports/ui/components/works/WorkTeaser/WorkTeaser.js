@@ -29,9 +29,9 @@ class WorkTeaser extends React.Component {
 	toggleShelf(isChecked) {
 		if (Meteor.userId()) {
 			if (!isChecked) {
-				Meteor.call('shelf.insert', this.props.work._id._str);
+				Meteor.call('shelf.insert', this.props.work.id);
 			} else {
-				Meteor.call('shelf.remove', this.props.work._id._str);
+				Meteor.call('shelf.remove', this.props.work.id);
 			}
 			this.setState({
 				isInShelf: true,
@@ -45,7 +45,7 @@ class WorkTeaser extends React.Component {
 
 	render() {
 		const work = this.props.work;
-		const workUrl = `/works/${work._id._str}/${work.slug}`;
+		const workUrl = `/works/${work.id}/${work.slug}`;
 
 		let isInShelf = this.props.isInShelf;
 
@@ -68,12 +68,9 @@ class WorkTeaser extends React.Component {
 					/>
 
 					<div className="card-meta-items">
-						{work.workLanguage ?
-							<span className="card-meta card-meta-left-language">
-								{Utils.capitalize(work.workLanguage)}
-							</span>
-						: ''
-						}
+						<span className="card-meta card-meta-left-language">
+							{work.language}
+						</span>
 						{work.date ?
 							<span className="card-meta card-meta-left-date">
 								{work.date}
@@ -85,24 +82,22 @@ class WorkTeaser extends React.Component {
 				</div>
 
 				<div className="work-teaser-authors">
-					{work.authors.map((author, i) => (
-						<a
-							key={i}
-							href={`/authors/${author.slug}`}
-							className="work-teaser-author"
-						>
-							<h4>
-								{author.english_name}
-								{author.original_name ?
-									<span className="work-teaser-author-original-name">
-										({author.original_name})
-									</span>
-									:
-									''
-								}
-							</h4>
-						</a>
-					))}
+					<a
+						href={`/authors/${work.author.id}`}
+						className="work-teaser-author"
+					>
+
+						{/*<h4>
+							{author.english_name}
+							{author.original_name ?
+								<span className="work-teaser-author-original-name">
+									({author.original_name})
+								</span>
+								:
+								''
+							}
+						</h4>*/}
+					</a>
 				</div>
 
 				<a
@@ -110,10 +105,10 @@ class WorkTeaser extends React.Component {
 					className="work-teaser-title"
 				>
 					<h3 >
-						{work.english_title}
-						{work.original_title ?
+						{work.englishtitle}
+						{work.originaltitle ?
 							<span className="work-teaser-original-title">
-								{work.original_title}
+								{work.originaltitle}
 							</span>
 							:
 							''
@@ -181,7 +176,7 @@ const WorkTeaserContainer = createContainer((props) => {
 	if (handle.ready()) {
 		if (worksShelfList && 'worksShelf' in worksShelfList) {
 			// Check if current textNode exist in bookmarked textNodes
-			isInShelf = ~worksShelfList.worksShelf.indexOf(props.work._id._str);
+			isInShelf = ~worksShelfList.worksShelf.indexOf(props.work.id);
 		}
 	}
 

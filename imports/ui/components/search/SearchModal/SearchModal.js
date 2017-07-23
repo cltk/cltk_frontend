@@ -204,7 +204,7 @@ class SearchModal extends React.Component {
 
 	render() {
 		let hasMoreWorks = true;
-		const { works, worksCount, } = this.props;
+		const { works, worksCount, limit } = this.props;
 
 		if (works) {
 			if (worksCount && worksCount <= works.length) {
@@ -269,18 +269,28 @@ SearchModal.propTypes = {
 };
 
 const withData = graphql(gql`{
-  works
-	uniqueCorpora
-	uniqueLanguages
+  works {
+		id
+		englishtitle
+		originaltitle
+		slug
+		author
+		corpus
+	}
+	corpora {
+		id
+		slug
+		title
+	}
+	languages {
+		id
+		slug
+		title
+	}
 	worksCount
 }`, {
-  options: ({ params }) => {
+  options: ({ filters, offset, limit } ) => {
 		const query = {};
-		const { filters, offset, limit } = params.searchParams || {
-			filters: [],
-			offset: 0,
-			limit: 12,
-		};
 
 		// Parse the filters to the query
 		filters.forEach((filter) => {

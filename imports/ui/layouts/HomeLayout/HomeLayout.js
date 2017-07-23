@@ -14,8 +14,8 @@ export default class HomeLayout extends React.Component {
 		this.state = {
 			searchParams: {
 				filters: [],
-				limit: 15,
-				skip: 0,
+				limit: 21,
+				offset: 0,
 			},
 
 			searchModalVisible: false,
@@ -82,8 +82,8 @@ export default class HomeLayout extends React.Component {
 				<SearchModal
 					changeSearchParams={this.changeSearchParams}
 					closeSearchModal={this.closeSearchModal}
-					searchParams={this.state.searchParams}
 					visible={this.state.searchModalVisible}
+					{...this.state.searchParams}
 				/>
 			</div>
 		);

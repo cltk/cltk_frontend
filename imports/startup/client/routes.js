@@ -1,5 +1,6 @@
 import React from 'react';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route } from 'react-router';
+import createBrowserHistory from 'history/createBrowserHistory';
 import { mount } from 'react-mounter';
 import { ApolloProvider } from 'react-apollo';
 
@@ -21,6 +22,8 @@ import registerServiceWorker from './registerServiceWorker';
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 */
+
+const browserHistory = createBrowserHistory();
 
 
 export const renderRoutes = () => (
