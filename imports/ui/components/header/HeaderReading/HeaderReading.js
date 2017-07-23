@@ -112,7 +112,7 @@ class HeaderReading extends React.Component {
 											href={`/works/${work.id}/${work.slug}/${loc}`}
 										>
 											{loc.split('.').map((locN, i) => (
-												<span key={locN} >
+												<span key={`${locN}-${i}`} >
 													{parseInt(locN, 10) + 1}{((i + 1) === loc.split('.').length) ? '' : '.'}
 												</span>
 											))}
