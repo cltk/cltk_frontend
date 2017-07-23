@@ -68,9 +68,8 @@ class HeaderReading extends React.Component {
 
 		};
 
-		const { work } = this.props;
+		const { work, loc } = this.props;
 		const { leftMenuOpen } = this.state;
-		const textLocation = '1.1'; // FlowRouter.getQueryParam('location') || '';
 
 		return (
 			<div>
@@ -90,7 +89,7 @@ class HeaderReading extends React.Component {
 									onClick={this.toggleLeftMenu}
 								/>
 
-								{work && textLocation ?
+								{work && loc ?
 									<div className="reading-location">
 										<div
 											className="reading-location-param reading-location-param--author"
@@ -110,11 +109,11 @@ class HeaderReading extends React.Component {
 										</a>
 										<a
 											className="reading-location-param reading-location-param--number"
-											href={`/works/${work.id}/${work.slug}?location=${textLocation}`}
+											href={`/works/${work.id}/${work.slug}/${loc}`}
 										>
-											{textLocation.split('.').map((textN, i) => (
-												<span key={i} >
-													{textN}{((i + 1) === textLocation.split('.').length) ? '' : '.'}
+											{loc.split('.').map((locN, i) => (
+												<span key={locN} >
+													{parseInt(locN, 10) + 1}{((i + 1) === loc.split('.').length) ? '' : '.'}
 												</span>
 											))}
 										</a>

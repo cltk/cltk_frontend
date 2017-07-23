@@ -69,10 +69,12 @@ class ReadingLayout extends React.Component {
 	}
 
 	loadMore(direction) {
-		const { textNodes, work } = this.props;
+		const { textNodes, work, textLocationNext, textLocationPrev } = this.props;
 
 		if (direction === 'next') {
-			this.props.history.push(`/works/${work.id}/${work.slug}/${textNodes[15].location.join('.')}`);
+			this.props.history.push(`/works/${work.id}/${work.slug}/${textLocationNext.join('.')}`);
+		} else {
+			this.props.history.push(`/works/${work.id}/${work.slug}/${textLocationPrev.join('.')}`);
 		}
 	}
 
@@ -237,7 +239,7 @@ class ReadingLayout extends React.Component {
 
 	renderReadingEnvironment() {
 		const self = this;
-		const { work, textNodes } = this.props;
+		const { work, textNodes, textLocationPrev, textLocationNext } = this.props;
 		let textLocation = this.props.location || [];
 
 		// If data is loaded
@@ -249,8 +251,8 @@ class ReadingLayout extends React.Component {
 					loadMore={this.loadMore}
 					calculateTextNodeDepths={this.calculateTextNodeDepths}
 					toggleReadingMeta={this.toggleReadingMeta}
-					isTextBefore={this.state.isTextBefore}
-					isTextAfter={this.state.isTextAfter}
+					textLocationPrev={textLocationPrev}
+					textLocationNext={textLocationNext}
 					showLoginModal={this.showLoginModal}
 					showSignupModal={this.showSignupModal}
 					closeLoginModal={this.closeLoginModal}
@@ -282,6 +284,7 @@ class ReadingLayout extends React.Component {
 					<div>
 						<HeaderReading
 							work={this.props.work}
+							loc={this.props.match.params.loc}
 							showSearchModal={this.showSearchModal}
 							toggleSidePanel={this.toggleSidePanel}
 							toggleDefinitions={this.state.toggleDefinitions}
@@ -361,6 +364,8 @@ const withData = graphql(gql`
 			originaltitle
 			englishtitle
 		}
+		textLocationNext(workid: $workId, location: $loc, offset: 15)
+		textLocationPrev(workid: $workId, location: $loc, offset: 15)
 	}
 `, {
   options: ({ match }) => {
@@ -376,10 +381,11 @@ const withData = graphql(gql`
 		};
 	},
   props: ({ data }) => {
-
 		return {
 			textNodes: data.textNodesByWork,
 			work: data.workById,
+			textLocationPrev: data.textLocationPrev,
+			textLocationNext: data.textLocationNext,
 		};
   },
 });

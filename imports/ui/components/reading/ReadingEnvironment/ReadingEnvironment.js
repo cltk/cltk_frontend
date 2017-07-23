@@ -44,7 +44,7 @@ class ReadingEnvironment extends React.Component {
 	}
 
 	render() {
-		const { work } = this.props;
+		const { work, textNodes, textLocationPrev, textLocationNext } = this.props;
 		const form = work.form || 'prose';
 
 		return (
@@ -53,9 +53,9 @@ class ReadingEnvironment extends React.Component {
 					work={work}
 				/>
 
-				{this.props.textNodes.length ?
+				{textNodes && textNodes.length ?
 					<div>
-						{this.props.isTextBefore ?
+						{textLocationPrev && textLocationPrev.length ?
 							<div className="reading-load-more reading-load-more--before">
 								<FlatButton
 									className={`load-more ${this.state.isLoading ? 'load-more--loading' : ''}`}
@@ -67,7 +67,7 @@ class ReadingEnvironment extends React.Component {
 						<div className="reading-text-outer">
 							{this.renderText()}
 						</div>
-						{this.props.isTextAfter ?
+						{textLocationNext && textLocationNext.length ?
 							<div className="reading-load-more reading-load-more--after">
 								<FlatButton
 									className={`load-more ${this.state.isLoading ? 'load-more--loading' : ''}`}
