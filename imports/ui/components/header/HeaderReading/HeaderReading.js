@@ -70,7 +70,7 @@ class HeaderReading extends React.Component {
 
 		const { work } = this.props;
 		const { leftMenuOpen } = this.state;
-		// const textLocation = FlowRouter.getQueryParam('location') || '';
+		const textLocation = '1.1'; // FlowRouter.getQueryParam('location') || '';
 
 		return (
 			<div>
@@ -95,28 +95,22 @@ class HeaderReading extends React.Component {
 										<div
 											className="reading-location-param reading-location-param--author"
 										>
-											{work.authors.map((author, i) => (
-												<a
-													key={i}
-													href={`/authors/${author.slug}`}
-												>
-													{author.english_name},
-												</a>
-											))}
+											<a
+												href={`/authors/${work.author.id}`}
+											>
+												{work.author.id}
+												{work.author.englishname},
+											</a>
 										</div>
 										<a
 											className="reading-location-param reading-location-param--work"
-											href={`/works/${work._id}/${work.slug}`}
+											href={`/works/${work.id}/${work.slug}`}
 										>
-											{'english_title' in work ?
-												<span>{Utils.trunc(work.english_title, 100)},</span>
-										:
-											''
-										}
+											<span>{Utils.trunc(work.englishtitle, 100)},</span>
 										</a>
 										<a
 											className="reading-location-param reading-location-param--number"
-											href={`/works/${work._id}/${work.slug}?location=${textLocation}`}
+											href={`/works/${work.id}/${work.slug}?location=${textLocation}`}
 										>
 											{textLocation.split('.').map((textN, i) => (
 												<span key={i} >

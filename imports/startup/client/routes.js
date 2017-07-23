@@ -31,12 +31,11 @@ export const renderRoutes = () => (
 	  <Router history={browserHistory}>
 			<div>
 	      <Route exact path="/" component={HomeLayout}/>
-	      <Route path="works/:id/:work" component={ReadingLayout}/>
-	      <Route path="browse" component={BrowsePage}/>
-	      <Route path="about" component={AboutPage}/>
-	      <Route path="terms" component={TermsPage}/>
-	      <Route path="profile" component={UserLayout}/>
-	      <Route path="*" component={NotFound}/>
+	      <Route path="/works/:id/:slug/:loc?" component={ReadingLayout}/>
+	      <Route path="/browse" component={BrowsePage}/>
+	      <Route path="/about" component={AboutPage}/>
+	      <Route path="/terms" component={TermsPage}/>
+	      <Route path="/profile" component={UserLayout}/>
 	    </div>
 	  </Router>
   </ApolloProvider>

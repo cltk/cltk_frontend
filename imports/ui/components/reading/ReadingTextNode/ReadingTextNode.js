@@ -18,6 +18,7 @@ class ReadingTextNode extends React.Component{
 
 		this.state = {
 			bookmarked: false,
+			showNumber: false,
 			showRelatedPassages: false,
 			showAnnotations: false,
 			annotationOpen: props.highlight,
@@ -36,47 +37,18 @@ class ReadingTextNode extends React.Component{
 		}
 	}
 
-	getTextLocation() {
-		const text = this.props.text;
-		let location = '';
-		let textN = '';
-
-		if ('n_1' in text) {
-			location += text.n_1;
-			textN = text.n_1;
-		}
-		if ('n_2' in text) {
-			location += `.${text.n_2}`;
-			textN = text.n_2;
-		}
-		if ('n_3' in text) {
-			location += `.${text.n_3}`;
-			textN = text.n_3;
-		}
-		if ('n_4' in text) {
-			location += `.${text.n_4}`;
-			textN = text.n_4;
-		}
-		if ('n_5' in text) {
-			location += `.${text.n_5}`;
-			textN = text.n_5;
-		}
-
-		return {
-			location,
-			textN,
-		};
-	}
-
 	handleClick(event) {
-		translation = $(`.translation-text[data-num="${this.props.index}"]`);
+		const textLocation = this.props.location.join('.');
+		const translation = $(`.translation-text[data-location="${textLocation}"]`);
 		if (translation.length !== 0) {
 			$('.translations').animate({ scrollTop: translation.offset().top }, 800);
 		}
-		comment = $(`.commentary-comment[data-num="${this.props.index}"]`).first();
+
+		const comment = $(`.commentary-comment[data-location="${textLocation}"]`).first();
 		if (comment.length !== 0) {
 			$('.comments').animate({ scrollTop: comment.offset().top }, 800);
 		}
+
 		// This prevents ghost click.
 		event.preventDefault();
 
@@ -143,7 +115,6 @@ class ReadingTextNode extends React.Component{
 
 		this.setState({
 			showRelatedPassages: !this.state.showRelatedPassages,
-
 		});
 	}
 
@@ -157,17 +128,18 @@ class ReadingTextNode extends React.Component{
 	}
 
 	render() {
-		const text = this.props.text;
+		const { text, location, index } = this.props;
 		let textClasses = 'text-node';
-		const numbering = this.props.numbering;
-		const textLocation = this.getTextLocation();
 		const mediaItems = text.mediaItems || [];
 		const relatedPassages = text.relatedPassages || [];
 		const entities = text.entities || [];
-		let bookmarked = this.props.bookmarked;
 
+		let bookmarked = this.props.bookmarked;
 		if (this.state.bookmarked) {
 			bookmarked = this.state.bookmarked;
+		}
+		if (bookmarked) {
+			textClasses = ' text-bookmarked';
 		}
 
 		if (this.state.showAnnotations) {
@@ -178,43 +150,38 @@ class ReadingTextNode extends React.Component{
 			textClasses += ' with-related-passages';
 		}
 
-		if (this.props.showNumber) {
-			textClasses = `${textClasses} show-number`;
-		}
-
-		if (bookmarked) {
-			textClasses = `${textClasses} text-bookmarked`;
+		if (
+			this.state.showNumber
+			|| ((location[location.length - 1] + 1) % 5) === 0
+		) {
+			textClasses += ' show-number';
 		}
 
 		if (this.state.showEntities) {
-			textClasses = `${textClasses} show-entities`;
+			textClasses += ' show-entities';
 		}
 
 		if (this.state.showRelatedPassages) {
-			textClasses = `${textClasses} show-related-passages`;
+			textClasses += ' show-related-passages';
 		}
 
+		/*
 		if (this.props.annotations.length !== 0) {
-			textClasses = `${textClasses} text-annotated`;
+			textClasses += ' text-annotated';
 			if (this.state.annotationOpen) {
-				textClasses = `${textClasses} has-annotation`;
+				textClasses += ' has-annotation';
 			}
 		}
-
-		if ((parseInt(textLocation.textN, 10) % 5) === 0) {
-			textClasses = `${textClasses} show-number`;
-		}
+		*/
 
 		return (
 			<div
 				className={textClasses}
-				data-id={text._id}
-				data-num={this.props.index}
-				data-loc={textLocation.location}
+				data-location={location.join('.')}
 			>
 				<div className="text-left-header">
-					<h2 className="section-numbering">{numbering}</h2>
-					<span className="text-n">{textLocation.textN}</span>
+					<h2 className="section-numbering"></h2>
+					<span className="text-n">{location[location.length - 1] + 1}</span>
 					<i className="text-bookmark mdi mdi-bookmark" />
 				</div>
 
@@ -222,8 +189,8 @@ class ReadingTextNode extends React.Component{
 					toggleBookmark={this.toggleBookmark}
 					toggleShowAnnotations={this.toggleShowAnnotations}
 					toggleShowRelatedPassages={this.toggleShowRelatedPassages}
-					annotationsCount={this.props.annotations.length}
-					relatedPassagesCount={this.props.relatedPassages.length}
+					annotationsCount={0}
+					relatedPassagesCount={0}
 				/>
 
 				<p
@@ -234,8 +201,8 @@ class ReadingTextNode extends React.Component{
 						return ref;
 					}}
 				>
-					{text.html && text.html.length ?
-						<span dangerouslySetInnerHTML={{ __html: text.html }} />
+					{text && text.length ?
+						<span>{text}</span>
 					:
 						<span>[ . . . ]</span>
 					}
@@ -265,7 +232,8 @@ class ReadingTextNode extends React.Component{
 						onClick={this.toggleShowAnnotations}
 					/>
 
-					{/* <div className="text-annotations--create">
+					{/*
+					<div className="text-annotations--create">
 						<Popover
 							open={this.state.annotationOpen}
 							anchorEl={this.state.anchorEl}
@@ -309,12 +277,15 @@ class ReadingTextNode extends React.Component{
 								</CardActions>
 							</Card>
 						</Popover>
-					</div> */}
+					</div>
+					*/}
+					{/*
 					<div className="text-annotations--content">
 						<AnnotationsList
 							text={text}
 						/>
 					</div>
+					*/}
 				</div>
 
 				<div className="text-meta text-related-passages">
@@ -337,10 +308,10 @@ class ReadingTextNode extends React.Component{
 }
 
 ReadingTextNode.propTypes = {
+	id: PropTypes.number.isRequired,
 	index: PropTypes.number.isRequired,
-	text: PropTypes.object.isRequired,
-	showNumber: PropTypes.bool.isRequired,
-	numbering: PropTypes.string.isRequired,
+	text: PropTypes.string.isRequired,
+	location: PropTypes.array.isRequired,
 	addAnnotationCheckList: PropTypes.func,
 	annotationCheckList: PropTypes.array,
 	highlight: PropTypes.bool,
@@ -355,40 +326,4 @@ ReadingTextNode.childContextTypes = {
 	muiTheme: PropTypes.object.isRequired,
 };
 
-const ReadingTextNodeContainer = createContainer(props => {
-	let annotations = [];
-	let relatedPassages = [];
-	let bookmarked = false;
-	const handleAnnotation = Meteor.subscribe('annotation');
-	const handleRelatedPassages = Meteor.subscribe('relatedPassages');
-	if (handleAnnotation.ready()) {
-		annotations = Annotations.find({ textNodes: props.text._id }).fetch();
-	}
-	if (handleRelatedPassages.ready()) {
-		relatedPassages = RelatedPassages.find({ textNodes: props.text._id }).fetch();
-	}
-
-	const handleBookmark = Meteor.subscribe('bookmark');
-	if (handleBookmark.ready()) {
-		const bookmarksList = Meteor.users.findOne({
-			_id: Meteor.userId(),
-		}, {
-			fields: {
-				bookmarks: 1,
-			},
-		});
-
-		if (bookmarksList && 'bookmarks' in bookmarksList) {
-			// Check if current textNode exist in bookmarked textNodes
-			bookmarked = ~bookmarksList.bookmarks.indexOf(props.text._id._str);
-		}
-	}
-
-	return {
-		annotations,
-		relatedPassages,
-		bookmarked,
-	};
-}, ReadingTextNode);
-
-export default ReadingTextNodeContainer;
+export default ReadingTextNode;

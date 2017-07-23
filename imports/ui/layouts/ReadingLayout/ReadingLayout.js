@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
 import classnames from 'classnames';
 import debounce from 'throttle-debounce/debounce';
-import { createContainer } from 'meteor/react-meteor-data';
+import { graphql, gql } from 'react-apollo';
 
 import Utils from '/imports/lib/utils';
 import Authors from '/imports/api/collections/authors';
@@ -24,23 +24,15 @@ class ReadingLayout extends React.Component {
 	}
 
 	static propTypes = {
-		params: PropTypes.object.isRequired,
-		queryParams: PropTypes.object.isRequired,
+		id: PropTypes.number,
+		slug: PropTypes.number,
 		textNodes: PropTypes.array,
 	}
 
 	constructor(props) {
 		super(props);
-
-		const queryParams = props.queryParams;
 		let location = [];
 
-		if ('location' in queryParams) {
-			location = queryParams.location.split('.');
-			location.forEach((textN, i) => {
-				location[i] = parseInt(textN, 10);
-			});
-		}
 
 		this.state = {
 			toggleCommentary: false,
@@ -61,6 +53,11 @@ class ReadingLayout extends React.Component {
 			textNodesDepths: [],
 			isTextAfter: true,
 			isTextBefore: false,
+			searchParams: {
+				filters: [],
+				limit: 21,
+				offset: 0,
+			},
 		};
 
 		autoBind(this);
@@ -73,21 +70,9 @@ class ReadingLayout extends React.Component {
 
 	loadMore(direction) {
 		const { textNodes, work } = this.props;
-		let textLocation = this.props.location || [];
 
 		if (direction === 'next') {
-			// Bump query for each nested level of the document structure if need be
-
-			this.setState({
-				location: textLocation,
-			});
-		} else if (direction === 'previous') {
-			// Decrement the final number in the textLocation by the state limit
-			textLocation[textLocation.length - 1] = textLocation[textLocation.length - 1] - this.state.limit;
-
-			this.setState({
-				location: textLocation,
-			});
+			this.props.history.push(`/works/${work.id}/${work.slug}/${textNodes[15].location.join('.')}`);
 		}
 	}
 
@@ -101,6 +86,9 @@ class ReadingLayout extends React.Component {
 				location: textNode.dataset.loc,
 			});
 		});
+		this.setState({
+			textNodesDepths,
+		})
 	}
 
 	handleScroll() {
@@ -115,7 +103,7 @@ class ReadingLayout extends React.Component {
 		});
 
 		if (!activeTextNode) {
-			activeTextNode = this.textNodesDepths[0];
+			activeTextNode = this.state.textNodesDepths[0];
 		}
 
 		if (
@@ -123,9 +111,11 @@ class ReadingLayout extends React.Component {
 			&& 'location' in this.props.queryParams
 			&& activeTextNode.location !== this.props.queryParams.location
 		) {
+			/*
 			FlowRouter.withReplaceState(() => {
 				FlowRouter.setQueryParams({ location: activeTextNode.location });
 			});
+			*/
 		}
 	}
 
@@ -201,6 +191,14 @@ class ReadingLayout extends React.Component {
 		});
 	}
 
+	changeSearchParams(searchParams) {
+		this.setState({
+			...this.state.searchParams,
+			...searchParams
+		});
+	}
+
+
 	showLoginModal() {
 		this.setState({
 			modalLoginLowered: true,
@@ -249,11 +247,10 @@ class ReadingLayout extends React.Component {
 					work={work}
 					textNodes={textNodes}
 					loadMore={this.loadMore}
-					highlightId={this.props.queryParams.id}
 					calculateTextNodeDepths={this.calculateTextNodeDepths}
 					toggleReadingMeta={this.toggleReadingMeta}
-					isTextBefore={this.isTextBefore}
-					isTextAfter={this.isTextAfter}
+					isTextBefore={this.state.isTextBefore}
+					isTextAfter={this.state.isTextAfter}
 					showLoginModal={this.showLoginModal}
 					showSignupModal={this.showSignupModal}
 					closeLoginModal={this.closeLoginModal}
@@ -317,10 +314,10 @@ class ReadingLayout extends React.Component {
 							submitAnnotation={this.submitAnnotation}
 						/>
 						<SearchModal
-							changeSearchParams={() => console.log('search params changed -- noop')}
+							changeSearchParams={this.changeSearchParams}
 							closeSearchModal={this.closeSearchModal}
 							visible={this.state.searchModalVisible}
-							work={this.props.work}
+							{...this.state.searchParams}
 						/>
 					</div>
 				:
@@ -349,44 +346,42 @@ class ReadingLayout extends React.Component {
 	}
 }
 
-const ReadingLayoutContainer = createContainer(props => {
-	const workQuery = {
-		_id: new Meteor.Collection.ObjectID(props.params.id),
-	};
-	const textLocation = (props.queryParams.location || '').split('.').map(n => parseInt(n, 10));
-	const work = Works.findOne(workQuery);
-
-	let attachment = null;
-
-	Meteor.subscribe('workSingle', workQuery);
-
-	if (work) {
-		// Get the work authors
-		work.authors = Authors.find({ _id: { $in: work.authors } }).fetch();
-
-		// Get the work cover image
-		if ('coverImage' in work) {
-			Meteor.subscribe('images');
-			attachment = Images.findOne(work.coverImage);
+const withData = graphql(gql`
+	query TextForReadingEnv($workId: Int!, $loc: [Int]) {
+		textNodesByWork(workid: $workId, startsAtLocation: $loc) {
+			id
+			index
+			location
+			text
+		}
+		workById(id: $workId) {
+			id
+			slug
+			author
+			originaltitle
+			englishtitle
 		}
 	}
+`, {
+  options: ({ match }) => {
+		const workId = match.params.id;
+		const loc = match.params.loc ?
+								match.params.loc.split('.')
+								: null ;
+		return {
+	    variables: {
+				workId,
+				loc,
+			},
+		};
+	},
+  props: ({ data }) => {
 
-	/*
-	* Set the query
-	*/
-	const query = {
-		work: new Meteor.Collection.ObjectID(props.params.id),
-	};
+		return {
+			textNodes: data.textNodesByWork,
+			work: data.workById,
+		};
+  },
+});
 
-
-	Meteor.subscribe('textNodes', query, props.limit || 0);
-	const textNodes = TextNodes.find(query).fetch();
-
-	return {
-		work,
-		attachment,
-		textNodes,
-	};
-}, ReadingLayout);
-
-export default ReadingLayoutContainer;
+export default withData(ReadingLayout);

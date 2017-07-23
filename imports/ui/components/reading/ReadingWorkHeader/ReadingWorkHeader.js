@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 class ReadingWorkHeader extends React.Component {
 
 	render() {
-		const work = this.props.work;
+		const { work } = this.props;
 
 		return (
 			<section className="page-head fullscreen image-bg ">
@@ -19,40 +19,37 @@ class ReadingWorkHeader extends React.Component {
 					<div className="row">
 						<div className="col-sm-10 col-sm-offset-1 text-center">
 							<div className="work-authors">
-								{work.authors.map((author, i) => (
-									<a
-										key={i}
-										href={`/authors/${author.slug}`}
-										className="work-author"
-									>
-										<h4>
-											{author.english_name}
-											<span className="work-author-original-name">
-												({author.original_name})
-											</span>
-										</h4>
-									</a>
-								))}
+								<a
+									href={`/authors/${work.author}`}
+									className="work-author"
+								>
+									<h4>
+										{work.author}
+										{/*
+										{work.author}
+										<span className="work-author-original-name">
+											({author.original_name})
+										</span>
+										*/}
+									</h4>
+								</a>
 							</div>
 
 							<div className="work-title-outer">
 								<h1 className="work-title">
-									{work.english_title}
+									{work.englishtitle}
 								</h1>
-								{work.original_title ?
+								{work.originaltitle ?
 									<span className="work-original-title">
-										{work.original_title}
+										{work.originaltitle}
 									</span>
 									:
 									''
 								}
 							</div>
-
 						</div>
 					</div>
-
 				</div>
-
 			</section>
 		);
 	}
