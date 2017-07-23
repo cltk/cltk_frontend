@@ -1,5 +1,3 @@
-
-import Annotations from '/imports/api/collections/annotations';
 import Authors from '/imports/api/collections/authors';
 import Commentary from '/imports/api/collections/commentary';
 import Corpora from '/imports/api/collections/corpora';
@@ -15,7 +13,6 @@ import Works from '/imports/api/collections/works';
 */
 /* eslint new-cap: "off" */
 if (Meteor.isServer) {
-	Meteor.publish('attachments', () => Attachments.find());
 
 	Meteor.publish('authorsCount', function getAuthorCounts() {
 		Counts.publish(this, 'authorsCount', Authors.find());

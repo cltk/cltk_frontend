@@ -21,70 +21,30 @@ class ReadingEnvironment extends React.Component {
 		return { muiTheme: getMuiTheme(baseTheme) };
 	}
 
-	textNodesLength = 0
-	isLoading = false
-
-	loadMore(direction) {
-		if (!this.isLoading) {
-			this.isLoading = true;
-			this.props.loadMore(direction);
-		}
-	}
-
 	renderText() {
-		const textNodes = this.props.textNodes;
+		const { textNodes } = this.props;
 
-		if (textNodes.length !== this.textNodesLength) {
-			// If this isn't working, it's something wrong somewhere else
-			this.isLoading = false;
-			this.textNodesLength = textNodes.length;
-		}
-
-		return textNodes.map((text, index) => {
+		return textNodes.map((textNode) => {
 			let showNumber = false;
-			let numbering = '';
-
-			if (text.n_3) {
-				if (index === 0) {
-					showNumber = true;
-				} else {
-					showNumber = textNodes[index - 1].n_2 !== text.n_2;
-				}
-				if (showNumber) {
-					numbering = `${text.n_1}.${text.n_2}`;
-				}
-			} else if (text.n_2) {
-				if (index === 0) {
-					showNumber = true;
-				} else {
-					showNumber = textNodes[index - 1].n_1 !== text.n_1;
-				}
-				if (showNumber) {
-					numbering = (text.n_1).toString();
-				}
-			}
 
 			return (
 				<ReadingTextNode
-					key={text._id}
-					index={index}
+					key={textNode.id}
 					showNumber={showNumber}
-					text={text}
-					numbering={numbering}
 					addAnnotationCheckList={this.addAnnotationCheckList}
-					highlight={this.props.highlightId === text._id}
 					toggleReadingMeta={this.props.toggleReadingMeta}
 					showLoginModal={this.props.showLoginModal}
 					showSignupModal={this.props.showSignupModal}
 					closeLoginModal={this.props.closeLoginModal}
 					closeSignupModal={this.props.closeSignupModal}
+					{...textNode}
 				/>
 			);
 		});
 	}
 
 	render() {
-		const work = this.props.work;
+		const { work, textNodes, textLocationPrev, textLocationNext } = this.props;
 		const form = work.form || 'prose';
 
 		return (
@@ -93,26 +53,26 @@ class ReadingEnvironment extends React.Component {
 					work={work}
 				/>
 
-				{this.props.textNodes.length ?
+				{textNodes && textNodes.length ?
 					<div>
-						{this.props.isTextBefore ?
+						{textLocationPrev && textLocationPrev.length ?
 							<div className="reading-load-more reading-load-more--before">
 								<FlatButton
-									className={`load-more ${this.isLoading ? 'load-more--loading' : ''}`}
-									onClick={this.loadMore.bind(null, 'previous')}
-									label={this.isLoading ? 'Loading . . .' : 'Previous'}
+									className={`load-more ${this.state.isLoading ? 'load-more--loading' : ''}`}
+									onClick={this.props.loadMore.bind(this, 'previous')}
+									label={this.state.isLoading ? 'Loading . . .' : 'Previous'}
 								/>
 							</div>
 						: '' }
 						<div className="reading-text-outer">
 							{this.renderText()}
 						</div>
-						{this.props.isTextAfter ?
+						{textLocationNext && textLocationNext.length ?
 							<div className="reading-load-more reading-load-more--after">
 								<FlatButton
-									className={`load-more ${this.isLoading ? 'load-more--loading' : ''}`}
-									onClick={this.loadMore.bind(null, 'next')}
-									label={this.isLoading ? 'Loading . . .' : 'Next'}
+									className={`load-more ${this.state.isLoading ? 'load-more--loading' : ''}`}
+									onClick={this.props.loadMore.bind(this, 'next')}
+									label={this.state.isLoading ? 'Loading . . .' : 'Next'}
 								/>
 							</div>
 						: '' }
@@ -120,10 +80,7 @@ class ReadingEnvironment extends React.Component {
 				:
 					<LoadingWell />
 				}
-
-
 			</div>
-
 		);
 	}
 

@@ -1,104 +1,50 @@
 import React from 'react';
+import { Router, Route } from 'react-router';
+import createBrowserHistory from 'history/createBrowserHistory';
 import { mount } from 'react-mounter';
+import { ApolloProvider } from 'react-apollo';
 
 import AboutPage from '/imports/ui/components/pages/AboutPage';
-import BrowseView from '/imports/ui/components/browse/Browse';
+import BrowsePage from '/imports/ui/components/browse/BrowsePage';
+import TermsPage from '/imports/ui/components/pages/TermsPage';
 import HomeLayout from '/imports/ui/layouts/HomeLayout';
-import MasterLayout from '/imports/ui/layouts/MasterLayout';
 import ReadingLayout from '/imports/ui/layouts/ReadingLayout';
+import NotFound from '/imports/ui/layouts/NotFound';
 import UserLayout from '/imports/ui/layouts/UserLayout';
 import Utils from '/imports/lib/utils';
+import client from './apolloClient';
 
 /*
-* For the moment add subscriptions here; in future iterations, make them route
-* specific as necessary
+import configureStore from './store/configureStore';
+import registerServiceWorker from './registerServiceWorker';
+
+
+const store = configureStore();
+const history = syncHistoryWithStore(browserHistory, store);
 */
 
-FlowRouter.subscriptions = function subscriptions() {
-	this.register('authors', Meteor.subscribe('authors'));
-	this.register('worksCount', Meteor.subscribe('worksCount'));
-	this.register('authorsCount', Meteor.subscribe('authorsCount'));
-};
+const browserHistory = createBrowserHistory();
 
-/*
-* Routes for application
-*/
-FlowRouter.route('/works/:id/:work', {
-	action(params, queryParams) {
-		mount(ReadingLayout, { params, queryParams });
-	},
-});
 
-FlowRouter.route('/', {
-	name: 'Home',
-	action() {
-		mount(HomeLayout);
-	},
-});
+export const renderRoutes = () => (
+  <ApolloProvider client={client}>
+	  <Router history={browserHistory}>
+			<div>
+	      <Route exact path="/" component={HomeLayout}/>
+	      <Route path="/works/:id/:slug/:loc?" component={ReadingLayout}/>
+	      <Route path="/browse" component={BrowsePage}/>
+	      <Route path="/about" component={AboutPage}/>
+	      <Route path="/terms" component={TermsPage}/>
+	      <Route path="/profile" component={UserLayout}/>
+	    </div>
+	  </Router>
+  </ApolloProvider>
+);
 
-FlowRouter.route('/about', {
-	action() {
-		mount(MasterLayout, { content: <AboutPage /> });
-	},
-});
-
-FlowRouter.route('/browse', {
-	action() {
-		mount(MasterLayout, { content: <BrowseView /> });
-	},
-});
-
-FlowRouter.route('/terms', {
-	action() {
-		mount(MasterLayout, { content: <TermsPage /> });
-	},
-});
-
-/**
- * User routes
- */
-
-/*
- * Route groups with permissions
- */
-const loggedInGroup = FlowRouter.group({
-	triggersEnter: [AccountsTemplates.ensureSignedIn],
-});
-
-loggedInGroup.route('/profile', {
-	action() {
-		ReactLayout.render(UserLayout);
-	},
-});
-loggedInGroup.route('/account', {
-	action() {
-		// TODO: Fix the blazeLayout render for account
-		// BlazeLayout.render('masterLayout', { main: 'account' });
-	},
-});
-
-loggedInGroup.route('/setUserName', {
-	action() {
-	// Do nothing
-	},
-});
-loggedInGroup.route('/sign-out', {
-	triggersEnter: [
-		() => {
-			AccountsTemplates.logout();
-		},
-	],
-	action: () => {
-		// Do nothing
-	},
-});
-
-// this.subs = new SubsManager();
 
 /*
 * Perform functions necessary on route load
 *
-*/
 function onRouteLoad() {
 	let headroom;
 
@@ -130,20 +76,9 @@ function onRouteLoad() {
 				});
 			}, 500);
 		}, 500);
-
-		/*
-		 * If isn't mobile, init skrollr
-		 */
-		if (!Utils.isMobile) {
-			options = {
-				forceHeight: false,
-				smoothScrolling: false,
-			};
-
-			skrollr.init(options).refresh();
-		}
 	}
 }
 
 // Add onRouteLoad to FlowRouter.triggers.enter callbacks
 FlowRouter.triggers.enter([onRouteLoad]);
+*/

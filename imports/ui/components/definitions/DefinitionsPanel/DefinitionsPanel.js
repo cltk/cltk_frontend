@@ -102,10 +102,11 @@ const DefinitionsPanelContainer = createContainer((props) => {
 	const definitions = {};
 	let wordForms = [];
 	props.textNodes.map((textNode) => {
-		textIds.push(textNode._id);
+		textIds.push(textNode.id);
 		return true;
 	});
 
+	/*
 	const handleWordforms = Meteor.subscribe('wordForms', textIds);
 	if (handleWordforms.ready()) {
 		wordForms = Wordforms.find({ word: { $regex: props.searchText } }).fetch();
@@ -133,6 +134,8 @@ const DefinitionsPanelContainer = createContainer((props) => {
 			});
 		}
 	}
+	*/
+	
 	return {
 		words,
 	};

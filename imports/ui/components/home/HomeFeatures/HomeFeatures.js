@@ -1,16 +1,15 @@
 import React from 'react';
-
-import { createContainer } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import { graphql, gql } from 'react-apollo';
 
-function HomeFeatures(props) {
+const HomeFeatures = ({ worksCount, authorsCount }) => {
 	return (
 		<section id="features" >
 
 			<div className="feature f1">
 				<div className="feature-image-screen" />
 				<div className="feature-inner">
-					<h3 className="feature-n">{props.authorsCount}</h3>
+					<h3 className="feature-n">{authorsCount}</h3>
 					<span className="feature-title">Authors</span>
 
 					<div className="feature-line" />
@@ -23,7 +22,7 @@ function HomeFeatures(props) {
 			<div className="feature f2">
 				<div className="feature-image-screen" />
 				<div className="feature-inner">
-					<h3 className="feature-n">{props.worksCount}</h3>
+					<h3 className="feature-n">{worksCount}</h3>
 					<span className="feature-title">Works</span>
 
 					<div className="feature-line" />
@@ -37,7 +36,7 @@ function HomeFeatures(props) {
 				<div className="feature-image-screen" />
 				<div className="feature-inner">
 
-					<h3 className="feature-n">{props.entitiesCount}</h3>
+					<h3 className="feature-n">0</h3>
 					<span className="feature-title">Entities</span>
 
 					<div className="feature-line" />
@@ -61,19 +60,15 @@ HomeFeatures.propTypes = {
 	worksCount: PropTypes.number,
 };
 
-const HomeFeaturesContainer = createContainer(props => {
-	let authorsCount = 0;
-	let worksCount = 0;
-	let entitiesCount = 0;
+const withData = graphql(gql`{
+  worksCount
+  authorsCount
+}`, {
+  options: ({}) => ({
+  }),
+  props: ({ data: { worksCount, authorsCount } }) => ({
+    worksCount, authorsCount,
+  }),
+});
 
-	worksCount = Counts.get('worksCount');
-	authorsCount = Counts.get('authorsCount');
-
-	return {
-		authorsCount,
-		worksCount,
-		entitiesCount,
-	};
-}, HomeFeatures);
-
-export default HomeFeaturesContainer;
+export default withData(HomeFeatures);

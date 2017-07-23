@@ -1,6 +1,7 @@
 import Config from '/imports/lib/config/config';
 import MainLayout from '/imports/ui/layouts/BaseLayout';
 
+/*
 AccountsTemplates.configure({
 	defaultLayoutType: 'blaze-to-react',
 	defaultLayout: MainLayout,
@@ -35,3 +36,4 @@ AccountsTemplates.configureRoute('signIn', {
 // 	redirect: '/profile',
 // });
 AccountsTemplates.configureRoute('verifyEmail');
+*/
