@@ -12,9 +12,9 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import '/imports/lib/config/emails';
 import '/imports/lib/config/i18n';
 import '/imports/lib/config/oauth';
-import { renderRoutes } from './client/routes';
+import Routes from './client/Routes.jsx';
 
 Meteor.startup(() => {
 	injectTapEventPlugin();
-  render(renderRoutes(), document.getElementById('app'));
+	render(<Routes />, document.getElementById('app'));
 });
