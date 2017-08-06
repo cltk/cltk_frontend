@@ -282,7 +282,7 @@ class ReadingLayout extends React.Component {
 			<div className="cltk-layout reading-layout">
 				{this.props.work ?
 					<div>
-						<HeaderReading
+						{/*}<HeaderReading
 							work={this.props.work}
 							loc={this.props.match.params.loc}
 							showSearchModal={this.showSearchModal}
@@ -294,7 +294,7 @@ class ReadingLayout extends React.Component {
 							toggleMedia={this.state.toggleMedia}
 							toggleEntities={this.state.toggleEntities}
 							toggleAnnotations={this.state.toggleAnnotations}
-						/>
+						/>*/}
 						<main>
 							<div id="reading-environment" className={readingClassName}>
 								{this.renderReadingEnvironment()}
