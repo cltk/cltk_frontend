@@ -1,0 +1,6 @@
+{
+  "name": "OAuthButtons",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./OAuthButtons.js"
+}

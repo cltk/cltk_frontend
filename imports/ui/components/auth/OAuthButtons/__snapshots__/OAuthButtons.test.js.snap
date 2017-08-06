@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OAuthButtons renders correctly 1`] = `
+<div
+  className="at-oauth"
+/>
+`;

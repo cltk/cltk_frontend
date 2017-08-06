@@ -36,7 +36,6 @@ ejson@1.0.13
 yogiben:pretty-email
 check@1.2.5
 useraccounts:core
-useraccounts:materialize
 reywood:publish-composite
 
 # Packages added for project
@@ -62,3 +61,5 @@ gadicc:blaze-react-component
 react-runtime
 edgee:slingshot
 zimme:collection-timestampable
+useraccounts:bootstrap
+twbs:bootstrap
