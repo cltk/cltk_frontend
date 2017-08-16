@@ -1,4 +1,5 @@
 import React from 'react';
+import Annotatable from 'draft-js-annotations';
 import PropTypes from 'prop-types';
 import FlatButton from 'material-ui/FlatButton';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';

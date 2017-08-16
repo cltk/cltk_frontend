@@ -271,11 +271,15 @@ SearchModal.propTypes = {
 const withData = graphql(gql`{
   works {
 		id
-		englishtitle
-		originaltitle
+		english_title
+		original_title
 		slug
-		author
-		corpus
+		author {
+      name
+    }
+		corpus {
+      title
+    }
 	}
 	corpora {
 		id
@@ -287,7 +291,7 @@ const withData = graphql(gql`{
 		slug
 		title
 	}
-	worksCount
+	works_count
 }`, {
   options: ({ filters, offset, limit } ) => {
 		const query = {};
@@ -347,8 +351,11 @@ const withData = graphql(gql`{
 			},
 		};
   },
-  props: ({ data: { works, worksCount, uniqueCorpora, uniqueLanguages } }) => ({
-		works, worksCount, uniqueCorpora, uniqueLanguages,
+  props: ({ data: { works, works_count, corpora, languages } }) => ({
+    works,
+    worksCount: works_count,
+    uniqueCorpora: corpora,
+    uniqueLanguages: languages,
   }),
 });
 
