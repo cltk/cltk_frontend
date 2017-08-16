@@ -15,7 +15,10 @@ import ModalSignup from '/imports/ui/layouts/auth/ModalSignup';
 import PrivateRoute from '/imports/ui/components/auth/PrivateRoute';
 
 import Utils from '/imports/lib/utils';
-import client from './apolloClient';
+import client from '/imports/middleware/apolloClient';
+import configureStore from '/imports/store/configureStore';
+
+const store = configureStore();
 
 /*
 import configureStore from './store/configureStore';
@@ -27,7 +30,7 @@ const history = syncHistoryWithStore(browserHistory, store);
 */
 
 const App = () => (
-	<ApolloProvider client={client}>
+	<ApolloProvider client={client} store={store}>
 		<Router>
 			<Switch>
 				<Route exact path="/" component={HomeLayout} />

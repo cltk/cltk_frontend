@@ -351,21 +351,18 @@ class ReadingLayout extends React.Component {
 
 const withData = graphql(gql`
 	query TextForReadingEnv($workId: Int!, $loc: [Int]) {
-		textNodesByWork(workid: $workId, startsAtLocation: $loc) {
-			id
-			index
-			location
-			text
-		}
-		workById(id: $workId) {
+		work_by_id(id: $workId) {
 			id
 			slug
-			author
-			originaltitle
-			englishtitle
+			original_title
+			english_title
+			text_nodes_by_location(location: $loc) {
+				id
+				index
+				location
+				text
+			}
 		}
-		textLocationNext(workid: $workId, location: $loc, offset: 15)
-		textLocationPrev(workid: $workId, location: $loc, offset: 15)
 	}
 `, {
   options: ({ match }) => {

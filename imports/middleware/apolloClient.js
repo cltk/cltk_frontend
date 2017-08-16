@@ -1,12 +1,19 @@
-import { ApolloClient, createNetworkInterface } from 'apollo-client';
+import { ApolloClient, createNetworkInterface } from 'react-apollo';
+import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
+import { Meteor } from 'meteor/meteor';
+
 
 const networkInterface = createNetworkInterface({
 	uri: Meteor.settings.public.textServerURI,
-	// opts: {
-	//	credentials: 'include',
-	// }
+	/*
+	opts: {
+		credentials: 'same-origin',
+		mode: 'no-cors',
+	}
+	*/
 });
 
+/*
 networkInterface.use([{
 	applyMiddleware(req, next) {
 		if (!req.options.headers) {
@@ -16,15 +23,6 @@ networkInterface.use([{
 		next();
 	}
 }]);
-
-const connectionParams = () => {
-	return { authToken: localStorage.getItem('token') ? localStorage.getItem('token') : null };
-};
-
-/*
-const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
-	networkInterface,
-);
 */
 
 const client = new ApolloClient({
@@ -32,4 +30,3 @@ const client = new ApolloClient({
 });
 
 export default client;
-export { wsClient };
