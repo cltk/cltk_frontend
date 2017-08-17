@@ -271,8 +271,8 @@ SearchModal.propTypes = {
 const withData = graphql(gql`{
   works {
 		id
-		englishtitle
-		originaltitle
+		english_title
+		original_title
 		slug
 		author
 		corpus

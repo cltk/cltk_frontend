@@ -37,11 +37,11 @@ class ReadingWorkHeader extends React.Component {
 
 							<div className="work-title-outer">
 								<h1 className="work-title">
-									{work.englishtitle}
+									{work.english_title}
 								</h1>
-								{work.originaltitle ?
+								{work.original_title ?
 									<span className="work-original-title">
-										{work.originaltitle}
+										{work.original_title}
 									</span>
 									:
 									''

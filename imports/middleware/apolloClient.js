@@ -5,15 +5,8 @@ import { Meteor } from 'meteor/meteor';
 
 const networkInterface = createNetworkInterface({
 	uri: Meteor.settings.public.textServerURI,
-	/*
-	opts: {
-		credentials: 'same-origin',
-		mode: 'no-cors',
-	}
-	*/
 });
 
-/*
 networkInterface.use([{
 	applyMiddleware(req, next) {
 		if (!req.options.headers) {
@@ -23,7 +16,6 @@ networkInterface.use([{
 		next();
 	}
 }]);
-*/
 
 const client = new ApolloClient({
 	networkInterface,

@@ -105,10 +105,10 @@ class WorkTeaser extends React.Component {
 					className="work-teaser-title"
 				>
 					<h3 >
-						{work.englishtitle}
-						{work.originaltitle ?
+						{work.english_title}
+						{work.original_title ?
 							<span className="work-teaser-original-title">
-								{work.originaltitle}
+								{work.original_title}
 							</span>
 							:
 							''
