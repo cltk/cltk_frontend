@@ -9,7 +9,7 @@ const OAuthButtons = ({ handleFacebook, handleGoogle, handleTwitter }) => (
 				name="facebook"
 				onClick={handleFacebook}
 			>
-				<i className="fa fa-facebook" /> Sign In with Facebook
+				<i className="fa fa-facebook" /> Sign in with Facebook
 			</button>}
 
 		{handleGoogle &&
@@ -19,7 +19,7 @@ const OAuthButtons = ({ handleFacebook, handleGoogle, handleTwitter }) => (
 				name="google"
 				onClick={handleGoogle}
 			>
-				<i className="fa fa-google" /> Sign In with Google
+				<i className="fa fa-google" /> Sign in with Google
 			</button>}
 
 		{handleTwitter &&
@@ -29,7 +29,7 @@ const OAuthButtons = ({ handleFacebook, handleGoogle, handleTwitter }) => (
 				name="twitter"
 				onClick={handleTwitter}
 			>
-				<i className="fa fa-twitter" /> Sign In with Twitter
+				<i className="fa fa-twitter" /> Sign in with Twitter
 			</button>}
 	</div>
 );

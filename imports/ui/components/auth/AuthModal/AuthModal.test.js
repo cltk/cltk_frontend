@@ -3,15 +3,15 @@ import renderer from 'react-test-renderer';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // component:
-import ModalLogin from './ModalLogin';
+import AuthModal from './AuthModal';
 
-describe('ModalLogin', () => {
+describe('AuthModal', () => {
 	it('renders correctly', () => {
 
 		const tree = renderer
 			.create(
 				<MuiThemeProvider>
-					<ModalLogin isTest />
+					<AuthModal isTest />
 				</MuiThemeProvider>
 			)
 			.toJSON();

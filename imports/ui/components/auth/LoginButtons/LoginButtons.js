@@ -10,6 +10,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 
 import { createContainer } from 'meteor/react-meteor-data';
+import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 
@@ -56,7 +57,7 @@ class LoginButtons extends React.Component {
 		if (this.props.user) {
 			// render logged in info
 
-			// make a user dispaly name from available user profile info
+			// make a user display name from available user profile info
 			let userNiceName = '';
 
 			if ('profile' in this.props.user) {
@@ -100,18 +101,20 @@ class LoginButtons extends React.Component {
 		// render sign in button
 		return (
 			<div>
-				<FlatButton
-					label="Login"
-					onClick={this.props.showLoginModal}
-					style={styles.flatButton}
-					className="account-button account-button-login"
-				/>
-				<FlatButton
-					label="Sign Up"
-					onClick={this.props.showSignupModal}
-					style={styles.flatButton}
-					className="account-button account-button-login"
-				/>
+        <Link to="sign-in">
+          <FlatButton
+            label="Login"
+            style={styles.flatButton}
+            className="account-button account-button-login"
+          />
+        </Link>
+        <Link to="sign-up">
+          <FlatButton
+            label="Sign Up"
+            style={styles.flatButton}
+            className="account-button account-button-login"
+          />
+        </Link>
 			</div>
 		);
 	}
@@ -119,11 +122,6 @@ class LoginButtons extends React.Component {
 
 LoginButtons.childContextTypes = {
 	muiTheme: PropTypes.object.isRequired,
-};
-
-LoginButtons.propTypes = {
-	showLoginModal: PropTypes.func,
-	showSignupModal: PropTypes.func,
 };
 
 const LoginButtonsContainer = createContainer(props => {

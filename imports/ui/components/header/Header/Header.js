@@ -9,8 +9,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import LeftMenu from '/imports/ui/components/header/LeftMenu';
 import LoginButtons from '/imports/ui/components/auth/LoginButtons';
-import ModalLogin from '/imports/ui/components/auth/ModalLogin';
-import ModalSignup from '/imports/ui/components/auth/ModalSignup';
+import AuthModal from '/imports/ui/components/auth/AuthModal';
 
 export default class Header extends React.Component {
 	constructor(props) {
@@ -18,8 +17,7 @@ export default class Header extends React.Component {
 
 		this.state = {
 			leftMenuOpen: false,
-			modalLoginLowered: false,
-			modalSignupLowered: false,
+			AuthModalLowered: false,
 		};
 
 		[
@@ -27,8 +25,7 @@ export default class Header extends React.Component {
 			'closeLeftMenu',
 			'showLoginModal',
 			'showSignupModal',
-			'closeLoginModal',
-			'closeSignupModal',
+			'closeAuthModal',
 		].forEach(f => {
 			this[f] = this[f].bind(this);
 		});
@@ -49,24 +46,24 @@ export default class Header extends React.Component {
 			leftMenuOpen: false,
 		});
 	}
+
 	showLoginModal() {
 		this.setState({
-			modalLoginLowered: true,
+      authAction: 'login',
+			authModalLowered: true,
 		});
 	}
+
 	showSignupModal() {
 		this.setState({
-			modalSignupLowered: true,
+      authAction: 'signup',
+			authModalLowered: true,
 		});
 	}
-	closeLoginModal() {
+
+	closeAuthModal() {
 		this.setState({
-			modalLoginLowered: false,
-		});
-	}
-	closeSignupModal() {
-		this.setState({
-			modalSignupLowered: false,
+			AuthModalLowered: false,
 		});
 	}
 
@@ -83,9 +80,7 @@ export default class Header extends React.Component {
 				width: 'auto',
 				minWidth: 'none',
 				height: '55px',
-
 			},
-
 		};
 
 		return (
@@ -121,10 +116,7 @@ export default class Header extends React.Component {
 
 									<ul className="nav navbar-nav navbar-right">
 										<li>
-											<LoginButtons
-												showLoginModal={this.showLoginModal}
-												showSignupModal={this.showSignupModal}
-											/>
+											<LoginButtons />
 										</li>
 										<li>
 											<FlatButton
@@ -188,14 +180,6 @@ export default class Header extends React.Component {
 						</div>{/* <!-- .container.close-navbar -->*/}
 					</div>{/* <!-- .navigation-primary-->*/}
 				</header>
-				<ModalLogin
-					lowered={this.state.modalLoginLowered}
-					closeModal={this.closeLoginModal}
-				/>
-				<ModalSignup
-					lowered={this.state.modalSignupLowered}
-					closeModal={this.closeSignupModal}
-				/>
 			</div>
 		);
 	}

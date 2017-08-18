@@ -5,14 +5,13 @@ import { ApolloProvider } from 'react-apollo';
 
 import AboutPage from '/imports/ui/components/pages/AboutPage';
 import BrowsePage from '/imports/ui/components/browse/BrowsePage';
-import TermsPage from '/imports/ui/components/pages/TermsPage';
 import HomeLayout from '/imports/ui/layouts/HomeLayout';
-import ReadingLayout from '/imports/ui/layouts/ReadingLayout';
+import AuthModal from '/imports/ui/components/auth/AuthModal';
 import NotFound from '/imports/ui/layouts/NotFound';
-import UserLayout from '/imports/ui/layouts/UserLayout';
-import ModalLogin from '/imports/ui/layouts/auth/ModalLogin';
-import ModalSignup from '/imports/ui/layouts/auth/ModalSignup';
 import PrivateRoute from '/imports/ui/components/auth/PrivateRoute';
+import ReadingLayout from '/imports/ui/layouts/ReadingLayout';
+import TermsPage from '/imports/ui/components/pages/TermsPage';
+import UserLayout from '/imports/ui/layouts/UserLayout';
 
 import Utils from '/imports/lib/utils';
 import client from './apolloClient';
@@ -36,8 +35,8 @@ const App = () => (
 				<Route path="/about" component={AboutPage} />
 				<Route path="/terms" component={TermsPage} />
 				<PrivateRoute path="/profile" component={UserLayout} />
-				<Route path="/sign-in" render={props => (<ModalLogin {...props} lowered />)} />
-				<Route path="/sign-up" render={props => (<ModalSignup {...props} lowered />)} />
+				<Route path="/sign-in" render={props => (<AuthModal {...props} authAction="login" history={props.history} lowered />)} />
+				<Route path="/sign-up" render={props => (<AuthModal {...props} authAction="signup" history={props.history} lowered />)} />
 				<Route component={NotFound} />
 			</Switch>
 		</Router>
