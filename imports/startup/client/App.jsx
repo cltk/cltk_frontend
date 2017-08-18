@@ -1,7 +1,13 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { mount } from 'react-mounter';
 import { ApolloProvider } from 'react-apollo';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  applyMiddleware,
+  combineReducers,
+  compose,
+  createStore,
+} from 'redux'
+import { mount } from 'react-mounter';
 
 import AboutPage from '/imports/ui/components/pages/AboutPage';
 import BrowsePage from '/imports/ui/components/browse/BrowsePage';
@@ -15,18 +21,25 @@ import UserLayout from '/imports/ui/layouts/UserLayout';
 
 import Utils from '/imports/lib/utils';
 import client from './apolloClient';
+import reducers from '/imports/reducers'
 
-/*
-import configureStore from './store/configureStore';
-import registerServiceWorker from './registerServiceWorker';
+// initialState is a placeholder for now, but it could eventually
+// be hydrated on application start
+const initialState = {}
 
-
-const store = configureStore();
-const history = syncHistoryWithStore(browserHistory, store);
-*/
+const store = createStore(
+  combineReducers({
+    ...reducers,
+    apollo: client.reducer()
+  }),
+  initialState,
+  compose(
+    applyMiddleware(client.middleware())
+  )
+)
 
 const App = () => (
-	<ApolloProvider client={client}>
+	<ApolloProvider store={store} client={client}>
 		<Router>
 			<Switch>
 				<Route exact path="/" component={HomeLayout} />

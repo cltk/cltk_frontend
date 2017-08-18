@@ -2,13 +2,13 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 
 // component:
-import PWDSignupForm from './PWDSignupForm';
+import AuthForm from './AuthForm';
 
-describe('PWDSignupForm', () => {
+describe('AuthForm', () => {
 	it('renders correctly', () => {
 
 		const tree = renderer
-			.create(<PWDSignupForm />)
+			.create(<AuthForm />)
 			.toJSON();
 		expect(tree).toMatchSnapshot();
 	});

@@ -8,9 +8,8 @@ import { Accounts } from 'meteor/accounts-base';
 import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 
+import AuthForm from '/imports/ui/components/auth/AuthForm';
 import OAuthButtons from '/imports/ui/components/auth/OAuthButtons';
-import PWDLoginForm from '/imports/ui/components/auth/PWDLoginForm';
-import PWDSignupForm from '/imports/ui/components/auth/PWDSignupForm';
 
 const ESCAPE_KEY = 27;
 
@@ -47,6 +46,7 @@ export default class AuthModal extends React.Component {
     this.handleLoginFacebook = this.handleLoginFacebook.bind(this)
     this.handleLoginGoogle = this.handleLoginGoogle.bind(this)
     this.handleLoginTwitter = this.handleLoginTwitter.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
 	getChildContext() {
@@ -75,6 +75,15 @@ export default class AuthModal extends React.Component {
 
   handleKeyDown(event) {
     event.keyCode === ESCAPE_KEY && this.props.closeModal()
+  }
+
+  handleSubmit(values) {
+    console.log(values)
+    if (this.props.authAction === 'login') {
+      return this.handleLogin(values.email, values.password)
+    }
+
+    this.handleSignup(values.email, values.password, values.passwordRepeat)
   }
 
   handleLogin(email, password) {
@@ -125,7 +134,7 @@ export default class AuthModal extends React.Component {
     })
   }
 
-  handleSignUp(email, password, passwordRepeat) {
+  handleSignup(email, password, passwordRepeat) {
     if (password !== passwordRepeat) {
       // QUESTION: Why was this check throwing a Meteor.Error previously?
       return this.setState({
@@ -136,6 +145,7 @@ export default class AuthModal extends React.Component {
     const checkPassword = Accounts._hashPassword(password)
 
     Meteor.call('createAccount', { email, checkPassword }, (err, result) => {
+      console.log(err, result)
       if (err) {
         return this.setState({
           errorMessage: err.message,
@@ -177,12 +187,6 @@ export default class AuthModal extends React.Component {
 
       if (authAction === 'login') {
         title = 'Sign in'
-        pwdForm = (
-          <PWDLoginForm
-            login={this.handleLogin}
-            errorMsg={this.state.errorMessage}
-          />
-        )
         alternateAction = (
           <p>
             Don't have an account? <Link to="sign-up" id="at-signUp" className="at-link at-signup">Register</Link>.
@@ -191,9 +195,10 @@ export default class AuthModal extends React.Component {
       } else if (authAction === 'signup') {
         title = 'Create an account'
         pwdForm = (
-          <PWDSignupForm
-            handleSignup={this.handleSignup}
-            errorMsg={this.state.errorMessage}
+          <AuthForm
+            authAction={authAction}
+            onSubmit={this.handleSignup}
+            errorMessage={this.state.errorMessage}
           />
         )
         termsNotice = (
@@ -237,7 +242,11 @@ export default class AuthModal extends React.Component {
                 <strong>OR</strong>
               </div>
 
-              {pwdForm}
+              <AuthForm
+                authAction={authAction}
+                onSubmit={this.handleSubmit}
+                errorMsg={this.state.errorMessage}
+              />
 
               <div className="at-signup-link">
 

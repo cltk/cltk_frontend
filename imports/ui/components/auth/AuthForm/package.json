@@ -1,0 +1,6 @@
+{
+  "name": "AuthForm",
+  "version": "0.0.2",
+  "private": true,
+  "main": "./AuthForm.js"
+}
