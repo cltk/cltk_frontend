@@ -3,7 +3,7 @@ import FlatButton from 'material-ui/FlatButton';
 
 
 const ReadingEnvironmentPrevButton = props => {
-	let workHasPrevText = false;
+	let workHasPrevText = props.locationPrev && props.locationPrev.length;
 
 	if (!workHasPrevText) {
 		return null;
@@ -13,7 +13,7 @@ const ReadingEnvironmentPrevButton = props => {
 		<div className="reading-load-more reading-load-more--before">
 			<FlatButton
 				className={`load-more ${props.isLoading ? 'load-more--loading' : ''}`}
-				onClick={props.loadMore.bind(this, 'previous')}
+				onClick={props.loadMore}
 				label={props.isLoading ? 'Loading . . .' : 'Previous'}
 			/>
 		</div>

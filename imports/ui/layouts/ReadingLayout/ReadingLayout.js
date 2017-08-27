@@ -62,16 +62,16 @@ class ReadingLayout extends React.Component {
 		autoBind(this);
 	}
 
-	loadMore(direction) {
+	loadMorePrev() {
 		const { work } = this.props;
-		let textLocationNext = [];
-		let textLocationPrev = [];
+		const textLocationPrev = work.text_location_prev;
+		this.props.history.push(`/works/${work.id}/${work.slug}/${textLocationPrev.join('.')}`);
+	}
 
-		if (direction === 'next') {
-			this.props.history.push(`/works/${work.id}/${work.slug}/${textLocationNext.join('.')}`);
-		} else {
-			this.props.history.push(`/works/${work.id}/${work.slug}/${textLocationPrev.join('.')}`);
-		}
+	loadMoreNext() {
+		const { work } = this.props;
+		const textLocationNext = work.text_location_next;
+		this.props.history.push(`/works/${work.id}/${work.slug}/${textLocationNext.join('.')}`);
 	}
 
 	toggleSidePanel(metadata) {
@@ -200,7 +200,8 @@ class ReadingLayout extends React.Component {
 				<ReadingEnvironment
 					work={work}
 					textNodes={textNodes}
-					loadMore={this.loadMore}
+					loadMorePrev={this.loadMorePrev}
+					loadMoreNext={this.loadMoreNext}
 					toggleReadingMeta={this.toggleReadingMeta}
 					showLoginModal={this.showLoginModal}
 					showSignupModal={this.showSignupModal}
@@ -347,6 +348,7 @@ const withData = graphql(gql`
 		};
 	},
   props: ({ data }) => {
+
 		return {
 			work: data.work_by_id,
 		};

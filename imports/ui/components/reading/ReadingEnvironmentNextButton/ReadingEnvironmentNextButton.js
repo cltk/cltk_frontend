@@ -2,7 +2,7 @@ import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 
 const ReadingEnvironmentNextButton = props => {
-	let workHasNextText = false;
+	let workHasNextText = props.locationNext && props.locationNext.length;
 
 	if (!workHasNextText) {
 		return null;
@@ -12,7 +12,7 @@ const ReadingEnvironmentNextButton = props => {
 		<div className="reading-load-more reading-load-more--after">
 			<FlatButton
 				className={`load-more ${props.isLoading ? 'load-more--loading' : ''}`}
-				onClick={props.loadMore.bind(this, 'next')}
+				onClick={props.loadMore}
 				label={props.isLoading ? 'Loading . . .' : 'Next'}
 			/>
 		</div>

@@ -62,13 +62,15 @@ class ReadingEnvironment extends React.Component {
 				{textNodes && textNodes.length ?
 					<div>
 						<ReadingEnvironmentPrevButton
-							locationPrev={work.textLocationPrev}
+							locationPrev={work.text_location_prev}
+							loadMore={this.props.loadMorePrev.bind(this)}
 						/>
 						<div className="reading-text-outer">
 							{this.renderText()}
 						</div>
 						<ReadingEnvironmentNextButton
-							locationNext={work.textLocationNext}
+							locationNext={work.text_location_next}
+							loadMore={this.props.loadMoreNext.bind(this)}
 						/>
 					</div>
 				:
@@ -83,7 +85,8 @@ class ReadingEnvironment extends React.Component {
 ReadingEnvironment.propTypes = {
 	work: PropTypes.object.isRequired,
 	textNodes: PropTypes.array.isRequired,
-	loadMore: PropTypes.func.isRequired,
+	loadMorePrev: PropTypes.func.isRequired,
+	loadMoreNext: PropTypes.func.isRequired,
 	highlightId: PropTypes.string,
 	toggleReadingMeta: PropTypes.func,
 	isLoading: PropTypes.bool,
