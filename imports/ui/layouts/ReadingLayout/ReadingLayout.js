@@ -18,6 +18,7 @@ import LoadingDoubleWell from '/imports/ui/components/spinkit/LoadingDoubleWell'
 import ReadingEnvironment from '/imports/ui/components/reading/ReadingEnvironment';
 import SearchModal from '/imports/ui/components/search/SearchModal';
 
+
 class ReadingLayout extends React.Component {
 	static defaultProps = {
 		textNodes: [],
@@ -278,6 +279,8 @@ class ReadingLayout extends React.Component {
 			'with-scansion': this.state.toggleScansion,
 		});
 
+		console.log(this.props);
+
 		return (
 			<div className="cltk-layout reading-layout">
 				{this.props.work ?
@@ -350,29 +353,31 @@ class ReadingLayout extends React.Component {
 }
 
 const withData = graphql(gql`
-	query TextForReadingEnv($workId: Int!, $loc: [Int]) {
-		textNodesByWork(workid: $workId, startsAtLocation: $loc) {
-			id
-			index
-			location
-			text
-		}
-		workById(id: $workId) {
+	query TextForReadingEnv($workId: ID!, $loc: [Int]) {
+		work_by_id(id: $workId) {
 			id
 			slug
-			author
-			originaltitle
-			englishtitle
+			original_title
+			english_title
+			text_nodes_by_location(location: $loc) {
+				id
+				index
+				location
+				text
+			}
 		}
-		textLocationNext(workid: $workId, location: $loc, offset: 15)
-		textLocationPrev(workid: $workId, location: $loc, offset: 15)
 	}
 `, {
-  options: ({ match }) => {
-		const workId = match.params.id;
-		const loc = match.params.loc ?
-								match.params.loc.split('.')
+  options: ({ match: { params } }) => {
+		const workId = params.id;
+		const loc = params.loc ?
+								params.loc.split('.')
 								: null ;
+
+		loc.forEach((n, i) => {
+			loc[i] = parseInt(n, 10);
+		});
+
 		return {
 	    variables: {
 				workId,
@@ -382,8 +387,7 @@ const withData = graphql(gql`
 	},
   props: ({ data }) => {
 		return {
-			textNodes: data.textNodesByWork,
-			work: data.workById,
+			work: data.work_by_id,
 			textLocationPrev: data.textLocationPrev,
 			textLocationNext: data.textLocationNext,
 		};

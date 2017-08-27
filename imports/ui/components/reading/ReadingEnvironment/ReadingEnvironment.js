@@ -22,7 +22,7 @@ class ReadingEnvironment extends React.Component {
 	}
 
 	renderText() {
-		const { textNodes } = this.props;
+		const textNodes = this.props.work.text_nodes_by_location;
 
 		return textNodes.map((textNode) => {
 			let showNumber = false;
@@ -44,8 +44,9 @@ class ReadingEnvironment extends React.Component {
 	}
 
 	render() {
-		const { work, textNodes, textLocationPrev, textLocationNext } = this.props;
+		const { work, textLocationPrev, textLocationNext } = this.props;
 		const form = work.form || 'prose';
+		const textNodes = work.text_nodes_by_location;
 
 		return (
 			<div className={`reading-container reading-container--${form}`}>

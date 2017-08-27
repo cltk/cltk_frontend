@@ -105,7 +105,7 @@ class HeaderReading extends React.Component {
 											className="reading-location-param reading-location-param--work"
 											href={`/works/${work.id}/${work.slug}`}
 										>
-											<span>{Utils.trunc(work.englishtitle, 100)},</span>
+											<span>{Utils.trunc(work.english_title, 100)},</span>
 										</a>
 										<a
 											className="reading-location-param reading-location-param--number"

@@ -308,7 +308,7 @@ class ReadingTextNode extends React.Component{
 }
 
 ReadingTextNode.propTypes = {
-	id: PropTypes.number.isRequired,
+	id: PropTypes.string.isRequired,
 	index: PropTypes.number.isRequired,
 	text: PropTypes.string.isRequired,
 	location: PropTypes.array.isRequired,

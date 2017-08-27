@@ -61,13 +61,14 @@ HomeFeatures.propTypes = {
 };
 
 const withData = graphql(gql`{
-  worksCount
-  authorsCount
+  works_count
+  authors_count
 }`, {
   options: ({}) => ({
   }),
-  props: ({ data: { worksCount, authorsCount } }) => ({
-    worksCount, authorsCount,
+  props: ({ data: { works_count, authors_count } }) => ({
+    worksCount: works_count,
+		authorsCount: authors_count,
   }),
 });
 
