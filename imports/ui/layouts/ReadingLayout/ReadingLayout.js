@@ -52,8 +52,6 @@ class ReadingLayout extends React.Component {
 			modalSignupLowered: false,
 			location,
 			textNodesDepths: [],
-			isTextAfter: true,
-			isTextBefore: false,
 			searchParams: {
 				filters: [],
 				limit: 21,
@@ -64,61 +62,15 @@ class ReadingLayout extends React.Component {
 		autoBind(this);
 	}
 
-	componentDidMount() {
-		window.addEventListener('resize', this.calculateTextNodeDepths);
-		window.addEventListener('scroll', debounce(100, this.handleScroll));
-	}
-
 	loadMore(direction) {
-		const { textNodes, work, textLocationNext, textLocationPrev } = this.props;
+		const { work } = this.props;
+		let textLocationNext = [];
+		let textLocationPrev = [];
 
 		if (direction === 'next') {
 			this.props.history.push(`/works/${work.id}/${work.slug}/${textLocationNext.join('.')}`);
 		} else {
 			this.props.history.push(`/works/${work.id}/${work.slug}/${textLocationPrev.join('.')}`);
-		}
-	}
-
-	calculateTextNodeDepths() {
-		const $textNodes = $('.text-node');
-		const textNodesDepths = [];
-
-		$textNodes.each((i, textNode) => {
-			textNodesDepths.push({
-				depth: $(textNode).offset().top,
-				location: textNode.dataset.loc,
-			});
-		});
-		this.setState({
-			textNodesDepths,
-		})
-	}
-
-	handleScroll() {
-		const scrollY = window.scrollY;
-		let activeTextNode = null;
-		const textNodesDepths = [];
-
-		textNodesDepths.forEach((textNodeDepth) => {
-			if (scrollY > textNodeDepth.depth) {
-				activeTextNode = textNodeDepth;
-			}
-		});
-
-		if (!activeTextNode) {
-			activeTextNode = this.state.textNodesDepths[0];
-		}
-
-		if (
-			activeTextNode
-			&& 'location' in this.props.queryParams
-			&& activeTextNode.location !== this.props.queryParams.location
-		) {
-			/*
-			FlowRouter.withReplaceState(() => {
-				FlowRouter.setQueryParams({ location: activeTextNode.location });
-			});
-			*/
 		}
 	}
 
@@ -239,8 +191,7 @@ class ReadingLayout extends React.Component {
 	}
 
 	renderReadingEnvironment() {
-		const self = this;
-		const { work, textNodes, textLocationPrev, textLocationNext } = this.props;
+		const { work, textNodes } = this.props;
 		let textLocation = this.props.location || [];
 
 		// If data is loaded
@@ -250,10 +201,7 @@ class ReadingLayout extends React.Component {
 					work={work}
 					textNodes={textNodes}
 					loadMore={this.loadMore}
-					calculateTextNodeDepths={this.calculateTextNodeDepths}
 					toggleReadingMeta={this.toggleReadingMeta}
-					textLocationPrev={textLocationPrev}
-					textLocationNext={textLocationNext}
 					showLoginModal={this.showLoginModal}
 					showSignupModal={this.showSignupModal}
 					closeLoginModal={this.closeLoginModal}
@@ -279,14 +227,17 @@ class ReadingLayout extends React.Component {
 			'with-scansion': this.state.toggleScansion,
 		});
 
-		console.log(this.props);
 
 		return (
 			<div className="cltk-layout reading-layout">
 				{this.props.work ?
 					<div>
-						{/*}<HeaderReading
-							work={this.props.work}
+						<HeaderReading
+							author={this.props.work.author}
+							workId={this.props.work.id}
+							workSlug={this.props.work.slug}
+							workForm={this.props.work.form}
+							englishTitle={this.props.work.english_title}
 							loc={this.props.match.params.loc}
 							showSearchModal={this.showSearchModal}
 							toggleSidePanel={this.toggleSidePanel}
@@ -297,13 +248,12 @@ class ReadingLayout extends React.Component {
 							toggleMedia={this.state.toggleMedia}
 							toggleEntities={this.state.toggleEntities}
 							toggleAnnotations={this.state.toggleAnnotations}
-						/>*/}
+						/>
 						<main>
 							<div id="reading-environment" className={readingClassName}>
 								{this.renderReadingEnvironment()}
 							</div>
 						</main>
-						{/* <AnnotateWidget />*/}
 						<DefinitionsPanel
 							toggleDefinitions={this.state.toggleDefinitions}
 							textNodes={this.props.textNodes}
@@ -359,12 +309,23 @@ const withData = graphql(gql`
 			slug
 			original_title
 			english_title
+			author {
+				id
+				name
+				slug
+			}
+			corpus {
+				id
+				title
+			}
 			text_nodes(location: $loc) {
 				id
 				index
 				location
 				text
 			}
+			text_location_next(location: $loc)
+			text_location_prev(location: $loc)
 		}
 	}
 `, {
@@ -388,8 +349,6 @@ const withData = graphql(gql`
   props: ({ data }) => {
 		return {
 			work: data.work_by_id,
-			textLocationPrev: data.textLocationPrev,
-			textLocationNext: data.textLocationNext,
 		};
   },
 });
