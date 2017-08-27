@@ -18,6 +18,7 @@ import LoadingDoubleWell from '/imports/ui/components/spinkit/LoadingDoubleWell'
 import ReadingEnvironment from '/imports/ui/components/reading/ReadingEnvironment';
 import SearchModal from '/imports/ui/components/search/SearchModal';
 
+
 class ReadingLayout extends React.Component {
 	static defaultProps = {
 		textNodes: [],
@@ -278,6 +279,8 @@ class ReadingLayout extends React.Component {
 			'with-scansion': this.state.toggleScansion,
 		});
 
+		console.log(this.props);
+
 		return (
 			<div className="cltk-layout reading-layout">
 				{this.props.work ?
@@ -370,6 +373,11 @@ const withData = graphql(gql`
 		const loc = params.loc ?
 								params.loc.split('.')
 								: null ;
+
+		loc.forEach((n, i) => {
+			loc[i] = parseInt(n, 10);
+		});
+
 		return {
 	    variables: {
 				workId,
