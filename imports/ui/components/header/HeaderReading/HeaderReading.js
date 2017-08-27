@@ -68,7 +68,7 @@ class HeaderReading extends React.Component {
 
 		};
 
-		const { work, loc } = this.props;
+		const { author, loc, workId, workSlug, workForm, englishTitle } = this.props;
 		const { leftMenuOpen } = this.state;
 
 		return (
@@ -89,27 +89,26 @@ class HeaderReading extends React.Component {
 									onClick={this.toggleLeftMenu}
 								/>
 
-								{work && loc ?
+								{workId && loc ?
 									<div className="reading-location">
 										<div
 											className="reading-location-param reading-location-param--author"
 										>
 											<a
-												href={`/authors/${work.author.id}`}
+												href={`/authors/${author.id}/${author.slug}`}
 											>
-												{work.author.id}
-												{work.author.englishname},
+												{author.name},
 											</a>
 										</div>
 										<a
 											className="reading-location-param reading-location-param--work"
-											href={`/works/${work.id}/${work.slug}`}
+											href={`/works/${workId}/${workSlug}`}
 										>
-											<span>{Utils.trunc(work.english_title, 100)},</span>
+											<span>{Utils.trunc(englishTitle, 100)},</span>
 										</a>
 										<a
 											className="reading-location-param reading-location-param--number"
-											href={`/works/${work.id}/${work.slug}/${loc}`}
+											href={`/works/${workId}/${workSlug}/${loc}`}
 										>
 											{loc.split('.').map((locN, i) => (
 												<span key={`${locN}-${i}`} >
@@ -173,7 +172,7 @@ class HeaderReading extends React.Component {
 											/>
 										</li>
 
-										{work.form === 'poetry' ?
+										{workForm === 'poetry' ?
 											<li
 												className={(this.props.toggleScansion) ? 'checked meta-toggle' :
 												'meta-toggle'}
@@ -237,7 +236,11 @@ class HeaderReading extends React.Component {
 
 HeaderReading.propTypes = {
 	showSearchModal: PropTypes.func,
-	work: PropTypes.object,
+	author: PropTypes.object,
+	workId: PropTypes.string,
+	workSlug: PropTypes.string,
+	workForm: PropTypes.string,
+	englishTitle: PropTypes.string,
 	toggleSidePanel: PropTypes.func.isRequired,
 	toggleCommentary: PropTypes.bool.isRequired,
 	toggleDefinitions: PropTypes.bool.isRequired,
