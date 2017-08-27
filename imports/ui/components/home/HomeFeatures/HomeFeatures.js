@@ -66,9 +66,9 @@ const withData = graphql(gql`{
 }`, {
   options: ({}) => ({
   }),
-  props: ({ data: { worksCount, authorsCount } }) => ({
-    worksCount,
-		authorsCount,
+  props: ({ data: { works_count, authors_count } }) => ({
+    worksCount: works_count,
+		authorsCount: authors_count,
   }),
 });
 

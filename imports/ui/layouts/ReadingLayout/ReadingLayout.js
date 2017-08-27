@@ -350,7 +350,7 @@ class ReadingLayout extends React.Component {
 }
 
 const withData = graphql(gql`
-	query TextForReadingEnv($workId: Int!, $loc: [Int]) {
+	query TextForReadingEnv($workId: ID!, $loc: [Int]) {
 		work_by_id(id: $workId) {
 			id
 			slug
@@ -365,10 +365,10 @@ const withData = graphql(gql`
 		}
 	}
 `, {
-  options: ({ match }) => {
-		const workId = match.params.id;
-		const loc = match.params.loc ?
-								match.params.loc.split('.')
+  options: ({ match: { params } }) => {
+		const workId = params.id;
+		const loc = params.loc ?
+								params.loc.split('.')
 								: null ;
 		return {
 	    variables: {
@@ -379,8 +379,7 @@ const withData = graphql(gql`
 	},
   props: ({ data }) => {
 		return {
-			textNodes: data.textNodesByWork,
-			work: data.workById,
+			work: data.work_by_id,
 			textLocationPrev: data.textLocationPrev,
 			textLocationNext: data.textLocationNext,
 		};

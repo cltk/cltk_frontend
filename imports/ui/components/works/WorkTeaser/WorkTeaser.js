@@ -87,16 +87,16 @@ class WorkTeaser extends React.Component {
 						className="work-teaser-author"
 					>
 
-						{/*<h4>
-							{author.english_name}
-							{author.original_name ?
+						<h4>
+							{work.author.name}
+							{work.author.original_name ?
 								<span className="work-teaser-author-original-name">
-									({author.original_name})
+									({work.author.original_name})
 								</span>
 								:
 								''
 							}
-						</h4>*/}
+						</h4>
 					</a>
 				</div>
 
