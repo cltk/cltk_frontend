@@ -1,13 +1,15 @@
 import React from 'react';
 // import Annotatable from 'draft-js-annotations';
 import PropTypes from 'prop-types';
-import FlatButton from 'material-ui/FlatButton';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import LoadingWell from '/imports/ui/components/spinkit/LoadingWell';
 import ReadingTextNode from '/imports/ui/components/reading/ReadingTextNode';
 import ReadingWorkHeader from '/imports/ui/components/reading/ReadingWorkHeader';
+
+import ReadingEnvironmentPrevButton from '../ReadingEnvironmentPrevButton';
+import ReadingEnvironmentNextButton from '../ReadingEnvironmentNextButton';
 
 class ReadingEnvironment extends React.Component {
 
@@ -45,39 +47,29 @@ class ReadingEnvironment extends React.Component {
 	}
 
 	render() {
-		const { work, textLocationPrev, textLocationNext } = this.props;
+		const { work } = this.props;
 		const form = work.form || 'prose';
 		const textNodes = work.text_nodes;
 
 		return (
 			<div className={`reading-container reading-container--${form}`}>
 				<ReadingWorkHeader
-					work={work}
+					author={work.author}
+					englishTitle={work.english_title}
+					originalTitle={work.original_title}
 				/>
 
 				{textNodes && textNodes.length ?
 					<div>
-						{textLocationPrev && textLocationPrev.length ?
-							<div className="reading-load-more reading-load-more--before">
-								<FlatButton
-									className={`load-more ${this.state.isLoading ? 'load-more--loading' : ''}`}
-									onClick={this.props.loadMore.bind(this, 'previous')}
-									label={this.state.isLoading ? 'Loading . . .' : 'Previous'}
-								/>
-							</div>
-						: '' }
+						<ReadingEnvironmentPrevButton
+							locationPrev={work.textLocationPrev}
+						/>
 						<div className="reading-text-outer">
 							{this.renderText()}
 						</div>
-						{textLocationNext && textLocationNext.length ?
-							<div className="reading-load-more reading-load-more--after">
-								<FlatButton
-									className={`load-more ${this.state.isLoading ? 'load-more--loading' : ''}`}
-									onClick={this.props.loadMore.bind(this, 'next')}
-									label={this.state.isLoading ? 'Loading . . .' : 'Next'}
-								/>
-							</div>
-						: '' }
+						<ReadingEnvironmentNextButton
+							locationNext={work.textLocationNext}
+						/>
 					</div>
 				:
 					<LoadingWell />
@@ -92,11 +84,8 @@ ReadingEnvironment.propTypes = {
 	work: PropTypes.object.isRequired,
 	textNodes: PropTypes.array.isRequired,
 	loadMore: PropTypes.func.isRequired,
-	calculateTextNodeDepths: PropTypes.func.isRequired,
 	highlightId: PropTypes.string,
 	toggleReadingMeta: PropTypes.func,
-	isTextAfter: PropTypes.bool,
-	isTextBefore: PropTypes.bool,
 	isLoading: PropTypes.bool,
 	showLoginModal: PropTypes.func,
 	showSignupModal: PropTypes.func,

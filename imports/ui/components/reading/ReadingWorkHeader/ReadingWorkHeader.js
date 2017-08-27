@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 class ReadingWorkHeader extends React.Component {
 
 	render() {
-		const { work } = this.props;
+		const { author, englishTitle, originalTitle } = this.props;
 
 		return (
 			<section className="page-head fullscreen image-bg ">
@@ -20,28 +20,27 @@ class ReadingWorkHeader extends React.Component {
 						<div className="col-sm-10 col-sm-offset-1 text-center">
 							<div className="work-authors">
 								<a
-									href={`/authors/${work.author}`}
+									href={`/authors/${author.id}/${author.slug}`}
 									className="work-author"
 								>
 									<h4>
-										{work.author}
-										{/*
-										{work.author}
+										{author.name}
+										{author.original_name ?
 										<span className="work-author-original-name">
 											({author.original_name})
 										</span>
-										*/}
+										: ''}
 									</h4>
 								</a>
 							</div>
 
 							<div className="work-title-outer">
 								<h1 className="work-title">
-									{work.english_title}
+									{englishTitle}
 								</h1>
-								{work.original_title ?
+								{originalTitle ?
 									<span className="work-original-title">
-										{work.original_title}
+										{originalTitle}
 									</span>
 									:
 									''
@@ -56,7 +55,9 @@ class ReadingWorkHeader extends React.Component {
 }
 
 ReadingWorkHeader.propTypes = {
-	work: PropTypes.object.isRequired,
+	author: PropTypes.object.isRequired,
+	englishTitle: PropTypes.string.isRequired,
+	originalTitle: PropTypes.string.isRequired,
 };
 
 export default ReadingWorkHeader;
