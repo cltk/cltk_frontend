@@ -1,4 +1,5 @@
 import React from 'react';
+// import Annotatable from 'draft-js-annotations';
 import PropTypes from 'prop-types';
 import FlatButton from 'material-ui/FlatButton';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
@@ -22,7 +23,7 @@ class ReadingEnvironment extends React.Component {
 	}
 
 	renderText() {
-		const textNodes = this.props.work.text_nodes_by_location;
+		const textNodes = this.props.work.text_nodes;
 
 		return textNodes.map((textNode) => {
 			let showNumber = false;
@@ -46,7 +47,7 @@ class ReadingEnvironment extends React.Component {
 	render() {
 		const { work, textLocationPrev, textLocationNext } = this.props;
 		const form = work.form || 'prose';
-		const textNodes = work.text_nodes_by_location;
+		const textNodes = work.text_nodes;
 
 		return (
 			<div className={`reading-container reading-container--${form}`}>

@@ -1,7 +1,7 @@
 {
 	"environment": "dev",
 	"public": {
-		"textServerURI": "http://textserver.orphe.us/graphql",
+		"textServerURI": "http://localhost:9292/graphql",
 		"ga": {
 			"id": "UA-XXXXXXXX-1"
 		}

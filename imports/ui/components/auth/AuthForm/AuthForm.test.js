@@ -2,13 +2,13 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 
 // component:
-import ModalSignup from './ModalSignup';
+import AuthForm from './AuthForm';
 
-describe('ModalSignup', () => {
+describe('AuthForm', () => {
 	it('renders correctly', () => {
 
 		const tree = renderer
-			.create(<ModalSignup />)
+			.create(<AuthForm />)
 			.toJSON();
 		expect(tree).toMatchSnapshot();
 	});

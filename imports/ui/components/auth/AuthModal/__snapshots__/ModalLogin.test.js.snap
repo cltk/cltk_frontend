@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ModalLogin renders correctly 1`] = `
+exports[`AuthModal renders correctly 1`] = `
 <div>
   <div
     className="cltk-modal-login

@@ -48,7 +48,7 @@ class ReadingLayout extends React.Component {
 			limit: 30,
 			annotationCheckList: [],
 			searchModalVisible: false,
-			modalLoginLowered: false,
+			AuthModalLowered: false,
 			modalSignupLowered: false,
 			location,
 			textNodesDepths: [],
@@ -204,7 +204,7 @@ class ReadingLayout extends React.Component {
 
 	showLoginModal() {
 		this.setState({
-			modalLoginLowered: true,
+			AuthModalLowered: true,
 		});
 	}
 
@@ -216,7 +216,7 @@ class ReadingLayout extends React.Component {
 
 	closeLoginModal() {
 		this.setState({
-			modalLoginLowered: false,
+			AuthModalLowered: false,
 		});
 	}
 
@@ -333,9 +333,9 @@ class ReadingLayout extends React.Component {
 						</div>
 					</div>
 				}
-				{this.state.modalLoginLowered ?
-					<ModalLogin
-						lowered={this.state.modalLoginLowered}
+				{this.state.AuthModalLowered ?
+					<AuthModal
+						lowered={this.state.AuthModalLowered}
 						closeModal={this.closeLoginModal}
 					/>
 					: ''
@@ -359,7 +359,7 @@ const withData = graphql(gql`
 			slug
 			original_title
 			english_title
-			text_nodes_by_location(location: $loc) {
+			text_nodes(location: $loc) {
 				id
 				index
 				location
