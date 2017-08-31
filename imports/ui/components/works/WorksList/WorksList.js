@@ -99,7 +99,7 @@ export default createContainer(props => {
 
 	if (limit) {
 		works = works.splice(0, limit);
-	}
+  }
 
 	return {
 		works,

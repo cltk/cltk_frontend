@@ -10,9 +10,10 @@ import {
 import { mount } from 'react-mounter';
 
 import AboutPage from '/imports/ui/components/pages/AboutPage';
+import Authentication from '/imports/ui/components/auth/Authentication';
+import AuthModal from '/imports/ui/components/auth/AuthModal';
 import BrowsePage from '/imports/ui/components/browse/BrowsePage';
 import HomeLayout from '/imports/ui/layouts/HomeLayout';
-import AuthModal from '/imports/ui/components/auth/AuthModal';
 import NotFound from '/imports/ui/layouts/NotFound';
 import PrivateRoute from '/imports/ui/components/auth/PrivateRoute';
 import ReadingLayout from '/imports/ui/layouts/ReadingLayout';
@@ -36,6 +37,7 @@ const App = () => (
 			<Switch>
 				<Route exact path="/" component={HomeLayout} />
 				<Route path="/works/:id/:slug/:loc?" component={ReadingLayout} />
+        <Route path="/auth/:provider" component={Authentication} />
 				<Route path="/browse" component={BrowsePage} />
 				<Route path="/about" component={AboutPage} />
 				<Route path="/terms" component={TermsPage} />
