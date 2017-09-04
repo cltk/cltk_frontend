@@ -20,12 +20,12 @@ export default class AuthModal extends React.Component {
       goBack: PropTypes.func.isRequired,
       length: PropTypes.number.isRequired,
     }).isRequired,
-  	lowered: PropTypes.bool,
-  	closeModal: PropTypes.func,
+    lowered: PropTypes.bool,
+    closeModal: PropTypes.func,
   }
 
   static childContextTypes = {
-  	muiTheme: PropTypes.object.isRequired,
+    muiTheme: PropTypes.object.isRequired,
   }
 
   static defaultProps = {
@@ -43,15 +43,12 @@ export default class AuthModal extends React.Component {
     this.handleClose = this.handleClose.bind(this)
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
-    this.handleLoginFacebook = this.handleLoginFacebook.bind(this)
-    this.handleLoginGoogle = this.handleLoginGoogle.bind(this)
-    this.handleLoginTwitter = this.handleLoginTwitter.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-	getChildContext() {
-		return { muiTheme: getMuiTheme(baseTheme) };
-	}
+  getChildContext() {
+    return { muiTheme: getMuiTheme(baseTheme) };
+  }
 
   componentWillMount() {
     document.addEventListener('keydown', this.handleKeyDown)
@@ -91,42 +88,6 @@ export default class AuthModal extends React.Component {
       if (err) {
         return this.setState({
           errorMessage: err.message
-        })
-      }
-
-      this.props.closeModal()
-    })
-  }
-
-  handleLoginFacebook() {
-    Meteor.loginWithFacebook({}, err => {
-      if (err) {
-        return this.setState({
-          errorSocial: `Error with signing in with Facebook: ${err.message}`
-        })
-      }
-
-      this.props.closeModal()
-    })
-  }
-
-  handleLoginGoogle() {
-    Meteor.loginWithGoogle({}, err => {
-      if (err) {
-        return this.setState({
-          errorSocial: `Error with signing in with Google: ${err.message}`
-        })
-      }
-
-      this.props.closeModal()
-    })
-  }
-
-  handleLoginTwitter() {
-    Meteor.loginWithTwitter({}, err => {
-      if (err) {
-        return this.setState({
-          errorSocial: `Error wigning in with Twitter ${err.message}`
         })
       }
 
@@ -174,7 +135,7 @@ export default class AuthModal extends React.Component {
     })
   }
 
-	render() {
+  render() {
     if (!Meteor.userId()) {
       const { authAction, lowered } = this.props
       const className = classnames('cltk-modal cltk-login-signup', {
@@ -232,11 +193,7 @@ export default class AuthModal extends React.Component {
                 {this.state.errorSocial}
               </span>
 
-              <OAuthButtons
-                handleFacebook={this.handleLoginFacebook}
-                handleGoogle={this.handleLoginGoogle}
-                handleTwitter={this.handleLoginTwitter}
-              />
+              <OAuthButtons />
 
               <div className="at-sep">
                 <strong>OR</strong>
@@ -265,5 +222,5 @@ export default class AuthModal extends React.Component {
     }
 
     return null
-	}
+  }
 }

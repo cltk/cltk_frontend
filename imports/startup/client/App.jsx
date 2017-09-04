@@ -10,9 +10,10 @@ import {
 import { mount } from 'react-mounter';
 
 import AboutPage from '/imports/ui/components/pages/AboutPage';
+import Authentication from '/imports/ui/components/auth/Authentication';
+import AuthModal from '/imports/ui/components/auth/AuthModal';
 import BrowsePage from '/imports/ui/components/browse/BrowsePage';
 import HomeLayout from '/imports/ui/layouts/HomeLayout';
-import AuthModal from '/imports/ui/components/auth/AuthModal';
 import NotFound from '/imports/ui/layouts/NotFound';
 import PrivateRoute from '/imports/ui/components/auth/PrivateRoute';
 import ReadingLayout from '/imports/ui/layouts/ReadingLayout';
@@ -31,21 +32,22 @@ const initialState = {}
 
 
 const App = () => (
-	<ApolloProvider client={client} store={store}>
-		<Router>
-			<Switch>
-				<Route exact path="/" component={HomeLayout} />
-				<Route path="/works/:id/:slug/:loc?" component={ReadingLayout} />
-				<Route path="/browse" component={BrowsePage} />
-				<Route path="/about" component={AboutPage} />
-				<Route path="/terms" component={TermsPage} />
-				<PrivateRoute path="/profile" component={UserLayout} />
-				<Route path="/sign-in" render={props => (<AuthModal {...props} authAction="login" history={props.history} lowered />)} />
-				<Route path="/sign-up" render={props => (<AuthModal {...props} authAction="signup" history={props.history} lowered />)} />
-				<Route component={NotFound} />
-			</Switch>
-		</Router>
-	</ApolloProvider>
+  <ApolloProvider client={client} store={store}>
+    <Router>
+      <Switch>
+	<Route exact path="/" component={HomeLayout} />
+	<Route path="/works/:id/:slug/:loc?" component={ReadingLayout} />
+        <Route path="/auth/:provider" component={Authentication} />
+	<Route path="/browse" component={BrowsePage} />
+	<Route path="/about" component={AboutPage} />
+	<Route path="/terms" component={TermsPage} />
+	<PrivateRoute path="/profile" component={UserLayout} />
+	<Route path="/sign-in" render={props => (<AuthModal {...props} authAction="login" history={props.history} lowered />)} />
+        <Route path="/sign-up" render={props => (<AuthModal {...props} authAction="signup" history={props.history} lowered />)} />
+        <Route component={NotFound} />
+      </Switch>
+    </Router>
+  </ApolloProvider>
 );
 
 export default App;

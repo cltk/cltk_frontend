@@ -45,13 +45,16 @@ class WorkTeaser extends React.Component {
 
 	render() {
 		const work = this.props.work;
-		const workUrl = `/works/${work.id}/${work.slug}`;
+		const workUrl = `/works/${work.slug}`;
 
 		let isInShelf = this.props.isInShelf;
 
 		if (this.state.isInShelf) {
 			isInShelf = this.state.isInShelf;
-		}
+    }
+
+    // FIXME: MongoDB returns an `authors` array
+    work.author = work.authors[0] || {}
 
 		return (
 			<Card

@@ -1,6 +1,7 @@
 {
 	"environment": "dev",
 	"public": {
+    "apiURI": "http://localhost:9292",
 		"textServerURI": "http://localhost:9292/graphql",
 		"ga": {
 			"id": "UA-XXXXXXXX-1"
