@@ -130,6 +130,7 @@ class HeaderReading extends React.Component {
 
 							<div className="navbar-collapse collapse module-group right">
 
+								{/*
 								<div className="module left">
 									<ul className="menu ">
 										<li
@@ -208,11 +209,12 @@ class HeaderReading extends React.Component {
 												onClick={this.toggleSidePanel.bind(this, 'show-more')}
 												icon={<span className="mdi mdi-dots-horizontal" />}
 											/>
-										</li> */}
+										</li>
 
 									</ul>
 
 								</div>
+								 */}
 
 								{this.props.showSearchModal ?
 									<div className="module search-module widget-handle left">
