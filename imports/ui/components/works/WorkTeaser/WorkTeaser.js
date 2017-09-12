@@ -69,7 +69,7 @@ class WorkTeaser extends React.Component {
 
 					<div className="card-meta-items">
 						<span className="card-meta card-meta-left-language">
-							{work.language}
+							{work.language.title}
 						</span>
 						{work.date ?
 							<span className="card-meta card-meta-left-date">
@@ -126,28 +126,7 @@ class WorkTeaser extends React.Component {
 					<span className="card-meta meta-count-annotations">
 						{work.countAnnotations} Annotations
 					</span>
-
 				</div>
-
-
-				{/* <Divider />
-				<CardActions>
-				<a href="#">
-				<IconButton tooltip="Comment">
-				<CommunicationComment />
-				</IconButton>
-				</a>
-				<a href="#">
-				<IconButton tooltip="Favorite">
-				<ActionFavoriteBorder />
-				</IconButton>
-				</a>
-				<a href="#">
-				<IconButton tooltip="Other Formats">
-				<ActionInput />
-				</IconButton>
-				</a>
-				</CardActions>*/}
 			</Card>
 		);
 	}

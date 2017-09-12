@@ -274,6 +274,9 @@ const withData = graphql(gql`{
 		english_title
 		original_title
 		slug
+		language {
+			title
+		}
 		author {
 			id
 			name
