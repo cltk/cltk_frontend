@@ -71,10 +71,6 @@ export default class HomeLayout extends React.Component {
 					<HomeIntro
 						showSearchModal={this.showSearchModal}
 					/>
-					{/* !(this.state.searchModalVisible) ?
-						<HomeGetStarted />
-						()
-					: '' */}
 					<HomeFeatures />
 					<HomeBuild />
 					<Footer />

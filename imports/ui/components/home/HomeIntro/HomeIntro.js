@@ -1,19 +1,15 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
-
-function scrollDown() {
-	$('html, body').animate({ scrollTop: $('#get-started').offset().top - 100 }, 300);
-}
+import BackgroundImageHolder from '/imports/ui/components/pages/BackgroundImageHolder';
 
 export default function HomeIntro(props) {
 	return (
 		<section id="intro" className="cover fullscreen image-bg bg-dark ">
 
-			<div className="background-image-holder less-blur blur">
-				<img src="/images/column.jpg" role="presentation" />
-			</div>
-			<div className="background-screen light" />
+			<BackgroundImageHolder
+				imgSrc="/images/column.jpg"
+			/>
+			<div className="background-screen cyan" />
 
 			<div className="container v-align-transform header-container">
 				<div className="row">

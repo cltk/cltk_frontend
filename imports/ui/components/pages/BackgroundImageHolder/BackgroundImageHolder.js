@@ -13,7 +13,7 @@ function backgroundImages () {
 	// Fade in background images
 	setTimeout(() => {
 		$('.remove-blur').removeClass('blur');
-		$('.remove-blur').removeClass('blur-10').addClass('blur');
+		$('.remove-blur').removeClass('blur-10');
 	}, 300);
 }
 
@@ -34,11 +34,10 @@ class BackgroundImageHolder extends React.Component {
 				<div className="background-image-holder blur-2--no-remove blur-10 remove-blur">
 					<img
 						className="background-image"
-						alt="A Homer Commentary in Progress - Commentator"
+						alt="CLTK Archive"
 						src={this.props.imgSrc}
 					/>
 				</div>
-				<div className="block-screen brown" />
 			</div>);
 	}
 }

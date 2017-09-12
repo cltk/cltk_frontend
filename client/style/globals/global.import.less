@@ -14,7 +14,6 @@ body {
 
 h1,h2,h3,h4,h5 {
   font-family:@font-title;
-
 }
 
 p {
@@ -76,6 +75,48 @@ ul.menu.icon-menu {
 .blur, .less-blur, .more-blur {
   transition:all 800ms ease-out !important;
 }
+
+.background-image-holder {
+	.transition(all 300ms ease-out);
+
+	&.blur-10, &.blur-10--no-remove {
+		filter: blur(8px) sepia(30%) brightness(0.7); /* Someday, sigh ... */
+		-webkit-filter: blur(8px) sepia(30%) brightness(0.7); /* Prefixed CSS3 blur filters */
+		-moz-filter: blur(8px);
+		-o-filter: blur(8px);
+		-ms-filter: blur(8px);
+		filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='8'); /* IE lte 9 */
+	}
+	&.blur-4, &.blur-4--no-remove {
+		filter: blur(4px) sepia(30%) brightness(0.7); /* Someday, sigh ... */
+	-webkit-filter: blur(4px) sepia(30%) brightness(0.7); /* Prefixed CSS3 blur filters */
+	-moz-filter: blur(4px);
+	-o-filter: blur(4px);
+	-ms-filter: blur(4px);
+	filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='4'); /* IE lte 9 */
+	}
+	&.blur-2, &.blur-2--no-remove {
+		filter: blur(2px) sepia(30%) brightness(0.7); /* Someday, sigh ... */
+		-webkit-filter: blur(2px) sepia(30%) brightness(0.7); /* Prefixed CSS3 blur filters */
+		-moz-filter: blur(2px);
+		-o-filter: blur(2px);
+		-ms-filter: blur(2px);
+		filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='2'); /* IE lte 9 */
+
+	}
+	&.blur-1, &.blur-1--no-remove {
+		filter: blur(1px) sepia(30%) brightness(0.7); /* Someday, sigh ... */
+		-webkit-filter: blur(1px) sepia(30%) brightness(0.7); /* Prefixed CSS3 blur filters */
+		-moz-filter: blur(1px);
+		-o-filter: blur(1px);
+		-ms-filter: blur(1px);
+		filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='1'); /* IE lte 9 */
+
+	}
+
+}
+
+
 section.parallax > .background-image-holder.blur {
   transition:all 800ms ease-out !important;
 
@@ -178,11 +219,15 @@ section.parallax > .background-image-holder.blur {
 
 .background-screen.light {
 
-  background: -moz-linear-gradient(top,  rgba(0, 96, 100, 0.6) 0%, rgba(0, 96, 100, 0.4) 20%, rgba(0, 96, 100, 0.4) 80%, rgba(0, 96, 100, 0.6) 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top,  rgba(0, 96, 100, 0.6) 0%,rgba(0, 96, 100, 0.4) 20%, rgba(0, 96, 100, 0.4) 80%, rgba(0, 96, 100, 0.6) 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom,  rgba(0, 96, 100, 0.6) 0%, rgba(0, 96, 100, 0.4) 20%, rgba(0, 96, 100, 0.4) 80%, rgba(0, 96, 100, 0.6) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  background: -moz-linear-gradient(top,  rgba(0, 96, 100, 0.2) 0%, rgba(0, 96, 100, 0.1) 20%, rgba(0, 96, 100, 0.1) 80%, rgba(0, 96, 100, 0.2) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  rgba(0, 96, 100, 0.2) 0%,rgba(0, 96, 100, 0.1) 20%, rgba(0, 96, 100, 0.1) 80%, rgba(0, 96, 100, 0.2) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  rgba(0, 96, 100, 0.2) 0%, rgba(0, 96, 100, 0.1) 20%, rgba(0, 96, 100, 0.1) 80%, rgba(0, 96, 100, 0.2) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#005f63', endColorstr='#005f63',GradientType=0 ); /* IE6-9 */
 
+}
+
+.background-screen.cyan {
+	background: rgba(0, 96, 100, 0.7);
 }
 
 .background-screen.reading-page-background-screen {

@@ -726,7 +726,7 @@ exports[`NotFound renders correctly 1`] = `
           className="background-image-holder blur-2--no-remove blur-10 remove-blur"
         >
           <img
-            alt="A Homer Commentary in Progress - Commentator"
+            alt="CLTK Archive"
             className="background-image"
             src="/images/aeneid-demo-image-2.jpg"
           />
