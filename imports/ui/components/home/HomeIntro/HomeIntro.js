@@ -28,30 +28,16 @@ export default function HomeIntro(props) {
 							readOnly
 							onClick={props.showSearchModal}
 							onTouchTap={props.showSearchModal}
-	/>
-
+						/>
 						<h6 className="uppercase mb16">
 							Read and research works in Chinese, Coptic,
 							Greek, Hebrew, Latin, Pali, Punjabi, Sanskrit,
 							<br />
 							Telugu, and Tibetan and contribute annotations to the community.
 						</h6>
-
-						<a
-							className="waves-effect waves-light btn-large"
-							href="#get-started"
-							aria-label="Learn More"
-							onClick={scrollDown}
-						>
-							Learn More
-						</a>
-
 					</div>
-
 				</div>
-
 			</div>
-
 		</section>
 
 	);
