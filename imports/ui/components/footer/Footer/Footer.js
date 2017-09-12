@@ -90,7 +90,7 @@ export default class Footer extends React.Component {
 								</li>
 							</ul>
 							<span className="copyright-information fade-1-4">
-								Copyright Classical Languages ToolKit, {year}.  All of the media presented
+								Copyright Classical Language ToolKit, {year}.  All of the media presented
 								on this site originating from the CLTK are available through the Creative Commons Attribution 4.0 International, Free Culture License. Media originating from other sources are specific to the contributor. Review specific corpora information here: <a href="https://github.com/cltk" target="_blank">https://github.com/cltk</a>.
 							</span>
 

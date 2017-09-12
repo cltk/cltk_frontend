@@ -595,7 +595,7 @@ exports[`Footer renders correctly 1`] = `
         <span
           className="copyright-information fade-1-4"
         >
-          Copyright Classical Languages ToolKit, 
+          Copyright Classical Language ToolKit, 
           2017
           .  All of the media presented on this site originating from the CLTK are available through the Creative Commons Attribution 4.0 International, Free Culture License. Media originating from other sources are specific to the contributor. Review specific corpora information here: 
           <a
