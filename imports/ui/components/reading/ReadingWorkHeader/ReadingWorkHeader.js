@@ -19,8 +19,8 @@ class ReadingWorkHeader extends React.Component {
 					<div className="row">
 						<div className="col-sm-10 col-sm-offset-1 text-center">
 							<div className="work-authors">
-								<a
-									href={`/authors/${author.id}/${author.slug}`}
+								<span
+									// href={`/authors/${author.id}/${author.slug}`}
 									className="work-author"
 								>
 									<h4>
@@ -31,7 +31,7 @@ class ReadingWorkHeader extends React.Component {
 										</span>
 										: ''}
 									</h4>
-								</a>
+								</span>
 							</div>
 
 							<div className="work-title-outer">

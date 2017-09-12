@@ -94,11 +94,16 @@ class HeaderReading extends React.Component {
 										<div
 											className="reading-location-param reading-location-param--author"
 										>
+											<span>
+												{author.name},
+											</span>
+											{/*
 											<a
 												href={`/authors/${author.id}/${author.slug}`}
 											>
 												{author.name},
 											</a>
+											*/}
 										</div>
 										<a
 											className="reading-location-param reading-location-param--work"

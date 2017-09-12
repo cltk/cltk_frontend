@@ -16,15 +16,33 @@ header .navigation-primary .reading-location {
 	vertical-align: top;
 	height:60px;
 	white-space: nowrap;
-	padding:20px 2px 0;
+	padding:20px 2px 2px;
 	color:@text-color;
+	cusor: pointer;
 
+	&:hover {
+		color: #000;
+		> span {
+			border-bottom: 2px solid @md-primary-400;
+		}
+	}
+
+	> span {
+		border-bottom: 2px solid #eee;
+	  .transition(border-bottom 100ms ease-out);
+	}
 }
 
 .reading-location-param--author {
 	padding:0;
+	&:hover {
+		color: #000;
+		> span {
+			border-bottom: none;
+		}
+	}
 
-	a {
+	span {
 		height:60px;
 		display:inline-block;
 		vertical-align: top;
@@ -32,10 +50,9 @@ header .navigation-primary .reading-location {
 		padding:20px 2px 0;
 		color:@text-color;
 		font-weight:100;
-
-		&:hover {
-			color:@md-primary-dark;
-		}
+		cusor: default;
+		text-decoration: none;
+		border-bottom: none;
 	}
 }
 
