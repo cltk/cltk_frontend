@@ -36,6 +36,12 @@ class LeftMenu extends React.Component {
 			userIsAdmin = Roles.userIsInRole(this.props.currentUser._id, ['admin']);
 		}
 
+		const styles = {
+			menuItem: {
+				fontSize: '14px',
+				padding: '5px 10px',
+			},
+		};
 
 		return (
 			<div>
@@ -77,21 +83,25 @@ class LeftMenu extends React.Component {
 					<MenuItem
 						href="/"
 						primaryText="Home"
+						style={styles.menuItem}
 						onClick={this.props.closeLeftMenu}
 					/>
 					<MenuItem
 						href="/browse"
 						primaryText="Browse"
+						style={styles.menuItem}
 						onClick={this.props.closeLeftMenu}
 					/>
 					<MenuItem
 						href="/about"
 						primaryText="About"
+						style={styles.menuItem}
 						onClick={this.props.closeLeftMenu}
 					/>
 					<MenuItem
 						href="//cltk.org"
 						primaryText="CLTK.org"
+						style={styles.menuItem}
 						onClick={this.props.closeLeftMenu}
 						target="_blank"
 						rel="noopener noreferrer"
@@ -99,6 +109,7 @@ class LeftMenu extends React.Component {
 					<MenuItem
 						href="//github.com/cltk"
 						primaryText="GitHub"
+						style={styles.menuItem}
 						onClick={this.props.closeLeftMenu}
 						target="_blank"
 						rel="noopener noreferrer"
@@ -112,12 +123,14 @@ class LeftMenu extends React.Component {
 								href="/profile"
 								primaryText="Profile"
 								rel="noopener noreferrer"
+								style={styles.menuItem}
 								onClick={this.props.closeLeftMenu}
 							/>
 							<MenuItem
 								href="/sign-out"
 								primaryText="Sign out"
 								rel="noopener noreferrer"
+								style={styles.menuItem}
 								onClick={this.props.closeLeftMenu}
 							/>
 						</div>
@@ -126,6 +139,7 @@ class LeftMenu extends React.Component {
 							href="/sign-in"
 							primaryText="Sign in"
 							rel="noopener noreferrer"
+							style={styles.menuItem}
 							onClick={this.props.closeLeftMenu}
 						/>
 					}

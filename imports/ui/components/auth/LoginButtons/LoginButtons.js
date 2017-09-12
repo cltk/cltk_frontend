@@ -73,7 +73,7 @@ class LoginButtons extends React.Component {
 			return (
 				<div>
 					<FlatButton
-						label={`Hi ${userNiceName}`}
+						label={userNiceName}
 						style={styles.flatButton}
 						href="#"
 						onTouchTap={this.handleClick}
@@ -112,7 +112,7 @@ class LoginButtons extends React.Component {
           <FlatButton
             label="Sign Up"
             style={styles.flatButton}
-            className="account-button account-button-login"
+            className="account-button account-button-signup"
           />
         </Link>
 			</div>

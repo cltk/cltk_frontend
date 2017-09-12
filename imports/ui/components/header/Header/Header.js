@@ -80,6 +80,8 @@ export default class Header extends React.Component {
 				width: 'auto',
 				minWidth: 'none',
 				height: '55px',
+				verticalAlign: 'top',
+				fontSize: '20px',
 			},
 		};
 
@@ -120,14 +122,7 @@ export default class Header extends React.Component {
 										</li>
 										<li>
 											<FlatButton
-												style={styles.flatButton}
-												label="BROWSE"
-												href="/browse"
-											/>
-										</li>
-
-										<li>
-											<FlatButton
+												className="header-button"
 												style={styles.flatButton}
 												label="ABOUT"
 												href="/about"
@@ -135,6 +130,7 @@ export default class Header extends React.Component {
 										</li>
 										<li>
 											<FlatButton
+												className="header-button"
 												style={styles.flatButton}
 												label="UPDATES"
 												href="//cltk.org/blog"
@@ -151,6 +147,7 @@ export default class Header extends React.Component {
 									<ul className="menu icon-menu">
 										<li>
 											<FlatButton
+												className="header-button header-icon-button"
 												style={styles.flatIconButton}
 												href="//github.com/cltk"
 												icon={<FontIcon className="mdi mdi-github-circle" />}
@@ -166,6 +163,7 @@ export default class Header extends React.Component {
 										<ul className="menu icon-menu">
 											<li>
 												<FlatButton
+													className="header-button header-icon-button"
 													style={styles.flatIconButton}
 													href="#"
 													onClick={this.props.showSearchModal}
