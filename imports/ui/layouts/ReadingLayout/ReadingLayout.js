@@ -336,9 +336,11 @@ const withData = graphql(gql`
 								params.loc.split('.')
 								: null ;
 
-		loc.forEach((n, i) => {
-			loc[i] = parseInt(n, 10);
-		});
+		if (loc) {
+			loc.forEach((n, i) => {
+				loc[i] = parseInt(n, 10);
+			});
+		}
 
 		return {
 	    variables: {
