@@ -75,7 +75,6 @@ export default class AuthModal extends React.Component {
   }
 
   handleSubmit(values) {
-    console.log(values)
     if (this.props.authAction === 'login') {
       return this.handleLogin(values.email, values.password)
     }
@@ -106,8 +105,8 @@ export default class AuthModal extends React.Component {
     const checkPassword = Accounts._hashPassword(password)
 
     Meteor.call('createAccount', { email, checkPassword }, (err, result) => {
-      console.log(err, result)
       if (err) {
+	      console.error(err);
         return this.setState({
           errorMessage: err.message,
         })

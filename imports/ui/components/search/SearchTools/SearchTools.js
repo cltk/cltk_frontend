@@ -96,6 +96,7 @@ class SearchTools extends React.Component {
 					/>
 				</div>
 
+				{/*
 				<div className="dropdown-search-row">
 
 					<div
@@ -259,8 +260,8 @@ class SearchTools extends React.Component {
 						</ul>
 
 					</div>
-
 				</div>
+				*/}
 			</div>
 		);
 	}

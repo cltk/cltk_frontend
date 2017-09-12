@@ -40,7 +40,6 @@ Meteor.methods({
 			worksAuthorsPromise
 		]).then(([languages, corpora, authorsRaw]) => {
 			languages = languages.sort();
-			console.log(languages);
 			corpora = corpora.sort();
 			authorsRaw = authorsRaw.map(a => a.toString());
 
