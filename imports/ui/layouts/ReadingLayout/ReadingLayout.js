@@ -265,11 +265,13 @@ class ReadingLayout extends React.Component {
 							work={(this.props.work && 'title' in this.props.work) ? this.props.work.title : ''}
 							textNodes={this.props.textNodes}
 						/>
+						{/*
 						<AnnotateWidget
 							annotationCheckList={this.state.annotationCheckList}
 							work={this.props.work || {}}
 							submitAnnotation={this.submitAnnotation}
 						/>
+						*/}
 						<SearchModal
 							changeSearchParams={this.changeSearchParams}
 							closeSearchModal={this.closeSearchModal}
