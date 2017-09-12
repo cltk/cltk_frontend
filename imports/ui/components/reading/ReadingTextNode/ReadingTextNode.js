@@ -185,6 +185,7 @@ class ReadingTextNode extends React.Component{
 					<i className="text-bookmark mdi mdi-bookmark" />
 				</div>
 
+				{/*
 				<TextMetaOptions
 					toggleBookmark={this.toggleBookmark}
 					toggleShowAnnotations={this.toggleShowAnnotations}
@@ -192,6 +193,7 @@ class ReadingTextNode extends React.Component{
 					annotationsCount={0}
 					relatedPassagesCount={0}
 				/>
+				*/}
 
 				<p
 					className="text-html"
@@ -208,13 +210,14 @@ class ReadingTextNode extends React.Component{
 					}
 				</p>
 
+				{/*
 				<div className="text-meta text-entities">
-				{entities.map((entity, i) =>
-					<ReadingEntity
-						key={i}
-						entity={entity}
-					/>
-				)}
+					{entities.map((entity, i) =>
+						<ReadingEntity
+							key={i}
+							entity={entity}
+						/>
+					)}
 				</div>
 
 				<div className="text-meta text-media">
@@ -231,8 +234,6 @@ class ReadingTextNode extends React.Component{
 						className="mdi mdi-close"
 						onClick={this.toggleShowAnnotations}
 					/>
-
-					{/*
 					<div className="text-annotations--create">
 						<Popover
 							open={this.state.annotationOpen}
@@ -278,15 +279,13 @@ class ReadingTextNode extends React.Component{
 							</Card>
 						</Popover>
 					</div>
-					*/}
-					{/*
 					<div className="text-annotations--content">
 						<AnnotationsList
 							text={text}
 						/>
 					</div>
-					*/}
 				</div>
+				*/}
 
 				<div className="text-meta text-related-passages">
 					<i
