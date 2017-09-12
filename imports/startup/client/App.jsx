@@ -10,7 +10,7 @@ import {
 import { mount } from 'react-mounter';
 
 import AboutPage from '/imports/ui/components/pages/AboutPage';
-import Authentication from '/imports/ui/components/auth/Authentication';
+// import Authentication from '/imports/ui/components/auth/Authentication';
 import AuthModal from '/imports/ui/components/auth/AuthModal';
 import BrowsePage from '/imports/ui/components/browse/BrowsePage';
 import HomeLayout from '/imports/ui/layouts/HomeLayout';
@@ -37,7 +37,7 @@ const App = () => (
       <Switch>
 	<Route exact path="/" component={HomeLayout} />
 	<Route path="/works/:id/:slug/:loc?" component={ReadingLayout} />
-        <Route path="/auth/:provider" component={Authentication} />
+  {/*<Route path="/auth/:provider" component={Authentication} />*/}
 	<Route path="/browse" component={BrowsePage} />
 	<Route path="/about" component={AboutPage} />
 	<Route path="/terms" component={TermsPage} />

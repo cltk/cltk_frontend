@@ -25,7 +25,8 @@ class SearchResultsList extends React.Component {
 
 	render() {
 		const masonryOptions = {
-			// columnWidth : "400px",
+			// columnWidth : 400,
+			// itemSelector: '.work-teaser',
 			isFitWidth: true,
 			transitionDuration: 300,
 		};

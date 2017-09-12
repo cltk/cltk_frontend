@@ -53,9 +53,6 @@ class WorkTeaser extends React.Component {
 			isInShelf = this.state.isInShelf;
     }
 
-    // FIXME: MongoDB returns an `authors` array
-    work.author = work.authors[0] || {}
-
 		return (
 			<Card
 				className="work-teaser"
