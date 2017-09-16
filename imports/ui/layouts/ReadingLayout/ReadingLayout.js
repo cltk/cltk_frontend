@@ -235,6 +235,7 @@ class ReadingLayout extends React.Component {
 					<div>
 						<HeaderReading
 							author={this.props.work.author}
+							corpus={this.props.work.corpus}
 							workId={this.props.work.id}
 							workSlug={this.props.work.slug}
 							workForm={this.props.work.form}

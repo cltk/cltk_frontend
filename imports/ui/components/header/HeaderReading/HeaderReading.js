@@ -68,7 +68,7 @@ class HeaderReading extends React.Component {
 
 		};
 
-		const { author, loc, workId, workSlug, workForm, englishTitle } = this.props;
+		const { author, loc, workId, workSlug, workForm, englishTitle, corpus } = this.props;
 		const { leftMenuOpen } = this.state;
 
 		return (
@@ -89,8 +89,15 @@ class HeaderReading extends React.Component {
 									onClick={this.toggleLeftMenu}
 								/>
 
-								{workId && loc ?
+								{workId ?
 									<div className="reading-location">
+										<div
+											className="reading-location-param reading-location-param--corpus"
+										>
+											<span>
+												{corpus.title},
+											</span>
+										</div>
 										<div
 											className="reading-location-param reading-location-param--author"
 										>
@@ -111,16 +118,18 @@ class HeaderReading extends React.Component {
 										>
 											<span>{Utils.trunc(englishTitle, 100)},</span>
 										</a>
-										<a
-											className="reading-location-param reading-location-param--number"
-											href={`/works/${workId}/${workSlug}/${loc}`}
-										>
-											{loc.split('.').map((locN, i) => (
-												<span key={`${locN}-${i}`} >
-													{parseInt(locN, 10) + 1}{((i + 1) === loc.split('.').length) ? '' : '.'}
-												</span>
-											))}
-										</a>
+										{loc &&
+											<a
+												className="reading-location-param reading-location-param--number"
+												href={`/works/${workId}/${workSlug}/${loc}`}
+											>
+												{loc.split('.').map((locN, i) => (
+													<span key={`${locN}-${i}`} >
+														{parseInt(locN, 10) + 1}{((i + 1) === loc.split('.').length) ? '' : '.'}
+													</span>
+												))}
+											</a>
+										}
 									</div>
 									:
 									''
