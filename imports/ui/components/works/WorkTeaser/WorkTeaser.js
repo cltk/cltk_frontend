@@ -78,6 +78,9 @@ class WorkTeaser extends React.Component {
 						:
 							''
 						}
+						<span className="card-meta card-meta-left-corpus">
+							{work.corpus.title}
+						</span>
 					</div>
 				</div>
 
@@ -117,13 +120,13 @@ class WorkTeaser extends React.Component {
 
 				<div className="card-meta-bottom">
 					<span className="card-meta meta-count-commentary">
-						{work.countComments} Comments
+						{work.countComments || 0} Commentary
 					</span>
 					<span className="card-meta meta-count-translations">
-						{work.countTranslations} Translations
+						{work.countTranslations || 0} Translations
 					</span>
 					<span className="card-meta meta-count-annotations">
-						{work.countAnnotations} Annotations
+						{work.countAnnotations || 0} Annotations
 					</span>
 				</div>
 			</Card>
