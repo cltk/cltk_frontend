@@ -6,11 +6,7 @@ import WorkTeaser from '/imports/ui/components/works/WorkTeaser';
 
 class SearchResultsList extends React.Component {
 
-	isLoading = false
-	worksCount = 0
-
 	loadMore() {
-		this.isLoading = true;
 		this.props.loadMore();
 	}
 
@@ -24,6 +20,7 @@ class SearchResultsList extends React.Component {
 	}
 
 	render() {
+		const isLoading = false; // TODO: pass into props
 		const masonryOptions = {
 			// columnWidth : 400,
 			// itemSelector: '.work-teaser',
@@ -32,12 +29,6 @@ class SearchResultsList extends React.Component {
 		};
 
 		const works = this.props.works;
-
-		if (this.worksLength !== works.length) {
-			this.isLoading = false;
-		}
-
-		this.worksLength = works.length;
 
 		return (
 			<div className="works-list search-results-list">
@@ -58,7 +49,7 @@ class SearchResultsList extends React.Component {
 
 				{this.props.hasMoreWorks ?
 					<div>
-					{this.isLoading ?
+					{isLoading ?
 						<LoadingWell />
 					:
 						<a

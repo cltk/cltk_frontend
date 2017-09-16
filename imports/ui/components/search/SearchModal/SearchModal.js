@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, gql } from 'react-apollo';
+import moment from 'moment';
 import autoBind from 'react-autobind';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -28,166 +29,11 @@ class SearchModal extends React.Component {
 		return { muiTheme: getMuiTheme(baseTheme) };
 	}
 
-	loadMoreWorks() {
-		const { offset, limit } = this.props;
-		this.props.changeSearchParams({
-			offset: offset + limit,
-		});
-	}
-
-	toggleSearchTerm(key, value) {
-		const { filters } = this.props;
-		let keyIsInFilter = false;
-		let valueIsInFilter = false;
-		let filterValueToRemove;
-		let filterToRemove;
-
-		filters.forEach((filter, i) => {
-			if (filter.key === key) {
-				keyIsInFilter = true;
-
-				if (
-						key === 'authors'
-						&& filter.values.some((existingValue) =>
-							existingValue._id === value._id
-						)) {
-					valueIsInFilter = true;
-					filterValueToRemove = filter.values.indexOf(value);
-				} else if (filter.values.indexOf(value) >= 0) {
-					valueIsInFilter = true;
-					filterValueToRemove = filter.values.indexOf(value);
-				}
-
-				if (valueIsInFilter) {
-					filter.values.splice(filterValueToRemove, 1);
-					if (filter.values.length === 0) {
-						filterToRemove = i;
-					}
-				} else {
-					filter.values.push(value);
-				}
-			}
-		});
-
-
-		if (typeof filterToRemove !== 'undefined') {
-			filters.splice(filterToRemove, 1);
-		}
-
-		if (!keyIsInFilter) {
-			filters.push({
-				key,
-				values: [value],
-			});
-		}
-
-		this.props.changeSearchParams({
-			filters,
-			offset: 0,
-		});
-	}
-
 	handleChangeTextsearch(textsearch) {
-		const { filters } = this.props;
-
-		if (textsearch && textsearch.length) {
-			let textsearchInFilters = false;
-
-			filters.forEach((filter, i) => {
-				if (filter.key === 'textsearch') {
-					filters[i].values = [textsearch];
-					textsearchInFilters = true;
-				}
-			});
-
-			if (!textsearchInFilters) {
-				filters.push({
-					key: 'textsearch',
-					values: [textsearch],
-				});
-			}
-		} else {
-			let filterToRemove;
-
-			filters.forEach((filter, i) => {
-				if (filter.key === 'textsearch') {
-					filterToRemove = i;
-				}
-			});
-
-			if (typeof filterToRemove !== 'undefined') {
-				filters.splice(filterToRemove, 1);
-			}
-		}
-
-		this.props.changeSearchParams({
-			filters,
+		this.props.handleChangeTextsearch({
+			textsearch,
 			offset: 0,
-		});
-	}
-
-	handleChangeDate(e) {
-		const { filters } = this.props;
-
-		let dateFromInFilters = false;
-
-		filters.forEach((filter, i) => {
-			if (filter.key === 'dateFrom') {
-				filters[i].values = [e.from];
-				dateFromInFilters = true;
-			}
-		});
-
-		if (!dateFromInFilters) {
-			filters.push({
-				key: 'dateFrom',
-				values: [e.from],
-			});
-		} else {
-			let filterToRemove;
-
-			filters.forEach((filter, i) => {
-				if (filter.key === 'dateFrom') {
-					filterToRemove = i;
-				}
-			});
-
-			if (typeof filterToRemove !== 'undefined') {
-				filters.splice(filterToRemove, 1);
-			}
-		}
-
-		let dateToInFilters = false;
-
-		filters.forEach((filter, i) => {
-			if (filter.key === 'dateTo') {
-				filters[i].values = [e.to];
-				dateToInFilters = true;
-			}
-		});
-
-		if (!dateToInFilters) {
-			filters.push({
-				key: 'dateTo',
-				values: [e.to],
-			});
-		} else {
-			let filterToRemove;
-
-			filters.forEach((filter, i) => {
-				if (filter.key === 'dateTo') {
-					filterToRemove = i;
-				}
-			});
-
-			if (typeof filterToRemove !== 'undefined') {
-				filters.splice(filterToRemove, 1);
-			}
-		}
-
-		this.props.changeSearchParams({
-			filters,
-			offset: 0,
+			limit: 21,
 		});
 	}
 
@@ -198,7 +44,6 @@ class SearchModal extends React.Component {
 	}
 
 	closeSearchModal() {
-		this.props.changeSearchParams({ filters: [] });
 		this.props.closeSearchModal();
 	}
 
@@ -235,15 +80,11 @@ class SearchModal extends React.Component {
 							handleChangeDate={this.handleChangeDate}
 							handleChangeTextsearch={this.handleChangeTextsearch}
 						/>
-						<SearchFilters
-							filters={this.props.filters}
-							toggleSearchTerm={this.toggleSearchTerm}
-						/>
 						<section className="search-results">
 							<SearchResultsList
 								works={works}
 								hasMoreWorks={hasMoreWorks}
-								loadMore={this.loadMoreWorks}
+								loadMore={this.props.loadMore}
 							/>
 						</section>
 					</div>
@@ -259,106 +100,58 @@ SearchModal.childContextTypes = {
 };
 
 SearchModal.propTypes = {
-	changeSearchParams: PropTypes.func.isRequired,
+	handleChangeTextsearch: PropTypes.func.isRequired,
 	closeSearchModal: PropTypes.func,
-	filters: PropTypes.array,
+	textsearch: PropTypes.string,
 	limit: PropTypes.number,
 	offset: PropTypes.number,
 	visible: PropTypes.bool,
 	work: PropTypes.object,
 };
 
-const withData = graphql(gql`{
-  works {
-		id
-		english_title
-		original_title
-		slug
-		language {
-			title
-		}
-		author {
+const withData = graphql(gql`
+  query SearchWorksWithTitle($textsearch: String!){
+		search_works_by_title(title: $textsearch) {
 			id
-			name
-		}
-		corpus {
-			id
-			title
+			english_title
+			original_title
 			slug
+			language {
+				title
+			}
+			author {
+				id
+				name
+			}
+			corpus {
+				id
+				title
+				slug
+			}
 		}
-	}
-	corpora {
-		id
-		slug
-		title
-	}
-	languages {
-		id
-		slug
-		title
-	}
-	works_count
-}`, {
-  options: ({ filters, offset, limit } ) => {
-		const query = {};
-
-		// Parse the filters to the query
-		filters.forEach((filter) => {
-			const date = moment(`${filter.values[0]}-01-01`, 'YYYY MM DD');
-			switch (filter.key) {
-			case 'textsearch': {
-				query.textsearch = filter.values[0];
-				break;
-			}
-
-			case 'languages': {
-				query.languages = filter.values;
-				break;
-			}
-
-			case 'corpora': {
-				query.corpora = filter.values;
-				break;
-			}
-
-			case 'authors': {
-				const values = [];
-
-				filter.values.forEach((value) => {
-					values.push(value.id);
-				});
-
-				query.authors = values;
-				break;
-			}
-
-			case 'dateStart': {
-				query.dateBegun = new Date(date.toISOString());
-				break;
-			}
-
-			case 'dateEnd': {
-				query.dateEnded = new Date(date.toISOString());
-				break;
-			}
-
-			default: {
-				// do nothing
-				break;
-			}
-			}
-		});
-
+		corpora {
+			id
+			slug
+			title
+		}
+		languages {
+			id
+			slug
+			title
+		}
+		works_count
+	}`, {
+  options: ({ textsearch, limit, offset }) => {
 		return {
 	    variables: {
-				...query,
+				textsearch,
 				limit,
 				offset,
 			},
 		};
   },
-  props: ({ data: { works, works_count, uniqueCorpora, uniqueLanguages } }) => ({
-		works,
+  props: ({ data: { search_works_by_title, works_count, uniqueCorpora, uniqueLanguages } }) => ({
+		works: search_works_by_title,
 		worksCount: works_count,
 		uniqueCorpora,
 		uniqueLanguages,

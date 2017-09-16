@@ -12,18 +12,16 @@ export default class HomeLayout extends React.Component {
 		super(props);
 
 		this.state = {
-			searchParams: {
-				filters: [],
-				limit: 21,
-				offset: 0,
-			},
-
+			textsearch: '',
+			limit: 21,
+			offset: 0,
 			searchModalVisible: false,
 		};
 
-		this.changeSearchParams = this.changeSearchParams.bind(this);
+		this.handleChangeTextsearch = this.handleChangeTextsearch.bind(this);
 		this.closeSearchModal = this.closeSearchModal.bind(this);
 		this.showSearchModal = this.showSearchModal.bind(this);
+		this.loadMore = this.loadMore.bind(this);
 	}
 
 	componentDidMount() {
@@ -39,10 +37,15 @@ export default class HomeLayout extends React.Component {
 		}
 	}
 
-	changeSearchParams(searchParams) {
+	handleChangeTextsearch(newValue) {
 		this.setState({
-			...this.state.searchParams,
-			...searchParams
+			textsearch: newValue.textsearch,
+		});
+	}
+
+	loadMore() {
+		this.setState({
+			limit: this.state.limit + 21,
 		});
 	}
 
@@ -76,10 +79,13 @@ export default class HomeLayout extends React.Component {
 					<Footer />
 				</div>
 				<SearchModal
-					changeSearchParams={this.changeSearchParams}
+					handleChangeTextsearch={this.handleChangeTextsearch}
 					closeSearchModal={this.closeSearchModal}
 					visible={this.state.searchModalVisible}
-					{...this.state.searchParams}
+					textsearch={this.state.textsearch}
+					loadMore={this.loadMore}
+					limit={this.state.limit}
+					offset={this.state.offset}
 				/>
 			</div>
 		);
