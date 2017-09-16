@@ -52,11 +52,9 @@ class ReadingLayout extends React.Component {
 			modalSignupLowered: false,
 			location,
 			textNodesDepths: [],
-			searchParams: {
-				filters: [],
-				limit: 21,
-				offset: 0,
-			},
+			textsearch: '',
+			limit: 21,
+			offset: 0,
 		};
 
 		autoBind(this);
@@ -146,10 +144,9 @@ class ReadingLayout extends React.Component {
 		});
 	}
 
-	changeSearchParams(searchParams) {
+	handleChangeTextsearch(newValue) {
 		this.setState({
-			...this.state.searchParams,
-			...searchParams
+			textsearch: newValue.textsearch,
 		});
 	}
 
@@ -188,6 +185,12 @@ class ReadingLayout extends React.Component {
 				toggleRelatedPassages: !this.state.toggleRelatedPassages,
 			});
 		}
+	}
+
+	loadMore() {
+		this.setState({
+			limit: this.state.limit + 21,
+		});
 	}
 
 	renderReadingEnvironment() {
@@ -274,10 +277,13 @@ class ReadingLayout extends React.Component {
 						/>
 						*/}
 						<SearchModal
-							changeSearchParams={this.changeSearchParams}
+							handleChangeTextsearch={this.handleChangeTextsearch}
 							closeSearchModal={this.closeSearchModal}
 							visible={this.state.searchModalVisible}
-							{...this.state.searchParams}
+							textsearch={this.state.textsearch}
+							loadMore={this.loadMore}
+							limit={this.state.limit}
+							offset={this.state.offset}
 						/>
 					</div>
 				:
