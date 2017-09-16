@@ -82,8 +82,7 @@ class WorkTeaser extends React.Component {
 				</div>
 
 				<div className="work-teaser-authors">
-					<a
-						href={`/authors/${work.author.id}`}
+					<div
 						className="work-teaser-author"
 					>
 
@@ -97,7 +96,7 @@ class WorkTeaser extends React.Component {
 								''
 							}
 						</h4>
-					</a>
+					</div>
 				</div>
 
 				<a
