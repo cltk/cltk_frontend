@@ -76,8 +76,7 @@ class SearchTools extends React.Component {
 	}
 
 	render() {
-		const self = this;
-		const filters = this.props.filters;
+		const { filters } = this.props;
 
 
 		return (

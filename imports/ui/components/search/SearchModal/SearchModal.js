@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, gql } from 'react-apollo';
+import moment from 'moment';
 import autoBind from 'react-autobind';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -214,6 +215,9 @@ class SearchModal extends React.Component {
 			}
 		}
 
+		console.log(this.props);
+
+
 		return (
 			<div
 				className={`cltk-modal search-modal
@@ -268,39 +272,41 @@ SearchModal.propTypes = {
 	work: PropTypes.object,
 };
 
-const withData = graphql(gql`{
-  works {
-		id
-		english_title
-		original_title
-		slug
-		language {
-			title
-		}
-		author {
+const withData = graphql(gql`
+  query SearchWorksWithTitle($title: String!){
+		search_works_by_title(title: $title) {
 			id
-			name
-		}
-		corpus {
-			id
-			title
+			english_title
+			original_title
 			slug
+			language {
+				title
+			}
+			author {
+				id
+				name
+			}
+			corpus {
+				id
+				title
+				slug
+			}
 		}
-	}
-	corpora {
-		id
-		slug
-		title
-	}
-	languages {
-		id
-		slug
-		title
-	}
-	works_count
-}`, {
+		corpora {
+			id
+			slug
+			title
+		}
+		languages {
+			id
+			slug
+			title
+		}
+		works_count
+	}`, {
   options: ({ filters, offset, limit } ) => {
 		const query = {};
+		const title = '';
 
 		// Parse the filters to the query
 		filters.forEach((filter) => {
@@ -351,14 +357,14 @@ const withData = graphql(gql`{
 
 		return {
 	    variables: {
-				...query,
+				title: query.textsearch,
 				limit,
 				offset,
 			},
 		};
   },
-  props: ({ data: { works, works_count, uniqueCorpora, uniqueLanguages } }) => ({
-		works,
+  props: ({ data: { search_works_by_title, works_count, uniqueCorpora, uniqueLanguages } }) => ({
+		works: search_works_by_title,
 		worksCount: works_count,
 		uniqueCorpora,
 		uniqueLanguages,

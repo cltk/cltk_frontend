@@ -87,12 +87,6 @@ class LeftMenu extends React.Component {
 						onClick={this.props.closeLeftMenu}
 					/>
 					<MenuItem
-						href="/browse"
-						primaryText="Browse"
-						style={styles.menuItem}
-						onClick={this.props.closeLeftMenu}
-					/>
-					<MenuItem
 						href="/about"
 						primaryText="About"
 						style={styles.menuItem}
