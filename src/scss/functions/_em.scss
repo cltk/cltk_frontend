@@ -1,0 +1,26 @@
+/// Convert pixels to ems. `$em-base` is set by default to `16px` in Upbase's settings file. Override it in a project-specific settings or variables file.
+/// @param {Number} $px-val - Desired pixel equivalent
+/// @param {Number} $base [$em-base] - [Optional] Parent em-to-pixel value
+/// @require {variable} $em-base
+/// @require {function} strip-units
+/// @link http://codepen.io/upstatement/pen/QbormB See it on Codepen >
+/// @link https://css-tricks.com/rems-ems/ CSS Tricks: rems / ems
+///
+/// @example scss - SCSS
+/// font-size: em(12px);
+/// font-size: em(12px, 24px);
+///
+/// @example css - CSS Output
+/// font-size: 0.75em;
+/// font-size: 0.5em;
+///
+
+@function em($pxval, $base: $em-base) {
+  @if not unitless($pxval) {
+    $pxval: strip-units($pxval);
+  }
+  @if not unitless($base) {
+    $base: strip-units($base);
+  }
+  @return ($pxval / $base) * 1em;
+}

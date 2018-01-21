@@ -1,0 +1,24 @@
+/// Make a circle. Pass its size, and this'll take care of the rest.
+/// @param {Number} $size - size
+/// @link http://codepen.io/upstatement/pen/MwVoRV See in on Codepen
+/// @requires {mixin} size
+///
+/// @example markup - HTML
+/// <div class="circle"></div>
+///
+/// @example scss - SCSS
+/// .circle {
+///   @include circle(100px);
+/// }
+///
+/// @example css - CSS Output
+/// .circle {
+///   width: 100px;
+///   height: 100px;
+///   border-radius: 50px;
+/// }
+///
+@mixin circle($size) {
+  @include size($size);
+  border-radius: ($size/2);
+}

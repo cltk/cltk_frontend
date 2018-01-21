@@ -1,0 +1,44 @@
+/// A formula for making an embedded video responsive (oftentimes, an iframe, embed, or object). Apply it to the parent container.
+/// **Note:** Some older players may require some additional spacing for the player controls. You can do so by adding `padding-top` to the parent container.
+/// @param {Fraction} $aspect-ratio [16/9] - Desired aspect ratio, such as 16/9, 4/3, etc.
+/// @param {Selector} $target [> *] - (Optional) Video object selector
+/// @link http://codepen.io/upstatement/pen/YXBxrV See it on Codepen
+/// @example scss - SCSS
+/// .video-wrapper {
+///   @include aspect-ratio(16/9);
+///   //@include aspect-ratio(4/3);
+///   //@include aspect-ratio(2.35/1, ".video-embed");
+/// }
+///
+/// @example css - CSS Output
+/// .responsive-video {
+///   position: relative;
+///   padding-bottom: 56.25%;
+///   height: 0;
+///   margin-bottom: 50px;
+/// }
+/// .responsive-video > * {
+///   position: absolute;
+///   top: 0;
+///   left: 0;
+///   width: 100%;
+///   height: 100%;
+/// }
+///
+
+
+
+@mixin aspect-ratio($aspect-ratio: 16/9, $target:"> *") {
+  $aspect-percentage: percentage(1 / ($aspect-ratio));
+  height: 0;
+  position: relative;
+  padding-bottom: $aspect-percentage;
+
+  #{$target} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}

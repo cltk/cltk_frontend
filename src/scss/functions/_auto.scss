@@ -1,0 +1,26 @@
+/// Convert simple "a" to "auto" for shorthander mixin
+/// @param {Value} $value - Checks for "a", replaces with "auto" otherwise returns value.
+/// @link http://codepen.io/upstatement/pen/eNoMQe See it on Codepen >
+///
+/// @example scss - SCSS
+/// .item {
+///   @include absolute(0 a);
+/// }
+///
+/// @example css - CSS Output
+/// .item {
+///   position: absolute;
+///   top: 0;
+///   right: auto;
+///   bottom: 0;
+///   left: auto;
+/// }
+///
+
+@function auto($value) {
+  @if $value == "a" {
+    @return auto;
+  } @else {
+    @return $value;
+  }
+}

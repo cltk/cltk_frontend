@@ -1,0 +1,6 @@
+{
+  "name": "NavBar",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./NavBar.js"
+}

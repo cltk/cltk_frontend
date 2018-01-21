@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+		<script src="https://cdn.ravenjs.com/3.21.0/raven.min.js"
+    crossorigin="anonymous"></script>
+    <!-- fonts -->
+		<link href="https://fonts.googleapis.com/icon?family=Gentium+Basic|Merriweather:300,400&subset=cyrillic,cyrillic-ext,latin-ext"
+		  rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="//fast.fonts.net/cssapi/2ccf4aab-d5f9-4265-a63a-ad3a91e896da.css"/>
+    <link href="/css/materialdesignicons.css" media="all" rel="stylesheet" type="text/css" />
+    <!-- /fonts -->
+    <!--Mirador -->
+    <!--link rel="stylesheet" type="text/css" href="/build/mirador/css/mirador-combined.css" />
+		<script src="/build/mirador/mirador.js" ></script-->
+    <!--link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/mirador-cltk001/build/mirador/css/mirador-combined.css" />
+		<script src="https://s3.amazonaws.com/mirador-cltk001/build/mirador/mirador.js" ></script-->
+    <!--/Mirador -->
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>cltk.org [alpha]</title>
+
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-36250260-17"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+
+		  gtag('config', 'UA-36250260-17');
+		</script>
+
+		<script>
+			Raven.config('https://76f7a5f822734857ac0606932782f7f5@sentry.io/264480').install()
+		</script>
+		<script src='https://www.google.com/recaptcha/api.js'></script>
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root"></div>
+  </body>
+</html>

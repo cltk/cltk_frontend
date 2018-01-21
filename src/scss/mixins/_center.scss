@@ -1,0 +1,184 @@
+/// Center something (both horizontally & vertically)
+/// @param {Direction} $axis [both] - vertical, horizontal, or both
+/// @param {Method} $method [flex] - flex, absolute
+/// @param {Number} $dimensions [null] - width and height of outer container to be centered within to trigger legacy fallback
+/// @link http://codepen.io/upstatement/pen/WQbNbE See it on Codepen
+/// @link https://css-tricks.com/snippets/sass/centering-mixin/ CSS Tricks: Centering Mixin (for absolute option)
+///
+/// @example scss - SCSS
+/// .container {
+///   position: relative;
+/// }
+///
+/// .item {
+///   @include center();
+///   //@include center(vertical);
+///   //@include center(horizontal);
+///   //@include center(vertical, absolute);
+///   //@include center(horizontal, absolute);
+///   //@include center(vertical, flex, 200px 200px);
+/// }
+///
+/// @example css - CSS Output
+///
+/// .item--both {
+///   display: flex;
+///   justify-content: center;
+///   align-items: center;
+/// }
+///
+/// .item--horizontal {
+///   display: flex;
+///   justify-content: center;
+/// }
+///
+/// .item--vertical {
+///   display: flex;
+///   align-items: center;
+/// }
+///
+
+@mixin center($axis: both, $method: flex, $dimensions: null) {
+
+  @if $method == flex {
+    @include center-flex($axis);
+  }
+
+  @else if $method == absolute {
+    @include center-absolute($axis);
+  }
+
+  @if $dimensions != null {
+    @include center-absolute-legacy($dimensions);
+  }
+}
+
+@mixin center-absolute($axis) {
+  position: relative;
+  > * {
+    position: absolute;
+    @if ($axis == "both") {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+        .no-csstransforms & {
+        > * {
+          top: auto;
+          left: auto;
+        }
+      }
+    } @else if ($axis == "horizontal") {
+      left: 50%;
+      transform: translate(-50%, 0);
+
+        .no-csstransforms & {
+        > * {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        }
+      }
+    } @else if ($axis == "vertical") {
+      top: 50%;
+      transform: translate(0, -50%);
+
+      .no-csstransforms & {
+        display: table;
+        > * {
+          display: table-cell;
+          top: auto;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+}
+
+@mixin center-flex($axis) {
+  display: flex;
+  @if $axis == horizontal {
+    justify-content: center;
+    //TODO: flexboxlegacy support
+    .no-flexbox &, .no-flexbox-legacy & {
+      > * {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  } @else if $axis == vertical {
+    align-items: center;
+    .no-flexbox & {
+      display: table;
+      > * {
+        display: table-cell;
+        top: auto;
+        vertical-align: middle;
+      }
+    }
+  } @else if $axis == both {
+    justify-content: center;
+    align-items: center;
+    .no-flexbox & {
+      position: relative;
+      > * {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+    .no-flexbox.no-csstransforms & {
+      > * {
+        position: relative;
+        top: auto;
+        left: auto;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  }
+} // center-flex
+
+@mixin center-absolute-legacy($dimensions) {
+  // If only one value is supplied,
+  // default to center the width
+  @if length($dimensions) == 1 {
+    $dimensions: $dimensions n;
+  }
+
+  $width: nth($dimensions, 1);
+  $height: nth($dimensions, 2);
+
+  .no-flexbox.no-csstransforms & {
+    position: relative;
+    > * {
+      position: absolute;
+
+      @if $width != n {
+        @if not(unitless($width)) {
+          width: $width;
+          margin-left: (-$width / 2);
+        }
+        @if unitless($width) {
+          width: $width + px;
+          margin-left: (-$width / 2) + px;
+        }
+        left: 50%;
+      }
+
+      @if $height != n {
+        @if not(unitless($height)) {
+          height: $height;
+          margin-top: (-$height / 2);
+        }
+        @if unitless($height) {
+          height: $height + px;
+          margin-top: (-$height / 2) + px;
+        }
+        top: 50%;
+      }
+    }
+  }
+} // center-absolute-legacy

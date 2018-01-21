@@ -1,0 +1,121 @@
+@import '../../../../variables.scss';
+
+
+.readingEnvironment {
+	min-height: 100vh;
+	padding: 90px 0;
+	color: $dark;
+	max-width: 990px;
+	margin: 0 auto;
+}
+
+.readingEnvironmentTitle {
+	display: inline-block;
+	vertical-align: baseline;
+	.textGroupTitle {
+		color: $text-secondary;
+	}
+}
+
+.readingEnvironmentEditLinks {
+	vertical-align: baseline;
+	font-style: italic;
+	display: inline-block;
+}
+
+.readingEnvironmentEditLink {
+	font-family: $font-reading;
+	color: $primary;
+	font-size: 22px;
+	font-weight: 100;
+	font-style: italic;
+	display: inline-block;
+	vertical-align: baseline;
+	padding: 10px 20px;
+	border-bottom: 1px solid transparent;
+	@include transition(100ms all ease-in-out);
+	outline: none;
+	border: none;
+
+	&:hover {
+		color: $primary-dark;
+		border-bottom: 1px solid transparent;
+	}
+}
+
+.readingEnvironmentText {
+	max-width: 990px;
+	margin: 0 auto;
+	padding: 60px 0;
+
+}
+
+.readingEnvironmentTextNode {
+	margin: 0 auto;
+	display: flex;
+	align-items: flex-start;
+	justify-content: left;
+
+	&:hover {
+		.readingEnvironmentTextNodeNumber {
+			opacity: 1;
+		}
+	}
+
+}
+
+.readingEnvironmentTextNodeNumber {
+	display: inline-block;
+	vertical-align: top;
+	opacity: 0;
+	@include transition(100ms all ease-in-out);
+	color: $text-secondary;
+	padding: 20px;
+	font-size: 18px;
+
+	&.readingEnvironmentTextNodeNumberShow {
+		opacity: 1;
+	}
+
+}
+
+.readingEnvironmentTextNodeText {
+	display: inline-block;
+	vertical-align: top;
+	font-family: $font-reading;
+	font-size: 22px;
+	font-weight: 100;
+	padding: 10px 0;
+	color: $dark;
+	line-height: 1.7em;
+	max-width: 720px;
+
+	p, span, label {
+		color: $dark;
+	}
+}
+
+.readingEnvironmentPagination {
+	padding: 30px 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+}
+
+.readingEnvironmentPaginationLink {
+	font-size: 14px;
+	text-transform: uppercase;
+	font-family: $font-label;
+	background: #aaa;
+	color: $light;
+	padding: 20px 30px;
+	display: inline-block;
+	vertical-align: top;
+	@include transition(100ms all ease-in-out);
+
+	&:hover {
+		background: #999;
+		color: $light;
+	}
+}

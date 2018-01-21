@@ -1,0 +1,98 @@
+@import '../../../../variables.scss';
+
+.textListItem {
+	display: inline-block;
+	position: relative;
+	text-align: left;
+	vertical-align: top;
+	margin: 25px 4%;
+	width: 90%;
+	max-width: 260px;
+
+
+	.textListItemImage {
+		position: relative;
+		z-index: 1;
+
+		img {
+			@include transition(all 100ms ease-in-out);
+			width: 110%;
+			margin-left: -10px;
+			border: 10px solid transparent;
+			outline: 2px solid transparent;
+			cursor:pointer;
+
+			&:hover {
+				outline: 2px solid $grey;
+			}
+		}
+	}
+
+	.textCount {
+		color: #999;
+		font-size: 14px;
+		font-family: $font-body;
+		padding: 10px 0;
+	}
+
+	.textListItemBackground {
+		background: #eee;
+		position: relative;
+		padding: 30px 20px 20px;
+		margin: -30px -12% 0 -8%;
+		width: 120%;
+		box-shadow: 0px 0px 2px #ccc;
+
+		&.textListItemBackgroundWithImage {
+			padding: 210px 20px 20px;
+			margin: -210px -12% 0 -8%;
+		}
+	}
+
+
+	h3 {
+		font-family: $font-title-variant;
+		color: $text-primary;
+		cursor: pointer;
+		margin: 0;
+		padding: 5px 0 15px;
+		word-wrap: break-word;
+		line-height: 1.3em;
+		@include transition(all 100ms ease-in-out);
+
+		&:hover {
+			color: $primary-600;
+		}
+	}
+
+	p {
+		font-weight: 100;
+		color: $text-primary;
+	}
+
+	.textLink {
+
+		&:hover {
+			span, i {
+				color: $primary-600;
+			}
+		}
+
+		span, i {
+			@include transition(all 100ms ease-in-out);
+			color: #444;
+			display: inline-block;
+			vertical-align: top;
+		}
+
+		span {
+			padding-top: 5px;
+		}
+
+		i {
+			&:before {
+				font-size: 22px;
+			}
+		}
+	}
+}

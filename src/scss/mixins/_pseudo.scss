@@ -1,0 +1,19 @@
+/// Make a useable object out of a pseudo element like :before or :after. You must set pseudo element to `inline-block` or `block` depending on your need.
+/// @link http://codepen.io/upstatement/pen/jPzLPZ See it on Codepen
+///
+///
+/// @example scss - SCSS
+/// .item:after {
+///   @include pseudo;
+///   display: inline-block; //or block
+/// }
+///
+/// @example css - CSS Output
+/// .item:after {
+///   content: "\0020";
+///   display: inline-block;
+/// }
+///
+@mixin pseudo() {
+  content: "\0020";
+}

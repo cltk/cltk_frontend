@@ -1,0 +1,83 @@
+@import '../../../../variables.scss';
+
+.cltk-button {
+	padding: 15px 25px;
+	margin: 10px;
+	border: 2px solid $light;
+	text-transform: uppercase;
+	font-family: $font-label;
+	color: $light;
+	cursor: pointer;
+	@include transition(all 100ms ease-in-out);
+
+	&.cltk-button--primary {
+		background: $primary;
+		border: 2px solid $primary;
+		&.cltk-button--outline {
+			border: 2px solid $light;
+		}
+		&:hover {
+			background: $primary-dark;
+			border: 2px solid $primary-dark;
+			color: $light;
+		}
+	}
+
+	&.cltk-button--accent {
+		background: $accent;
+		border: 2px solid $accent;
+		&.cltk-button--outline {
+			border: 2px solid $light;
+		}
+		&:hover {
+			background: $accent-dark;
+			border: 2px solid $accent-dark;
+			color: $light;
+		}
+	}
+
+	&.cltk-button--light {
+		background: $light;
+		border: 2px solid $light;
+		color: $dark;
+		&.cltk-button--outline {
+			border: 2px solid $dark;
+		}
+		&.cltk-button--outline-dark {
+			border: 2px solid $light;
+		}
+		&:hover {
+			background: $primary;
+			border: 2px solid $primary;
+			color: $light;
+		}
+	}
+
+	&.cltk-button--trans-light {
+		background: rgba(255, 255, 255, 0.4);
+		border: 2px solid rgba(255, 255, 255, 0.4);
+		color: $dark;
+		&.cltk-button--outline {
+			border: 2px solid $dark;
+		}
+		&:hover {
+			background: $primary;
+			border: 2px solid $primary;
+			color: $light;
+		}
+	}
+
+	&.cltk-button--dark {
+		background: $dark;
+		border: 2px solid $dark;
+		color: $light;
+		&.cltk-button--outline {
+			border: 2px solid $dark;
+		}
+		&:hover {
+			background: $primary;
+			border: 2px solid $primary;
+			color: $light;
+		}
+	}
+}

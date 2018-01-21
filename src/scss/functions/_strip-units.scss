@@ -1,0 +1,13 @@
+/// Removing the unit from a number and returning the raw value. It’s used as a helper in the Pixel-to-Ems and Pixel-to-Rems functions.
+/// @param {Number} $number - A number value with unit
+/// @link https://github.com/nex3/sass/issues/533 Sass Discussion >
+/// @link http://stackoverflow.com/questions/12328259/how-do-you-strip-the-unit-from-any-number-in-sass/12335841#12335841 Stack Overflow Discussion >
+/// @todo See Stack Overflow discussion and determine whether we actually really need this in our em and rem functions.
+///
+/// @example scss - SCSS
+/// $pxval: strip-units(500px);
+/// // $pxval: 500;
+
+@function strip-units($number) {
+  @return $number / ($number * 0 + 1);
+}

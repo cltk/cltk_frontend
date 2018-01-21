@@ -1,0 +1,24 @@
+@import '../../../../variables.scss';
+
+.tag {
+	font-family: $font-label-mono;
+	font-size: 14px;
+	color: $text-primary;
+	display: inline-block;
+	vertical-align: top;
+	padding: 3px 0;
+	margin: 2px 5px;
+	border-bottom: 1px solid $light-grey;
+	@include transition(all 100ms ease-in-out);
+	cursor: pointer;
+
+	&:hover {
+		border-bottom: 1px solid transparent;
+	}
+}
+
+.tags {
+	a:first-child .tag {
+		margin: 2px 5px 2px 0px;
+	}
+}

@@ -1,0 +1,42 @@
+@import '../../../variables.scss';
+
+.paginationButton {
+	background: #eee;
+	color: $primary;
+	display: inline-block;
+	vertical-align: top;
+	cursor: pointer;
+	margin: 10px;
+	border: 2px solid #eee;
+	padding: 5px 15px;
+
+	@include transition(all 100ms ease-in-out);
+
+	&:hover {
+		background: #fff;
+		border: 2px solid $primary;
+	}
+
+	&.isActive{
+		background: $primary;
+		border: 2px solid $primary;
+		outline: 1px solid $light;
+		color: $light;
+		span {
+			color: $light;
+		}
+	}
+
+	span {
+		display: inline-block;
+		vertical-align: top;
+		font-family: $font-label;
+	}
+
+	i {
+		display: inline-block;
+		vertical-align: top;
+		padding-top: 7px;
+		line-height: 10px;
+	}
+}

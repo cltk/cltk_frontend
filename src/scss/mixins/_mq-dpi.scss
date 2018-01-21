@@ -1,0 +1,35 @@
+/// Creates a cross browser pixel density media query
+///
+/// @param {Number [dpi] } $dpi - Minimum dpi
+/// @link http://codepen.io/upstatement/pen/vORJPZ See it on Codepen
+/// @example scss - SCSS
+/// .class {
+///   font-weight: 400;
+///   @include mq-dpi {
+///     font-weight: 100;
+///   }
+/// }
+///
+/// @example css - CSS Output
+/// .class {
+///   font-weight: 400;
+/// }
+/// /@media (min--moz-device-pixel-ratio: 1.01042), (-o-min-device-pixel-ratio: 96dpi), (-webkit-min-device-pixel-ratio: 1.01042), (min-device-pixel-ratio: 1.01042), (min-resolution: 97dpi) {
+///   .class {
+///     font-weight: 100;
+///   }
+/// }
+///
+
+@mixin mq-dpi($dpi: 97dpi) {
+
+  $pixel-ratio__1: $dpi / 96dpi;
+  $opera-pixel-ratio__1: $dpi * 2;
+  $pix-ratio-max__1: ($dpi - 1) / 96dpi;
+  $opera-pixel-ratio__1: ($dpi - 1) * 2;
+  @media (min--moz-device-pixel-ratio: $pixel-ratio__1),
+       (-o-min-device-pixel-ratio: $opera-pixel-ratio__1/2),
+       (-webkit-min-device-pixel-ratio: $pixel-ratio__1),
+       (min-device-pixel-ratio: $pixel-ratio__1),
+       (min-resolution: $dpi) { @content; }
+}

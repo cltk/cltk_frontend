@@ -1,0 +1,86 @@
+/// Use SVGs as background images with the proper PNG fallbacks. You'll need to set the display (inline-block or block) and a height/width for the container. Also, before using, set a default image path if you wish by overriding the empty `$default-img-path` variable in your project's settings or variables file.
+///
+/// For full support, produce your graphic with highest resolution in mind, and export:
+/// - A responsive-ready SVG named {file-name}.svg
+/// - A highest-resolution PNG named {file-name}.png
+/// - A 1x-resolution PNG named {file-name}-ie.png
+/// @param {String} $bg-name - Name of the image file without extension. Include a path if you have not set a default `$img-path` variable or if you want to use a unique path.
+/// @param {x y [px]} $bg-position [50% 50%] - background-position
+/// @param {String} $bg-color [transparent] - background-color
+/// @param {String} $bg-size [100%] - background size
+/// @require {variable} default-img-path
+/// @require {variable} support-ie8
+/// @require {variable} using-modernizr
+/// @link http://codepen.io/upstatement/pen/qdpOdw See it on Codepen
+/// @link http://css-tricks.com/svg-fallbacks/ CSS Tricks: SVG Fallbacks
+/// @example scss - SCSS
+/// //In your project's settings or variables file
+/// $default-img-path: "http://www.thetrace.org/wp-content/themes/thetrace/static/img/icons/";
+///
+/// .basic {
+///   @include svg(envelope);
+///   //Defaults to...
+///   //@include svg(envelope, 50% 50%, transparent, 100%);
+/// }
+///
+/// .awesome {
+///   @include svg(envelope, 50% 50%, #bada55, 36px auto);
+/// }
+///
+/// .moreawesome {
+///   @include svg(envelope, 50% 50%, #bada55, cover);
+/// }
+/// @example css - CSS Output
+/// .moreawesome {
+///   background-image: url("http://www.thetrace.org/wp-content/themes/thetrace/static/img/icons/envelope.png");
+///   background-image: url("http://www.thetrace.org/wp-content/themes/thetrace/static/img/icons/envelope.svg"), none;
+///   background-color: #bada55;
+///   background-repeat: no-repeat;
+///   background-position: 50% 50%;
+///   background-size: cover;
+/// }
+/// .no-svg .moreawesome {
+///   background-image: url("http://www.thetrace.org/wp-content/themes/thetrace/static/img/icons/envelope.png");
+/// }
+/// .ie8 .moreawesome {
+///   background-image: url("http://www.thetrace.org/wp-content/themes/thetrace/static/img/icons/envelope-ie.png");
+/// }
+
+@mixin svg(
+    $bg-name: "",
+    $bg-position: 50% 50%,
+    $bg-color: transparent,
+    $bg-size: 100%
+  ) {
+
+  // Variables
+  $svg: $default-img-path + $bg-name + ".svg";
+  $png: $default-img-path + $bg-name + ".png";
+  $png-ie: $default-img-path + $bg-name + "-ie.png";
+
+  background-image: url("#{$png}");
+  background-image: url("#{$svg}"), none;
+  // ^ This uses multiple background images as a proxy for SVG support
+
+  // Other background properties
+  background-color: $bg-color;
+  background-repeat: no-repeat;
+  background-position: $bg-position;
+  background-size: $bg-size;
+
+  @if ($using-modernizr == true) {
+    .no-svg & {
+      background-image: url("#{$png}");
+      // ^ Necessary override for some versions of Android, which choke on the double background image
+    }
+  }
+
+  @if ($support-ie8 == true) {
+    @if ($ie-conditional-classes == true) {
+      .ie8 & {
+        background-image: url("#{$png-ie}"); // [4]
+      }
+    }
+  }
+
+}

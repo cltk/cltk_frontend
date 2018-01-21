@@ -1,0 +1,22 @@
+@import '../../../variables.scss';
+
+.menuSubItem {
+	padding: 0px 25px;
+	display: block;
+	text-align: left;
+	font-size: 12px;
+	text-transform: uppercase;
+	font-family: $font-body;
+	cursor: pointer;
+
+	&.menuSubItemLast {
+		margin-bottom: 15px;
+	}
+
+	span {
+		padding: 10px 15px;
+		border-left: 2px solid $divider-light-grey;
+		color: $dark;
+		display: block;
+	}
+}

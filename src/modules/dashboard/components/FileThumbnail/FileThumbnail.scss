@@ -1,0 +1,95 @@
+@import '../../../../variables.scss';
+
+.fileThumbnail {
+  display: inline-block;
+	position: relative;
+	text-align: center;
+	max-width: 210px;
+	width: 90%;
+
+  border: 30px solid transparent;
+  outline: 2px solid transparent;
+  cursor: grab;
+	@include transition(100ms all ease-in-out);
+
+	&:hover {
+	  outline: 2px solid #eee;
+	}
+
+}
+
+.fileThumbnailMoveButton {
+	display: block;
+
+}
+
+.fileThumbnailImage {
+	width: 130px;
+	height: 130px;
+	display: block;
+	margin: 0 auto;
+	padding: 10px;
+
+	img {
+		width: 100%;
+		height: 100%;
+	}
+
+  .fileIcon {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+  }
+
+}
+
+.fileDetailsButtons {
+	position: absolute;
+	top: 0;
+	right: 0;
+
+  .fileDetailsDeleteFile {
+    background: $dark;
+		outline: none;
+		border: none;
+		cursor: pointer;
+		border-radius: 100%;
+		@include transition(100ms all ease-in-out);
+		width: 26px;
+		height: 26px;
+
+
+		&:hover {
+			background: $primary;
+		}
+
+    i {
+      color: $light;
+			margin: 0;
+			padding: 0;
+
+			&:before {
+				font-size: 13px;
+			}
+    }
+  }
+}
+
+
+@keyframes fileUploading {
+  0%   { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.fileUploadingIcon {
+	background: #ddd;
+	i {
+		animation: fileUploading 1s infinite;
+		&:before {
+			font-size: 24px;
+		}
+	}
+}

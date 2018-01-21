@@ -1,0 +1,61 @@
+@import '../../../../variables.scss';
+
+
+.draft-editor-input{
+    margin: 10px;
+}
+.draft-add-video-button{
+    margin: 5px;
+}
+.draftAddVideo {
+    display: inline-block;
+}
+.draftAddVideoPopover > input{
+    margin-bottom: 0 !important;
+}
+.draftAddImagePopover {
+    width: 100%;
+    height: 150px;
+    background: $light;
+    box-shadow: 0 0 10px;
+    position: absolute;
+    z-index: 1000;
+    margin-top: 0;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+.draftAddVideoPopover {
+    width: 100%;
+    height: 150px;
+    background: $light;
+    box-shadow: 0 0 10px;
+    position: absolute;
+    z-index: 1000;
+    margin-top: 0;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.draft-image-from-url{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.draft-image-from-url > input{
+    margin-bottom: 0 !important;
+}
+.draftAddVideoClosedPopover {
+    display: none;
+}
+.draftAddVideoButton:focus {
+    outline: 0; /* reset for :focus */
+}
+.draftAddVideoConfirmButton:focus {
+    outline: 0; /* reset for :focus */
+}
+.draft-button-container{
+    display: flex;
+}

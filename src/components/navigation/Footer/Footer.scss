@@ -1,0 +1,62 @@
+@import '../../../variables.scss';
+
+#footer {
+	padding: 90px 0;
+	background: #f6f6f6;
+	min-height: 100px;
+
+	.footerNav {
+		margin: 0;
+		padding: 0;
+		border: 1px solid transparent;
+		background: transparent;
+	}
+}
+
+.footerCopyright, .footerBuiltBy {
+	display: block;
+	text-align: left;
+	font-size: 14px;
+	font-weight: 500;
+
+	a {
+		padding: 0 0 0 2px;
+		@include transition(100ms all ease-in-out);
+
+		&:hover {
+			color: $primary;
+		}
+	}
+}
+
+.footerCopyright {
+	color: $dark;
+	margin: 10px 0;
+	font-size: 18px;
+}
+
+.footerBuiltBy {
+	color: $text-secondary;
+}
+
+.footerLinks {
+	text-align: right;
+	margin: 10px 0;
+
+	a {
+		display: inline-block;
+		padding: 0;
+		margin: 0 5px;
+		border-bottom: 2px solid $divider-light-grey;
+		@include transition(100ms all ease-in-out);
+		color: $dark;
+		font-size: 16px;
+		font-family: $font-label;
+
+		&:hover {
+			border-bottom: 2px solid rgba(0,0,0, 0);
+			color: $primary-dark;
+		}
+
+	}
+}

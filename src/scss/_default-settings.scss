@@ -1,0 +1,32 @@
+/// Support IE9
+/// @type Bool
+$support-ie9: true !default;
+
+/// Support IE8
+/// @type Bool
+$support-ie8: true !default;
+
+/// Support IE7
+/// @type Bool
+$support-ie7: false !default;
+
+/// Use IE Conditional Classes
+/// @type Bool
+/// @link http://www.paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ Paul Irish: Conditional Stylesheets vs. CSS Hacks
+$ie-conditional-classes: true !default;
+
+/// Use Modernizr Helpers
+/// @type Bool
+$using-modernizr: true !default;
+
+/// Image Folder
+/// @type String
+$default-img-path: "" !default;
+
+/// Base value of em in pixels
+/// @type Number[px]
+$em-base: 16px !default;
+
+/// CSS Target for grid() mixin
+/// @type String
+$grid-target: "*" !default;

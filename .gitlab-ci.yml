@@ -1,0 +1,43 @@
+stages:
+  - test
+  - deploy
+
+test:
+  image: node:8-wheezy
+  stage: test
+  before_script:
+    - npm i -g yarn
+    - yarn install
+    - yarn build
+  script:
+    - npm run test
+
+deploy:
+  image: google/cloud-sdk:latest
+  services:
+    - docker:dind
+  only:
+    - master
+    - develop
+  stage: deploy
+  before_script:
+    - export CLOUDSDK_CONTAINER_USE_CLIENT_CERTIFICATE=True
+    - curl -sL https://deb.nodesource.com/setup_6.x | bash -
+    - apt-get install -y nodejs
+    - npm i -g yarn
+  script:
+    - yarn install # Install dependencies
+    - yarn build # Build app
+    - shopt -s extglob # Enable bash extension
+    - rm -rf !(build|Dockerfile|package.json|k8s) # Remove all files except build
+    - docker build -t cltk . # Build docker image
+    - docker tag cltk us.gcr.io/archimedes-01201/cltk:$CI_COMMIT_SHA # Tag docker image for Google Cloud
+    - echo "$GOOGLE_KEY" > key.json # Google Cloud service account key
+    - gcloud auth activate-service-account --key-file key.json
+    - gcloud config set compute/zone us-east1-b
+    - gcloud config set project archimedes-01201
+    - gcloud container clusters get-credentials archimedes-cluster
+    - gcloud docker -- push us.gcr.io/archimedes-01201/cltk:$CI_COMMIT_SHA
+    - kubectl config set-context $(kubectl config current-context) --namespace=atg
+    - sed -ie "s/NEW_IMAGE_TAG/$CI_COMMIT_SHA/g" ./k8s/app-deployment.json
+    - kubectl apply -f ./k8s/

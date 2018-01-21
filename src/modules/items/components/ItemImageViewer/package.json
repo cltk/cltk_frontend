@@ -1,0 +1,6 @@
+{
+  "name": "ItemImageViewer",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./ItemImageViewer.js"
+}

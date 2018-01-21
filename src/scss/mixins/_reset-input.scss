@@ -1,0 +1,43 @@
+/// Zero'ing out the style on an input field (text input, radio button, etc), which usually isn't reset using standard reset or base styles.
+/// @link http://codepen.io/upstatement/pen/YXZRRg See it on Codepen
+///
+/// @example markup - HTML
+/// <form class="upbase-neue">
+///   <input class="search-input" type="text" name="s" id="s" size="15" placeholder="Search">
+///   <button class="search-button" type="submit" value="Button">Submit</button>
+/// </form>
+///
+/// @example scss - SCSS
+/// .upbase-neue .search-input,
+/// .upbase-neue .search-button {
+///   @include reset-input;
+/// }
+///
+/// @example css - CSS Output
+/// .upbase-neue .search-input,
+/// .upbase-neue .search-button {
+///   border: 0;
+///   background-color: transparent;
+///   box-shadow: none;
+///   border-radius: 0;
+///   -webkit-appearance: none;
+///   font-size: 18px;
+/// }
+/// .upbase-neue .search-input:focus,
+/// .upbase-neue .search-button:focus {
+///   outline: 0;
+/// }
+///
+
+@mixin reset-input {
+  border: 0;
+  background-color: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  appearance: none;
+
+  &:focus {
+    outline: 0;
+  }
+}
+

@@ -1,0 +1,74 @@
+@import '../../../../variables.scss';
+
+.cover {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	overflow: hidden;
+	// Come back to weird overflow issue in the future
+}
+
+.cover-inner {
+	width: 100%;
+	overflow: hidden;
+}
+
+.cover-background, .cover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120%;
+  height: 120%;
+}
+
+.cover-overlay {
+	display: none;
+}
+
+.cover.cover--center {
+	.cover-content {
+	  position: absolute;
+	  transform: translate3d(0, -50%, 0);
+	  -webkit-transform: translate3d(0, -50%, 0);
+	  top: 50%;
+		width: 100%;
+	  z-index: 2;
+		text-align: center;
+	}
+}
+
+.cover.cover--left {
+	position:relative;
+	width: 100vw;
+	height: 100vh;
+	.cover-content {
+	  position: absolute;
+		width: 66%;
+		height: 50%;
+
+		top: 0;
+		bottom: 0;
+		left: 0;
+		margin: auto;
+	  z-index: 2;
+		text-align: left;
+
+	}
+}
+
+.cover.cover--bottom {
+	position:relative;
+	width: 100vw;
+	height: 100vh;
+	.cover-content {
+	  position: absolute;
+		width: 66%;
+
+		bottom: 0;
+		left: 0;
+	  z-index: 2;
+		text-align: left;
+
+	}
+}

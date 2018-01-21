@@ -1,0 +1,6 @@
+{
+  "name": "ItemSelectorField",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./ItemSelectorField.js"
+}

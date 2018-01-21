@@ -1,0 +1,6 @@
+{
+  "name": "ItemListContainer",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./ItemListContainer.js"
+}

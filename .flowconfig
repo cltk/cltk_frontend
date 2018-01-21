@@ -1,0 +1,9 @@
+[ignore]
+<PROJECT_ROOT>/client
+
+[include]
+
+[libs]
+
+[options]
+module.name_mapper='^\(.*\)$' -> '<PROJECT_ROOT>/client/src/\1'

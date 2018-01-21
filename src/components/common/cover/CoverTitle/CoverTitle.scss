@@ -1,0 +1,36 @@
+@import '../../../../variables.scss';
+
+.coverTitleOuter {
+	background: $light;
+}
+
+.coverTitle {
+	margin: 0;
+	padding: 60px 30px 30px 10%;
+	color: $text-primary;
+	font-size: 54px;
+	line-height: 1.3em;
+	display: inline-block;
+	vertical-align: baseline;
+}
+
+.coverLink {
+	font-family: $font-reading;
+	color: $primary;
+	font-size: 22px;
+	font-weight: 100;
+	font-style: italic;
+	display: inline-block;
+	vertical-align: baseline;
+	padding: 10px;
+	@include transition(100ms all ease-in-out);
+
+	&:hover {
+		color: $primary-dark;
+	}
+}
+
+.coverLinkRemove {
+	border: none;
+	outline: none;
+}

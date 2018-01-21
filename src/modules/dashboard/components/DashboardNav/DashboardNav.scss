@@ -1,0 +1,79 @@
+@import '../../../../variables.scss';
+
+
+.dashboardNav {
+	text-align: center;
+	margin: 30px auto;
+
+	a {
+		display: inline-block;
+		vertical-align: top;
+		text-transform: uppercase;
+		color: $dark;
+		margin: 5px;
+		border: 1px solid $divider;
+		@include transition(100ms all ease-in-out);
+		font-family: $font-body;
+		font-size: 12px;
+		padding: 10px 20px;
+
+		&:hover {
+			border: 1px solid $dark;
+			background: #444;
+			color: $light;
+			i {
+				color: $light;
+			}
+		}
+
+		&.dashboardNavLinkActive {
+			border: 1px solid $dark;
+			background: $dark;
+			color: $light;
+			i {
+				color: $light;
+			}
+		}
+
+		i {
+			margin-right: 10px;
+		}
+	}
+}
+
+.navLinkWithDropdown {
+	display: inline-block;
+	vertical-align: top;
+	position: relative;
+	z-index: 1;
+
+	&:hover {
+		.dropdownContent {
+			display:block;
+		}
+	}
+
+	.dropdownContent {
+		display: none;
+		position: absolute;
+		top: 45px;
+		left: 5px;
+		width: 113px;
+		background: #f6f6f6;
+		border-left: 1px solid #ddd;
+		border-right: 1px solid #ddd;
+		border-bottom: 1px solid #ddd;
+
+		a {
+			margin: 0;
+			padding: 14px 10px;
+			display: block;
+			width: 100%;
+			border: none;
+			outline: none;
+			font-size: 11px;
+			text-align: left;
+		}
+
+	}
+}

@@ -1,7 +1,0 @@
-#!/bin/bash
-
-SELF_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source "$SELF_DIR/config"
-$SELF_DIR/build_app
-$SELF_DIR/build_image
-gcloud docker push -- $DEFAULT_IMAGE_TAG

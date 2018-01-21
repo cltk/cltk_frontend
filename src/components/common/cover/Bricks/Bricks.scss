@@ -1,0 +1,48 @@
+@import '../../../../variables.scss';
+
+@keyframes pulse {
+  0% {
+		opacity: 0.5;
+  }
+  50% {
+		opacity: 1;
+  }
+  100% {
+		opacity: 0.5;
+  }
+}
+
+.bricks {
+	overflow: visible;
+	height: 100%;
+	width: 100%;
+
+	&.loading {
+		background: #eee;
+		-webkit-animation: pulse linear 1.2s infinite;
+		animation: pulse linear 1.2s infinite;
+
+		.bricks-inner {
+			opacity: 0;
+		}
+	}
+
+	.bricks-inner {
+		opacity: 1;
+		height: 100%;
+		width: 100%;
+		@include transition(all 1000ms ease-in-out);
+	}
+}
+
+.brick {
+	border: 6px solid transparent;
+	outline: 1px solid transparent;
+	opacity: 0.12;
+	@include transition(all 100ms linear);
+
+	&:hover {
+		outline: 1px solid $divider;
+		opacity: 1;
+	}
+}

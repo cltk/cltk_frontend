@@ -1,9 +1,13 @@
 {
+  "env": {
+    "test": {
+      "plugins": ["babel-plugin-css-modules-transform"]
+    }
+  },
   "plugins": [
-		"babel-root-slash-import",
-		"transform-class-properties",
-		"transform-object-rest-spread",
-		"lodash"
-	],
-	"presets": ["es2015", "react"]
+    "lodash",
+    "transform-class-properties",
+    ["transform-object-rest-spread", { "useBuiltIns": true }]
+  ],
+  "presets": ["es2015", "flow", "react"]
 }

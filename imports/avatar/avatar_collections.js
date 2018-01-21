@@ -1,1 +1,0 @@
-export const Avatars = new Mongo.Collection('avatars');

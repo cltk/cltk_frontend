@@ -1,0 +1,12 @@
+@import '../../../variables.scss';
+
+.menuItem {
+	padding: 15px 20px;
+	display: block;
+	text-align: left;
+	font-size: 12px;
+	text-transform: uppercase;
+	font-family: $font-body;
+	cursor: pointer;
+
+}

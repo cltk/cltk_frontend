@@ -1,0 +1,14 @@
+@import "../../../../variables.scss";
+
+.itemDescription {
+	font-family: $font-reading;
+	font-weight: 100;
+	font-size: 20px;
+	color: $text-primary;
+	line-height: 1.7em;
+	padding: 30px 0;
+	text-align: left;
+	width: 100%;
+	max-width: 800px;
+	margin:0 auto;
+}

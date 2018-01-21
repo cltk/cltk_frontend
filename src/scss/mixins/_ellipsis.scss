@@ -1,0 +1,24 @@
+/// Truncate text with an ellipsis using CSS.
+/// @link http://codepen.io/upstatement/pen/mJxMEr See it on Codepen
+///
+/// @example scss - SCSS
+/// .txt-box {
+///   @include ellipsis;
+///   width: 100%;
+/// }
+///
+/// @example css - CSS Output
+/// .txt-box {
+///   overflow: hidden;
+///   text-overflow: ellipsis;
+///   white-space: nowrap;
+///   display: inline-block;
+///   width: 100%;
+/// }
+///
+@mixin ellipsis() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+}

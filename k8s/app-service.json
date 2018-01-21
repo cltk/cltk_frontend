@@ -1,0 +1,21 @@
+{
+  "kind": "Service",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "cltk-app-serv"
+  },
+  "spec": {
+    "ports": [
+      {
+        "port": 3000,
+				"name": "http",
+        "targetPort": 3000
+      }
+    ],
+    "selector": {
+      "name": "cltk-app-pod"
+    },
+    "sessionAffinity": "ClientIP",
+    "type": "LoadBalancer"
+  }
+}

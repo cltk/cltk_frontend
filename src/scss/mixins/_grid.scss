@@ -1,0 +1,203 @@
+/// Create a row of liquid columns of defined width, or an infinite grid of items of equal width. Apply mixin to parent container.
+/// @param {Number | Number[%] List } $items [2] - Number of equal-sized items per row, or list of widths for as many items as desired
+/// @param {Number[%/px]} $gutter [20px] - Gutter between items
+/// @param {String} $target [$grid-target(*)] - Target items
+/// @require {mixin} clearfix
+/// @require {variable} support-ie7
+/// @require {variable} ie-conditional-classes
+/// @require {variable} grid-target
+/// @link http://codepen.io/upstatement/pen/ZGwKMK See it on Codepen
+/// @example markup - HTML
+/// <section class="grid-3">
+///     <div class="grid-item"></div>
+///     <div class="grid-item"></div>
+///     <div class="grid-item">/div>
+/// </section>
+/// @example scss - SCSS
+/// .grid-3 {
+///   @include grid(3);
+/// }
+///
+/// .grid-25-50-25 {
+///   @include grid(25% 50% 25%, 5px, ".ui-item");
+/// }
+///
+/// .grid-4 {
+///   @include grid(4, 2.5%);
+/// }
+///
+/// .grid-5-complex {
+///   @include grid(10% 30% 10% 40% 10%);
+/// }
+/// @example css - CSS Output
+/// .grid-3 {
+///   margin-left: -20px;
+/// }
+/// .grid-3:after {
+///   content: "";
+///   display: table;
+///   clear: both;
+/// }
+/// .grid-3 > * {
+///   float: left;
+///   padding-left: 20px;
+///   width: 33.33333%;
+/// }
+/// .grid-3 > *:nth-child(1n) {
+///   clear: none;
+/// }
+/// .grid-3 > *:nth-child(3n + 1) {
+///   clear: both;
+/// }
+///
+/// .grid-25-50-25 {
+///   margin-left: -5px;
+/// }
+/// .grid-25-50-25:after {
+///   content: "";
+///   display: table;
+///   clear: both;
+/// }
+/// .grid-25-50-25 > .ui-item:nth-child(1) {
+///   float: left;
+///   padding-left: 5px;
+///   width: 25%;
+/// }
+/// .grid-25-50-25 > .ui-item:nth-child(2) {
+///   float: left;
+///   padding-left: 5px;
+///   width: 50%;
+/// }
+/// .grid-25-50-25 > .ui-item:nth-child(3) {
+///   float: left;
+///   padding-left: 5px;
+///   width: 25%;
+/// }
+/// .grid-25-50-25 > .ui-item:nth-child(1n) {
+///   clear: none;
+/// }
+/// .grid-25-50-25 > .ui-item:nth-child(3n + 1) {
+///   clear: both;
+/// }
+///
+/// .grid-4 {
+///   margin-left: -2.5%;
+/// }
+/// .grid-4:after {
+///   content: "";
+///   display: table;
+///   clear: both;
+/// }
+/// .grid-4 > * {
+///   float: left;
+///   padding-left: 2.5%;
+///   width: 25%;
+/// }
+/// .grid-4 > *:nth-child(1n) {
+///   clear: none;
+/// }
+/// .grid-4 > *:nth-child(4n + 1) {
+///   clear: both;
+/// }
+///
+/// .grid-5-complex {
+///   margin-left: -20px;
+/// }
+/// .grid-5-complex:after {
+///   content: "";
+///   display: table;
+///   clear: both;
+/// }
+/// .grid-5-complex > *:nth-child(1) {
+///   float: left;
+///   padding-left: 20px;
+///   width: 10%;
+/// }
+/// .grid-5-complex > *:nth-child(2) {
+///   float: left;
+///   padding-left: 20px;
+///   width: 30%;
+/// }
+/// .grid-5-complex > *:nth-child(3) {
+///   float: left;
+///   padding-left: 20px;
+///   width: 10%;
+/// }
+/// .grid-5-complex > *:nth-child(4) {
+///   float: left;
+///   padding-left: 20px;
+///   width: 40%;
+/// }
+/// .grid-5-complex > *:nth-child(5) {
+///   float: left;
+///   padding-left: 20px;
+///   width: 10%;
+/// }
+/// .grid-5-complex > *:nth-child(1n) {
+///   clear: none;
+/// }
+/// .grid-5-complex > *:nth-child(5n + 1) {
+///   clear: both;
+/// }
+
+@mixin grid(
+  $items: 2,
+  $gutter: 20px,
+  $target: $grid-target) {
+
+  //Variables
+  $list-length: length($items);
+  $items-per-row: null; //determined later in mixin, globally defined here
+
+  //Parent container styles
+  @include clearfix;
+  margin-left: -#{$gutter};
+
+  //Child grid styles
+  //If length of items list is gt 1, means multi-column widths provided
+  @if $list-length > 1 {
+    $items-per-row: $list-length;
+    @for $i from 1 through $list-length {
+      $item-size: nth($items, $i);
+
+      > #{$target}:nth-child(#{$i}) {
+        float: left;
+        padding-left: #{$gutter};
+        width: $item-size;
+        @if $support-ie7 == true and $ie-conditional-classes == true {
+          .ie7 & {
+            width: floor($item-size);
+          }
+        }
+      }
+    }
+  } @elseif $list-length == 1 {
+    //If length of list is 1, use evenly-sized items
+    $items-per-row: $items;
+    $item-size: 100% / $items;
+
+    > #{$target} {
+      float: left;
+      padding-left: #{$gutter};
+      width: $item-size;
+      @if $support-ie7 == true and $ie-conditional-classes == true {
+        .ie7 & {
+          width: floor($item-size);
+        }
+      }
+    }
+  }
+
+  //Clears all clears; when used across media queries, for example
+  & > #{$target}:nth-child(1n) {
+    clear: none;
+  }
+
+  //Clear first item in each row
+  $items-per-row-n: $items-per-row + "n";
+
+  & > #{$target}:nth-child(#{$items-per-row-n} + 1){
+    clear: both;
+  }
+
+}

@@ -1,0 +1,6 @@
+{
+  "name": "ItemListPage",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./ItemListPage.js"
+}
