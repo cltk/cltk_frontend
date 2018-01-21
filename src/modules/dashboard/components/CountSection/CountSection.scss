@@ -1,0 +1,40 @@
+@import '../../../../variables.scss';
+
+.countSection {
+	display: block;
+	text-align: center;
+	border: 2px solid transparent;
+	padding: 40px 0;
+	@include transition(100ms all ease-in-out);
+
+	&:hover {
+		border: 2px solid $dark;
+		label, .count {
+			color: $dark;
+		}
+
+		.count {
+			border-bottom: 2px solid $divider;
+		}
+	}
+
+	label {
+		font-family: $font-title;
+		font-size: 12px;
+		text-transform: uppercase;
+		display: block;
+		color: $text-secondary;
+		margin: 25px 0 0;
+	}
+
+	.count {
+		font-family: $font-reading;
+		font-size: 60px;
+		font-weight: 100;
+		display: inline-block;
+		padding: 0 0 3px 0;
+		color: $text-secondary;
+		border-bottom: 2px solid transparent;
+		@include transition(100ms all ease-in-out);
+	}
+}

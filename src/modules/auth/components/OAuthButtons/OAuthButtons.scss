@@ -1,0 +1,22 @@
+@import '../../../../variables.scss';
+
+.at-oauth {
+
+	button {
+		width: 100%;
+		padding: 15px 25px;
+		margin: 10px auto;
+		border-radius: 0px;
+		border: 2px solid #999;
+		background: #999;
+		color: $light;
+		@include transition(all 100ms ease-in-out);
+
+		&:hover {
+			border: 2px solid $dark;
+			background: $dark;
+			color: $light;
+
+		}
+	}
+}

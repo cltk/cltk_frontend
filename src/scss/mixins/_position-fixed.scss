@@ -1,0 +1,27 @@
+/// Shorthand method for applying fixed positioning while using the familiar multi-value declarations (`20px 40px 26px`) offered by CSS margin and padding.
+///
+/// @name fixed
+/// @param {Number[unit]} $value - Takes 1-4 values, following convention of traditional CSS shorthand properties for margin, padding, etc. One notable improvement: You can use the shorthand and still leave some values blank. Do so by placing an 'n' in place of any numeral.
+/// @link http://codepen.io/upstatement/pen/eNoMQe See it on Codepen
+///
+/// @example markup - HTML
+/// <div class="item">Lorem ipsum dolor sit amet.</div>
+///
+/// @example scss - SCSS
+/// .item {
+///   @include fixed(0 0 0 0);
+/// }
+///
+/// @example css - CSS Output
+/// .item {
+///   position: fixed;
+///   top: 0;
+///   right: 0;
+///   bottom: 0;
+///   left: 0;
+/// }
+///
+
+@mixin fixed($value) {
+  @include shorthander(fixed, $value);
+}

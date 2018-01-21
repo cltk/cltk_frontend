@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Translation renders correctly 1`] = `
+<div
+  className="meta-item translation"
+/>
+`;

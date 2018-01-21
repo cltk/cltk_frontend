@@ -1,0 +1,57 @@
+@import '../../../../variables.scss';
+
+.discussion {
+  border-top: 1px solid $divider-light-grey;
+  padding-top: 40px;
+  text-align: left;
+}
+
+.discussionTitle {
+  font-size: 26px;
+  font-family: $font-reading;
+  color: $text-primary;
+}
+
+.discussionTitleContainer {
+  padding-bottom: 40px;
+}
+
+.discussionAuthor, .discussionDate, .discussionContent, .discussionReplyButton {
+  font-size: 18px;
+}
+
+.discussionMeta {
+  padding-bottom: 10px;
+}
+
+.discussionAuthor {
+  color: $text-primary;
+  font-weight: bold;
+  padding-right: 10px;
+}
+
+.discussionDate {
+  color: $light-grey;
+}
+
+.discussionContent {
+  font-family: $font-accent;
+	font-weight: 100;
+	font-size: 18px;
+	color: $text-primary;
+	line-height: 1.7em;
+	width: 100%;
+}
+
+.discussionReplyButton {
+  color: $text-primary;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.discussionReply {
+  border-left: 2px solid $divider-light-grey;
+  text-align: left;
+  margin: 20px 0px;
+  padding-left: 30px;
+}

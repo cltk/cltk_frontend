@@ -1,0 +1,6 @@
+{
+  "name": "PaginationButton",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./PaginationButton.js"
+}

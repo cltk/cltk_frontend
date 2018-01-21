@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomeGetStarted renders correctly 1`] = `
+<section
+  className="bg-gray"
+  id="get-started"
+>
+  <div
+    className="container text-center"
+  >
+    <div
+      className="row"
+    >
+      <h2
+        className="section-title"
+      >
+        Get Started 
+      </h2>
+      <hr
+        className="section-header-line"
+      />
+      <h4
+        className="uppercase"
+      >
+        Browse the authors, poets, and historians in the archive
+      </h4>
+    </div>
+  </div>
+  <div
+    className="works-list"
+  >
+    <div
+      className="reading-loading"
+    >
+      <div
+        className="well-spinner-double"
+      >
+        <div
+          className="double-bounce1"
+        />
+        <div
+          className="double-bounce2"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="container text-center"
+  >
+    <div
+      className="row"
+    >
+      <a
+        aria-label="View more"
+        className="waves-effect waves-light btn-large"
+        href="/browse"
+      >
+        View more
+      </a>
+    </div>
+  </div>
+</section>
+`;

@@ -1,16 +1,17 @@
-# -*- mode: gitignore; -*-
-
-# Application specific
-local
-private/settings/production.json
-*.log
-.uploads
+# Application
 node_modules
-k8s/production
-build_tag.js
-dump
-dump.*
+build
+coverage
+*.log
+/**/*.css
+dump.rdb
 
+# Fonts
+!public/css/materialdesignicons.css
+!public/css/materialdesignicons.min.css
+
+# Temp files
+tmp/
 
 # Editors
 *~
@@ -25,6 +26,7 @@ tramp
 .idea/
 *.iml
 *.iws
+.vscode/
 
 # OS
 .DS_Store
@@ -34,3 +36,7 @@ tramp
 .Trashes
 ehthumbs.db
 Thumbs.db
+*.sh
+.env*.local
+
+doc/

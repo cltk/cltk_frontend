@@ -1,0 +1,46 @@
+/// Serves a different background image when the user agent has a retina display
+///
+/// @param {size} $bg-size - optional background size
+/// @param {path} $image - file path
+/// @require {mixin} mq-dpi
+/// @link http://codepen.io/upstatement/pen/vORJPZ See it on Codepen
+/// @example scss - SCSS
+/// .item-1 {
+///   background-image: url('img/image.jpg');
+///   @include retina-bg(img/image--lg.jpg);
+/// }
+///
+/// .item-2 {
+///   background-image: url('img/image2.jpg');
+///   @include retina-bg(img/image2--lg.jpg, cover);
+/// }
+///
+/// @example css - CSS Output
+/// .item-1 {
+///   background-image: url("img/image.jpg");
+/// }
+/// /@media (min--moz-device-pixel-ratio: 1.01042), (-o-min-device-pixel-ratio: 96dpi), (-webkit-min-device-pixel-ratio: 1.01042), (min-device-pixel-ratio: 1.01042), (min-resolution: 97dpi) {
+///   .item-1 {
+///     background-image: url("img/image--lg.jpg");
+///   }
+/// }
+///
+/// .item-2 {
+///   background-image: url("img/image2.jpg");
+/// }
+/// /@media (min--moz-device-pixel-ratio: 1.01042), (-o-min-device-pixel-ratio: 96dpi), (-webkit-min-device-pixel-ratio: 1.01042), (min-device-pixel-ratio: 1.01042), (min-resolution: 97dpi) {
+///   .item-2 {
+///     background-image: url("img/image2--lg.jpg");
+///     background-size: cover;
+///   }
+/// }
+///
+
+@mixin retina-bg($image, $bg-size: null) {
+  @include mq-dpi {
+    background-image: url($image);
+    @if $bg-size != null {
+      background-size: $bg-size;
+    }
+  }
+}

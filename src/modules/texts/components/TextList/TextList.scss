@@ -1,0 +1,38 @@
+@import '../../../../variables.scss';
+
+.textsList {
+	padding: 90px 0;
+	margin: 0 auto;
+	width: 95%;
+	text-align: center;
+
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+
+}
+.textsListNoResults {
+	text-align: left;
+	width: 90%;
+
+	p {
+		width: 90%;
+		max-width: 720px;
+		font-size: 22px;
+		font-family: $font-reading;
+		font-weight: 100;
+
+	}
+}

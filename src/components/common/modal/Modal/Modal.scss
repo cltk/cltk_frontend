@@ -1,0 +1,50 @@
+@import '../../../../variables.scss';
+
+.cltkModal {
+	background: rgba(255, 255, 255, 0.94);
+	width: 100vw;
+	height: 100vh;
+	text-align: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	color: $dark;
+	overflow-y: scroll;
+
+	.modalInner {
+		margin: 30px auto;
+		display: inline-block;
+		max-width: 720px;
+		width: 95%;
+	}
+
+	.closeModal {
+		position: fixed;
+		top: 25px;
+		right: 25px;
+		width: 44px;
+		height: 44px;
+		border: 2px #999 solid;
+		background: #999;
+		border-radius: 100%;
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: $light;
+		@include transition(all 100ms ease-in-out);
+
+		&:hover {
+			background: $dark;
+			border: $dark 2px solid;
+			color: $light;
+		}
+
+		i {
+			&:before {
+				font-size: 22px;
+			}
+		}
+	}
+}

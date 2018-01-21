@@ -1,0 +1,6 @@
+{
+  "name": "ItemSelectorItemListContainer",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./ItemSelectorItemListContainer.js"
+}

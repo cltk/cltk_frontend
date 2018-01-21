@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: cltk-ingress
+spec:
+  tls:
+  - secretName: cltk-certchain
+  rules:
+  - host: cltk.org
+    http:
+      paths:
+      - backend:
+          serviceName: cltk-service
+          servicePort: 3000

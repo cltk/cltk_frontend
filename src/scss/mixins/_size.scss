@@ -1,0 +1,30 @@
+/// Sets the `width` and `height` of the element.
+/// @param {Number [unit]} $width - Width (or height and width if $height is not declared)
+/// @param {Number [unit]} $height - Height
+/// @link http://codepen.io/upstatement/pen/KpoOpZ See it on Codepen
+///
+/// @example scss - Usage
+/// .box-1 {
+///   @include size(100px, 150px);
+/// }
+///
+/// .box-2 {
+///   @include size(200px);
+/// }
+///
+/// @example css - CSS Output
+/// .box-1 {
+///   width: 100px;
+///   height: 150px;
+/// }
+///
+/// .box-2 {
+///   width: 200px;
+///   height: 200px;
+/// }
+///
+
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}

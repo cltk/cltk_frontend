@@ -1,0 +1,120 @@
+/// Shorthand method for common multi-value declarations such as absolute, padding, and margin. Can also be used as the basis to create new multi-value declarations that we haven't conceived.
+///
+/// @name shorthander
+/// @param {String} $position - Takes name of attribute: margin, padding, absolute, fixed, relative, static.
+/// @param {Number[unit]} $value - Takes 1-4 values, following convention of traditional CSS shorthand properties for margin, padding, etc. One notable improvement: You can use the shorthand and still leave some values blank. Do so by placing an 'n' in place of any numeral.
+/// @link http://codepen.io/upstatement/pen/eNoMQe See it on Codepen
+///
+/// @example markup - HTML
+/// <div class="item">Lorem ipsum dolor sit amet.</div>
+///
+/// @example scss - SCSS
+/// .item {
+///   @include absolute(0 0 0 0);
+///   //@include relative(0 0 0 0);
+///   //@include fixed(0 0 0 0);
+///   //@include padding(0 0 0 0);
+///   //@include margin(0 0 0 0);
+/// }
+///
+/// @example css - CSS Output
+/// .item {
+///   position: absolute;
+///   top: 0;
+///   right: 0;
+///   bottom: 0;
+///   left: 0;
+/// }
+///
+
+
+@mixin shorthander($position, $value) {
+  $position-prefix: "";
+
+  @if $position == "margin"
+   or $position == "padding" {
+    $position-prefix: $position + "-";
+  } @else if $position == "null" {
+    // do nothing
+  } @else {
+    position: $position;
+  }
+
+  @if length($value) == 1
+  and $value != "n"
+  and $value != "x"
+  and $value != "null" {
+    #{$position-prefix}top: auto($value);
+    #{$position-prefix}right: auto($value);
+    #{$position-prefix}bottom: auto($value);
+    #{$position-prefix}left: auto($value);
+  }
+
+  @if length($value) == 2 {
+    $value-y: nth($value, 1);
+    $value-x: nth($value, 2);
+    @if $value-y != "n"
+    and $value-y != "x"
+    and $value-y != "null" {
+      #{$position-prefix}top: auto($value-y);
+      #{$position-prefix}bottom: auto($value-y);
+    }
+    @if $value-x != "n"
+    and $value-x != "x"
+    and $value-x != "null" {
+      #{$position-prefix}left: auto($value-x);
+      #{$position-prefix}right: auto($value-x);
+    }
+  }
+
+  @if length($value) == 3 {
+    $value-y-top: nth($value, 1);
+    $value-x: nth($value, 2);
+    $value-y-bottom: nth($value, 3);
+
+    @if $value-y-top != "n"
+    and $value-y-top != "x"
+    and $value-y-top != "null" {
+      #{$position-prefix}top: auto($value-y-top);
+    }
+    @if $value-x != "n"
+    and $value-x != "x"
+    and $value-x != "null" {
+      #{$position-prefix}right: auto($value-x);
+      #{$position-prefix}left: auto($value-x);
+    }
+    @if $value-y-bottom != "n"
+    and $value-y-bottom != "x"
+    and $value-y-bottom != "null" {
+      #{$position-prefix}bottom: auto($value-y-bottom);
+    }
+  }
+
+  @if length($value) == 4 {
+    $value-top: nth($value, 1);
+    $value-right: nth($value, 2);
+    $value-bottom: nth($value, 3);
+    $value-left: nth($value, 4);
+
+    @if $value-top != "n"
+    and $value-top != "x"
+    and $value-top != "null" {
+      #{$position-prefix}top: auto($value-top);
+    }
+    @if $value-right != "n"
+    and $value-right != "x"
+    and $value-right != "null" {
+      #{$position-prefix}right: auto($value-right);
+    }
+    @if $value-bottom != "n"
+    and $value-bottom != "x"
+    and $value-bottom != "null" {
+      #{$position-prefix}bottom: auto($value-bottom);
+    }
+    @if $value-left != "n"
+    and $value-left != "x"
+    and $value-left != "null" {
+      #{$position-prefix}left: auto($value-left);
+    }
+  }
+}

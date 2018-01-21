@@ -1,0 +1,22 @@
+/// Mix a color with black.
+///
+/// @param {Color} $color
+///   A hex, rgb, or hsl color value
+/// @param {Number(%)} $percent
+///   The percent of black to be mixed in.
+///
+/// @example scss - Usage
+///   .element {
+///     background-color: shade(#ffbb52, 60%);
+///   }
+///
+/// @example css - CSS Output
+///   .element {
+///     background-color: #664a20;
+///   }
+///
+/// @return {Color}
+
+@function shade($color, $percent) {
+  @return mix(#000, $color, $percent);
+}

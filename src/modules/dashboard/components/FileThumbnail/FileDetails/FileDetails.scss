@@ -1,0 +1,26 @@
+@import '../../../../../variables.scss';
+
+.fileDetails {
+	display: block;
+
+}
+
+.fileDetailsTitleInput {
+
+	input {
+		font-family: $font-reading;
+		font-size: 18px;
+		line-height: 1.3em;
+		color: $dark;
+		border: none;
+		border-bottom: 2px solid $divider-light-grey;
+		padding: 5px;
+		outline: none;
+		width: 100%;
+
+		&:focus {
+			outline: none;
+			border-bottom: 2px solid $dark;
+		}
+	}
+}

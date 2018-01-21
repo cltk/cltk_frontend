@@ -1,0 +1,41 @@
+@import '../../../../variables.scss';
+@import '../ItemMetaField/ItemMetaField.scss';
+
+.itemTitleOuter {
+	padding: 20px 0 0 0;
+	text-align: left;
+}
+
+.itemTitle {
+	color: $text-primary;
+	display: inline-block;
+	vertical-align: baseline;
+}
+
+.itemMetaField.aboutMetaField {
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+
+.itemTitleLink {
+	font-family: $font-reading;
+	color: $primary;
+	font-size: 22px;
+	font-weight: 100;
+	font-style: italic;
+	display: inline-block;
+	vertical-align: baseline;
+	padding: 0px 0px 0 20px;
+	border: none;
+	outline: none;
+	@include transition(100ms all ease-in-out);
+
+	&:hover {
+		color: $primary-dark;
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+}

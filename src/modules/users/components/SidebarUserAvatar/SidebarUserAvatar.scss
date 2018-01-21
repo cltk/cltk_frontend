@@ -1,0 +1,17 @@
+@import '../../../../variables.scss';
+
+.sidebarUserAvatarImage {
+	width: 50px;
+	height: 50px;
+	margin: 12px 0;
+	display: block;
+	border-radius: 100%;
+	border: 1px solid $divider-light-grey;
+}
+
+.sidebarUserName {
+	font-size: 16px;
+	font-family: $font-body;
+	font-weight: bold;
+	line-height: 1.3em;
+}

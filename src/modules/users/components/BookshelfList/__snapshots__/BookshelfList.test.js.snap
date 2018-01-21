@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BookshelfList renders correctly 1`] = `
+<div
+  className="works-list works-list--bookshelf"
+>
+  <div>
+    <p
+      className="no-results no-results--bookshelf"
+    >
+      You do not have any works saved on your bookshelf yet. 
+      <a
+        href="/browse"
+      >
+        Add one by browsing the corpora.
+      </a>
+    </p>
+  </div>
+</div>
+`;

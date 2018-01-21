@@ -1,0 +1,27 @@
+@import '../../../../variables.scss';
+
+
+.userListItem {
+	display: flex;
+	align-items: left;
+	justify-content: center;
+
+	a {
+	}
+}
+
+.userListItemAvatarImage {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	border-radius: 100%;
+	border: 1px solid $divider-light-grey;
+}
+
+.userListItemUserName {
+	display: inline-block;
+	font-size: 16px;
+	font-family: $font-body;
+	font-weight: bold;
+	line-height: 1.3em;
+}

@@ -1,0 +1,24 @@
+/// Shorthand method for applying margin while using the familiar multi-value declarations while also providing a null option to display only needed values.
+///
+/// @name margin
+/// @param {Number[unit]} $value - Takes 1-4 values, following convention of traditional CSS shorthand properties for margin, padding, etc. One notable improvement: You can use the shorthand and still leave some values blank. Do so by placing an 'n' in place of any numeral.
+/// @link http://codepen.io/upstatement/pen/eNoMQe See it on Codepen
+///
+/// @example markup - HTML
+/// <div class="item">Lorem ipsum dolor sit amet.</div>
+///
+/// @example scss - SCSS
+/// .item {
+///   @include margin(10px n n 10px);
+/// }
+///
+/// @example css - CSS Output
+/// .item {
+///   margin-top: 10px;
+///   margin-left: 10px;
+/// }
+///
+
+@mixin margin($value) {
+  @include shorthander(margin, $value);
+}

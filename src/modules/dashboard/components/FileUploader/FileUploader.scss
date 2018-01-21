@@ -1,0 +1,44 @@
+@import '../../../../variables.scss';
+
+
+.fileUploader {
+  border: 2px dashed $divider-light-grey;
+
+  .fileDropzone {
+    background-color: $light;
+    margin: 0;
+    width: 100%;
+    height: 220px;
+    position: relative;
+		cursor: pointer;
+		@include transition(all 100ms ease-in-out);
+
+		&:hover {
+			background-color: #f6f6f6;
+		}
+
+    .fileUploaderLabel {
+      position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+      color: $text-secondary;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			align-self: center;
+      width: 100%;
+      height: 100%;
+			background: rgba(255, 255, 255, 0.1);
+
+			label {
+				font-size: 14px;
+				font-family: $font-label;
+				font-weight: 100;
+				text-transform: uppercase;
+	      text-align: center;
+			}
+    }
+  }
+}

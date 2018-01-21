@@ -1,0 +1,55 @@
+.dropzone {
+  background-color: #ffffff;
+  border: 2px dashed #dfe3e9;
+  border-radius: 10px 10px 10px 10px;
+  height: 100px;
+  position: relative;
+  margin-bottom: 10px;
+  .text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+.fileInput {
+  background-color: #fff;
+  border-radius: 7px;
+  border: 1px solid #dfe3e9;
+  margin: 10px 0;
+  padding: 10px 15px;
+  .deleteButton {
+    margin: 10px 15px;
+    text-align: right;
+  }
+  .moveButton {
+    margin: 10px 15px;
+    color: #dfe3e9;
+  }
+  .moveButton:hover {
+    cursor: move;
+  }
+}
+.progressBox {
+  padding: 30px;
+}
+.CircularProgressbar {
+  width: 70px;
+}
+
+.CircularProgressbar .CircularProgressbar-path {
+  stroke: #333d56;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease 0s;
+}
+
+.CircularProgressbar .CircularProgressbar-trail {
+  stroke: #d6d6d6;
+}
+
+.CircularProgressbar .CircularProgressbar-text {
+  fill: #333d56;
+  font-size: 20px;
+  dominant-baseline: middle;
+  text-anchor: middle;
+}

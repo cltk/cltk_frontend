@@ -1,0 +1,46 @@
+@import '../../../../variables.scss';
+
+.at-pwd-form {
+	label {
+		font-size: 14px;
+		font-family: $font-label;
+		font-weight: 100;
+		color: $text-primary;
+		text-align: left;
+		width: 100%;
+		margin: 5px 0;
+	}
+
+	input {
+		border-radius: 0px;
+		border: 2px solid #ddd;
+		padding: 20px;
+		font-size: 18px;
+		font-family: $font-body;
+		height: auto;
+		color: $dark;
+		font-weight: 100;
+
+		&:focus {
+			border: 2px solid $dark;
+			outline: none;
+		}
+	}
+
+	button {
+		width: 100%;
+		padding: 15px 25px;
+		margin: 10px auto 30px;
+		border-radius: 0px;
+		border: 2px solid #ddd;
+		font-size: 16px;
+		color: $dark;
+
+		&:hover, &:focus {
+			@include transition(all 100ms ease-in-out);
+			background: $dark;
+			border: 2px solid $dark;
+			color: $light;
+		}
+	}
+}

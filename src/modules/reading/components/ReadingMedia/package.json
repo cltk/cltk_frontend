@@ -1,0 +1,6 @@
+{
+  "name": "ReadingMedia",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./ReadingMedia.js"
+}

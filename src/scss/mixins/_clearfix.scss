@@ -1,0 +1,61 @@
+/// Force an element to self-clear its children.
+/// @see {mixin} unclearfix
+///
+/// @example markup - HTML
+/// <section class="container">
+///     <div class="col-1 col">
+///         <!-- Content Goes Here -->
+///     </div> <!-- /col-1 -->
+///     <div class="col-2 col">
+///         <!-- Content Goes Here -->
+///     </div> <!-- /col-2 -->
+/// </section> <!-- /container -->
+///
+/// @example scss - SCSS
+/// .container {
+///   @include clearfix();
+///   .col-1,
+///   .col-2 {
+///     float: left;
+///     width: 50%;
+///   }
+/// }
+///
+/// @example css - CSS Output
+/// .container:after {
+///   content: "";
+///   display: table;
+///   clear: both;
+/// }
+///
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+/// Remove clearfix from an element after it's been applied.
+/// @see {mixin} clearfix
+///
+/// @example scss - SCSS
+/// .container {
+///   @include clearfix();
+///   @include mq(320px, 768px) {
+///     @include unclearfix();
+///   }
+/// }
+///
+/// @example css - CSS Output
+/// .container:after {
+///   display: initial;
+///   clear: none;
+/// }
+///
+@mixin unclearfix {
+  &:after {
+    display: initial;
+    clear: none;
+  }
+}

@@ -1,0 +1,212 @@
+/******************************************************************************
+
+
+                  _
+     ___ _ _ _ __| |_  ___  _  _ ___
+    / _ \ '_| '_ \ ' \/ -_)| || (_-<
+    \___/_| | .__/_||_\___(_)_,_/__/
+            |_|
+
+        the archive, reimagined.
+
+
+
+ |  Style Variables for cltk.org application
+ |
+ |   1. Colors
+ |   2. Typography
+ |   3. Mixins
+
+
+******************************************************************************/
+
+
+/******************************************************************************
+
+1. Colors
+
+******************************************************************************/
+
+/******************************************************************************
+
+1.1 Base Colors
+
+******************************************************************************/
+$grey: #555;
+$light: #fff;
+$dark: #222;
+$divider: #999;
+$divider-light-grey: #eee;
+$divider-light: #f6f6f6;
+$light-grey: #aaa;
+
+/******************************************************************************
+
+1.2 Brand Colors
+
+******************************************************************************/
+$primary-50: #E1F5FE;
+$primary-100: #B3E5FC;
+$primary-200: #81D4FA;
+$primary-300: #4FC3F7;
+$primary-400: #29B6F6;
+$primary-500: #03A9F4;
+$primary-600: #039BE5;
+$primary-700: #0288D1;
+$primary-800: #0277BD;
+$primary-900: #01579B;
+
+$accent-50: #FFF3E0;
+$accent-100: #FFE0B2;
+$accent-200: #FFCC80;
+$accent-300: #FFB74D;
+$accent-400: #FFA726;
+$accent-500: #FF9800;
+$accent-600: #FB8C00;
+$accent-700: #F57C00;
+$accent-800: #EF6C00;
+$accent-900: #E65100;
+
+$primary: $primary-500;
+$primary-light: $primary-300;
+$primary-dark: $primary-800;
+$accent: $accent-500;
+$accent-light: $accent-300;
+$accent-dark: $accent-800;
+
+/******************************************************************************
+
+1.3 Text Colors
+
+******************************************************************************/
+$text-primary: #212121;
+$text-secondary: #727272;
+$text-gray: #999;
+
+/******************************************************************************
+
+2. Typography
+
+Available Fonts:
+
+=================================
+Google Fonts
+=================================
+font-family: 'Gentium Basic', serif;
+font-family: 'Merriweather', serif;
+
+=================================
+Fonts.com
+=================================
+font-family:'Slate W04 Light';
+font-family:'Slate W04 Bk';
+font-family:'Slate W04 Regular';
+font-family:'Slate W04 Medium';
+font-family:'Slate W04 Condensed';
+font-family:'Slate W04 Bold';
+font-family:'Slate W04 Black';
+font-family:'Proxima Nova W08 Light';
+font-family:'Proxima Nova W08 Reg';
+font-family:'Freight Text W03 Light';
+font-family:'Freight Text W03 Black';
+font-family:'Freight Text W03 Book';
+font-family:'Freight Text W03 Bold';
+font-family:'Courier Bold W07 Regular';
+font-family:'Courier W07 Regular';
+font-family:'Futura LT W04 Bold Cond1475886';
+font-family:'Futura LT W04 Book1475802';
+font-family:'Futura LT W04 Medium1475814';
+font-family:'Futura LT W04 Light1475790';
+font-family:'Futura LT W04 Black';
+
+=================================
+Material Design Icons
+=================================
+font-family: "Material Design Icons";
+
+******************************************************************************/
+
+/******************************************************************************
+
+2.1 Base Fonts
+
+******************************************************************************/
+$font-body: 'Gotham';
+$font-accent: 'Proxima Nova W08 Light';
+$font-label: 'Gotham Book';
+$font-label-mono: 'Courier W07 Regular';
+$font-logo: 'Gotham';
+
+/******************************************************************************
+
+2.2 Title Fonts
+
+******************************************************************************/
+$font-title: 'Gotham';
+$font-title-light: 'Gotham';
+$font-title-bold: 'Gotham Book';
+$font-title-variant: 'Freight Text W03 Book';
+
+/******************************************************************************
+
+2.3 Reading Environment Fonts
+
+******************************************************************************/
+$font-reading: 'Freight Text W03 Book', Georgia, serif;
+$font-lemma: 'Gentium Basic', 'Merriweather', serif;
+
+/******************************************************************************
+
+2.4 Material Design Icons
+
+******************************************************************************/
+
+@font-face {
+  font-family: "Material Design Icons";
+  src: url("/fonts/materialdesignicons-webfont.eot?v=1.9.32");
+  src: url("/fonts/materialdesignicons-webfont.eot?#iefix&v=1.9.32") format("embedded-opentype"), url("/fonts/materialdesignicons-webfont.woff2?v=1.9.32") format("woff2"), url("/fonts/materialdesignicons-webfont.woff?v=1.9.32") format("woff"), url("/fonts/materialdesignicons-webfont.ttf?v=1.9.32") format("truetype"), url("/fonts/materialdesignicons-webfont.svg?v=1.9.32#materialdesigniconsregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/******************************************************************************
+
+3. Mixins
+
+ Mixins are based off of the excellent ups-mixin-lib repository by Upstatement
+ @https://github.com/Upstatement/ups-mixin-lib
+
+******************************************************************************/
+
+
+@import "scss/default-settings";
+
+@import "scss/functions/auto";
+@import "scss/functions/em";
+@import "scss/functions/rem";
+@import "scss/functions/shade";
+@import "scss/functions/strip-units";
+@import "scss/functions/tint";
+
+@import "scss/mixins/aspect-ratio";
+@import "scss/mixins/center";
+@import "scss/mixins/circle";
+@import "scss/mixins/clearfix";
+@import "scss/mixins/ellipsis";
+@import "scss/mixins/grid";
+@import "scss/mixins/hide";
+@import "scss/mixins/margin";
+@import "scss/mixins/mq";
+@import "scss/mixins/mq-dpi";
+@import "scss/mixins/padding";
+@import "scss/mixins/position-absolute";
+@import "scss/mixins/position-fixed";
+@import "scss/mixins/position-relative";
+@import "scss/mixins/pseudo";
+@import "scss/mixins/reset-input";
+@import "scss/mixins/retina-bg";
+@import "scss/mixins/shorthander";
+@import "scss/mixins/size";
+@import "scss/mixins/svg";
+@import "scss/mixins/triangle";
+@import "scss/mixins/transition";

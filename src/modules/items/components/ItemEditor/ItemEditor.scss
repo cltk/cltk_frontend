@@ -1,0 +1,166 @@
+@import '../../../../variables.scss';
+
+.itemEditor {
+	padding: 120px 0;
+	min-height: 100vh;
+	width: 100%;
+	max-width: none;
+	margin: 0 auto;
+
+	h1 {
+		color: $dark;
+		font-size: 48px;
+	}
+
+	hr {
+		max-width: 120px;
+		width: 90%;
+		margin: 20px 0;
+		height: 3px;
+		background: $divider-light-grey;
+		border: none;
+		outline: none;
+		display: none;
+	}
+}
+
+.itemEditorHead {
+	margin: 50px auto;
+	width: 100%;
+	max-width: 990px;
+
+}
+
+.itemEditorFormInputOuter {
+	margin: 50px auto;
+	width: 100%;
+	max-width: 990px;
+
+
+	label {
+		font-size: 14px;
+		display: block;
+	}
+
+	input, textarea {
+		display: inline-block;
+		vertical-align: top;
+		font-size: 38px;
+		font-family: $font-reading;
+		font-weight: 100;
+		color: $dark;
+		border: none;
+		border-bottom: 2px solid $divider-light-grey;
+		padding: 15px 15px 5px 15px;
+		margin: 20px 0;
+		outline: none;
+		width: 90%;
+		max-width: 990px;
+		text-align: left;
+
+		&:focus {
+			outline: none;
+		}
+
+		&::placeholder {
+			color: #bbb;
+		}
+	}
+
+	textarea {
+		font-size: 22px;
+		line-height: 1.7em;
+		min-height: 180px;
+	}
+}
+
+.itemEditorFormInputOuterMetadata {
+	max-width: none;
+	width: 90%;
+	border-bottom: 1px solid $divider-light-grey;
+
+	input, textarea, select {
+		font-size: 20px;
+		margin: 10px 0;
+		display: block;
+		width: 100%;
+	}
+
+	select {
+		font-family: $font-reading;
+		font-weight: 100;
+		margin: 26px 0;
+		color: $dark;
+		border: none;
+		border-bottom: 2px solid $divider-light-grey;
+		padding: 15px;
+		background: $light;
+		border-radius: 0;
+
+		option {
+			background: $light;
+			color: $dark;
+		}
+	}
+
+	textarea {
+		min-height: 120px;
+	}
+}
+
+.itemEditorFormHelp {
+	font-size: 12px;
+	color: $primary;
+	padding: 40px 6px;
+	display: inline-block;
+	vertical-align: top;
+	cursor: pointer;
+
+	&:hover {
+		color: $primary-dark;
+	}
+}
+
+.nameNotAvailable {
+	color: $accent-500;
+	opacity: 0;
+
+	&.nameNotAvailableVisible {
+		opacity: 1;
+	}
+}
+
+.itemEditorButton {
+	display: inline-block;
+	margin: 30px 0;
+	color: $dark;
+	padding: 15px 25px;
+	background: transparent;
+	border: 2px solid $dark;
+	text-transform: uppercase;
+	font-family: $font-label;
+	cursor: pointer;
+	border-radius: 0;
+	outline: 0;
+	@include transition(all 100ms ease-in-out);
+
+	&.disabled {
+		opacity: 0.3;
+
+	}
+
+
+	&:hover {
+		background: $primary;
+		border: 2px solid $primary;
+		color: $light;
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	i {
+		padding-right: 10px;
+	}
+}

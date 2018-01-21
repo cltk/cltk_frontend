@@ -1,0 +1,6 @@
+{
+  "name": "MetadataField",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./MetadataField.js"
+}

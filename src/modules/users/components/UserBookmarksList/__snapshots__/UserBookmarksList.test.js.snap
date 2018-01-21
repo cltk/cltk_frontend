@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserBookmarksList renders correctly 1`] = `
+<div
+  className="collection with-header"
+  style={
+    Object {
+      "marginTop": 0,
+    }
+  }
+>
+  <div
+    className="collection-header"
+  >
+     
+    <h3>
+      Bookmarks
+    </h3>
+  </div>
+</div>
+`;
