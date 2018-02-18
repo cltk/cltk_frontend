@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
-import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
-import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import Annotations from '/imports/api/collections/annotations';
+
+
+import './AnnotationsList.css';
+
 
 class AnnotationsList extends React.Component {
 
@@ -20,13 +20,6 @@ class AnnotationsList extends React.Component {
 	}
 
 	addDiscussionComment() {
-		const content = $(this.newCommentForm).find('textarea').val();
-
-		Meteor.call('annotations.insert', {
-			content,
-			textNode: this.props.text._id._str,
-		});
-
 		$(this.newCommentForm).find('textarea').val('');
 	}
 
@@ -37,7 +30,6 @@ class AnnotationsList extends React.Component {
 	}
 
 	render() {
-		const currentUser = Meteor.user();
 		const { annotations } = this.props;
 
 		let discussionWrapClass = 'discussion-wrap';
@@ -165,31 +157,4 @@ AnnotationsList.propTypes = {
 	text: PropTypes.object.isRequired,
 };
 
-export default createContainer((props) => {
-	let annotations = [];
-	let query = {};
-
-	let sort = {};
-	switch (props.sortMethod) {
-	case 'recent':
-		sort = { updated: -1, votes: -1 };
-		break;
-	case 'votes':
-		sort = { votes: -1, updated: -1 };
-		break;
-	default:
-		sort = { votes: -1, updated: -1 };
-		break;
-	}
-
-	if (props.text) {
-		query = { textNode: props.text._id._str };
-	}
-
-	const handle = Meteor.subscribe('annotations', query);
-	annotations = Annotations.find(query, { sort }).fetch();
-
-	return {
-		annotations,
-	};
-}, AnnotationsList);
+export default AnnotationsList;

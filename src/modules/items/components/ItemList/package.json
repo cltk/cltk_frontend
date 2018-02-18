@@ -1,6 +1,0 @@
-{
-  "name": "ItemList",
-  "version": "0.0.1",
-  "private": true,
-  "main": "./ItemList.js"
-}

@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
-import { createContainer } from 'meteor/react-meteor-data';
 import { Card } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import Utils from '/imports/lib/utils';
 
 
 // Work Teaser
@@ -27,20 +25,9 @@ class WorkTeaser extends React.Component {
 	}
 
 	toggleShelf(isChecked) {
-		if (Meteor.userId()) {
-			if (!isChecked) {
-				Meteor.call('shelf.insert', this.props.work.id);
-			} else {
-				Meteor.call('shelf.remove', this.props.work.id);
-			}
-			this.setState({
-				isInShelf: true,
-			});
-		} else {
-			this.setState({
-				showLoginDialog: true,
-			});
-		}
+		this.setState({
+			isInShelf: !this.state.isInShelf,
+		});
 	}
 
 	render() {
@@ -142,28 +129,4 @@ WorkTeaser.propTypes = {
 	work: PropTypes.object.isRequired,
 };
 
-const WorkTeaserContainer = createContainer((props) => {
-	let isInShelf = false;
-
-	const worksShelfList = Meteor.users.findOne({
-		_id: Meteor.userId(),
-	}, {
-		fields: {
-			worksShelf: 1,
-		},
-	});
-
-	const handle = Meteor.subscribe('worksShelf');
-	if (handle.ready()) {
-		if (worksShelfList && 'worksShelf' in worksShelfList) {
-			// Check if current textNode exist in bookmarked textNodes
-			isInShelf = ~worksShelfList.worksShelf.indexOf(props.work.id);
-		}
-	}
-
-	return {
-		isInShelf,
-	};
-}, WorkTeaser);
-
-export default WorkTeaserContainer;
+export default WorkTeaser;

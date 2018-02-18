@@ -1,3 +1,4 @@
+@import '../../../../variables.scss';
 
 .definition {
 
@@ -23,7 +24,7 @@
 
   .root, .meaning-definition, .form {
     display:block;
-    color:@text-color;
+    color:$text-primary;
 
   }
 

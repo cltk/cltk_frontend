@@ -19,6 +19,8 @@
 	top: 0;
 	left: 0;
   z-index: 100;
+	width: 100vw;
+	padding: 0;
 }
 
 .headroom {
@@ -29,6 +31,7 @@
 	position: fixed;
 	background: rgba(255, 255, 255, 0.6);
 	height: 60px;
+	width: 100vw;
 }
 .headroom--unfixed {
   transform: translateY(0);
@@ -52,11 +55,14 @@
 		font-family: $font-label;
 
 		a {
-			padding: 18px 20px;
+			padding: 16px 20px;
 			font-weight: bold;
 			text-transform: uppercase;
 			cursor: pointer;
 			border: 2px solid transparent;
+			display: block;
+			height: 60px;
+
 			@include transition(all 100ms linear);
 
 			&:hover {

@@ -1,20 +1,18 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { shallow } from 'enzyme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // component:
-import Browse from './Browse';
+import BrowsePage from './BrowsePage';
 
-describe('Browse', () => {
+describe('BrowsePage', () => {
 	it('renders correctly', () => {
 
-		const tree = renderer
-			.create(
-				<MuiThemeProvider>
-					<Browse />
-				</MuiThemeProvider>
-			)
-			.toJSON();
-		expect(tree).toMatchSnapshot();
+		const wrapper = shallow(
+			<MuiThemeProvider>
+				<BrowsePage />
+			</MuiThemeProvider>
+			);
+		expect(wrapper).toBeDefined();
 	});
 });

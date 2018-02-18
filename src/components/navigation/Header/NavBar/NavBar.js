@@ -16,9 +16,14 @@ const NavBar = ({ toggleAuthModal, toggleLeftMenu, userId, logout }) => (
 		<NavBarHeader toggleLeftMenu={toggleLeftMenu} />
 		<ul className="nav">
 			<li>
-				<Link to={'/#features'}>
-					Services
+				<Link to={'/#build'}>
+					Build
 				</Link>
+			</li>
+			<li>
+				<a href="http://cltk.org" target="_blank" rel="noopener noreferrer">
+					cltk.org
+				</a>
 			</li>
 			<li>
 				<Link to={'/about'}>

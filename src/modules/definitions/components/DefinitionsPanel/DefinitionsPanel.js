@@ -2,13 +2,13 @@ import React from 'react';
 import ReactList from 'react-list';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
-import { createContainer } from 'meteor/react-meteor-data';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import TextField from 'material-ui/TextField';
 
-import Definitions from '/imports/api/collections/definitions';
-import Wordforms from '/imports/api/collections/wordforms';
+
+import './DefinitionsPanel.css';
+
 
 class DefinitionsPanel extends React.Component {
 	static defaultProps = {
@@ -95,50 +95,4 @@ DefinitionsPanel.childContextTypes = {
 };
 
 
-const DefinitionsPanelContainer = createContainer((props) => {
-	const words = [];
-	const textIds = [];
-	const definitionIds = [];
-	const definitions = {};
-	let wordForms = [];
-	props.textNodes.map((textNode) => {
-		textIds.push(textNode.id);
-		return true;
-	});
-
-	/*
-	const handleWordforms = Meteor.subscribe('wordForms', textIds);
-	if (handleWordforms.ready()) {
-		wordForms = Wordforms.find({ word: { $regex: props.searchText } }).fetch();
-		wordForms.map((wordForm) => {
-			definitionIds.push(wordForm.definitions);
-			return true;
-		});
-		const handleDefinitions = Meteor.subscribe('definitions', definitionIds);
-		if (handleDefinitions.ready()) {
-			wordForms.map((wordForm) => {
-				if (definitions[wordForm.word] == null) {
-					definitions[wordForm.word] = [];
-				}
-				definition = Definitions.findOne({ _id: wordForm.definitions });
-				if (definition !== undefined) {
-					definitions[wordForm.word].push(definition);
-				}
-				return true;
-			});
-			Object.keys(definitions).forEach(key => {
-				word = {};
-				word.lemma = key;
-				word.definitions = definitions[key];
-				words.push(word);
-			});
-		}
-	}
-	*/
-	
-	return {
-		words,
-	};
-}, DefinitionsPanel);
-
-export default DefinitionsPanelContainer;
+export default DefinitionsPanel;

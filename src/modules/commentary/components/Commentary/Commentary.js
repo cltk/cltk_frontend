@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './Commentary.css';
+
+
 class Commentary extends React.Component {
 
 	constructor(props) {

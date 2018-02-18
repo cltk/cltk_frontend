@@ -7,7 +7,6 @@ const query = gql`
 	query textQuery($hostname: String, $id: String) {
 		project(hostname: $hostname) {
 	    _id
-			userIsAdmin
 			text(_id: $id) {
 				_id
 			  projectId

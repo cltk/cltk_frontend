@@ -1,5 +1,5 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { shallow } from 'enzyme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // component:
@@ -8,13 +8,11 @@ import BookshelfList from './BookshelfList';
 describe('BookshelfList', () => {
 	it('renders correctly', () => {
 
-		const tree = renderer
-			.create(
-				<MuiThemeProvider>
-					<BookshelfList />
-				</MuiThemeProvider>
-			)
-			.toJSON();
-		expect(tree).toMatchSnapshot();
+		const wrapper = shallow(
+			<MuiThemeProvider>
+				<BookshelfList />
+			</MuiThemeProvider>
+			);
+		expect(wrapper).toBeDefined();
 	});
 });

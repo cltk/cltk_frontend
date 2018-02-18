@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Masonry from 'react-masonry-component/lib';
+import Masonry from 'react-masonry-component';
 
-import WorkTeaser from '/imports/ui/components/works/WorkTeaser';
+import WorkTeaser from '../../../works/components/WorkTeaser';
 
 class SearchResultsList extends React.Component {
 
@@ -20,7 +20,6 @@ class SearchResultsList extends React.Component {
 	}
 
 	render() {
-		const isLoading = false; // TODO: pass into props
 		const masonryOptions = {
 			// columnWidth : 400,
 			// itemSelector: '.work-teaser',
@@ -48,21 +47,14 @@ class SearchResultsList extends React.Component {
 				}
 
 				{this.props.hasMoreWorks ?
-					<div>
-						{isLoading ?
-							<LoadingWell />
-					:
-							<a
-								className="waves-effect waves-light btn-large"
-								aria-label="View more"
-								onClick={this.loadMore}
-						>
-							Load more
-							</a>
-					}
-					</div>
-				: '' }
-
+					<a
+						className="waves-effect waves-light btn-large"
+						aria-label="View more"
+						onClick={this.loadMore}
+					>
+					Load more
+					</a>
+				: ''}
 			</div>
 		);
 	}

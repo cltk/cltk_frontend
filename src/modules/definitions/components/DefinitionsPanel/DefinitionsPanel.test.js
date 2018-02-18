@@ -1,5 +1,5 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { shallow } from 'enzyme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // component:
@@ -11,16 +11,14 @@ jest.mock('react-list');
 describe('DefinitionsPanel', () => {
 	it('renders correctly', () => {
 
-		const tree = renderer
-			.create(
-				<MuiThemeProvider>
-					<DefinitionsPanel
-						textNodes={[]}
-						words={[]}
+		const wrapper = shallow(
+			<MuiThemeProvider>
+				<DefinitionsPanel
+					textNodes={[]}
+					words={[]}
 					/>
-				</MuiThemeProvider>
-			)
-			.toJSON();
-		expect(tree).toMatchSnapshot();
+			</MuiThemeProvider>
+			);
+		expect(wrapper).toBeDefined();
 	});
 });

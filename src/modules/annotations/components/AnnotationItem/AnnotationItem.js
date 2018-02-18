@@ -1,13 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
-import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
-import { moment } from 'meteor/momentjs:moment';
 
 class AnnotationItem extends React.Component {
 
@@ -36,12 +32,6 @@ class AnnotationItem extends React.Component {
 	}
 
 	updateAnnotation() {
-		const content = $(this.updateCommentForm).find('textarea').val();
-
-		Meteor.call('annotation.update', {
-			_id: this.props.annotation._id,
-			content,
-		});
 
 		this.setState({
 			editMode: false,
@@ -50,17 +40,11 @@ class AnnotationItem extends React.Component {
 
 	upvoteAnnotation() {
 		if (typeof this.props.currentUser !== 'undefined' || 'null') {
-			Meteor.call('annotation.upvote',
-				this.props.annotation._id
-			);
 		}
 	}
 
 	reportAnnotation() {
 		if (typeof this.props.currentUser !== 'undefined' || 'null') {
-			Meteor.call('annotation.report',
-				this.props.annotation._id
-			);
 		}
 	}
 
@@ -80,7 +64,6 @@ class AnnotationItem extends React.Component {
 
 	render() {
 		const self = this;
-		const userIsLoggedIn = Meteor.user();
 
 		const { annotation, user } = this.props;
 		annotation.children = [];
@@ -158,9 +141,6 @@ class AnnotationItem extends React.Component {
 				</div>
 				<div className="inner-comment-row">
 					<div className="annotation-text">
-						{/* <div
-						 dangerouslySetInnerHTML={{ __html: annotation.content}}
-						 ></div> */}
 						{this.state.editMode ?
 							<form
 								className="update-comment-form clearfix"
@@ -376,14 +356,4 @@ AnnotationItem.propTypes = {
 	user: PropTypes.object,
 };
 
-export default createContainer(({ annotation }) => {
-	let user;
-
-	if (annotation && annotation.user) {
-		user = Meteor.users.findOne({_id: annotation.user})
-	}
-
-	return {
-		user,
-	};
-}, AnnotationItem);
+export default AnnotationItem;

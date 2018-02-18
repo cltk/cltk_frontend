@@ -1,9 +1,7 @@
 import React from 'react';
 
-import { createContainer } from 'meteor/react-meteor-data';
+import BookmarkedTextNode from '../BookmarkedTextNode';
 
-import BookmarkedTextNode from '/imports/ui/components/user/BookmarkedTextNode/BookmarkedTextNode';
-import TextNodes from '/imports/api/collections/textNodes';
 
 const UserBookmarksList = props => {
 	const styles = {
@@ -34,28 +32,4 @@ const UserBookmarksList = props => {
 	);
 };
 
-const UserBookmarksListContainer = createContainer(props => {
-	let bookmarkedText = [];
-	const handleBookmark = Meteor.subscribe('bookmark');
-	const bookmarkList = Meteor.users.findOne({}, { fields: { bookmarks: 1 } });
-
-	const bookmarks = [];
-
-	if (bookmarkList && bookmarkList.bookmarks && bookmarkList.bookmarks.length) {
-		bookmarkList.bookmarks.forEach((bookmark) => {
-			bookmarks.push(new Meteor.Collection.ObjectID(bookmark));
-		});
-
-		const handleText = Meteor.subscribe('textNodes', { _id: { $in: bookmarks } });
-
-		if (handleText.ready()) {
-			bookmarkedText = TextNodes.find({ _id: { $in: bookmarks } }).fetch();
-		}
-	}
-
-	return {
-		bookmarkedText,
-	};
-}, UserBookmarksList);
-
-export default UserBookmarksListContainer;
+export default UserBookmarksList;

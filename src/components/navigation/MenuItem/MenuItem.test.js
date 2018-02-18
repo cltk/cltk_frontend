@@ -1,5 +1,5 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { shallow } from 'enzyme';
 
 // component:
 import MenuItem from './MenuItem';
@@ -7,9 +7,9 @@ import MenuItem from './MenuItem';
 describe('MenuItem', () => {
 	it('renders correctly', () => {
 
-		const tree = renderer
-			.create(<MenuItem />)
-			.toJSON();
-		expect(tree).toMatchSnapshot();
+		const wrapper = shallow(
+			<MenuItem />
+			);
+		expect(wrapper).toBeDefined();
 	});
 });

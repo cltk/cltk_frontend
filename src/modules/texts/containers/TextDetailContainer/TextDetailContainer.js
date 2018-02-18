@@ -4,8 +4,6 @@ import autoBind from 'react-autobind';
 
 import ReadingEnvironmentContainer from '../ReadingEnvironmentContainer';
 import textDetailQuery from '../../graphql/queries/detail';
-import textListQuery from '../../graphql/queries/list';
-import textRemoveMutation from '../../graphql/mutations/remove';
 
 
 class TextDetailContainer extends React.Component {
@@ -28,20 +26,17 @@ class TextDetailContainer extends React.Component {
 
 	render() {
 		let text = [];
-		let userIsAdmin = false;
 
 		if (
 			this.props.textQuery
 			&& this.props.textQuery.project
 		) {
 			text = this.props.textQuery.project.text;
-			userIsAdmin = this.props.textQuery.project.userIsAdmin;
 		}
 
 		return (
 			<ReadingEnvironmentContainer
 				{...text}
-				userIsAdmin={userIsAdmin}
 				handleRemove={this.handleRemove}
 			/>
 		);
@@ -49,5 +44,5 @@ class TextDetailContainer extends React.Component {
 }
 
 export default compose(
-	textDetailQuery, textListQuery, textRemoveMutation,
+	textDetailQuery,
 )(TextDetailContainer);

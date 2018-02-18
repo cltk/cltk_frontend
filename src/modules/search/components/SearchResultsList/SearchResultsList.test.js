@@ -1,6 +1,6 @@
 
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { shallow } from 'enzyme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // component:
@@ -9,16 +9,14 @@ import SearchResultsList from './SearchResultsList';
 describe('SearchResultsList', () => {
 	it('renders correctly', () => {
 
-		const tree = renderer
-			.create(
-				<MuiThemeProvider>
-					<SearchResultsList
-						works={[]}
-						loadMore={() => {}}
+		const wrapper = shallow(
+			<MuiThemeProvider>
+				<SearchResultsList
+					works={[]}
+					loadMore={() => {}}
 					/>
-				</MuiThemeProvider>
-			)
-			.toJSON();
-		expect(tree).toMatchSnapshot();
+			</MuiThemeProvider>
+			);
+		expect(wrapper).toBeDefined();
 	});
 });

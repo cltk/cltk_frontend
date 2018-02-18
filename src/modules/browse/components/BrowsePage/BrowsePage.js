@@ -1,5 +1,8 @@
 import React from 'react';
-import WorksList from '/imports/ui/components/works/WorksList';
+import WorksList from '../../../works/components/WorksList';
+
+
+import './Browse.css';
 
 export default class Browse extends React.Component {
 

@@ -1,56 +1,14 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
-
-import Utils from '/imports/lib/utils';
-import Works from '/imports/api/collections/works';
+import Utils from '../../../../lib/util';
 
 class BookmarkedTextNode extends React.Component {
 	getChildContext() {
 		return { muiTheme: getMuiTheme(baseTheme) };
 	}
-
-	getTextLocation() {
-		const { text } = this.props;
-		let location = '';
-		let textN = '';
-
-		if ('n_1' in text) {
-			location += text.n_1;
-			textN = text.n_1;
-		}
-		if ('n_2' in text) {
-			location += `.${text.n_2}`;
-			textN = text.n_2;
-		}
-		if ('n_3' in text) {
-			location += `.${text.n_3}`;
-			textN = text.n_3;
-		}
-		if ('n_4' in text) {
-			location += `.${text.n_4}`;
-			textN = text.n_4;
-		}
-		if ('n_5' in text) {
-			location += `.${text.n_5}`;
-			textN = text.n_5;
-		}
-
-		return {
-			location,
-			textN,
-		};
-	}
-
-	handleClick() {
-
-	}
-
 
 	render() {
 		const { text } = this.props;
@@ -113,14 +71,4 @@ BookmarkedTextNode.propTypes = {
 	isOdd: PropTypes.bool,
 };
 
-const BookmarkedTextNodeContainer = createContainer((props) => {
-	const query = { _id: props.text.work };
-	const handleWorks = Meteor.subscribe('works', query);
-	const work = Works.findOne(query);
-
-	return {
-		work,
-	};
-}, BookmarkedTextNode);
-
-export default BookmarkedTextNodeContainer;
+export default BookmarkedTextNode;

@@ -18,16 +18,16 @@ export default class Footer extends React.Component {
 					<Row>
 						<Col lg={4}>
 							<span className="footerCopyright">
-                © cltk.org {year}
+                © cltk {year}
 							</span>
 							<span className="footerBuiltBy">
-								Created by
+                See more at
 								<a
-									href="https://archimedes.digital"
+									href="http://cltk.org"
 									target="_blank"
 									rel="noopener noreferrer"
 								>
-										Archimedes Digital
+                  cltk.org
 								</a>
 								.
 							</span>

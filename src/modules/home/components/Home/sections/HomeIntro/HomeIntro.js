@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BackgroundImageHolder from '/imports/ui/components/pages/BackgroundImageHolder';
+import BackgroundImage from '../../../../../../components/common/cover/BackgroundImage';
 
 export default function HomeIntro(props) {
 	return (
 		<section id="intro" className="cover fullscreen image-bg bg-dark ">
 
-			<BackgroundImageHolder
+			<BackgroundImage
 				imgSrc="/images/column.jpg"
 			/>
 			<div className="background-screen cyan" />

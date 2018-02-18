@@ -8,7 +8,6 @@ import readingEnvironmentQuery from '../../graphql/queries/readingEnvironment';
 class ReadingEnvironmentContainer extends React.Component {
 	render() {
 		let collection = null;
-		let userIsAdmin = this.props.userIsAdmin;
 
 		if (
 			this.props.readingEnvironmentQuery
@@ -21,7 +20,6 @@ class ReadingEnvironmentContainer extends React.Component {
 			<ReadingEnvironment
 				_id={this.props._id}
 				collection={collection}
-				userIsAdmin={userIsAdmin}
 				handleRemove={this.props.handleRemove.bind(this, this.props._id)}
 			/>
 		);

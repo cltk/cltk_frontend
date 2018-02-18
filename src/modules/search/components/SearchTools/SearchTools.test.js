@@ -1,5 +1,5 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { shallow } from 'enzyme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // component:
@@ -11,16 +11,13 @@ jest.mock('material-ui/TextField/TextField');
 describe('SearchTools', () => {
 	it('renders correctly', () => {
 
-		const tree = renderer
-			.create(
-				<MuiThemeProvider>
-					<SearchTools
-						filters={[]}
-						isTest
+		const wrapper = shallow(
+			<MuiThemeProvider>
+				<SearchTools
+					filters={[]}
 					/>
-				</MuiThemeProvider>
-			)
-			.toJSON();
-		expect(tree).toMatchSnapshot();
+			</MuiThemeProvider>
+			);
+		expect(wrapper).toBeDefined();
 	});
 });

@@ -1,0 +1,152 @@
+@import '../../../../variables.scss';
+
+#annotate-widget {
+  position:fixed;
+  bottom:20px;
+  right:20px;
+
+  button {
+    background:$primary;
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    outline:none;
+    border:none;
+
+    &:hover, &:focus {
+      outline:none;
+      background:$primary;
+    }
+
+    &.comment-mode-enabled {
+      background:$light;
+      i.mdi-close {
+        display:block;
+      }
+      i.mdi-pencil {
+        display:none;
+      }
+
+    }
+
+    i.mdi-pencil {
+      color:$light;
+      display:block;
+      padding:10px;
+    }
+
+    i.mdi-close {
+      color:$dark;
+      padding:10px;
+      display:none;
+    }
+
+  }
+
+
+
+}
+
+
+.annotations-toggles {
+  position:fixed;
+  bottom:35px;
+  right:35px;
+  z-index: 10;
+
+  &:hover {
+    .annotations-buttons {
+      opacity:1;
+
+      .annotations-button {
+        transform: scale(1);
+
+      }
+
+    }
+
+    .annotations-fab {
+      button {
+        background-color:#aaa !important;
+				&:hover {
+					background:#666 !important;
+				}
+      }
+    }
+
+  }
+
+}
+
+.annotations-buttons {
+  opacity:0;
+  padding:10px 5px 10px 10px;
+	@include transition( all 100ms ease-out );
+
+}
+
+.annotations-button {
+  position:relative;
+  margin:10px 0;
+  transform: scale(0.8);
+
+
+  &:hover {
+    .annotations-button-label {
+      opacity:1;
+	    background:rgba(0,0,0,0.7) !important;
+
+    }
+
+  }
+
+  .annotations-button-label {
+    position:absolute;
+    display:block;
+    top:9px;
+    right:50px;
+    text-align:right;
+    font-family:$font-label;
+		text-transform: uppercase;
+    font-weight:bold;
+		white-space:nowrap;
+    color:$light;
+    background:rgba(0,0,0,0.4) !important;
+    padding:1px 10px;
+    font-size:10px;
+    border-radius:2px;
+    width:auto;
+    opacity:1;
+  	@include transition( opacity 100ms ease-out );
+
+
+  }
+
+  .annotations-icon-button {
+    background:$primary-400 !important;
+    border-radius:50%;
+  	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),0 1px 5px 0 rgba(0, 0, 0, 0.12),0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    height:40px !important;
+    width:40px !important;
+    padding:7px 0px !important;
+		@include transition(background 100ms ease-out);
+
+		&:hover {
+	    background:$primary-600 !important;
+
+		}
+
+    span.mdi {
+			color:$light !important;
+
+			&:before {
+	      font-size:18px !important;
+
+			}
+
+    }
+
+
+  }
+
+}

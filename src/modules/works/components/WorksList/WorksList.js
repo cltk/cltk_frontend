@@ -1,12 +1,8 @@
 import React from 'react';
 import Masonry from 'react-masonry-component/lib';
 import PropTypes from 'prop-types';
-import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
 
-import Authors from '/imports/api/collections/authors';
-import Works from '/imports/api/collections/works';
-import WorkTeaser from '/imports/ui/components/works/WorkTeaser';
+import WorkTeaser from '../../../works/components/WorkTeaser';
 
 class WorksList extends React.Component {
 
@@ -15,6 +11,7 @@ class WorksList extends React.Component {
 		if (!works) {
 			return null;
 		}
+
 		return works.map((work) => (
 			<WorkTeaser
 				key={work._id}
@@ -58,50 +55,5 @@ WorksList.propTypes = {
 	skip: PropTypes.number,
 };
 
-export default createContainer(props => {
-	const query = {};
-	let works = [];
-	const limit = props.limit || 15;
-	const skip = props.skip || 0;
-	const handle = Meteor.subscribe('works', query, skip, limit);
-	if (handle.ready()) {
-		works = Works.find(query,
-			{
-				sort: {
-					english_tile: 1,
-				},
-			}
-		).fetch();
 
-		works.forEach((work, i) => {
-			if ('authors' in work) {
-				works[i].authors = Authors.find({
-					_id: {
-						$in: work.authors,
-					},
-				}).fetch();
-			} else {
-				works[i].authors = [];
-			}
-		});
-	}
-
-	works.sort((a, b) => {
-		if (a.authors.length && b.authors.length) {
-			if (a.authors[0].english_name > b.authors[0].english_name) {
-				return 1;
-			} else if (b.authors[0].english_name > a.authors[0].english_name) {
-				return -1;
-			}
-		}
-		return 0;
-	});
-
-	if (limit) {
-		works = works.splice(0, limit);
-	}
-
-	return {
-		works,
-	};
-}, WorksList);
+export default WorksList;

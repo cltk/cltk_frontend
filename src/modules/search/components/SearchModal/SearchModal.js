@@ -1,18 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql, gql } from 'react-apollo';
-import moment from 'moment';
 import autoBind from 'react-autobind';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import IconButton from 'material-ui/IconButton';
 
-import Authors from '/imports/api/collections/authors';
-import Works from '/imports/api/collections/works';
-
-import SearchTools from '/imports/ui/components/search/SearchTools';
-import SearchFilters from '/imports/ui/components/search/SearchFilters';
-import SearchResultsList from '/imports/ui/components/search/SearchResultsList';
+import SearchTools from '../SearchTools';
+import SearchResultsList from '../SearchResultsList';
 
 class SearchModal extends React.Component {
 	constructor(props) {
@@ -109,53 +103,5 @@ SearchModal.propTypes = {
 	work: PropTypes.object,
 };
 
-const withData = graphql(gql`
-  query SearchWorksWithTitle($textsearch: String!){
-		search_works_by_title(title: $textsearch) {
-			id
-			english_title
-			original_title
-			slug
-			language {
-				title
-			}
-			author {
-				id
-				name
-			}
-			corpus {
-				id
-				title
-				slug
-			}
-		}
-		corpora {
-			id
-			slug
-			title
-		}
-		languages {
-			id
-			slug
-			title
-		}
-		works_count
-	}`, {
-		options: ({ textsearch, limit, offset }) => {
-			return {
-	    variables: {
-		textsearch,
-		limit,
-		offset,
-	},
-			};
-		},
-		props: ({ data: { search_works_by_title, works_count, uniqueCorpora, uniqueLanguages } }) => ({
-			works: search_works_by_title,
-			worksCount: works_count,
-			uniqueCorpora,
-			uniqueLanguages,
-		}),
-	});
 
-export default withData(SearchModal);
+export default SearchModal;

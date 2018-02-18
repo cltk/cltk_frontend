@@ -7,7 +7,6 @@ import Drawer from 'material-ui/Drawer';
 
 import { toggleLeftMenu } from '../../../actions/leftMenu';
 import MenuItem from '../MenuItem';
-import MenuSubItem from '../MenuSubItem';
 import LeftMenuHead from '../LeftMenuHead';
 
 // actions
@@ -23,9 +22,7 @@ import './LeftMenu.css';
 class LeftMenu extends React.Component {
 
 	renderMenuItems() {
-		const {
-			project, closeLeftMenu
-		} = this.props;
+		const { closeLeftMenu } = this.props;
 
 		return (
 			<div>
@@ -35,108 +32,24 @@ class LeftMenu extends React.Component {
 				>
 					Collections
 				</MenuItem>
-				{project.userIsAdmin ?
-					<div>
-						<MenuSubItem
-							to="/collections"
-							onClick={closeLeftMenu}
-						>
-							List
-						</MenuSubItem>
-						<MenuSubItem
-							to="/collections/create"
-							onClick={closeLeftMenu}
-							last
-						>
-							Create
-						</MenuSubItem>
-					</div>
-				: ''}
 				<MenuItem
 					to="/items"
 					onClick={closeLeftMenu}
 				>
 					Items
 				</MenuItem>
-				{project.userIsAdmin ?
-					<div>
-						<MenuSubItem
-							to="/items"
-							onClick={closeLeftMenu}
-						>
-							List
-						</MenuSubItem>
-						<MenuSubItem
-							to="/items/create"
-							onClick={closeLeftMenu}
-							last
-						>
-							Create
-						</MenuSubItem>
-					</div>
-				: ''}
 				<MenuItem
 					to="/articles"
 					onClick={closeLeftMenu}
 				>
 					Articles
 				</MenuItem>
-				{project.userIsAdmin ?
-					<div>
-						<MenuSubItem
-							to="/articles"
-							onClick={closeLeftMenu}
-						>
-							List
-						</MenuSubItem>
-						<MenuSubItem
-							to="/articles/create"
-							onClick={closeLeftMenu}
-							last
-						>
-							Create
-						</MenuSubItem>
-					</div>
-				: ''}
 				<MenuItem
 					to="/texts"
 					onClick={closeLeftMenu}
 				>
 					Texts
 				</MenuItem>
-				{project.userIsAdmin ?
-					<div>
-						<MenuSubItem
-							to="/texts"
-							onClick={closeLeftMenu}
-						>
-							List
-						</MenuSubItem>
-						<MenuSubItem
-							to="/texts/create"
-							onClick={closeLeftMenu}
-							last
-						>
-							Create
-						</MenuSubItem>
-					</div>
-				: ''}
-				{project.userIsAdmin ?
-					<div>
-						<MenuItem
-							to="/dashboard"
-							onClick={closeLeftMenu}
-						>
-							Dashboard
-						</MenuItem>
-						<MenuItem
-							to="/dashboard/settings"
-							onClick={closeLeftMenu}
-						>
-							Settings
-						</MenuItem>
-					</div>
-				: ''}
 			</div>
 		);
 	}
@@ -219,12 +132,6 @@ LeftMenu.propTypes = {
 	project: PropTypes.object,
 	leftMenuOpen: PropTypes.bool,
 	closeLeftMenu: PropTypes.func,
-};
-
-LeftMenu.defaultProps = {
-	project: {
-		userIsAdmin: false,
-	},
 };
 
 const mapStateToProps = (state, props) => ({

@@ -14,7 +14,7 @@ const NavBarHeader = ({ dispatchToggleLeftMenu, leftMenuOpen }) => (
 		/>
 		<Link to="/">
 			<h2 className="site-title">
-				cltk.org [alpha]
+				.cltk/archive
 			</h2>
 		</Link>
 	</div>

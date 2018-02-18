@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createContainer } from 'meteor/react-meteor-data';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import Utils from '/imports/lib/utils';
+import Utils from '../../../../lib/util';
 
 class AnnotationTextNode extends React.Component {
 	getChildContext() {
@@ -109,17 +108,4 @@ AnnotationTextNode.propTypes = {
 	isOdd: PropTypes.bool,
 };
 
-const AnnotationTextNodeContainer = createContainer(props => {
-	let work = null;
-	/*
-	const query = { _id: text.work };
-	const handleWorks = Meteor.subscribe('works', query);
-	work = Works.findOne(query);
-	*/
-
-	return {
-		work,
-	};
-}, AnnotationTextNode);
-
-export default AnnotationTextNodeContainer;
+export default AnnotationTextNode;

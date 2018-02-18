@@ -1,10 +1,5 @@
 import React from 'react';
 
-import { createContainer } from 'meteor/react-meteor-data';
-import { Meteor } from 'meteor/meteor';
-
-import Annotations from '/imports/api/collections/annotations';
-import AnnotationTextNode from '/imports/ui/components/user/AnnotationTextNode/AnnotationTextNode';
 
 const styles = {
 	listItem: {
@@ -27,29 +22,16 @@ const UserAnnotationsList = props => {
 		<ul className="collection with-header" style={styles.list}>
 			<li className="collection-header"> <h3>Annotations</h3></li>
 			<div style={styles.innerList}>
-				{props.annotatedText && props.annotatedText.map((annotation, i) => {
-					let textId = '';
-					return (
-						<AnnotationTextNode
-							key={i}
-							isOdd={i % 2 ? true : false}
-							annotation={annotation}
-						/>
-					)})}
+				{props.annotatedText && props.annotatedText.map((annotation, i) => (
+					<div>
+						{/*
+							TODO: Annotation text node
+						*/}
+					</div>
+				))}
 			</div>
 		</ul>
 	);
 };
 
-const UserAnnotationsListContainer = createContainer(props => {
-	let annotatedText = [];
-	const handleAnnotation = Meteor.subscribe('annotation');
-	if (handleAnnotation.ready()) {
-		annotatedText = Annotations.find({ user: Meteor.userId() }).fetch();
-	}
-	return {
-		annotatedText,
-	};
-}, UserAnnotationsList);
-
-export default UserAnnotationsListContainer;
+export default UserAnnotationsList;

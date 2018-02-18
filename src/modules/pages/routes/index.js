@@ -2,7 +2,6 @@ import React from 'react';
 import { Route } from 'react-router';
 
 // layouts
-import ProjectLayout from '../../projects/layouts/ProjectLayout';
 import MainLayout from '../../../layouts/MainLayout';
 
 // components
@@ -23,9 +22,9 @@ export default (
 		<Route
 			path=":slug"
 			component={props => (
-				<ProjectLayout>
+				<MainLayout>
 					<PageContainer {...props} />
-				</ProjectLayout>
+				</MainLayout>
 			)}
 		/>
 	</div>

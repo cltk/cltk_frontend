@@ -68,7 +68,7 @@ export default class FileThumbnail extends React.Component {
 			title: this.props.file.name,
 			type: this.props.file.type,
 			path: `${process.env.REACT_APP_BUCKET_URL}/${event.filename}`,
-			thumbPath: `http://iiif.cltk.org/${event.filename}/full/90,/0/default.jpg`,
+			thumbPath: `http://iiif.orphe.us/${event.filename}/full/90,/0/default.jpg`,
 			_id: this._id
 		};
 		this.props.updateFileCb(this.props.fileIndex, file);
@@ -83,7 +83,7 @@ export default class FileThumbnail extends React.Component {
 		const thumbnail = isImage ? (
 			<img
 				alt={file.title}
-				src={`//iiif.cltk.org/${file.name}/square/160,/0/default.jpg`}
+				src={`//iiif.orphe.us/${file.name}/square/160,/0/default.jpg`}
 				onClick={this.toggleTitleInput}
 			/>
 		)

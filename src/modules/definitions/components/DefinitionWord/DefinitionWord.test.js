@@ -1,5 +1,5 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { shallow } from 'enzyme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // component:
@@ -8,17 +8,15 @@ import DefinitionWord from './DefinitionWord';
 describe('DefinitionWord', () => {
 	it('renders correctly', () => {
 
-		const tree = renderer
-			.create(
-				<MuiThemeProvider>
-					<DefinitionWord
-						word={{
-							definitions: [],
-						}}
+		const wrapper = shallow(
+			<MuiThemeProvider>
+				<DefinitionWord
+					word={{
+						definitions: [],
+					}}
 					/>
-				</MuiThemeProvider>
-			)
-			.toJSON();
-		expect(tree).toMatchSnapshot();
+			</MuiThemeProvider>
+			);
+		expect(wrapper).toBeDefined();
 	});
 });

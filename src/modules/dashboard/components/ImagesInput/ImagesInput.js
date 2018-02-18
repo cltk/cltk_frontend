@@ -43,7 +43,7 @@ export default class ImagesInput extends React.Component {
 			name: this.imageName,
 			type: this.imageType,
 			path: `${process.env.REACT_APP_BUCKET_URL}/${event.filename}`,
-			thumbPath: `http://iiif.cltk.org/${event.filename}/full/90,/0/default.jpg`,
+			thumbPath: `http://iiif.orphe.us/${event.filename}/full/90,/0/default.jpg`,
 			_id: this._id
 		};
 		this.props.updateImageCb(this.imageIndex, image);

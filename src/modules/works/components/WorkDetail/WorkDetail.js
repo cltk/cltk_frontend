@@ -12,7 +12,7 @@ class WorkDetail extends React.Component {
 				<section className="page-head image-bg bg-dark">
 
 					<div className="background-image-holder less-blur blur">
-						<img role="presentation" src="/images/bronze-characters.jpg" />
+						<img alt="CTLK Archive" src="/images/bronze-characters.jpg" />
 					</div>
 					<div className="background-screen" />
 

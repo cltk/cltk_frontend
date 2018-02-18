@@ -107,17 +107,20 @@ class _Bricks extends React.Component {
 		const { loaded } = this.props;
 
 		if (!loaded) {
-			this.nImagesLoaded += 1;
+			// setTimeout for render
+			setTimeout(() => {
+				this.nImagesLoaded += 1;
 
-			if (this.nImages <= this.nImagesLoaded) {
-				this.handleAllImagesLoaded();
-			}
+				if (this.nImages <= this.nImagesLoaded) {
+					this.handleAllImagesLoaded();
+				}
+			},  500);
 		}
 	}
 
 	handleAllImagesLoaded() {
 		this.props.actions.imagesLoaded();
-		setTimeout(() => { this.instance.pack(); }, 100);
+		setTimeout(() => { this.instance.pack(); }, 500);
 	}
 
 	makeDefaultBricks() {
@@ -130,7 +133,7 @@ class _Bricks extends React.Component {
 				alt={image}
 				key={`${image}-${i}`} // eslint-disable-line
 				className="brick"
-				src={`//iiif.cltk.org/cltk/art/${image}.jpg/full/90,/0/default.jpg`}
+				src={`//iiif.orphe.us/orpheus/art/${image}.jpg/full/90,/0/default.jpg`}
 				onLoad={this.handleImageLoad.bind(this)}
 			/>
 		));
@@ -145,29 +148,32 @@ class _Bricks extends React.Component {
 		if (this.nImages === 1) {
 			imageWidth = 'full'; // Math.floor(window.innerWidth * 1.2);
 		} else if (1 < this.nImages && this.nImages < 6) {
-			imageWidth = `${Math.floor(window.innerWidth * 0.5)},`;
+			imageWidth = Math.floor(window.innerWidth * 0.5);
 		} else if (6 <= this.nImages && this.nImages < 12) {
-			imageWidth = `${Math.floor(window.innerWidth * 0.4)},`;
+			imageWidth = Math.floor(window.innerWidth * 0.4);
 		} else if (12 <= this.nImages && this.nImages < 24) {
-			imageWidth = `${Math.floor(window.innerWidth * 0.3)},`;
+			imageWidth = Math.floor(window.innerWidth * 0.3);
 		} else if (24 <= this.nImages && this.nImages < 48) {
-			imageWidth = `${Math.floor(window.innerWidth * 0.2)},`;
+			imageWidth = Math.floor(window.innerWidth * 0.2);
 		} else if (48 <= this.nImages && this.nImages < 60) {
-			imageWidth = `${Math.floor(window.innerWidth * 0.15)},`;
+			imageWidth = Math.floor(window.innerWidth * 0.15);
 		} else if (60 <= this.nImages && this.nImages < 72) {
-			imageWidth = `${Math.floor(window.innerWidth * 0.12)},`;
+			imageWidth = Math.floor(window.innerWidth * 0.12);
 		} else if (72 <= this.nImages && this.nImages < 84) {
-			imageWidth = `${Math.floor(window.innerWidth * 0.1)},`;
+			imageWidth = Math.floor(window.innerWidth * 0.1);
 		} else if (84 <= this.nImages && this.nImages < 96) {
-			imageWidth = `${Math.floor(window.innerWidth * 0.05)},`;
+			imageWidth = Math.floor(window.innerWidth * 0.05);
 		}
+
+		// round to nearest hundred
+		imageWidth = Math.floor(imageWidth / 100) * 100;
 
 		return _files.map((file, i) => (
 			<img
 				alt={file.name}
 				key={`${file.name}-${i}`} // eslint-disable-line
 				className="brick"
-				src={`//iiif.cltk.org/${file.name}/full/${imageWidth}/0/default.jpg`}
+				src={`//iiif.orphe.us/${file.name}/full/${imageWidth},/0/default.jpg`}
 				onLoad={this.handleImageLoad.bind(this)}
 			/>
 		));
