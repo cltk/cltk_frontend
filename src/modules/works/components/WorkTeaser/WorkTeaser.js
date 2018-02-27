@@ -61,9 +61,11 @@ class WorkTeaser extends React.Component {
 					*/}
 
 					<div className="card-meta-items">
-						<span className="card-meta card-meta-left-language">
-							{work.language.title}
-						</span>
+						{work.language ?
+							<span className="card-meta card-meta-left-language">
+								{work.language.title}
+							</span>
+						: ''}
 						{work.date ?
 							<span className="card-meta card-meta-left-date">
 								{work.date}
