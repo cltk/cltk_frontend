@@ -12,18 +12,6 @@ class TextDetailContainer extends React.Component {
 		autoBind(this);
 	}
 
-	handleRemove(textId) {
-		const { textRemove, router } = this.props;
-
-		textRemove(textId)
-			.then((response) => {
-				router.replace('/texts');
-			})
-			.catch((err) => {
-				console.error(err);
-			});
-	}
-
 	render() {
 		let text = [];
 
@@ -37,7 +25,6 @@ class TextDetailContainer extends React.Component {
 		return (
 			<ReadingEnvironmentContainer
 				{...text}
-				handleRemove={this.handleRemove}
 			/>
 		);
 	}

@@ -20,7 +20,6 @@ class ReadingEnvironmentContainer extends React.Component {
 			<ReadingEnvironment
 				_id={this.props._id}
 				collection={collection}
-				handleRemove={this.props.handleRemove.bind(this, this.props._id)}
 			/>
 		);
 	}

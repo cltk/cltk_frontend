@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import './ReadingEnvironment.css';
 
 
-const ReadingEnvironment = ({ _id, collection, handleRemove })=> {
+const ReadingEnvironment = ({ _id, collection })=> {
 
 	if (!collection) {
 		return null;

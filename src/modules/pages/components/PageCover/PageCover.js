@@ -11,12 +11,14 @@ import './PageCover.css';
 
 
 const PageCover = ({
-	title, coverImage, coverLink, coverLinkText, coverBricks, handleRemove
+	title, coverImage, coverLink, coverLinkText, coverBricks, backgroundImage
 }) => {
 	let background = null;
 
 	if (coverBricks) {
 		background = (<Bricks />);
+	} else if (backgroundImage) {
+		background = backgroundImage;
 	} else {
 		background = (
 			<BackgroundImage
@@ -39,7 +41,6 @@ const PageCover = ({
 				title={title}
 				coverLink={coverLink}
 				coverLinkText={coverLinkText}
-				handleRemove={handleRemove}
 			/>
 		</Cover>
 	);

@@ -15,6 +15,14 @@
 		padding: 15px 0;
 		line-height: 1.7em;
 
+		a {
+			border-bottom: 2px solid $primary;
+			@include transition(all 100ms ease-in-out);
+
+			&:hover {
+				border-bottom: 2px solid transparent;
+			}
+		}
 
 	}
 }
