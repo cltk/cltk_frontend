@@ -3,11 +3,18 @@
 
 .readingEnvironment {
 	min-height: 100vh;
-	padding: 90px 0;
+	padding: 0 0 90px;
 	color: $dark;
-	max-width: 990px;
+	width: 100%;
 	margin: 0 auto;
+	text-align: center;
 }
+
+.pageReadingHead {
+  height: 60px;
+  width: 100vw;
+}
+
 
 .readingEnvironmentTitle {
 	display: inline-block;
@@ -47,7 +54,7 @@
 	max-width: 990px;
 	margin: 0 auto;
 	padding: 60px 0;
-
+	text-align: left;
 }
 
 .readingEnvironmentTextNode {
@@ -83,7 +90,7 @@
 	display: inline-block;
 	vertical-align: top;
 	font-family: $font-reading;
-	font-size: 22px;
+	font-size: 24px;
 	font-weight: 100;
 	padding: 10px 0;
 	color: $dark;
@@ -92,6 +99,12 @@
 
 	p, span, label {
 		color: $dark;
+		font-family: $font-reading;
+		font-size: 24px;
+		font-weight: 100;
+		padding: 10px 0;
+		color: $dark;
+		line-height: 1.7em;
 	}
 }
 
@@ -100,6 +113,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	max-width: 990px;
+	margin: 0 auto;
 
 }
 

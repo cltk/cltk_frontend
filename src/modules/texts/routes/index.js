@@ -2,18 +2,20 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 // layouts
-import MainLayout from '../../../layouts/MainLayout';
+import ReadingLayout from '../layouts/ReadingLayout';
 
-// components
-import TextDetailContainer from '../containers/TextDetailContainer';
+// containers
+import ReadingEnvironmentContainer from '../containers/ReadingEnvironmentContainer';
+
 
 export default (
 	<div>
 
-		<Route path="/texts" component={MainLayout}>
-			<IndexRoute component={TextDetailContainer} />
-			<Route path="/texts/:id/" component={TextDetailContainer} />
-			<Route path="/texts/:id/:location" component={TextDetailContainer} />
+		<Route path="/texts" component={ReadingLayout}>
+			<IndexRoute component={ReadingEnvironmentContainer} />
+			<Route path="/texts/:id/" component={ReadingEnvironmentContainer} />
+			<Route path="/texts/:id/:slug" component={ReadingEnvironmentContainer} />
+			<Route path="/texts/:id/:slug/:location" component={ReadingEnvironmentContainer} />
 		</Route>
 
 	</div>

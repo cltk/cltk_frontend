@@ -35,7 +35,7 @@ class WorkTeaser extends React.Component {
 
 	render() {
 		const work = this.props.work;
-		const workUrl = `/works/${work.id}/${work.slug}`;
+		const workUrl = `/texts/${work.id}/${work.slug}`;
 
 		/*
 		// let isInShelf = this.props.isInShelf;

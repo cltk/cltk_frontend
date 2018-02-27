@@ -5,37 +5,42 @@ import { Link } from 'react-router';
 import './ReadingEnvironment.css';
 
 
-const ReadingEnvironment = ({ _id, collection })=> {
+const ReadingEnvironment = ({
+	textNodes, id, english_title, original_title, slug, textLocationPrev, textLocationNext
+})=> {
 
-	if (!collection) {
+	if (!id) {
 		return null;
 	}
 
 
 	return (
 		<div className="readingEnvironment">
+			<div
+				className="pageReadingHead"
+				style={{
+					backgroundImage: 'url(/images/chariots_boar.jpg)',
+					backgroundSize: 'cover',
+					backgroundPosition: 'center',
+				}}
+			/>
 
-			<div className="readingEnvironmentHeader">
-				<h1 className="readingEnvironmentTitle">
-					<span className="textGroupTitle">{collection.textGroup.title},</span> {collection.textGroup.work.english_title}
-				</h1>
-			</div>
 			<div className="readingEnvironmentText">
-				{collection.textGroup.work.textNodes.map(textNode => {
-					const number = textNode.location[textNode.location.length - 1] + 1;
+				{textNodes.map(textNode => {
+					const number = textNode.location[textNode.location.length - 1];
 					let location = '';
 					textNode.location.forEach((n, i) => {
 						if (i === 0) {
-							location = `${n + 1}`;
+							location = `${n}`;
 						} else {
-							location = `${location}.${n + 1}`;
+							location = `${location}.${n}`;
 						}
 					});
 
 					return (
 						<div
 							className="readingEnvironmentTextNode"
-							key={textNode.urn}
+							key={textNode.location.join('.')}
 						>
 							<span className={`
 								readingEnvironmentTextNodeNumber
@@ -57,18 +62,22 @@ const ReadingEnvironment = ({ _id, collection })=> {
 				})}
 			</div>
 			<div className="readingEnvironmentPagination">
-				<Link
-					to={`/texts/${_id}/`}
-					className="readingEnvironmentPaginationLink readingEnvironmentPaginationLinkPrevious"
-				>
-					Previous
-				</Link>
-				<Link
-					to={`/texts/${_id}/`}
-					className="readingEnvironmentPaginationLink readingEnvironmentPaginationLinkNext"
-				>
-					Next
-				</Link>
+				{textLocationPrev ?
+					<Link
+						to={`/texts/${id}/${slug}/${textLocationPrev.join('.')}`}
+						className="readingEnvironmentPaginationLink readingEnvironmentPaginationLinkPrevious"
+					>
+						Previous
+					</Link>
+				: ''}
+				{textLocationNext ?
+					<Link
+						to={`/texts/${id}/${slug}/${textLocationNext.join('.')}`}
+						className="readingEnvironmentPaginationLink readingEnvironmentPaginationLinkNext"
+					>
+						Next
+					</Link>
+				: ''}
 			</div>
 		</div>
 	);

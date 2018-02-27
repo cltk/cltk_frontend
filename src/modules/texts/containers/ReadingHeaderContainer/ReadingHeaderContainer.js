@@ -1,11 +1,11 @@
 import React from 'react';
 import { compose } from 'react-apollo';
 
-import ReadingEnvironment from '../../components/ReadingEnvironment';
+import ReadingHeader from '../../components/ReadingHeader';
 import readingEnvironmentQuery from '../../graphql/queries/readingEnvironment';
 
 
-class ReadingEnvironmentContainer extends React.Component {
+class ReadingHeaderContainer extends React.Component {
 	render() {
 		let work = null;
 
@@ -16,9 +16,16 @@ class ReadingEnvironmentContainer extends React.Component {
 			work = this.props.readingEnvironmentQuery.work;
 		}
 
+
+		// TODO: handle loading
+		if (!work) {
+			return <div />
+		}
+
 		return (
-			<ReadingEnvironment
-				{...work}
+			<ReadingHeader
+				work={work}
+				location={this.props.location}
 			/>
 		);
 	}
@@ -26,4 +33,4 @@ class ReadingEnvironmentContainer extends React.Component {
 
 export default compose(
 	readingEnvironmentQuery,
-)(ReadingEnvironmentContainer);
+)(ReadingHeaderContainer);

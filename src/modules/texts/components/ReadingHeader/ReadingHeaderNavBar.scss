@@ -1,0 +1,35 @@
+@import '../../../../variables.scss';
+
+.readingNavbar {
+  .headroom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &.headroom--unfixed {
+      background: rgba(255, 255, 255, 0.9);
+      .readingBrowseLink {
+        color: $dark;
+      }
+    }
+  }
+
+  button {
+    height: 60px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    font-family: $font-label;
+    color: $dark;
+    font-weight: bold;
+    padding: 16px 30px;
+    background: transparent;
+    cursor: pointer;
+    text-transform: uppercase;
+    @include transition(all 100ms ease-in-out);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.8);
+    }
+  }
+
+}
