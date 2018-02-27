@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './HomeBuild.css';
+
 export default function HomeBuild(props) {
 	return (
 		<section id="build" >
@@ -22,7 +24,7 @@ export default function HomeBuild(props) {
 							className="start-building-item"
 						>
 							<i className="mdi mdi-github-circle icon-lg mb40 mb-xs-24  " />
-							<h5 className="uppercase">Code the CLTK Core NLP package</h5>
+							<h5 className="uppercase">Contribute to the CLTK Core NLP package</h5>
 							<span className="item-text">
 								Help push forward what's possible with study of classicallanguages
 								by developing the CLTK core natural language processing library

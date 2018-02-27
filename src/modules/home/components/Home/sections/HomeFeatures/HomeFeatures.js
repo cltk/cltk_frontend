@@ -1,34 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql, gql } from 'react-apollo';
 
-const HomeFeatures = ({ worksCount, authorsCount }) => {
+import './HomeFeatures.css';
+
+
+const HomeFeatures = ({ collectionsCount, textGroupsCount, worksCount }) => {
 	return (
 		<section id="features" >
 
 			<div className="feature f1">
 				<div className="feature-image-screen" />
 				<div className="feature-inner">
-					<h3 className="feature-n">{authorsCount}</h3>
-					<span className="feature-title">Authors</span>
+					<h3 className="feature-n">{collectionsCount}</h3>
+					<span className="feature-title">Collections</span>
 
 					<div className="feature-line" />
 
 					<span className="feature-desc">
-						Classical authors with books and works included in the archive
+						Independent groups of classical texts maintained by open source communities
 					</span>
 				</div>
 			</div>
 			<div className="feature f2">
 				<div className="feature-image-screen" />
 				<div className="feature-inner">
-					<h3 className="feature-n">{worksCount}</h3>
-					<span className="feature-title">Works</span>
+					<h3 className="feature-n">{textGroupsCount}</h3>
+					<span className="feature-title">Text Groups</span>
 
 					<div className="feature-line" />
 
 					<span className="feature-desc">
-						Works in multiple languages, with metadata, criticism, and commentary
+						Text groups that may reflect authorship or be a standalone corpus
 					</span>
 				</div>
 			</div>
@@ -36,13 +38,13 @@ const HomeFeatures = ({ worksCount, authorsCount }) => {
 				<div className="feature-image-screen" />
 				<div className="feature-inner">
 
-					<h3 className="feature-n">0</h3>
-					<span className="feature-title">Entities</span>
+					<h3 className="feature-n">{worksCount}</h3>
+					<span className="feature-title">Works</span>
 
 					<div className="feature-line" />
 
 					<span className="feature-desc">
-						Named entities annotated in text and linked to public datasets
+						Classical works in multiple languages, with metadata, criticism, and commentary
 					</span>
 
 				</div>
@@ -55,19 +57,9 @@ const HomeFeatures = ({ worksCount, authorsCount }) => {
 }
 
 HomeFeatures.propTypes = {
-	authorsCount: PropTypes.number,
-	entitiesCount: PropTypes.number,
+	collectionsCount: PropTypes.number,
+	textGroupsCount: PropTypes.number,
 	worksCount: PropTypes.number,
 };
 
-const withData = graphql(gql`{
-  works_count
-  authors_count
-}`, {
-	props: ({ data: { works_count, authors_count } }) => ({
-		worksCount: works_count,
-		authorsCount: authors_count,
-	}),
-});
-
-export default withData(HomeFeatures);
+export default HomeFeatures;

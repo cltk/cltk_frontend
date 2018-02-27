@@ -1,44 +1,56 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BackgroundImage from '../../../../../../components/common/cover/BackgroundImage';
+import Cover from '../../../../../../components/common/cover/Cover';
+
+import './HomeIntro.css';
+
 
 export default function HomeIntro(props) {
 	return (
-		<section id="intro" className="cover fullscreen image-bg bg-dark ">
-
-			<BackgroundImage
-				imgSrc="/images/column.jpg"
-			/>
-			<div className="background-screen cyan" />
-
-			<div className="container v-align-transform header-container">
-				<div className="row">
-
-					<div className="header-center text-center">
-
-						<h1>Explore open classical literature</h1>
+		<Cover
+			className="homeIntroCover"
+			background={
+				<div>
+					<div
+						className="coverBackgroundHomeIntro"
+						style={{
+							backgroundImage: 'url(/images/column.jpg)',
+							backgroundSize: 'cover',
+							backgroundPosition: 'center',
+							backgroundRepeat: 'no-repeat',
+						}}
+					/>
+					<div className="backgroundScreenHomeIntro" />
+				</div>
+			}
+			full
+		>
+			<div className="container header-container">
+				<div className="header-center text-center">
+					<h1>Explore open classical literature</h1>
+					<form
+						className="searchInput"
+					>
 						<input
-							className="header-search"
+							className="searchInputText"
 							type="text"
-							placeholder="Search . . ."
-							readOnly
-							onClick={props.showSearchModal}
-							onTouchTap={props.showSearchModal}
+							placeholder="Enter your keywords . . ."
 						/>
-						<h6 className="uppercase mb16">
-							Read and research works in Chinese, Coptic,
-							Greek, Hebrew, Latin, Pali, Punjabi, Sanskrit,
-							<br />
-							Telugu, and Tibetan and contribute annotations to the community.
-						</h6>
-					</div>
+						<input
+							type="submit"
+							value="Search"
+						/>
+					</form>
+					<h6 className="uppercase mb16">
+						Read and research works in 15 languages, including Arabic, Bengali, Greek, Hebrew, Latin, Sanskrit,
+						Telugu, and Tibetan and contribute annotations to the community.
+					</h6>
 				</div>
 			</div>
-		</section>
-
+		</Cover>
 	);
 }
 
 HomeIntro.propTypes = {
-	showSearchModal: PropTypes.func.isRequired,
+	showSearchModal: PropTypes.func,
 };

@@ -6,7 +6,7 @@ class CoverBackground extends React.Component {
 		super(props);
 
 		this.state = {
-			transform: 'translate(-1%, -2%)',
+			transform: 'translate(0%, 0%)',
 		};
 	}
 

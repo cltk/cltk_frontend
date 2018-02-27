@@ -29,16 +29,33 @@
   right: 0;
   z-index: 1;
 	position: fixed;
-	background: rgba(255, 255, 255, 0.6);
+	background: $light;
 	height: 60px;
 	width: 100vw;
 }
+
 .headroom--unfixed {
   transform: translateY(0);
+	background: rgba(0, 0, 0, 0.2);
+	@include transition(all 100ms ease-in-out);
+
+	.nav-header {
+		i {
+			color: $light;
+		}
+		a h2 {
+			color: $light;
+		}
+	}
+
+	.nav li a {
+		color: $light;
+	}
 }
 .headroom--scrolled {
   transition: transform 200ms ease-in-out;
 	background: #fff;
+	height: 60px;
 	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
 }
 .headroom--unpinned {
@@ -55,13 +72,14 @@
 		font-family: $font-label;
 
 		a {
-			padding: 16px 20px;
+			padding: 18px 20px;
 			font-weight: bold;
 			text-transform: uppercase;
 			cursor: pointer;
 			border: 2px solid transparent;
 			display: block;
 			height: 60px;
+			font-size: 14px;
 
 			@include transition(all 100ms linear);
 

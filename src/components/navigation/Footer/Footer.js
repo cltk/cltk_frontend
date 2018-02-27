@@ -18,9 +18,23 @@ export default class Footer extends React.Component {
 					<Row>
 						<Col lg={4}>
 							<span className="footerCopyright">
-                © cltk {year}
+                © Classical Language Toolkit {year}
 							</span>
 							<span className="footerBuiltBy">
+								<a
+									href="https://github.com/cltk/cltk/blob/master/LICENSE"
+									target="_blank"
+									rel="noopener noreferrer"
+                >
+                  License
+								</a>.
+								<a
+									href="https://github.com/cltk/"
+									target="_blank"
+									rel="noopener noreferrer"
+                >
+                  Texts and Contributors
+								</a>.
                 See more at
 								<a
 									href="http://cltk.org"
@@ -34,9 +48,16 @@ export default class Footer extends React.Component {
 						</Col>
 						<Col lg={8}>
 							<div className="footerLinks">
-								<Link href="mailto:contact@cltk.org">
+								<Link href="mailto:classical-language-toolkit@googlegroups.com">
 									Contact
 								</Link>
+								<a
+									href="https://gitter.im/cltk/cltk"
+									target="_blank"
+									rel="noopener noreferrer"
+                >
+                  Gitter Chat
+								</a>
 							</div>
 						</Col>
 					</Row>

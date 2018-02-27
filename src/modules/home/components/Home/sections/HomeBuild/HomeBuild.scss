@@ -1,0 +1,26 @@
+@import '../../../../../../variables.scss';
+
+#build {
+
+}
+
+.start-building-item {
+
+  &:hover {
+    i {
+      color: $cltk-primary;
+    }
+  }
+
+  i {
+    @include transition(all 100ms ease-in-out);
+    &:before {
+      font-size: 120px;
+    }
+  }
+
+  h5 {
+    font-size: 26px;
+    margin: 15px 0;
+  }
+}

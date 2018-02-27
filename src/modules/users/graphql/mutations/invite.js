@@ -1,20 +1,15 @@
 import { gql, graphql } from 'react-apollo';
 
-import getCurrentProjectHostname from '../../../../lib/getCurrentProjectHostname';
-
-
 const userUpdate = gql`
 	mutation userInvite(
 		$userEmail: String!,
 		$role: String!,
 		$recaptchaVerification: String!,
-		$hostname: String!
 	) {
 	userInvite(
 		userEmail: $userEmail,
 		role: $role,
 		recaptchaVerification: $recaptchaVerification,
-		hostname: $hostname,
 	)
 }
 `;
@@ -26,7 +21,6 @@ const userUpdateMutation = graphql(userUpdate, {
 				userEmail,
 				role,
 				recaptchaVerification,
-				hostname: getCurrentProjectHostname(),
 			},
 		}),
 	}),

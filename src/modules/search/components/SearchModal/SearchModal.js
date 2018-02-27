@@ -94,7 +94,7 @@ SearchModal.childContextTypes = {
 };
 
 SearchModal.propTypes = {
-	handleChangeTextsearch: PropTypes.func.isRequired,
+	handleChangeTextsearch: PropTypes.func,
 	closeSearchModal: PropTypes.func,
 	textsearch: PropTypes.string,
 	limit: PropTypes.number,

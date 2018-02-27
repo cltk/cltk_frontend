@@ -2,7 +2,7 @@
 
 #footer {
 	padding: 90px 0;
-	background: #f6f6f6;
+	background: #343a40;
 	min-height: 100px;
 
 	.footerNav {
@@ -22,6 +22,7 @@
 	a {
 		padding: 0 0 0 2px;
 		@include transition(100ms all ease-in-out);
+		color: $light;
 
 		&:hover {
 			color: $primary;
@@ -30,13 +31,13 @@
 }
 
 .footerCopyright {
-	color: $dark;
+	color: $light;
 	margin: 10px 0;
 	font-size: 18px;
 }
 
 .footerBuiltBy {
-	color: $text-secondary;
+	color: $light;
 }
 
 .footerLinks {
@@ -49,13 +50,13 @@
 		margin: 0 5px;
 		border-bottom: 2px solid $divider-light-grey;
 		@include transition(100ms all ease-in-out);
-		color: $dark;
+		color: $light;
 		font-size: 16px;
 		font-family: $font-label;
 
 		&:hover {
 			border-bottom: 2px solid rgba(0,0,0, 0);
-			color: $primary-dark;
+			color: $primary;
 		}
 
 	}

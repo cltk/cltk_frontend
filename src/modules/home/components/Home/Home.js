@@ -1,19 +1,19 @@
 import React from 'react';
 
 import HomeBuild from './sections/HomeBuild';
-import HomeFeatures from './sections/HomeFeatures';
+import HomeFeaturesContainer from '../../containers/HomeFeaturesContainer';
 import HomeIntro from './sections/HomeIntro';
-import SearchModal from '../../../search/components/SearchModal';
+
+import './Home.css';
+
 
 const Home = () => (
 	<div className="cltk-layout home-layout">
 		<div className="home-content">
 			<HomeIntro />
-			<HomeFeatures />
+			<HomeFeaturesContainer />
 			<HomeBuild />
 		</div>
-
-		<SearchModal />
 	</div>
 );
 

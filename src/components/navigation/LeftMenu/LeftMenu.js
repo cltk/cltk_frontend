@@ -13,63 +13,20 @@ import LeftMenuHead from '../LeftMenuHead';
 import { logout, toggleAuthModal } from '../../../modules/auth/actions';
 import { logoutUser } from '../../../lib/auth';
 
-// lib
-import getCurrentProjectHostname from '../../../lib/getCurrentProjectHostname';
-
 import './LeftMenu.css';
 
 
 class LeftMenu extends React.Component {
-
-	renderMenuItems() {
-		const { closeLeftMenu } = this.props;
-
-		return (
-			<div>
-				<MenuItem
-					to="/collections"
-					onClick={closeLeftMenu}
-				>
-					Collections
-				</MenuItem>
-				<MenuItem
-					to="/items"
-					onClick={closeLeftMenu}
-				>
-					Items
-				</MenuItem>
-				<MenuItem
-					to="/articles"
-					onClick={closeLeftMenu}
-				>
-					Articles
-				</MenuItem>
-				<MenuItem
-					to="/texts"
-					onClick={closeLeftMenu}
-				>
-					Texts
-				</MenuItem>
-			</div>
-		);
-	}
-
 	render() {
 		const {
 			project, leftMenuOpen, closeLeftMenu, userId, dispatchLogout,
 			dispatchToggleAuthModal
 		} = this.props;
 
-		let isMaincltkProject = false;
-		const hostname = getCurrentProjectHostname();
-
-		if (!hostname || ~['cltk.org', 'cltk.local'].indexOf(hostname)) {
-			isMaincltkProject = true;
-		}
-
 		if (!project) {
 			return null;
 		}
+
 		return (
 			<Drawer
 				open={leftMenuOpen}
@@ -85,11 +42,13 @@ class LeftMenu extends React.Component {
 					>
 						Home
 					</MenuItem>
-					{!isMaincltkProject ?
-						this.renderMenuItems()
-					: ''}
+					<MenuItem
+						to="/browse"
+						onClick={closeLeftMenu}
+					>
+						Browse
+					</MenuItem>
 					<Divider />
-
 					{userId ?
 						<div>
 							<MenuItem
