@@ -1,6 +1,7 @@
 import React from 'react';
 
 // routes
+import browseRoutes from '../modules/browse/routes';
 import homeRoute from '../modules/home/routes';
 import pageRoutes from '../modules/pages/routes';
 import textRoutes from '../modules/texts/routes';
@@ -17,6 +18,9 @@ export default (
 
 		{/* Routes for users */}
 		{userRoutes}
+
+		{/* Routes for browse */}
+		{browseRoutes}
 
 		{/* Routes for single pages */}
 		{pageRoutes}

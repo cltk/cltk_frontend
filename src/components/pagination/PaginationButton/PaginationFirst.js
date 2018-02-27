@@ -1,22 +1,22 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router';
 
-const PaginationPrev = props => (
+const PaginationFirst = props => (
 	<Link
 		to={{
 			pathname: '/browse',
 			query: {
 				...props.location.query,
-				page: (props.location.query.page ? parseInt(props.location.query.page, 10) : 2) - 1,
+				page: props.page,
 			},
 		}}
 	>
 		<i className="mdi mdi-chevron-left" />
 		<span>
-			Previous
+			First
 		</span>
 	</Link>
 );
 
 
-export default withRouter(PaginationPrev);
+export default withRouter(PaginationFirst);

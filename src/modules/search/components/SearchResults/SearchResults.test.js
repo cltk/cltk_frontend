@@ -4,15 +4,16 @@ import { shallow } from 'enzyme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // component:
-import SearchModal from './SearchModal';
+import SearchResults from './SearchResults';
 
-describe('SearchModal', () => {
+describe('SearchResults', () => {
 	it('renders correctly', () => {
 
 		const wrapper = shallow(
 			<MuiThemeProvider>
-				<SearchModal
+				<SearchResults
 					works={[]}
+					loadMore={() => {}}
 					/>
 			</MuiThemeProvider>
 			);

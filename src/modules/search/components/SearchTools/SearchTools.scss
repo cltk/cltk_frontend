@@ -1,0 +1,65 @@
+@import '../../../../variables.scss';
+
+.searchTools {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  input[type='text'] {
+    min-width: 33%;
+    max-width: 420px;
+    border: none;
+    border-bottom: 2px solid $dark;
+    font-family: $font-reading;
+    font-size: 22px;
+    line-height: 1.5em;
+    padding: 10px 15px;
+    margin: 0 10px;
+    color: $dark;
+  }
+
+  button[type='submit'] {
+    border: none;
+    outline: none;
+    font-family: $font-label;
+    font-size: 22px;
+    font-size: 14px;
+    font-family: $font-label;
+    border: 2px solid #666;
+    text-transform: uppercase;
+    line-height: 1.3em;
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 0 10px;
+    cursor: pointer;
+    @include transition(all 100ms ease-in-out);
+
+    &:hover {
+      color: $dark;
+      border: 2px solid $dark;
+    }
+  }
+}
+
+.searchSelect {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 10px;
+
+  label {
+    font-size: 14px;
+    font-family: $font-label;
+    text-transform: uppercase;
+    line-height: 1.3em;
+    display: inline-block;
+    margin: 0 10px;
+  }
+
+  select {
+    font-size: 22px;
+    font-family: $font-reading;
+
+    margin: 0 10px;
+  }
+}

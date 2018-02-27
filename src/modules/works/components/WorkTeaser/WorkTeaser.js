@@ -2,10 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
 import { Card } from 'material-ui/Card';
-import IconButton from 'material-ui/IconButton';
+// import IconButton from 'material-ui/IconButton';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import _s from 'underscore.string';
 
+
+import './WorkTeaser.css';
 
 
 // Work Teaser
@@ -15,7 +18,7 @@ class WorkTeaser extends React.Component {
 		super(props);
 
 		this.state = {
-			isInShelf: false,
+			// isInShelf: false,
 		};
 		autoBind(this);
 	}
@@ -26,7 +29,7 @@ class WorkTeaser extends React.Component {
 
 	toggleShelf(isChecked) {
 		this.setState({
-			isInShelf: !this.state.isInShelf,
+			// isInShelf: !this.state.isInShelf,
 		});
 	}
 
@@ -34,11 +37,12 @@ class WorkTeaser extends React.Component {
 		const work = this.props.work;
 		const workUrl = `/works/${work.id}/${work.slug}`;
 
-		let isInShelf = this.props.isInShelf;
-
+		/*
+		// let isInShelf = this.props.isInShelf;
 		if (this.state.isInShelf) {
 			isInShelf = this.state.isInShelf;
 		}
+		*/
 
 		return (
 			<Card
@@ -46,6 +50,7 @@ class WorkTeaser extends React.Component {
 			>
 
 				<div className="card-meta-left">
+					{/*
 					<IconButton
 						tooltip="Add to Your Library"
 						tooltipPosition="top-center"
@@ -53,6 +58,7 @@ class WorkTeaser extends React.Component {
 						iconClassName="mdi mdi-book-open-variant"
 						onClick={this.toggleShelf.bind(this, isInShelf)}
 					/>
+					*/}
 
 					<div className="card-meta-items">
 						<span className="card-meta card-meta-left-language">
@@ -65,27 +71,11 @@ class WorkTeaser extends React.Component {
 						:
 							''
 						}
-						<span className="card-meta card-meta-left-corpus">
-							{work.corpus.title}
-						</span>
-					</div>
-				</div>
-
-				<div className="work-teaser-authors">
-					<div
-						className="work-teaser-author"
-					>
-
-						<h4>
-							{work.author.name}
-							{work.author.original_name ?
-								<span className="work-teaser-author-original-name">
-									({work.author.original_name})
-								</span>
-								:
-								''
-							}
-						</h4>
+						{work.translation ?
+							<span className="card-meta card-meta-left-corpus">
+								{_s.prune(work.translation.title, 30)}
+							</span>
+						: ''}
 					</div>
 				</div>
 
@@ -94,16 +84,20 @@ class WorkTeaser extends React.Component {
 					className="work-teaser-title"
 				>
 					<h3 >
-						{work.english_title}
-						{work.original_title ?
+						{_s.prune(work.english_title, 40)}
+						{work.original_title && work.english_title !== work.original_title ?
 							<span className="work-teaser-original-title">
-								{work.original_title}
+								{_s.prune(work.original_title, 40)}
 							</span>
 							:
 							''
 						}
 					</h3>
 				</a>
+
+				<span className="work-teaser-version">
+					{work.version ? _s.prune(work.version.title, 90) : ''}
+				</span>
 
 				<div className="card-meta-bottom">
 					<span className="card-meta meta-count-commentary">

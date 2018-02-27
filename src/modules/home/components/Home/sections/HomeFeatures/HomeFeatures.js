@@ -30,7 +30,7 @@ const HomeFeatures = ({ collectionsCount, textGroupsCount, worksCount }) => {
 					<div className="feature-line" />
 
 					<span className="feature-desc">
-						Text groups that may reflect authorship or be a standalone corpus
+						Text groups that may reflect authorship or be a standalone corpus (<a href="http://cite-architecture.github.io/ctsurn/overview/" target="_blank" rel="noopener noreferrer">read more</a>)
 					</span>
 				</div>
 			</div>

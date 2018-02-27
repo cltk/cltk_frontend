@@ -1,19 +1,17 @@
 import React from 'react';
 import { Route } from 'react-router';
 
-// layouts
-import MainLayout from '../../../layouts/MainLayout';
-
 // components
 import AboutPage from '../components/AboutPage';
-import PageContainer from '../containers/PageContainer';
+import NotFoundPage from '../components/NotFoundPage';
+import MainLayout from '../../../layouts/MainLayout';
 
 
 export default (
 	<div>
 		<Route
 			path="about"
-			component={props => (
+			component={() => (
 				<MainLayout>
 					<AboutPage />
 				</MainLayout>
@@ -21,9 +19,9 @@ export default (
 		/>
 		<Route
 			path=":slug"
-			component={props => (
+			component={() => (
 				<MainLayout>
-					<PageContainer {...props} />
+					<NotFoundPage />
 				</MainLayout>
 			)}
 		/>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router';
 
-const PaginationPage = props => (
+const PaginationLast = props => (
 	<Link
 		to={{
 			pathname: '/browse',
@@ -12,10 +12,11 @@ const PaginationPage = props => (
 		}}
 	>
 		<span>
-			{props.page}
+			Last
 		</span>
+		<i className="mdi mdi-chevron-right" />
 	</Link>
 );
 
 
-export default withRouter(PaginationPage);
+export default withRouter(PaginationLast);

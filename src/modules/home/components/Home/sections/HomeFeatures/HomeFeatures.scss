@@ -52,5 +52,13 @@
     margin: 20px auto;
     display: block;
     font-weight: 100;
+
+    a {
+      color: $light;
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
+    }
   }
 }

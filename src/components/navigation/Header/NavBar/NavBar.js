@@ -16,6 +16,11 @@ const NavBar = ({ toggleAuthModal, toggleLeftMenu, userId, logout }) => (
 		<NavBarHeader toggleLeftMenu={toggleLeftMenu} />
 		<ul className="nav">
 			<li>
+				<Link to={'/browse'}>
+					Browse
+				</Link>
+			</li>
+			<li>
 				<Link to={'/#build'}>
 					Build
 				</Link>

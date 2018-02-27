@@ -1,41 +1,40 @@
 import React from 'react';
-import WorksList from '../../../works/components/WorksList';
+import { withRouter } from 'react-router';
 
+import SearchToolsContainer from '../../../search/containers/SearchToolsContainer';
+import SearchResultsContainer from '../../../search/containers/SearchResultsContainer';
 
-import './Browse.css';
+import './BrowsePage.css';
 
-export default class Browse extends React.Component {
+class BrowsePage extends React.Component {
 
 	render() {
+		let textsearch = this.props.location.query.textsearch;
+		let language = this.props.location.query.language;
+		let page = parseInt(this.props.location.query.page, 10) || 1;
+
 		return (
-			<div className="page page-browse">
-
-				<section className="page-head fullscreen image-bg bg-dark">
-
-					<div className="background-image-holder more-blur blur">
-						<img className="background-image" alt="background" src="/images/books4.jpg" />
-					</div>
-
-					<div className="background-screen light" />
-
-					<div className="container v-align-transform">
-						<div className="row">
-							<div className="col-sm-10 col-sm-offset-1 text-center">
-								<h1 className="mb40 mb-xs-16 large">
-									Browse
-								</h1>
-							</div>
-						</div>
-
-					</div>
-
+			<div className="page pageBrowse">
+				<div
+					className="pageBrowseHead"
+					style={{
+						backgroundImage: 'url(/images/chariots_boar.jpg)',
+						backgroundSize: 'cover',
+						backgroundPosition: 'center',
+					}}
+				/>
+				<div className="pageBrowseSearchTools">
+					<SearchToolsContainer />
+				</div>
+				<section className="pageContent">
+					<SearchResultsContainer
+						textsearch={textsearch}
+						language={language}
+						offset={Math.abs(page - 1) * 30}
+					/>
 				</section>
-
-				<section className="page-content">
-					<WorksList />
-				</section>
-
 			</div>
 		);
 	}
 }
+export default withRouter(BrowsePage);

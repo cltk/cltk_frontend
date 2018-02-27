@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Masonry from 'react-masonry-component';
 
 import WorkTeaser from '../../../works/components/WorkTeaser';
+import Pagination from '../../../../components/pagination/Pagination';
 
-class SearchResultsList extends React.Component {
+import './SearchResults.css';
 
-	loadMore() {
-		this.props.loadMore();
-	}
+
+class SearchResults extends React.Component {
 
 	renderWorks() {
 		return this.props.works.map((work) => (
@@ -23,14 +23,17 @@ class SearchResultsList extends React.Component {
 		const masonryOptions = {
 			// columnWidth : 400,
 			// itemSelector: '.work-teaser',
+			fitWidth: true,
 			isFitWidth: true,
 			transitionDuration: 300,
 		};
 
-		const works = this.props.works;
+		const { works, total } = this.props;
 
 		return (
-			<div className="works-list search-results-list">
+			<div
+				className="works-list search-results-list"
+			>
 				{works.length ?
 					<Masonry
 						options={masonryOptions}
@@ -45,25 +48,17 @@ class SearchResultsList extends React.Component {
 						</p>
 					</div>
 				}
-
-				{this.props.hasMoreWorks ?
-					<a
-						className="waves-effect waves-light btn-large"
-						aria-label="View more"
-						onClick={this.loadMore}
-					>
-					Load more
-					</a>
-				: ''}
+				<Pagination
+					total={total}
+					limit={30}
+				/>
 			</div>
 		);
 	}
 }
 
-SearchResultsList.propTypes = {
+SearchResults.propTypes = {
 	works: PropTypes.array.isRequired,
-	loadMore: PropTypes.func.isRequired,
-	hasMoreWorks: PropTypes.bool,
 };
 
-export default SearchResultsList;
+export default SearchResults;

@@ -24,7 +24,7 @@
 
   input[type='text'] {
     font-family: $font-reading;
-    font-size: 24px;
+    font-size: 32px;
     background: transparent;
     width: 90%;
     color: $light;
@@ -45,7 +45,7 @@
   }
 
   .searchInput {
-    padding: 20px;
+    padding: 30px;
     margin: 30px auto;
     border: 2px solid rgba(255, 255, 255, 0.4);
     @include transition(all 100ms ease-in-out);
@@ -53,7 +53,7 @@
     justify-content: space-between;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.9);
 
       input[type='text'] {
         color: $dark;

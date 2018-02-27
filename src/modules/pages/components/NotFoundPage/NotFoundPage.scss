@@ -1,0 +1,28 @@
+@import '../../../../variables.scss';
+
+.pageContent {
+	text-align: center;
+	padding: 90px 0 120px;
+
+	p {
+		text-align: left;
+		font-family: $font-reading;
+		font-size: 22px;
+		font-weight: 100;
+		color: $dark;
+		max-width: 720px;
+		margin: 0 auto;
+		padding: 15px 0;
+		line-height: 1.7em;
+
+		a {
+			border-bottom: 2px solid $primary;
+			@include transition(all 100ms ease-in-out);
+
+			&:hover {
+				border-bottom: 2px solid transparent;
+			}
+		}
+
+	}
+}
